@@ -1,4 +1,5 @@
-﻿	public interface IGeCV{
+﻿namespace Interfaces{ 
+	public interface IGeCV{
 		void ModificaCV(CV a, CV b); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
@@ -9,3 +10,13 @@
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
 	}
+	public enum TypeOre { HMalattia = 1, HPermesso, HFerie }
+	interface IGeTime {
+		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
+		void Compila(DateTime data, int ore, TypeOre tipoOre, int idUtente);
+		Giorno VisualizzaGiorno(DateTime data, int idUtente);
+		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
+		Commessa CercaCommessa(string nomeCommessa);
+	}
+
+}
