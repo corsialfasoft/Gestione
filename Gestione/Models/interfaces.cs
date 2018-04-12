@@ -1,4 +1,7 @@
-﻿namespace Interfaces{ 
+﻿using System;
+using System.Collections.Generic;
+
+namespace Interfaces{ 
 	public interface IGeCV{
 		void ModificaCV(CV a, CV b); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
