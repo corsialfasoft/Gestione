@@ -16,7 +16,7 @@ namespace Interfaces{
 	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
-		void Compila(DateTime data, int ore, TypeOre tipoOre, int idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
