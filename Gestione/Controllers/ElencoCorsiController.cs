@@ -9,14 +9,22 @@ using Interfaces;
 namespace Gestione.Controllers {
     public partial class  HomeController : Controller {
 		public ActionResult ElencoCorsi(){
+			ViewBag.Message =" Ciao ecco i corsi disponibili!";
 			DomainModel dm = new DomainModel();
-			ViewBag.Corsi = dm.ListaCorsi();
+			Corso c = new Corso();
+			c.Id= 2;
+			c.Descrizione="Mi piacciono i treni!";
+			c.Nome=" Corso sui Treni";
+			List<Corso> res = new List<Corso>();
+			res.Add(c);
+			//ViewBag.Corsi = dm.ListaCorsi();
+			ViewBag.Corsi = res;
 			return View();
 		}
 		[HttpPost]
-		public ActionResult ElencoCorsi(int idUtente){
+		public ActionResult ElencoCorsiMieiCorsi(){
 			DomainModel dm = new DomainModel();
-			ViewBag.Corsi = dm.ListaCorsi(idUtente);
+			ViewBag.Corsi = dm.ListaCorsi(p.Matricola);
 			return View();
 		}
 		[HttpPost]
@@ -31,6 +39,12 @@ namespace Gestione.Controllers {
 		public ActionResult ElencoCorsi(int idUtente , string descrizione){
 			DomainModel dm = new DomainModel();
 			ViewBag.Corsi= dm.SearchCorsi(descrizione,idUtente);
+			return View();
+		}
+		[HttpPost]
+		public ActionResult ElencoCorsi(string descrizione){
+			DomainModel dm = new DomainModel();
+			ViewBag.Corsi= dm.SearchCorsi(descrizione);
 			return View();
 		}
     }
