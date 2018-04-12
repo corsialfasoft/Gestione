@@ -5,11 +5,6 @@ using Interfaces;
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
 	{
-		public void AddCorso(Corso corso)
-		{
-			throw new NotImplementedException();
-		}
-
 		public void AddLezione(int idCorso,Lezione lezione)
 		{
 			throw new NotImplementedException();
@@ -26,16 +21,6 @@ namespace Gestione.Models{
 		}
 
 		public Commessa CercaCommessa(string nomeCommessa)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente)
 		{
 			throw new NotImplementedException();
 		}
