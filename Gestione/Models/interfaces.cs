@@ -39,7 +39,26 @@ namespace Interfaces{
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(int idUtente);
-       
+    }
+    public class Studente{ 
+        public int Id{get;set;}
+        public string Nome{get;set;}
+        public string Cognome{get;set;}
+    }
+    public class Corso{ 
+        public int Id{get;set;}
+        public string Nome{get;set;}
+        public string Descrizione{get;set;}
+        public DateTime Inizio{get;set;}
+        public DateTime Fine {get;set;}
+        public List<Studente> Studenti{get;set;}
+        public List<Lezione> Lezioni{get;set;}
+    }
+    public class Lezione{ 
+        public int Id{get;set;}
+        public string Nome {get;set;}
+        public string Descrizione{get;set;}
+        public int Durata{get;set;}
     }
 
 }
