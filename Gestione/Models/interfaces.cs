@@ -126,6 +126,7 @@ namespace Interfaces{
 			_capacita = capacita;
 			_descrizione = descrizione;
 		}
+    }
 
     public class CV {
         public string matricola;
