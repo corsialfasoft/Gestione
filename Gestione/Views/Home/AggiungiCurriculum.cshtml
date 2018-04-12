@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "Compila il tuo Curriculum";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="text-warning">
+    <h4>@ViewBag.Message</h4>
+</div>
+
+<div class="containter">
+    @using(Html.BeginForm("AggiungiCurriculum","Home",FormMethod.Post)) {
+        <fieldset>
+            <legend>Dati Anagrafici:</legend>
+            <div class="row">
+                <div class="col-md-2">
+                    Nome:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("nome",null,new { placeholder = "Inserisci il nome" })
+                </div>
+                <div class="col-md-2">
+                    Cognome:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("cognome",null,new { placeholder = "Inserisci il cognome" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Età:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("eta",null,new { placeholder = "Inserisci l'eta'" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    E-mail:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("email",null,new { placeholder = "Inserisci il e-mail" })
+                </div>
+                <div class="col-md-2">
+                    Residenza:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("residenza",null,new { placeholder = "Inserisci la residenza" })
+                </div>
+                <div class="col-md-2">
+                    Telefono:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("telefono",null,new { placeholder = "Inserisci il telefono" })
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Percorso Studi:</legend>
+            <div class="row">
+                <div class="col-md-2">
+                    Anno Inizio
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("annoinizio",null,new { placeholder = "Inserisci l'anno d'inizio" })
+                </div>
+                <div class="col-md-2">
+                    Anno Fine:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("annofine",null,new { placeholder = "Inserisci l'anno di fine" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Titolo:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("titolo",null,new { placeholder = "Inserisci il titolo" })
+                </div>
+                <div class="col-md-2">
+                    Descrizione:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("descrizione",null,new { placeholder = "Inserisci la descrizione" })
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>Esperienze Lavorative:</legend>
+            <div class="row">
+                <div class="col-md-2">
+                    Anno Inizio
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("annoinizioesp",null,new { placeholder = "Inserisci l'anno d'inizio" })
+                </div>
+                <div class="col-md-2">
+                    Anno Fine:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("annofinesp",null,new { placeholder = "Inserisci l'anno di fine" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    Qualifica:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("qualifica",null,new { placeholder = "Inserisci la qualifica" })
+                </div>
+                <div class="col-md-2">
+                    Descrizione:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("descrizionesp",null,new { placeholder = "Inserisci la descrizione" })
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>Competenze:</legend>
+            <div class="row">
+                <div class="col-md-2">
+                    Tipo:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("tipo",null,new { placeholder = "Inserisci il tipo" })
+                </div>
+                <div class="col-md-2">
+                    Livello:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("livello",null,new { placeholder = "Inserisci il il livello" })
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit" value="Aggiungi">
+            </div>
+        </div>
+    }
+</div>

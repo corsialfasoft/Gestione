@@ -17,7 +17,7 @@ namespace Gestione.Models{
 
 		public void AggiungiCV(CV a)
 		{
-			throw new NotImplementedException();
+			//
 		}
 
 		public void CaricaCV(string path)

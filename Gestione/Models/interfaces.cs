@@ -129,31 +129,31 @@ namespace Interfaces{
     }
 
     public class CV {
-        public string matricola;
-        public string nome;
-        public string cognome;
-        public int eta;
-        public string residenza;
-        public string telefono;
-        public List<EspLav> esperienze;
-        public List<PerStud> percorsostudi;
-        public List<Competenza> competenze;
+        public string matricola {get; set;}
+        public string nome {get; set;}
+        public string cognome {get; set;}
+        public int eta {get; set;}
+        public string residenza {get; set;}
+        public string telefono {get; set;}
+        public List<EspLav> esperienze {get; set;}
+        public List<PerStud> percorsostudi {get; set;}
+        public List<Competenza> competenze {get; set;}
     }
     public class EspLav {
-        public DateTime AnnoInizio;
-        public DateTime AnnoFine;
-        public string qualifica;
-        public string descrizione;
+        public DateTime AnnoInizio {get; set;}
+        public DateTime AnnoFine {get; set;}
+        public string qualifica {get; set;}
+        public string descrizione {get; set;}
     }
     public class PerStud {
-        public DateTime AnnoInizio;
-        public DateTime AnnoFine;
-        public string titolo;
-        public string descrizione;
+        public DateTime AnnoInizio {get; set;}
+        public DateTime AnnoFine {get; set;}
+        public string titolo {get; set;}
+        public string descrizione {get; set;}
     }
     public class Competenza {
-        public string titolo;
-        public int livello;
+        public string titolo {get; set;}
+        public int livello {get; set;}
     }
 
 
