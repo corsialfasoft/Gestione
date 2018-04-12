@@ -19,6 +19,7 @@ namespace Gestione.Controllers {
             Nome = nome;
             Cognome = cognome;
         }
+		public Profilo() { }
     }
     public class HomeController : Controller {
         Profilo P;
