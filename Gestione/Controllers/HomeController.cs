@@ -23,7 +23,7 @@ namespace Gestione.Controllers {
     public partial class HomeController : Controller {
         Profilo P;
         public HomeController() {
-            P = new Profilo();
+            P = new Profilo("qwerty","admin",null,"ciao","mazzo");
 
         }
         public ActionResult Index() {

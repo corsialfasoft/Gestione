@@ -10,20 +10,22 @@
     @using(Html.BeginForm("AddCorso","Home",FormMethod.Post)) {
         <div class="row">
             <div class="col-md-4">
-                <input type="text" name="_nome" placeholder="Nome" />
+                <input type="text" name="_nome" placeholder="Nome" required/>
             </div>
         </div>
+        <br />
         <div class="row">
             <div class="col-md-12">
-                <input type="text" name="_descrizione" placeholder="Descrizione..." />
+                <input type="text"  name="_descrizione" placeholder="Descrizione" required/>
             </div>
         </div>
+        <br />
         <div class="row">
             <div class="col-md-4">
-                <input type="date" name="_inizio" placeholder="Inizio" />
+                <input type="date" name="_inizio" placeholder="Inizio" required/>
             </div>
             <div class="col-md-4">
-                <input type="date" name="_fine" placeholder="Fine" />
+                <input type="date" name="_fine" placeholder="Fine" required/>
             </div>
         </div>
         <hr />
