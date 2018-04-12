@@ -4,6 +4,6 @@ using System.Linq;
 using Interfaces;
 
 namespace Gestione.Models{
-    partial class DomainModel:IGeCo,IGeCV,IGeTime{
+    public partial class DomainModel:IGeCo,IGeCV,IGeTime{
     }
 }
