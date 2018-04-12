@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Interfaces;
+﻿using Interfaces;
 
 namespace Gestione.Models{
-    partial class DomainModel:IGeCo,IGeCV,IGeTime{
+    public partial class DomainModel:IGeCo,IGeCV,IGeTime{
     }
 }

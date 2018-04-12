@@ -42,4 +42,33 @@ namespace Interfaces{
        
     }
 
+    public class CV {
+        public string matricola;
+        public string nome;
+        public string cognome;
+        public int eta;
+        public string residenza;
+        public string telefono;
+        public List<EspLav> esperienze;
+        public List<PerStud> percorsostudi;
+        public List<Competenza> competenze;
+    }
+    public class EspLav {
+        public DateTime AnnoInizio;
+        public DateTime AnnoFine;
+        public string qualifica;
+        public string descrizione;
+    }
+    public class PerStud {
+        public DateTime AnnoInizio;
+        public DateTime AnnoFine;
+        public string titolo;
+        public string descrizione;
+    }
+    public class Competenza {
+        public string titolo;
+        public int livello;
+    }
+
+
 }
