@@ -65,17 +65,15 @@ namespace Interfaces{
 		private int _id_utente;
 		private int[] ore = new int[3];
 		private DateTime data;
-
-		public DateTime Data { get { return data; } }
 		private List<Commessa> commesse;
-
+		
+        public DateTime Data { get { return data; } }
 		public int ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
 		public List<int> ID { get { return _id; } set { _id = value; } }
 		public int HL { get { return TotCom(); } }
 		public int[] Ore { get => ore; set => ore = value; }
 		public List<Commessa> Commesse { get => commesse; }
-
-
+        
 		public Giorno(DateTime data) { this.data = data; }
 		public Giorno(DateTime data, int HP, int HM, int HF, List<int> id, int id_utente) {
 			this.data = data;

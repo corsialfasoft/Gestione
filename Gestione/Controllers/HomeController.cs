@@ -21,5 +21,9 @@ namespace Gestione.Controllers {
 
             return View();
         }
+
+        public ActionResult VisualizzaGiorno() {
+            return View();
+        }
     }
 }
