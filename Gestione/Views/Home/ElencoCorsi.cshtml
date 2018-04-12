@@ -3,13 +3,9 @@
     ViewBag.Title = "ElencoCorsi";
 }
 
-<h1>
-    ElencoCorsi
-</h1>
-
 <h1>ElencoCorsi</h1>
 <body>
-     @ViewBag.Message;
+    @ViewBag.Message;
     <div>
         <div class="topnav">
             <a class="active" href="#home">Home</a>
@@ -18,7 +14,21 @@
             <input type="text" placeholder="Search..">
         </div>
     </div>
+    <div>
+        <div class=" container">
+            <ul class="list-group">
+                @foreach(var corso in ViewBag.Corsi) {
+                <li class="list-group-item">
+
+                    @corso.ID - @corso.Descr -  @corso.Quantita
+                    <span class="badge">
+                        @Html.ActionLink("DETTAGLI","Corso",new { id = corso.ID })
+                    </span>
+                </li>
+                 }
+            </ul>
+
+        </div>
+    </div>
 </body>
-
-
 

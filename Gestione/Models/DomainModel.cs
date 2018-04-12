@@ -55,15 +55,9 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public List<Corso> ListaCorsi()
-		{
-			throw new NotImplementedException();
-		}
+		
 
-		public List<Corso> ListaCorsi(int idUtente)
-		{
-			throw new NotImplementedException();
-		}
+		
 
 		public void ModificaCV(CV a,CV b)
 		{
@@ -85,20 +79,10 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public Corso SearchCorsi(int idCorso)
-		{
-			throw new NotImplementedException();
-		}
+		
 
-		public List<Corso> SearchCorsi(string descrizione)
-		{
-			throw new NotImplementedException();
-		}
 
-		public List<Corso> SearchCorsi(string descrizione,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
+		
 
 		public List<CV> SearchEta(int eta)
 		{
