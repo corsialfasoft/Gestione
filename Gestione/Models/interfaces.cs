@@ -13,10 +13,10 @@ namespace Interfaces{
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
 	}
-	public enum TypeOre { HMalattia = 1, HPermesso, HFerie }
+	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
-		void Compila(DateTime data, int ore, TypeOre tipoOre, int idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
@@ -39,7 +39,26 @@ namespace Interfaces{
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(int idUtente);
-       
+    }
+    public class Studente{ 
+        public int Id{get;set;}
+        public string Nome{get;set;}
+        public string Cognome{get;set;}
+    }
+    public class Corso{ 
+        public int Id{get;set;}
+        public string Nome{get;set;}
+        public string Descrizione{get;set;}
+        public DateTime Inizio{get;set;}
+        public DateTime Fine {get;set;}
+        public List<Studente> Studenti{get;set;}
+        public List<Lezione> Lezioni{get;set;}
+    }
+    public class Lezione{ 
+        public int Id{get;set;}
+        public string Nome {get;set;}
+        public string Descrizione{get;set;}
+        public int Durata{get;set;}
     }
 	public partial class Giorno {
 		private List<int> _id;
@@ -60,9 +79,9 @@ namespace Interfaces{
 		public Giorno(DateTime data) { this.data = data; }
 		public Giorno(DateTime data, int HP, int HM, int HF, List<int> id, int id_utente) {
 			this.data = data;
-			Ore[(int)HType.HP] = HP;
-			Ore[(int)HType.HM] = HM;
-			Ore[(int)HType.HF] = HF;
+			Ore[(int)HType.HPermesso] = HP;
+			Ore[(int)HType.HMalattia] = HM;
+			Ore[(int)HType.HFerie] = HF;
 			_id = id;
 			_id_utente = id_utente;
 		}
@@ -107,22 +126,35 @@ namespace Interfaces{
 			_capacita = capacita;
 			_descrizione = descrizione;
 		}
+    }
 
-		public Commessa(string nome) {
-			_nome = nome;
-		}
-		public Commessa(string nome, int capacita, string descrizione) : this(nome) {
-			_capacita = capacita;
-			_descrizione = descrizione;
-		}
+    public class CV {
+        public string matricola;
+        public string nome;
+        public string cognome;
+        public int eta;
+        public string residenza;
+        public string telefono;
+        public List<EspLav> esperienze;
+        public List<PerStud> percorsostudi;
+        public List<Competenza> competenze;
+    }
+    public class EspLav {
+        public DateTime AnnoInizio;
+        public DateTime AnnoFine;
+        public string qualifica;
+        public string descrizione;
+    }
+    public class PerStud {
+        public DateTime AnnoInizio;
+        public DateTime AnnoFine;
+        public string titolo;
+        public string descrizione;
+    }
+    public class Competenza {
+        public string titolo;
+        public int livello;
+    }
 
-		public override bool Equals(object obj) {
-			if (this.Nome != null)
-				return this.Nome.Equals(((Commessa)obj).Nome);
-			return false;
-		}
-		public override int GetHashCode() {
-			return base.GetHashCode();
-		}
-	}
+
 }
