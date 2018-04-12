@@ -13,7 +13,7 @@ namespace Gestione.Controllers {
         public List<String> Funzioni { get; set; }
         public string Nome { get; set; }
         public string Cognome { get; set; }
-
+		public Profilo(){}
         public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
             Matricola = matricola;
             Ruolo = ruolo;
