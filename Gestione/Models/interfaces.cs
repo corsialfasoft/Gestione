@@ -13,12 +13,12 @@ namespace Interfaces{
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
 	}
-	public enum HType { HMalattia = 1, HPermesso, HFerie }
+	public enum HType { HMalattia = 0, HPermesso, HFerie }
 	interface IGeTime {
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
-		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
+		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
 	}
     public interface IGeCo {
@@ -61,28 +61,25 @@ namespace Interfaces{
         public int Durata{get;set;}
     }
 	public partial class Giorno {
-		private List<int> _id;
-		private int _id_utente;
+		private string _id_utente;
 		private int[] ore = new int[3];
 		private DateTime data;
 
 		public DateTime Data { get { return data; } }
 		private List<Commessa> commesse;
 
-		public int ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
-		public List<int> ID { get { return _id; } set { _id = value; } }
+		public string ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
 		public int HL { get { return TotCom(); } }
 		public int[] Ore { get => ore; set => ore = value; }
 		public List<Commessa> Commesse { get => commesse; }
 
 
 		public Giorno(DateTime data) { this.data = data; }
-		public Giorno(DateTime data, int HP, int HM, int HF, List<int> id, int id_utente) {
+		public Giorno(DateTime data, int HP, int HM, int HF, string id_utente) {
 			this.data = data;
 			Ore[(int)HType.HPermesso] = HP;
 			Ore[(int)HType.HMalattia] = HM;
 			Ore[(int)HType.HFerie] = HF;
-			_id = id;
 			_id_utente = id_utente;
 		}
 

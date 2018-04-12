@@ -8,22 +8,35 @@ using System.Web.Mvc;
 
 namespace Gestione.Controllers {
 	public partial class HomeController{
-		public ActionResult VisulizzaCommessa() {
-			return View("VisulizzaCommessa");
+		public ActionResult VisualizzaCommessa() {
+			return View("VisualizzaCommessa");
 		}
 		[HttpPost]
-		public ActionResult VisulizzaCommessa(string nCom) {
+		public ActionResult VisualizzaCommessa(string nCom) {
 			DomainModel model = new DomainModel();
 			Commessa commessa = model.CercaCommessa(nCom);
 			if(commessa!=null){ 
-				List<Giorno> giorni = model.GiorniCommessa(commessa.Id, idUtente);
+				List<Giorno> giorni = model.GiorniCommessa(commessa.Id, P.Matricola);
 				if(giorni!=null && giorni.Count>0){
-					ViewBag.Giorni = giorni;
+					List<DTGiorno> dTGiorni = new List<DTGiorno>();
+					foreach(Giorno giorno in giorni){
+						if(giorno.Commesse!=null && giorno.Commesse.Count>0){ 
+							dTGiorni.Add(new DTGiorno{ Data=giorno.Data,OreLavorate= giorno.Commesse[0].OreLavorate});
+						}
+					}
+					ViewBag.NomeCommessa= commessa.Nome;
+					ViewBag.Giorni = dTGiorni;
 				}else
 					ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
+				
 			}
-			return View("VisulizzaCommessa");
+			
+			return View("VisualizzaCommessa");
 		}
 
+	}
+	public class DTGiorno{
+		public DateTime Data { get;set;}
+		public int OreLavorate{ get;set;}
 	}
 }

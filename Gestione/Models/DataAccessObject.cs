@@ -19,7 +19,7 @@ namespace DAO{
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
-		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
+		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
@@ -57,7 +57,7 @@ namespace DAO{
 		}
 
 		public Commessa CercaCommessa(string nomeCommessa) {
-			throw new NotImplementedException();
+			return new Commessa(10, 4, "GeTime", 50, "Progetto GeTime");
 		}
 
 		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
@@ -72,8 +72,20 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente) {
-			throw new NotImplementedException();
+		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
+			List<Giorno> giorni = new List<Giorno>();
+			Commessa com = new Commessa(10,4,"GeTime",50,"Progetto GeTime");
+			DateTime data = DateTime.Today;
+			Giorno giorno = new Giorno(data, 0, 0, 0, "11");
+			giorno.AddCommessa(com);
+			giorni.Add(giorno);
+			giorno = new Giorno(data.AddDays(-1), 0, 0, 0, "9");
+			giorno.AddCommessa(com);
+			giorni.Add(giorno);
+			giorni.Add(new Giorno(data.AddDays(-1), 0,0,0,"11"));
+			giorno.AddCommessa(com);
+			giorni.Add(giorno);
+			return giorni;
 		}
 
 		public void Iscriviti(int idCorso,int idStudente) {

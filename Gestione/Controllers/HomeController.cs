@@ -19,11 +19,11 @@ namespace Gestione.Controllers {
             Nome = nome;
             Cognome = cognome;
         }
-    }
-    public class HomeController : Controller {
+	}
+    public partial class HomeController : Controller {
         Profilo P;
         public HomeController() {
-            P = new Profilo();
+            P = new Profilo("11","direttore",new List<string>{"Visualizza commessa"},"nauman","aziz");
 
         }
         public ActionResult Index() {
