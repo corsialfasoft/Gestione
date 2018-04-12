@@ -21,8 +21,10 @@ namespace Gestione.Controllers {
             Nome = nome;
             Cognome = cognome;
         }
+        public Profilo(){ }
     }
     public class HomeController : Controller {
+        DomainModel dm = new DomainModel();
         Profilo P;
         public HomeController() {
             P = new Profilo();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interfaces;
+using DAO;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
@@ -17,7 +18,8 @@ namespace Gestione.Models{
 
 		public void AggiungiCV(CV a)
 		{
-			//
+			DataAccesObject doo = new DataAccesObject();
+            doo.AggiungiCV(a);
 		}
 
 		public void CaricaCV(string path)
