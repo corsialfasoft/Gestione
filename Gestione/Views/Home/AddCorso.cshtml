@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Aggiungi Nuovo Corso";
+}
+<div class="text-warning">
+    @ViewBag.Message
+</div>
+
+<div class="jumbotron">
+    <p class="lead">Compila il corso</p>
+    @using(Html.BeginForm("AddCorso","Home",FormMethod.Post)) {
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="_nome" placeholder="Nome" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" name="_descrizione" placeholder="Descrizione..." />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="date" name="_inizio" placeholder="Inizio" />
+            </div>
+            <div class="col-md-4">
+                <input type="date" name="_fine" placeholder="Fine" />
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <input type="submit" class="btn btn-default" value="Inserisci corso" />
+            </div>
+
+        </div>
+    }
+</div>
+

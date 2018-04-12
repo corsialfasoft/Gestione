@@ -60,6 +60,7 @@ namespace Interfaces{
         public string Descrizione{get;set;}
         public int Durata{get;set;}
     }
+
 	public partial class Giorno {
 		private List<int> _id;
 		private int _id_utente;
