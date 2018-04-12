@@ -2,20 +2,68 @@
     ViewBag.Title = "Aggiungi Giorno";
 }
 <h2>@ViewBag.Title:</h2>
-<p>Menù a tendina...</p>
-
-
+<br><br>
 <div>
     @*string dataTime, string ore, string idCommessa, string idUtente*@
     @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
+        <div class="Conteiner">
+            Data           <input type="date" name="dataTime" />
+            <br><br>
+            Numero Ore:    <input type="number" name="ore" />
+            <br><br>
+            Nome Commessa (id)  <input type="text" name="idCommessa" value="-" />
+            <br><br>
+            Utente:        <input type="text" name="idUtente" />
+            <br><br>
+            <input type="submit" name="verifica" value="Verifica" />
+            <br><br>
+        </div>
+    }
+</div>
+<br><br>
+<h4>Dati...</h4>
+<br>
+@*<form method="get">
+    Tipologia Ore
+    <input list="HType" name="tipoOre">
+    <datalist id="HType">
+        <option value="Ore di lavoro">
+        <option value="Ore di permesso">
+        <option value="Ore di ferie">
+        <option value="Ore di malattia">
+    </datalist>
+</form>
+<br><br>*@
+<div>
+    @*Compila(DateTime data, int ore, HType tipoOre, string idUtente)*@
+    @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
     <div class="Conteiner">
-        <input type="date" name="dataTime" />
-        <input type="number" name="ore" />
-        <input type="text" name="idCommessa" />
-        <input type="text" name="idUtente" />
-    </div>
+        Data           <input type="date" value=#dataTime.value />
+        <br><br>
+        Numero Ore:    <input type="number" name="ore" />
+        <br><br>
+        @*Tipologia Ore  <input type="text" name="tipoOre" value="-" />*@
 
+        <form method="get">
+            Tipologia Ore
+            <input list="HType" name="tipoOre">
+            <datalist id="HType">
+                <option value="Ore di lavoro">
+                <option value="Ore di permesso">
+                <option value="Ore di ferie">
+                <option value="Ore di malattia">
+            </datalist>
+        </form>
+
+        <br><br>
+        Utente:        <input type="text" name="idUtente" />
+        <br><br>
+        Carica Ore <input type="submit" name="caricaOre" value="Carica" />
+        <br><br>
     </div>
+    }
+</div>
+
 
 
 <address>
