@@ -5,6 +5,10 @@ using Interfaces;
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
 	{
+		public void AddCorso(Corso corso) {
+			throw new NotImplementedException();
+		}
+
 		public void AddLezione(int idCorso,Lezione lezione)
 		{
 			throw new NotImplementedException();

@@ -4,12 +4,11 @@ using Interfaces;
 
 namespace Gestione.Models {
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime {
-		public void AddCorso(Corso corso) {
+		
+		public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente){
+			
 		}
-		public void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente){
-
-		}
-		public void Compila(DateTime data, int ore, HType tipoOre, int idUtente){
+		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
 
 		}
 	}
