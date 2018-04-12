@@ -13,10 +13,10 @@ namespace Interfaces{
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
 	}
-	public enum TypeOre { HMalattia = 1, HPermesso, HFerie }
+	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
-		void Compila(DateTime data, int ore, TypeOre tipoOre, int idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
@@ -79,9 +79,9 @@ namespace Interfaces{
 		public Giorno(DateTime data) { this.data = data; }
 		public Giorno(DateTime data, int HP, int HM, int HF, List<int> id, int id_utente) {
 			this.data = data;
-			Ore[(int)HType.HP] = HP;
-			Ore[(int)HType.HM] = HM;
-			Ore[(int)HType.HF] = HF;
+			Ore[(int)HType.HPermesso] = HP;
+			Ore[(int)HType.HMalattia] = HM;
+			Ore[(int)HType.HFerie] = HF;
 			_id = id;
 			_id_utente = id_utente;
 		}
