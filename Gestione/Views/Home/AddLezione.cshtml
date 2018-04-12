@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Lezione";
+}
+<div class="text">
+    @ViewBag.Message
+</div>
+@using(Html.BeginForm("AddLezione","Home",FormMethod.Post)){ 
+    <div class="row">
+        <div class="col-md-4">
+            <label>Nome</label>
+            <input name="LezNome" type="text" />
+        </div>
+        <div class="col-md-4">
+            <label>Descrizione</label>
+            <input name="LezDescrizione" type="text" />
+        </div>
+        <div class="col-md-4">
+            <label>Durata</label>
+            <input name="LezDurata" type="number" />
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value="Aggiungi Lezione"/>
+        </div>
+    </div>
+}

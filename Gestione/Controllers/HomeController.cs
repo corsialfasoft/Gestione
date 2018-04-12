@@ -19,8 +19,9 @@ namespace Gestione.Controllers {
             Nome = nome;
             Cognome = cognome;
         }
+        public Profilo(){ }
     }
-    public class HomeController : Controller {
+    public partial class HomeController : Controller {
         Profilo P;
         public HomeController() {
             P = new Profilo();
