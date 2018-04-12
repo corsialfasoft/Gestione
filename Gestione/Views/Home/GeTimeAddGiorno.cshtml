@@ -8,9 +8,12 @@
 <div>
     @*string dataTime, string ore, string idCommessa, string idUtente*@
     @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
-        <div class="Conteiner">
-            <input type="date" name="dataTime" />
-        </div>
+    <div class="Conteiner">
+        <input type="date" name="dataTime" />
+        <input type="number" name="ore" />
+        <input type="text" name="idCommessa" />
+        <input type="text" name="idUtente" />
+    </div>
 
     </div>
 
