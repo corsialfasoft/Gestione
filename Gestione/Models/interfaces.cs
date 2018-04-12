@@ -41,5 +41,88 @@ namespace Interfaces{
         List<Corso>ListaCorsi(int idUtente);
        
     }
+	public partial class Giorno {
+		private List<int> _id;
+		private int _id_utente;
+		private int[] ore = new int[3];
+		private DateTime data;
 
+		public DateTime Data { get { return data; } }
+		private List<Commessa> commesse;
+
+		public int ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
+		public List<int> ID { get { return _id; } set { _id = value; } }
+		public int HL { get { return TotCom(); } }
+		public int[] Ore { get => ore; set => ore = value; }
+		public List<Commessa> Commesse { get => commesse; }
+
+
+		public Giorno(DateTime data) { this.data = data; }
+		public Giorno(DateTime data, int HP, int HM, int HF, List<int> id, int id_utente) {
+			this.data = data;
+			Ore[(int)HType.HP] = HP;
+			Ore[(int)HType.HM] = HM;
+			Ore[(int)HType.HF] = HF;
+			_id = id;
+			_id_utente = id_utente;
+		}
+
+		public void AddCommessa(Commessa com) {
+			if (commesse == null)
+				commesse = new List<Commessa>();
+			commesse.Add(com);
+		}
+		private int TotCom() {
+			int tot = 0;
+			foreach (Commessa com in Commesse) {
+				tot += com.OreLavorate;
+			}
+			return tot;
+		}
+		public override bool Equals(object obj) {
+			return data.Equals(((Giorno)obj).data);
+		}
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+	}
+	public partial class Commessa {
+
+		public int Capacita { get => _capacita; set => _capacita = value; }
+		public string Descrizione { get => _descrizione; set => _descrizione = value; }
+		public string Nome { get => _nome; set => _nome = value; }
+		public int OreLavorate { get => oreLavorate; set => oreLavorate = value; }
+
+
+		private int _id; public int Id { get; set; }
+		private int oreLavorate;
+		private string _nome;
+		private int _capacita;
+		private string _descrizione;
+
+		public Commessa(int id, int oreLavorate, string nome, int capacita, string descrizione) {
+			_id = id;
+			this.oreLavorate = oreLavorate;
+			_nome = nome;
+			_capacita = capacita;
+			_descrizione = descrizione;
+		}
+
+		public Commessa(string nome) {
+			_nome = nome;
+		}
+		public Commessa(string nome, int capacita, string descrizione) : this(nome) {
+			_capacita = capacita;
+			_descrizione = descrizione;
+		}
+
+		public override bool Equals(object obj) {
+			if (this.Nome != null)
+				return this.Nome.Equals(((Commessa)obj).Nome);
+			return false;
+		}
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+	}
 }
