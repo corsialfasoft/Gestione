@@ -69,6 +69,7 @@ namespace Interfaces{
 			this.Nome = nome;
 		}
     }
+
 	public partial class Giorno {
 		private List<int> _id;
 		private int _id_utente;
