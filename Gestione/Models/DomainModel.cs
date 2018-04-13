@@ -44,7 +44,12 @@ namespace Gestione.Models{
 
 		public void EliminaCV(CV curriculum)
 		{
-			throw new NotImplementedException();
+            DataAccesObject db = new DataAccesObject();
+            try{ 
+                db.EliminaCV(curriculum);
+            }catch(Exception e){ 
+                throw e;    
+            }
 		}
 
 		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente)
@@ -69,7 +74,8 @@ namespace Gestione.Models{
 
 		public void ModificaCV(CV a,CV b)
 		{
-			throw new NotImplementedException();
+			DataAccesObject doo = new DataAccesObject();
+            doo.ModificaCV(a,b);
 		}
 
 		public CV Search(string id)
@@ -80,12 +86,14 @@ namespace Gestione.Models{
 
 		public List<CV> SearchChiava(string chiava)
 		{
-			throw new NotImplementedException();
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchChiava(chiava);
 		}
 
 		public List<CV> SearchCognome(string cognome)
 		{
-			throw new NotImplementedException();
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchCognome(cognome);
 		}
 
 		public Corso SearchCorsi(int idCorso)
@@ -105,12 +113,14 @@ namespace Gestione.Models{
 
 		public List<CV> SearchEta(int eta)
 		{
-			throw new NotImplementedException();
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchEta(eta);
 		}
 
 		public List<CV> SearchRange(int etmin,int etmax)
 		{
-			throw new NotImplementedException();
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchRange(etmin,etmax);
 		}
 
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente)

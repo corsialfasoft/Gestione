@@ -69,6 +69,7 @@ namespace DAO{
 		}
 
 		public void EliminaCV(CV curriculum) {
+            //
 			throw new NotImplementedException();
 		}
 
@@ -89,7 +90,7 @@ namespace DAO{
 		}
 
 		public void ModificaCV(CV a,CV b) {
-			throw new NotImplementedException();
+			//
 		}
 
 		public CV Search(string id) {
@@ -97,19 +98,24 @@ namespace DAO{
 		}
 
 		public List<CV> SearchChiava(string chiava) {
-			throw new NotImplementedException();
+			List<CV> trovati = new List<CV>();
+			if (chiava == "truzzotunztunz"){
+			CV a = new CV { nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz"};
+			CV b = new CV { nome ="Alex",cognome="dimitri",email="truzzotunztunz"};
+			CV c = new CV { nome="Dino",cognome="sauro",email="truzzotunztunz"};
+			trovati.Add(a);
+			trovati.Add(b);
+			trovati.Add(c);
+			}
+			return trovati;
 		}
 
 		public List<CV> SearchCognome(string cognome) {
-            CV cv1 = new CV {nome="Massimo",cognome="franzoso",telefono="3391627441",eta=33};
-            CV cv2 = new CV {nome="Ciro",cognome="Ferrara",telefono="333585698",eta=50};
-            CV cv3 = new CV {nome="Carmen",cognome="Capo",telefono="3485957862",eta=30};
-			List<CV> Lista = new List<CV>();
-            Lista.Add(cv1);
-            Lista.Add(cv2);
-            Lista.Add(cv3);
-            return Lista;
-            //throw new NotImplementedException();
+			List<CV> trovati = new List<CV>();
+			if (cognome == "Franzoso"){
+			trovati.Add(new CV{cognome="Franzoso"});
+			}
+			return trovati;
 		}
 
 		public Corso SearchCorsi(int idCorso) {
@@ -125,11 +131,28 @@ namespace DAO{
 		}
 
 		public List<CV> SearchEta(int eta) {
-			throw new NotImplementedException();
+			List<CV> trovati = new List<CV>();
+			if (eta == 22){
+			CV a = new CV { nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=22};
+			CV b = new CV { nome ="Alex",cognome="dimitri",email="weasd",eta=22};
+			CV c = new CV { nome="Dino",cognome="sauro",email="eeeeee",eta=22};
+			trovati.Add(a);
+			trovati.Add(b);
+			trovati.Add(c);
+			}
+			return trovati;
 		}
 
 		public List<CV> SearchRange(int etmin,int etmax) {
-			throw new NotImplementedException();
+			List<CV> trovati = new List<CV>();
+			if (etmin>=22 && etmax<=25){
+			CV a = new CV { nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=25};
+			CV b = new CV { nome ="Alex",cognome="dimitri",email="weasd",eta=22};
+			
+			trovati.Add(a);
+			trovati.Add(b);
+			}
+			return trovati;
 		}
 
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
