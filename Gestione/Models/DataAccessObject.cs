@@ -49,7 +49,7 @@ namespace DAO{
 		}
 
 		public void AggiungiCV(CV a) {
-			throw new NotImplementedException();
+			//
 		}
 
 		public void CaricaCV(string path) {
@@ -93,7 +93,7 @@ namespace DAO{
 		}
 
 		public CV Search(string id) {
-			throw new NotImplementedException();
+			return new CV {nome="Massimo",cognome="franzoso",telefono="3391627441",eta=33};
 		}
 
 		public List<CV> SearchChiava(string chiava) {
