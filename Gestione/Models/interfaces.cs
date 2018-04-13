@@ -113,7 +113,7 @@ namespace Interfaces{
 
 		public OreCommessa(int id, int oreLavorate, string nome, string descrizione) {
 			Id = id;
-			this.oreLavorate = oreLavorate;
+			Ore = oreLavorate;
 			_nome = nome;
 			_descrizione = descrizione;
 		}

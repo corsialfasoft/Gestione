@@ -57,7 +57,7 @@ namespace DAO{
 		}
 
 		public Commessa CercaCommessa(string nomeCommessa) {
-			return new Commessa(10, 4, "GeTime", 50, "Progetto GeTime");
+			return new Commessa(10,"GeTime","Progetto GeTime",50,0);
 		}
 
 		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
@@ -74,16 +74,16 @@ namespace DAO{
 
 		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
 			List<Giorno> giorni = new List<Giorno>();
-			Commessa com = new Commessa(10,4,"GeTime",50,"Progetto GeTime");
+			Commessa com = new Commessa(10,"GeTime","Progetto GeTime", 50,0);
 			DateTime data = DateTime.Today;
 			Giorno giorno = new Giorno(data, 0, 0, 0, "11");
-			giorno.AddCommessa(com);
+			giorno.AddOreCommessa(new OreCommessa(10,2,com.Nome,com.Descrizione));
 			giorni.Add(giorno);
 			giorno = new Giorno(data.AddDays(-1), 0, 0, 0, "9");
-			giorno.AddCommessa(com);
+			giorno.AddOreCommessa(new OreCommessa(11, 2, com.Nome, com.Descrizione));
 			giorni.Add(giorno);
 			giorni.Add(new Giorno(data.AddDays(-1), 0,0,0,"11"));
-			giorno.AddCommessa(com);
+			giorno.AddOreCommessa(new OreCommessa(13, 2, com.Nome, com.Descrizione));
 			giorni.Add(giorno);
 			return giorni;
 		}

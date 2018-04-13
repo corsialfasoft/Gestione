@@ -20,8 +20,8 @@ namespace Gestione.Controllers {
 				if(giorni!=null && giorni.Count>0){
 					List<DTGiorno> dTGiorni = new List<DTGiorno>();
 					foreach(Giorno giorno in giorni){
-						if(giorno.Commesse!=null && giorno.Commesse.Count>0){ 
-							dTGiorni.Add(new DTGiorno{ Data=giorno.Data,OreLavorate= giorno.Commesse[0].OreLavorate});
+						if(giorno.OreLavorate!=null && giorno.OreLavorate.Count>0){ 
+							dTGiorni.Add(new DTGiorno{ Data=giorno.Data,OreLavorate= giorno.OreLavorate[0].Ore});
 						}
 					}
 					ViewBag.NomeCommessa= commessa.Nome;
