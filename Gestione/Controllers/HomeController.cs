@@ -34,8 +34,9 @@ namespace Gestione.Controllers {
 			return View();
 		}
 
-        public ActionResult AddLezione(string id) {
-            ViewBag.Message = id;
+        public ActionResult AddLezione(int idCorso) {
+            ViewBag.Message = idCorso;
+			ViewBag.CorsoId=idCorso;
             return View();
         }
 
@@ -54,6 +55,7 @@ namespace Gestione.Controllers {
 			DomainModel dm = new DomainModel();
 			Corso scelto = dm.SearchCorsi(id);
 			List<Lezione> lezions = new List<Lezione>();
+			
 			foreach(Lezione l in scelto.Lezioni) {
 				lezions.Add(l);
 			}
@@ -70,5 +72,6 @@ namespace Gestione.Controllers {
 			}
 			return View();
 		}
+
 	}
 }
