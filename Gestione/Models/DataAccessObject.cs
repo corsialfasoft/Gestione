@@ -37,7 +37,7 @@ namespace DAO{
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(int idUtente);
+        List<Corso>ListaCorsi(string idUtente);
     }
 	public partial class DataAccesObject : IDao {
 		public void AddCorso(Corso corso) {
@@ -78,11 +78,43 @@ namespace DAO{
 
 
 		public List<Corso> ListaCorsi() {
-			throw new NotImplementedException();
+			Corso c = new Corso();
+			c.Nome = "c#";
+			c.Descrizione= "Corso di programmazione su Asp.Net";
+			c.Id = 1 ;
+			Corso d = new Corso();
+			d.Nome= "Java";
+			d.Descrizione= "Corso alla proggrammazione OO";
+			d.Id=2;
+			Corso e = new Corso();
+			e.Nome = "Javascripppto";
+			e.Descrizione ="Corso alla programazione su javascripttto";
+			e.Id = 3;
+			List<Corso> result = new List<Corso>();
+			result.Add(c);
+			result.Add(d);
+			result.Add(e);
+			return result;
 		}
 
-		public List<Corso> ListaCorsi(int idUtente) {
-			throw new NotImplementedException();
+		public List<Corso> ListaCorsi(string idUtente) {
+			Corso c = new Corso();
+			c.Nome = "c#";
+			c.Descrizione= "Corso di cerca idutente programmazione su Asp.Net";
+			c.Id = 1 ;
+			Corso d = new Corso();
+			d.Nome= "Java";
+			d.Descrizione= "Corso alla c proggrammazione OO cerca idutente";
+			d.Id=2;
+			Corso e = new Corso();
+			e.Nome = "Javascripppto";
+			e.Descrizione ="Corso alla programazione su javascripttto cerca idutente";
+			e.Id = 3;
+			List<Corso> result = new List<Corso>();
+			result.Add(c);
+			result.Add(d);
+			result.Add(e);
+			return result;
 		}
 
 		public void ModificaCV(CV a,CV b) {

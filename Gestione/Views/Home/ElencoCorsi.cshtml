@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "ElencoCorsi";
+}
+
+<h1>ElencoCorsi</h1>
+<body>
+
+    <div class="row">
+        <div class="col-lg-6">
+            @ViewBag.Message
+
+        </div>
+        <div class="col-md-6" style="text-align:right">
+            @using(Html.BeginForm("ElencoCorsi","Home",FormMethod.Post)) {
+                    <label>Cerca Tra I Miei Corsi</label>
+                    @*<input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />*@
+                    @Html.CheckBox("mieiCorsi",true)
+                    <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
+                    <input type="submit" value="Cerca">
+             }
+
+        </div>
+    </div>
+        @if(ViewBag.Controllo==true){
+             <div class="alert alert-success" role="alert">@ViewBag.Message</div>
+
+        } else if(ViewBag.Controllo==false) {
+             <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
+        }else{
+        }<div>
+        <div class=" container">
+            <ul class="list-group">
+                @foreach(var corso in ViewBag.Corsi) {
+                    <li class="list-group-item">
+                         <span class="badge">
+                             @Html.ActionLink("DETTAGLI","ElencoCorso",new { id = corso.Id })
+                         </span>
+                          @corso.Id .    @corso.Nome  - @corso.Descrizione 
+                    </li>
+                 }
+            </ul>
+
+        </div>
+    </div>
+</body>
+

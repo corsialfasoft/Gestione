@@ -38,7 +38,7 @@ namespace Interfaces{
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(int idUtente);
+        List<Corso>ListaCorsi(string idUtente);
     }
     public class Studente{ 
         public int Id{get;set;}

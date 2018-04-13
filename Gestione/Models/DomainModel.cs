@@ -50,14 +50,7 @@ namespace Gestione.Models{
 			}
 		}
 
-		public Interfaces.Corso SearchCorsi(int idCorso) {
-			DataAccesObject dao = new DataAccesObject();
-			return dao.SearchCorsi(idCorso);
-		}
-
-		public List<Interfaces.Corso> ListaCorsi() {
-			throw new NotImplementedException();
-		}
+		
 
 		public List<Interfaces.Corso> ListaCorsi(int idUtente) {
 			throw new NotImplementedException();
@@ -79,16 +72,7 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-
-		public List<Interfaces.Corso> SearchCorsi(string descrizione) {
-			DataAccesObject dao = new DataAccesObject();
-			return dao.SearchCorsi(descrizione);
-		}
-
-		public List<Interfaces.Corso> SearchCorsi(string descrizione, string idUtente) {
-			DataAccesObject dao = new DataAccesObject();
-			return dao.SearchCorsi(descrizione, idUtente);
-		}
+		
 
 		public List<CV> SearchEta(int eta) {
 			throw new NotImplementedException();
