@@ -101,7 +101,15 @@ namespace DAO{
 		}
 
 		public List<CV> SearchCognome(string cognome) {
-			throw new NotImplementedException();
+            CV cv1 = new CV {nome="Massimo",cognome="franzoso",telefono="3391627441",eta=33};
+            CV cv2 = new CV {nome="Ciro",cognome="Ferrara",telefono="333585698",eta=50};
+            CV cv3 = new CV {nome="Carmen",cognome="Capo",telefono="3485957862",eta=30};
+			List<CV> Lista = new List<CV>();
+            Lista.Add(cv1);
+            Lista.Add(cv2);
+            Lista.Add(cv3);
+            return Lista;
+            //throw new NotImplementedException();
 		}
 
 		public Corso SearchCorsi(int idCorso) {
