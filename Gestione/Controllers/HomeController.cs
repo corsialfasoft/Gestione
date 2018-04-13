@@ -53,8 +53,8 @@ namespace Gestione.Controllers {
             }
             return View(prossimo);
         }
-        [HttpPost]
-        public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
+
+        private CV InitCV(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello) {
