@@ -33,7 +33,7 @@ namespace Gestione.Controllers {
         public ActionResult Index() {
             return View ();
         }
-        public ActionResult AggiungiCurriculum(){
+        public ActionResult DettaglioCurriculum(){
             return View();
         }
 
@@ -75,11 +75,11 @@ namespace Gestione.Controllers {
                     return View("MyPage");
                 } else {
                     ViewBag.Message = "Eta' non valida";
-                    return View("AggiungiCurriculum");
+                    return View("DettaglioCurriculum");
                 }
             } else{
                 ViewBag.Message = "Campi obbligatori da inserire...";
-                return View("AggiungiCurriculum");
+                return View("DettaglioCurriculum");
             }
         }
     }
