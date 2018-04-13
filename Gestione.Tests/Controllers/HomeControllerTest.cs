@@ -45,5 +45,17 @@ namespace Gestione.Tests.Controllers {
             // Assert
             Assert.IsNotNull(result);
         }
+		  [TestMethod]
+		public void MyPage()
+		{
+			HomeController controller = new HomeController();
+			ViewResult result = controller.MyPage() as ViewResult;
+			controller.MyPage("801130");
+			Assert.IsTrue(result.ViewBag.CV != null);
+			Assert.IsTrue(result.ViewBag.CV.nome == "Massimo");
+			Assert.IsTrue(result.ViewBag.CV.cognome == "franzoso");
+			Assert.IsTrue(result.ViewBag.CV.telefono == "3391627441");
+			Assert.IsTrue(result.ViewBag.CV.eta == 33);
+		}
     }
 }

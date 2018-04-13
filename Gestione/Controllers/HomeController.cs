@@ -21,10 +21,10 @@ namespace Gestione.Controllers {
         }
 		public Profilo() { }
     }
-    public class HomeController : Controller {
+    public partial class HomeController : Controller {
         Profilo P;
         public HomeController() {
-            P = new Profilo();
+            P = new Profilo{Matricola="801130"};
 
         }
         public ActionResult Index() {

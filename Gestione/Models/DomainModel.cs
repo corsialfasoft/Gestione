@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interfaces;
+using DAO;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
@@ -72,7 +73,8 @@ namespace Gestione.Models{
 
 		public CV Search(string id)
 		{
-			throw new NotImplementedException();
+			DataAccesObject dao = new DataAccesObject();
+			return dao.Search(id);
 		}
 
 		public List<CV> SearchChiava(string chiava)
