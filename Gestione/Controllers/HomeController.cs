@@ -36,8 +36,25 @@ namespace Gestione.Controllers {
         public ActionResult DettaglioCurriculum(){
             return View();
         }
-
-        private CV InitCV(string nome,string cognome,string eta,
+        public ActionResult EliminaCV(string idCV){ 
+            CV temp = dm.Search(idCV); 
+            string prossimo ;
+            try{ 
+                dm.EliminaCV(temp);
+                ViewBag.Message = "Curriculum eliminato con successo";
+                if(P.Ruolo=="admin"){ 
+                    prossimo = "ListaCurriculum";
+                }else{
+                    prossimo = "MyPage";  
+                }
+            }catch(Exception){ 
+                ViewBag.Message = "Non siamo riusciti a eliminare il curriculum selezionato"; 
+                prossimo = "MyPage";
+            }
+            return View(prossimo);
+        }
+        [HttpPost]
+        public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello) {
