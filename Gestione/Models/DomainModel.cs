@@ -75,7 +75,7 @@ namespace Gestione.Models{
 		public void ModificaCV(CV a,CV b)
 		{
 			DataAccesObject doo = new DataAccesObject();
-            doo.ModificaCV(a);
+            doo.ModificaCV(a,b);
 		}
 
 		public CV Search(string id)
