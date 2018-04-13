@@ -25,7 +25,7 @@ namespace Gestione.Controllers {
 				return View("");
 			}
 			ViewBag.CV = trovato;
-			return View("AggiuntaCurriculum");
+			return View("DettaglioCurriculum");
 		}
 	}
 }
