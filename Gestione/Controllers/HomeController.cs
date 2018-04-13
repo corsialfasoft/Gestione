@@ -58,55 +58,34 @@ namespace Gestione.Controllers {
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello) {
-                CV cv = new CV();
-                cv.nome = nome;
-                cv.cognome = cognome;
-                cv.eta = int.Parse(eta);
-                cv.email = email;
-                cv.residenza = residenza;
-                cv.telefono = telefono;
-                EspLav esp = new EspLav();
-                if(annoinizioesp != ""){
-                    try{
-                        esp.AnnoInizio = Convert.ToDateTime(annoinizioesp);
-                    } catch(Exception e) {
-                        throw e;
-                    }
-                }
-                if(annoinizioesp != ""){
-                    try{
-                        esp.AnnoFine = Convert.ToDateTime(annofinesp);
-                    }catch(Exception e) {
-                        throw e;
-                    }
-                }
-                esp.qualifica = qualifica;
-                esp.descrizione = descrizionesp;
-                cv.esperienze.Add(esp);
-                PerStud percorso = new PerStud();
-                if(annoinizio == "") {
-                    try{
-                        percorso.AnnoInizio = Convert.ToDateTime(annoinizio);
-                    } catch(Exception e) {
-                        throw e;
-                    }
-                }
-                if(annofine == "") {
-                    try{
-                        percorso.AnnoFine = Convert.ToDateTime(annofine);
-                    } catch(Exception e) {
-                        throw e;
-                    }
-                }
-                percorso.titolo = titolo;
-                percorso.descrizione = descrizione;
-                cv.percorsostudi.Add(percorso);
-                Competenza comp = new Competenza();
-                comp.titolo = tipo;
-                comp.livello = int.Parse(livello);
-                cv.competenze.Add(comp);
-                return cv;
-
+                try{
+                    CV cv = new CV();
+                    cv.nome = nome;
+                    cv.cognome = cognome;
+                    cv.eta = int.Parse(eta);
+                    cv.email = email;
+                    cv.residenza = residenza;
+                    cv.telefono = telefono;
+                    EspLav esp = new EspLav();
+                    esp.AnnoInizio = int.Parse(annoinizioesp);
+                    esp.AnnoFine = int.Parse(annofinesp);
+                    esp.qualifica = qualifica;
+                    esp.descrizione = descrizionesp;
+                    cv.esperienze.Add(esp);
+                    PerStud percorso = new PerStud();
+                    percorso.AnnoInizio = int.Parse(annoinizio);
+                    percorso.AnnoFine = int.Parse(annofine);
+                    percorso.titolo = titolo;
+                    percorso.descrizione = descrizione;
+                    cv.percorsostudi.Add(percorso);
+                    Competenza comp = new Competenza();
+                    comp.titolo = tipo;
+                    comp.livello = int.Parse(livello);
+                    cv.competenze.Add(comp);
+                    return cv;
+            } catch(Exception e) {
+                throw e;
+            }
         }
         
         [HttpPost]

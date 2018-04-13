@@ -141,14 +141,14 @@ namespace Interfaces{
         public List<Competenza> competenze {get; set;}
     }
     public class EspLav {
-        public DateTime AnnoInizio {get; set;}
-        public DateTime AnnoFine {get; set;}
+        public int AnnoInizio {get; set;}
+        public int AnnoFine {get; set;}
         public string qualifica {get; set;}
         public string descrizione {get; set;}
     }
     public class PerStud {
-        public DateTime AnnoInizio {get; set;}
-        public DateTime AnnoFine {get; set;}
+        public int AnnoInizio {get; set;}
+        public int AnnoFine {get; set;}
         public string titolo {get; set;}
         public string descrizione {get; set;}
     }
