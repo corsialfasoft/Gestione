@@ -6,7 +6,7 @@ using DAO;
 
 namespace Gestione.Models{
     partial class DomainModel:IGeCo,IGeCV,IGeTime{
-		public List<Corso> ListaCorsi(int idUtente){
+		public List<Corso> ListaCorsi(string idUtente){
 			DataAccesObject dto = new DataAccesObject();
 			List<Corso> result = dto.ListaCorsi(idUtente);
 			return result;
@@ -23,10 +23,11 @@ namespace Gestione.Models{
 		}
 		public List<Corso> SearchCorsi (string descrizione){
 			DataAccesObject dto = new DataAccesObject();
-			List<Corso> result = dto.SearchCorsi(descrizione);
+			List<Corso> result = new List<Corso>();
+			result = dto.SearchCorsi(descrizione);
 			return result;
 		}
-		public List<Corso> SearchCorsi (string descrizione,int idUtente){
+		public List<Corso> SearchCorsi (string descrizione,string idUtente){
 			DataAccesObject dto = new DataAccesObject();
 			List<Corso> result = dto.SearchCorsi(descrizione,idUtente);
 			return result;

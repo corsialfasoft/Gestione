@@ -13,24 +13,25 @@
         </div>
         <div class="col-md-6" style="text-align:right">
             @using(Html.BeginForm("ElencoCorsi","Home",FormMethod.Post)) {
-            @Html.TextBox("descrizione",null,new { placeholder = "Inserici Descrizione" })
-                 <input type="submit" value="Cerca">
-
+                    <label>Cerca Tra I Miei Corsi</label>
+                    @*<input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />*@
+                    @Html.CheckBox("mieiCorsi",true)
+                    <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
+                    <input type="submit" value="Cerca">
 }
-            @Html.ActionLink("MieiCorsi","ElencoCorsiMieiCorsi")
+
         </div>
     </div>
     <div>
         <div class=" container">
             <ul class="list-group">
                 @foreach(var corso in ViewBag.Corsi) {
-                <li class="list-group-item">
-
-                    @corso.Nome @corso.Id - @corso.Descrizione -
-                    <span class="badge">
-                        @*@Html.ActionLink("DETTAGLI","Corso",new { id = corso.ID })*@
-                    </span>
-                </li>
+                    <li class="list-group-item">
+                         <span class="badge">
+                             @*@Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })*@
+                         </span>
+                          @corso.Id .    @corso.Nome  - @corso.Descrizione 
+                    </li>
                  }
             </ul>
 

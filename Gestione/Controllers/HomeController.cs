@@ -23,7 +23,9 @@ namespace Gestione.Controllers {
         }
     }
     
-    public partial class HomeController : Controller {
+    
+	public partial class HomeController : Controller {
+		Profilo p = new Profilo();
         public ActionResult Index() {
             return View();
         }

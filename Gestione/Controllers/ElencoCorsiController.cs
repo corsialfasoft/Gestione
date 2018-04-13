@@ -22,10 +22,30 @@ namespace Gestione.Controllers {
 			return View();
 		}
 		[HttpPost]
-		public ActionResult ElencoCorsiMieiCorsi(){
+		public ActionResult ElencoCorsi(bool mieiCorsi ,string descrizione ){
 			DomainModel dm = new DomainModel();
-			ViewBag.Corsi = dm.ListaCorsi(p.Matricola);
-			return View();
+			int id ;
+			if(int.TryParse(descrizione,out id) && !mieiCorsi){		// Cerca Per iD corso
+				Corso c = dm.SearchCorsi(id);
+				ViewBag.Corso = c;
+				ViewBag.Lezioni = c.Lezioni;
+				return View("Corso");
+			}else if(descrizione!="" && mieiCorsi){
+				ViewBag.Corsi = dm.SearchCorsi(descrizione , p.Matricola);
+				return View("ElencoCorsi");
+			}else if(descrizione=="" && mieiCorsi){
+				ViewBag.Corsi = dm.ListaCorsi(p.Matricola);
+				return View("ElencoCorsi");
+			}else if(descrizione!="" && !mieiCorsi){
+				ViewBag.Corsi= dm.SearchCorsi(descrizione);
+				return View("ElencoCorsi");
+			}else if(descrizione=="" && !mieiCorsi){
+				ViewBag.Corsi= dm.ListaCorsi();
+				return View("ElencoCorsi");
+			}else{
+				ViewBag.Messagge="Errore non gestito!";
+				return View();
+			}
 		}
 		[HttpPost]
 		public ActionResult ElencoCorso(int idCorso){
@@ -35,17 +55,24 @@ namespace Gestione.Controllers {
 			ViewBag.Lezioni = c.Lezioni;
 			return View("Corso");
 		}
+		/*
 		[HttpPost]
-		public ActionResult ElencoCorsi(int idUtente , string descrizione){
+		public ActionResult ElencoCorsi(string idUtente , string descrizione){
 			DomainModel dm = new DomainModel();
 			ViewBag.Corsi= dm.SearchCorsi(descrizione,idUtente);
 			return View();
 		}
+		*/
+		/*
 		[HttpPost]
-		public ActionResult ElencoCorsi(string descrizione){
+		public ActionResult ElencoCorsi(string descrizione ){
 			DomainModel dm = new DomainModel();
 			ViewBag.Corsi= dm.SearchCorsi(descrizione);
 			return View();
 		}
+		public ActionResult ElencoCorsiMieiCorsi(){
+			return View("ElencoCorsi");
+		}
+		*/
     }
 }
