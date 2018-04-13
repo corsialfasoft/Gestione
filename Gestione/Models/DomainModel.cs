@@ -18,7 +18,8 @@ namespace Gestione.Models{
 
 		public void AggiungiCV(CV a)
 		{
-			throw new NotImplementedException();
+			DataAccesObject doo = new DataAccesObject();
+            doo.AggiungiCV(a);
 		}
 
 		public void CaricaCV(string path)
