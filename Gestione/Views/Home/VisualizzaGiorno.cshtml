@@ -47,14 +47,23 @@
                 <td>Ore Commessa</td>
                 <td>Note</td>
             </tr>
+            @{
+                int count = 0;
+            }
             @foreach(OreLavorate orelavorate in ViewBag.giorno.OreLavorate) {
-            <tr>
-                <td>Ore Lavorate</td>
-                <td>@ViewBag.giorno.TotOreLavorate</td>
-                <td>@orelavorate.nome</td>
-                <td>@orelavorate.oreGiorno</td>
-                <td>@orelavorate.descrizione</td>
-            </tr>
+                <tr>
+                    @if (count == 0) {
+                        <td>Ore Lavorate</td>
+                        <td>@ViewBag.giorno.TotOreLavorate</td>
+                        count++;
+                    } else {
+                        <td></td>
+                        <td></td>
+                    }
+                    <td>@orelavorate.nome</td>
+                    <td>@orelavorate.oreGiorno</td>
+                    <td>@orelavorate.descrizione</td>
+                </tr>
             }
             <tr>
                 <td>Ore Permesso</td>
