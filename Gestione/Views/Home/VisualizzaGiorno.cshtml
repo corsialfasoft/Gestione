@@ -3,6 +3,24 @@
 @using DAO;
 @using Gestione.Controllers;
 
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
 @{
     ViewBag.Title = "Dettagli Del Giorno";
 }
@@ -10,7 +28,6 @@
 <div>
     <h3>@ViewBag.Message</h3>
 </div>
-
 <div>
     <form action="/Home/VisualizzaGiorno" method="post">
         <input type="date" name="data" id="data" />
@@ -33,6 +50,7 @@
             @foreach(OreLavorate orelavorate in ViewBag.giorno.OreLavorate) {
             <tr>
                 <td>Ore Lavorate</td>
+                <td>@ViewBag.giorno.TotOreLavorate</td>
                 <td>@orelavorate.nome</td>
                 <td>@orelavorate.oreGiorno</td>
                 <td>@orelavorate.descrizione</td>
