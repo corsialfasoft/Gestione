@@ -25,10 +25,6 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public Commessa CercaCommessa(string nomeCommessa)
-		{
-			throw new NotImplementedException();
-		}
 
 		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente)
 		{
@@ -45,11 +41,7 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
-
+		
 		public void Iscriviti(int idCorso,int idStudente)
 		{
 			throw new NotImplementedException();
