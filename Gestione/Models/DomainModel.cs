@@ -69,7 +69,8 @@ namespace Gestione.Models{
 
 		public void ModificaCV(CV a,CV b)
 		{
-			throw new NotImplementedException();
+			DataAccesObject doo = new DataAccesObject();
+            doo.ModificaCV(a);
 		}
 
 		public CV Search(string id)
