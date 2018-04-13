@@ -24,21 +24,13 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public Commessa CercaCommessa(string nomeCommessa)
-		{
-			throw new NotImplementedException();
-		}
 
 		public void EliminaCV(CV curriculum)
 		{
 			throw new NotImplementedException();
 		}
 
-		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
-
+		
 		public void Iscriviti(int idCorso,int idStudente)
 		{
 			throw new NotImplementedException();
