@@ -22,5 +22,40 @@ namespace Gestione.Tests.Controllers {
             Assert.IsNotNull(result);
         }
 
+        [TestMethod]
+        public void About() {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.About() as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Your application description page.",result.ViewBag.Message);
+        }
+
+        [TestMethod]
+        public void Contact() {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.Contact() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+		  [TestMethod]
+		public void MyPage()
+		{
+			HomeController controller = new HomeController();
+			ViewResult result = controller.MyPage() as ViewResult;
+			controller.MyPage("801130");
+			Assert.IsTrue(result.ViewBag.CV != null);
+			Assert.IsTrue(result.ViewBag.CV.nome == "Massimo");
+			Assert.IsTrue(result.ViewBag.CV.cognome == "franzoso");
+			Assert.IsTrue(result.ViewBag.CV.telefono == "3391627441");
+			Assert.IsTrue(result.ViewBag.CV.eta == 33);
+		}
     }
 }

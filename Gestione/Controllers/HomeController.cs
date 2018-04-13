@@ -27,7 +27,7 @@ namespace Gestione.Controllers {
         DomainModel dm = new DomainModel();
         Profilo P;
         public HomeController() {
-            P = new Profilo();
+            P = new Profilo{Matricola="801130"};
 
         }
         public ActionResult Index() {

@@ -74,7 +74,8 @@ namespace Gestione.Models{
 
 		public CV Search(string id)
 		{
-			throw new NotImplementedException();
+			DataAccesObject dao = new DataAccesObject();
+			return dao.Search(id);
 		}
 
 		public List<CV> SearchChiava(string chiava)
