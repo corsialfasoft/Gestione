@@ -36,6 +36,7 @@ namespace Gestione.Controllers {
         public ActionResult DettaglioCurriculum(){
             return View();
         }
+        [HttpPost]
         public ActionResult EliminaCV(string idCV){ 
             CV temp = dm.Search(idCV); 
             string prossimo ;
@@ -121,7 +122,7 @@ namespace Gestione.Controllers {
         public ActionResult ModificaCurriculum(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
-            string descrizionesp,string tipo,string livello
+            string descrizionesp,string tipo,string livello,string id
             ) {
             try{
                 if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
@@ -137,14 +138,20 @@ namespace Gestione.Controllers {
                         ViewBag.Message = "Curriculum Modificato";
                         return View("MyPage");
                     } else {
+		        	    CV trovato = dm.Search(P.Matricola);
+                         ViewBag.CV = trovato;
                         ViewBag.Message = "Eta' non valida";
                         return View("DettaglioCurriculum");
                     }
                 } else {
+			        CV trovato = dm.Search(P.Matricola);
+                    ViewBag.CV = trovato;
                     ViewBag.Message = "Campi obbligatori da inserire...";
                     return View("DettaglioCurriculum");
                 }
             } catch(Exception) {
+			    CV trovato = dm.Search(P.Matricola);
+                ViewBag.CV = trovato;
                 ViewBag.Message = "Qualcosa è andato storto.";
                 return View("DettaglioCurriculum");
             }
