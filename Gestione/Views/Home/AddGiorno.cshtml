@@ -32,5 +32,7 @@
 </div>
 <p>(*) Campi obligatori</p>
 <br><br>
+@if(ViewBag.GeCoDataTime != null){
+    <p>@ViewBag.GeCoDataTime.ToString("dd/MM/yyyy")</p>}
     <p>@ViewBag.EsitoAddGiorno</p>
 <br><br>
