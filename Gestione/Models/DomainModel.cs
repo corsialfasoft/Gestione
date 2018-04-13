@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interfaces;
+using DAO;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime {
@@ -41,7 +42,17 @@ namespace Gestione.Models{
 		}
 
 		public void Iscriviti(int idCorso,int idStudente) {
-			
+			DataAccesObject dao = new DataAccesObject();
+			try{
+			dao.Iscriviti(idCorso,idStudente);
+			}catch(Exception e){				
+				throw e ;
+			}
+		}
+
+		public Interfaces.Corso SearchCorsi(int idCorso) {
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchCorsi(idCorso);
 		}
 
 		public List<Interfaces.Corso> ListaCorsi() {
@@ -68,16 +79,15 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public Interfaces.Corso SearchCorsi(int idCorso) {
-			throw new NotImplementedException();
-		}
 
 		public List<Interfaces.Corso> SearchCorsi(string descrizione) {
-			throw new NotImplementedException();
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchCorsi(descrizione);
 		}
 
-		public List<Interfaces.Corso> SearchCorsi(string descrizione,int idUtente) {
-			throw new NotImplementedException();
+		public List<Interfaces.Corso> SearchCorsi(string descrizione, string idUtente) {
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchCorsi(descrizione, idUtente);
 		}
 
 		public List<CV> SearchEta(int eta) {

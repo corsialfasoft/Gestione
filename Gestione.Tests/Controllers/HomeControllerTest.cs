@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gestione;
 using Gestione.Controllers;
 
+
 namespace Gestione.Tests.Controllers {
     [TestClass]
     public class HomeControllerTest {
@@ -44,6 +45,18 @@ namespace Gestione.Tests.Controllers {
 
             // Assert
             Assert.IsNotNull(result);
+        }
+		[TestMethod]
+        public void Corso() {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.Corso() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+			Assert.IsNotNull(result.ViewBag.Lezioni);
         }
     }
 }

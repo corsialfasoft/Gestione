@@ -33,7 +33,7 @@ namespace DAO{
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, int idUtente);
+        List<Corso>SearchCorsi(string descrizione, string idUtente);
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
@@ -76,9 +76,6 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-		public void Iscriviti(int idCorso,int idStudente) {
-			throw new NotImplementedException();
-		}
 
 		public List<Corso> ListaCorsi() {
 			throw new NotImplementedException();
@@ -105,15 +102,31 @@ namespace DAO{
 		}
 
 		public Corso SearchCorsi(int idCorso) {
-			throw new NotImplementedException();
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			return 	new Corso(1,"sto descrivendo questo corso", leziones);
 		}
+		
+		public void Iscriviti(int idCorso,int idStudente) {}
 
 		public List<Corso> SearchCorsi(string descrizione) {
-			throw new NotImplementedException();
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			
+			List<Corso> list = new List<Corso>();
+			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			return list;
 		}
 
-		public List<Corso> SearchCorsi(string descrizione,int idUtente) {
-			throw new NotImplementedException();
+		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			List<Corso> list = new List<Corso>();
+			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			return list;
 		}
 
 		public List<CV> SearchEta(int eta) {
