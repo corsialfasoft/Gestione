@@ -9,7 +9,9 @@ using Interfaces;
 namespace Gestione.Controllers {
     public partial class  HomeController : Controller {
 		public ActionResult ElencoCorsi(){
-			ViewBag.Message =" Ciao ecco i corsi disponibili!";
+			//ViewBag.Message =" Ciao ecco i corsi disponibili!";
+			ViewBag.Controllo=null;	
+
 			DomainModel dm = new DomainModel();
 			Corso c = new Corso();
 			c.Id= 2;
@@ -26,20 +28,29 @@ namespace Gestione.Controllers {
 			DomainModel dm = new DomainModel();
 			int id ;
 			if(int.TryParse(descrizione,out id) && !mieiCorsi){		// Cerca Per iD corso
+				
 				Corso c = dm.SearchCorsi(id);
 				ViewBag.Corso = c;
 				ViewBag.Lezioni = c.Lezioni;
 				return View("Corso");
 			}else if(descrizione!="" && mieiCorsi){
+				ViewBag.Controllo=true;	
+				ViewBag.Message="Ecco i tuoi risultati della ricerca";
 				ViewBag.Corsi = dm.SearchCorsi(descrizione , p.Matricola);
 				return View("ElencoCorsi");
 			}else if(descrizione=="" && mieiCorsi){
+				ViewBag.Controllo=true;					
+				ViewBag.Message="Ecco i tuoi risultati della ricerca";
 				ViewBag.Corsi = dm.ListaCorsi(p.Matricola);
 				return View("ElencoCorsi");
 			}else if(descrizione!="" && !mieiCorsi){
+				ViewBag.Controllo=true;
+				ViewBag.Message="Ecco i tuoi risultati della ricerca";
 				ViewBag.Corsi= dm.SearchCorsi(descrizione);
 				return View("ElencoCorsi");
 			}else if(descrizione=="" && !mieiCorsi){
+				ViewBag.Controllo=false;		
+				ViewBag.Message="Casso hai sbagliato";
 				ViewBag.Corsi= dm.ListaCorsi();
 				return View("ElencoCorsi");
 			}else{

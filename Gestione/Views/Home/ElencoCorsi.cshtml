@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-lg-6">
-            @ViewBag.Message;
+            @ViewBag.Message
 
         </div>
         <div class="col-md-6" style="text-align:right">
@@ -18,11 +18,17 @@
                     @Html.CheckBox("mieiCorsi",true)
                     <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
                     <input type="submit" value="Cerca">
-}
+             }
 
         </div>
     </div>
-    <div>
+        @if(ViewBag.Controllo==true){
+             <div class="alert alert-success" role="alert">@ViewBag.Message</div>
+
+        } else if(ViewBag.Controllo==false) {
+             <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
+        }else{
+        }<div>
         <div class=" container">
             <ul class="list-group">
                 @foreach(var corso in ViewBag.Corsi) {
