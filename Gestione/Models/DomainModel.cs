@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
 using DAO;
+using Gestione.Controllers;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
@@ -93,9 +94,25 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
-			Giorno result  = new DataAccesObject().VisualizzaGiorno(data, idUtente);
-            return result;
+		public DTGGiorno VisualizzaGiorno(DateTime data,string idUtente) {
+            Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
+            if (giornoInterface!=null) {
+                DTGGiorno DTgiorno = new DTGGiorno();
+                DTgiorno.data = giornoInterface.Data;
+                DTgiorno.OrePermesso = giornoInterface.HPermesso;
+                DTgiorno.OreMalattia = giornoInterface.HMalattia;
+                DTgiorno.OreFerie = giornoInterface.HFerie;
+                foreach(OreCommessa orecommessa in giornoInterface.OreLavorate) {
+                    OreLavorate orelavorate = new OreLavorate();
+                    orelavorate.nome = orecommessa.Nome;
+                    orelavorate.oreGiorno = orecommessa.Ore;
+                    orelavorate.descrizione = orecommessa.Descrizione;
+                    DTgiorno.OreLavorate.Add(orelavorate);
+                }
+                DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
+                return DTgiorno;
+            }
+            return null;
 		}
 	}
 }

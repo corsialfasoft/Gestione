@@ -1,4 +1,7 @@
 ﻿@using System;
+@using Interfaces;
+@using DAO;
+@using Gestione.Controllers;
 
 @{
     ViewBag.Title = "Dettagli Del Giorno";
@@ -10,13 +13,13 @@
 
 <div>
     <form action="/Home/VisualizzaGiorno" method="post">
-        <input type="date" name="data" id="data"/>
-        <input type="submit"/>
+        <input type="date" name="data" id="data" />
+        <input type="submit" />
     </form>
 </div>
 <br>
 
-@if (ViewBag.giorno!=null) {
+@if(ViewBag.giorno != null) {
     <div class="panel panel-default">
         <div class="panel-heading">@ViewBag.giorno.data</div>
         <table>
@@ -27,23 +30,26 @@
                 <td>Ore Commessa</td>
                 <td>Note</td>
             </tr>
-
+            @foreach(OreLavorate orelavorate in ViewBag.giorno.OreLavorate) {
             <tr>
-                <td>ORE LAVORATE</td>
-                <td>4</td>
-                <td>commessa1</td>
-                <td>2</td>
-                <td>Sviluppa UI cdu001</td>
+                <td>Ore Lavorate</td>
+                <td>@orelavorate.nome</td>
+                <td>@orelavorate.oreGiorno</td>
+                <td>@orelavorate.descrizione</td>
+            </tr>
+            }
+            <tr>
+                <td>Ore Permesso</td>
+                <td>@ViewBag.giorno.OrePermesso</td>
             </tr>
             <tr>
-                <td colspan="2"></td>
-                <td>commessa2</td>
-                <td>1</td>
-                <td>non è importante</td>
+                <td>Ore Malattia</td>
+                <td>@ViewBag.giorno.OreMalattia</td>
+            </tr>
+            <tr>
+                <td>Ore Ferie</td>
+                <td>@ViewBag.giorno.OreFerie</td>
             </tr>
         </table>
-    </div>
-    <div class="panel-heading" style="">
-        Tipo Ore Ore Commessa Ore Commessa Descrizione Commessa Ore Lavoro Ore Permesso Ore Malattia Ore Ferie           
     </div>
 }

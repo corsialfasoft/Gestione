@@ -18,7 +18,7 @@ namespace DAO{
 	
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
-		Giorno VisualizzaGiorno(DateTime data, int idUtente);
+		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
@@ -136,15 +136,19 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
-            Commessa commessa1 = new Commessa(1, 2, "MVC", 3, "Iniziato progetto MVC");
-            Commessa commessa2 = new Commessa(2, 1, "Rubrica MVC", 1, "Implementata Rubrica in MVC");
-            Commessa commessa3 = new Commessa(3, 1, "Contatti", 1, "Implementata la classe Contatti");
-            Giorno giornofake = new Giorno(data, 2, 2, 0, null, idUtente);
-            giornofake.AddCommessa(commessa1);
-            giornofake.AddCommessa(commessa2);
-            giornofake.AddCommessa(commessa3);
-			return giornofake;
+		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
+            Giorno result;
+            Commessa commessa1 = new Commessa(1, "MVC", "lavorato su proj mvc", 40, 2);
+            Commessa commessa2 = new Commessa(2, "Rubrica", "lavorato su Rubrica.cs", 40, 1);
+            Commessa commessa3 = new Commessa(3, "EF", "lavorato su proj ef", 30, 1);
+            OreCommessa orecommessa1 = new OreCommessa(1, commessa1.OreLavorate, commessa1.Nome, commessa1.Descrizione);
+            OreCommessa orecommessa2 = new OreCommessa(2, commessa2.OreLavorate, commessa2.Nome, commessa2.Descrizione);
+            OreCommessa orecommessa3 = new OreCommessa(3, commessa3.OreLavorate, commessa3.Nome, commessa3.Descrizione);
+            result = new Giorno(data, 2, 2, 0, idUtente);
+            result.AddOreCommessa(orecommessa1);
+            result.AddOreCommessa(orecommessa2);
+            result.AddOreCommessa(orecommessa3);
+            return result;
 		}
 	}
 }
