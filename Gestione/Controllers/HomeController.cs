@@ -51,7 +51,7 @@ namespace Gestione.Controllers {
 
 			return View();
 		}
-		public ActionResult Corso(int id=1) {
+		public ActionResult Corso(int id) {
 			DomainModel dm = new DomainModel();
 			Corso scelto = dm.SearchCorsi(id);
 			List<Lezione> lezions = new List<Lezione>();
