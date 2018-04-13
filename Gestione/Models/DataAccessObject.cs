@@ -33,11 +33,11 @@ namespace DAO{
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, int idUtente);
+        List<Corso>SearchCorsi(string descrizione, string idUtente);
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(int idUtente);
+        List<Corso>ListaCorsi(string idUtente);
     }
 	public partial class DataAccesObject : IDao {
 		public void AddCorso(Corso corso) {
@@ -76,16 +76,45 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-		public void Iscriviti(int idCorso,int idStudente) {
-			throw new NotImplementedException();
-		}
 
 		public List<Corso> ListaCorsi() {
-			throw new NotImplementedException();
+			Corso c = new Corso();
+			c.Nome = "c#";
+			c.Descrizione= "Corso di programmazione su Asp.Net";
+			c.Id = 1 ;
+			Corso d = new Corso();
+			d.Nome= "Java";
+			d.Descrizione= "Corso alla proggrammazione OO";
+			d.Id=2;
+			Corso e = new Corso();
+			e.Nome = "Javascripppto";
+			e.Descrizione ="Corso alla programazione su javascripttto";
+			e.Id = 3;
+			List<Corso> result = new List<Corso>();
+			result.Add(c);
+			result.Add(d);
+			result.Add(e);
+			return result;
 		}
 
-		public List<Corso> ListaCorsi(int idUtente) {
-			throw new NotImplementedException();
+		public List<Corso> ListaCorsi(string idUtente) {
+			Corso c = new Corso();
+			c.Nome = "c#";
+			c.Descrizione= "Corso di cerca idutente programmazione su Asp.Net";
+			c.Id = 1 ;
+			Corso d = new Corso();
+			d.Nome= "Java";
+			d.Descrizione= "Corso alla c proggrammazione OO cerca idutente";
+			d.Id=2;
+			Corso e = new Corso();
+			e.Nome = "Javascripppto";
+			e.Descrizione ="Corso alla programazione su javascripttto cerca idutente";
+			e.Id = 3;
+			List<Corso> result = new List<Corso>();
+			result.Add(c);
+			result.Add(d);
+			result.Add(e);
+			return result;
 		}
 
 		public void ModificaCV(CV a,CV b) {
@@ -105,15 +134,31 @@ namespace DAO{
 		}
 
 		public Corso SearchCorsi(int idCorso) {
-			throw new NotImplementedException();
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			return 	new Corso(1,"sto descrivendo questo corso", leziones);
 		}
+		
+		public void Iscriviti(int idCorso,int idStudente) {}
 
 		public List<Corso> SearchCorsi(string descrizione) {
-			throw new NotImplementedException();
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			
+			List<Corso> list = new List<Corso>();
+			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			return list;
 		}
 
-		public List<Corso> SearchCorsi(string descrizione,int idUtente) {
-			throw new NotImplementedException();
+		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			List<Corso> list = new List<Corso>();
+			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			return list;
 		}
 
 		public List<CV> SearchEta(int eta) {

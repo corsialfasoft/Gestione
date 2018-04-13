@@ -1,0 +1,24 @@
+﻿@{
+        ViewBag.Title = "Lista Lezioni";
+}
+<h2>@ViewBag.Title</h2>
+<div class="text-warning">
+    <h4><b>@ViewBag.Message</b></h4>
+</div>
+<br />
+    ViewBag.Corso
+<br />
+<div class="container">
+    <ol class="list-group" start="1">
+        @foreach(var lezioni in ViewBag.Lezioni){
+             <li class="list-group-item">
+                <span>
+                    @lezioni.Nome 
+                </span>
+            </li>
+        }
+    </ol>
+<br />
+    @Html.ActionLink("Iscriviti","Iscrizione", "Home");
+    @Html.ActionLink("+ Lezione","AddLezione", "Home");
+</div>

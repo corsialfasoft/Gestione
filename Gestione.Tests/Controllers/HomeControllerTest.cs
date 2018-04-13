@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gestione;
 using Gestione.Controllers;
 
+
 namespace Gestione.Tests.Controllers {
     [TestClass]
     public class HomeControllerTest {
@@ -45,5 +46,31 @@ namespace Gestione.Tests.Controllers {
             // Assert
             Assert.IsTrue(result.ViewBag.Message=="Qualcosa è andato storto");
         }
+		[TestMethod]
+        public void Corso() {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.Corso() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+			Assert.IsNotNull(result.ViewBag.Lezioni);
+        }
+		[TestMethod]
+		public void ElencoCorsi(){
+			 HomeController controller = new HomeController();
+			 ViewResult result = controller.ElencoCorsi() as ViewResult;
+			 Assert.IsNotNull( result.ViewBag.Corsi);
+
+		}
+		[TestMethod]
+		public void ElencoCorsiParam(){
+			 HomeController controller = new HomeController();
+			 ViewResult result = controller.ElencoCorsi(true,"Pasticcione") as ViewResult;
+			 Assert.IsNotNull( result.ViewBag.Corsi);
+
+		}
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Interfaces;
+using Gestione.Models;
 
 namespace Gestione.Controllers {
     public class Profilo {
@@ -27,10 +29,10 @@ namespace Gestione.Controllers {
         public HomeController() {
             P = new Profilo("qwerty","admin",null,"ciao","mazzo");
 
-        }
-        public ActionResult Index() {
-            return View();
-        }
+		}
+		public ActionResult Index() {
+			return View();
+		}
 
         public ActionResult AddLezione() {
             return View();
@@ -39,13 +41,32 @@ namespace Gestione.Controllers {
         public ActionResult About() {
             ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+			return View();
+		}
 
-        public ActionResult Contact() {
-            ViewBag.Message = "Your contact page.";
+		public ActionResult Contact() {
+			ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-    }
+			return View();
+		}
+		public ActionResult Corso(int id=1) {
+			DomainModel dm = new DomainModel();
+			Interfaces.Corso scelto = dm.SearchCorsi(id);
+			List<Lezione> lezions = new List<Lezione>();
+			foreach(Lezione l in scelto.Lezioni) {
+				lezions.Add(l);
+			}
+			ViewBag.Lezioni = lezions;
+			return View();
+		}
+		public ActionResult Iscrizione(int idCorso=1,int idStudente=1) {
+			DomainModel dm = new DomainModel();
+			try {
+				dm.Iscriviti(idCorso,idStudente);
+			} catch(Exception e) {
+				ViewBag.Message = e.Message;
+			}
+			return View();
+		}
+	}
 }
