@@ -76,9 +76,6 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-		public void Iscriviti(int idCorso,int idStudente) {
-			throw new NotImplementedException();
-		}
 
 		public List<Corso> ListaCorsi() {
 			Corso c = new Corso();
@@ -137,51 +134,31 @@ namespace DAO{
 		}
 
 		public Corso SearchCorsi(int idCorso) {
-			Corso c = new Corso();
-			c.Id=4;
-			c.Nome="C";
-			c.Descrizione= "Search corso per idCorso!";
-			return c;
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			return 	new Corso(1,"sto descrivendo questo corso", leziones);
 		}
+		
+		public void Iscriviti(int idCorso,int idStudente) {}
 
 		public List<Corso> SearchCorsi(string descrizione) {
-				Corso c = new Corso();
-			c.Nome = "c#";
-			c.Descrizione= "Corso di cerca idutente programmazione su Asp.Net descrizione";
-			c.Id = 1 ;
-			Corso d = new Corso();
-			d.Nome= "Java";
-			d.Descrizione= "Corso alla c proggrammazione OO  descrizione";
-			d.Id=2;
-			Corso e = new Corso();
-			e.Nome = "Javascripppto";
-			e.Descrizione ="Corso alla programazione su javascripttto descrizione";
-			e.Id = 3;
-			List<Corso> result = new List<Corso>();
-			result.Add(c);
-			result.Add(d);
-			result.Add(e);
-			return result;
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			
+			List<Corso> list = new List<Corso>();
+			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			return list;
 		}
 
 		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
-				Corso c = new Corso();
-			c.Nome = "c#";
-			c.Descrizione= "Corso di cerca idutente programmazione su Asp.Net";
-			c.Id = 1 ;
-			Corso d = new Corso();
-			d.Nome= "Java";
-			d.Descrizione= "Corso alla c proggrammazione OO descrizione  cerca idutente";
-			d.Id=2;
-			Corso e = new Corso();
-			e.Nome = "Javascripppto";
-			e.Descrizione ="Corso alla programazione su javascripttto descrizione cerca idutente";
-			e.Id = 3;
-			List<Corso> result = new List<Corso>();
-			result.Add(c);
-			result.Add(d);
-			result.Add(e);
-			return result;
+			List<Lezione> leziones = new List<Lezione>();
+			Lezione l = new Lezione("mock");
+			leziones.Add(l);
+			List<Corso> list = new List<Corso>();
+			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			return list;
 		}
 
 		public List<CV> SearchEta(int eta) {
