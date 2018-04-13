@@ -23,7 +23,7 @@ namespace Gestione.Controllers {
         }
         public Profilo(){ }
     }
-    public class HomeController : Controller {
+    public partial class HomeController : Controller {
         DomainModel dm = new DomainModel();
         Profilo P;
         public HomeController() {
