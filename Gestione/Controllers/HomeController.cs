@@ -34,7 +34,8 @@ namespace Gestione.Controllers {
 			return View();
 		}
 
-        public ActionResult AddLezione() {
+        public ActionResult AddLezione(string id) {
+            ViewBag.Message = id;
             return View();
         }
 
@@ -56,6 +57,7 @@ namespace Gestione.Controllers {
 			foreach(Lezione l in scelto.Lezioni) {
 				lezions.Add(l);
 			}
+            ViewBag.Corso = scelto;
 			ViewBag.Lezioni = lezions;
 			return View();
 		}

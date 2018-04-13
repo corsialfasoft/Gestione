@@ -17,8 +17,8 @@ namespace Gestione.Models{
 			return result;
 		}
 		public Corso SearchCorsi(int idCorso){
-			DataAccesObject dto = new DataAccesObject();
-			Corso result = dto.SearchCorsi(idCorso);
+			DataAccesObject dao = new DataAccesObject();
+			Corso result = dao.SearchCorsi(idCorso);
 			return result;
 		}
 		public List<Corso> SearchCorsi (string descrizione){
