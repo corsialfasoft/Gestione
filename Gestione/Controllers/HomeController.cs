@@ -54,36 +54,39 @@ namespace Gestione.Controllers {
             }
             return View(prossimo);
         }
-        [HttpPost]
-        public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
+
+        private CV InitCV(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello) {
-                CV cv = new CV();
-                cv.nome = nome;
-                cv.cognome = cognome;
-                cv.eta = int.Parse(eta);
-                cv.email = email;
-                cv.residenza = residenza;
-                cv.telefono = telefono;
-                EspLav esp = new EspLav();
-                esp.AnnoInizio = Convert.ToDateTime(annoinizioesp);
-                esp.AnnoFine = Convert.ToDateTime(annofinesp);
-                esp.qualifica = qualifica;
-                esp.descrizione = descrizionesp;
-                cv.esperienze.Add(esp);
-                PerStud percorso = new PerStud();
-                percorso.AnnoInizio = Convert.ToDateTime(annoinizio);
-                percorso.AnnoFine = Convert.ToDateTime(annofine);
-                percorso.titolo = titolo;
-                percorso.descrizione = descrizione;
-                cv.percorsostudi.Add(percorso);
-                Competenza comp = new Competenza();
-                comp.titolo = tipo;
-                comp.livello = int.Parse(livello);
-                cv.competenze.Add(comp);
-                return cv;
-
+                try{
+                    CV cv = new CV();
+                    cv.nome = nome;
+                    cv.cognome = cognome;
+                    cv.eta = int.Parse(eta);
+                    cv.email = email;
+                    cv.residenza = residenza;
+                    cv.telefono = telefono;
+                    EspLav esp = new EspLav();
+                    esp.AnnoInizio = int.Parse(annoinizioesp);
+                    esp.AnnoFine = int.Parse(annofinesp);
+                    esp.qualifica = qualifica;
+                    esp.descrizione = descrizionesp;
+                    cv.esperienze.Add(esp);
+                    PerStud percorso = new PerStud();
+                    percorso.AnnoInizio = int.Parse(annoinizio);
+                    percorso.AnnoFine = int.Parse(annofine);
+                    percorso.titolo = titolo;
+                    percorso.descrizione = descrizione;
+                    cv.percorsostudi.Add(percorso);
+                    Competenza comp = new Competenza();
+                    comp.titolo = tipo;
+                    comp.livello = int.Parse(livello);
+                    cv.competenze.Add(comp);
+                    return cv;
+            } catch(Exception e) {
+                throw e;
+            }
         }
         
         [HttpPost]
@@ -92,20 +95,25 @@ namespace Gestione.Controllers {
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello
             ) {
-            if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
-                && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
-                && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
-                if(int.TryParse(eta, out int Eta)){
-                    dm.AggiungiCV(InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,
-                        annofine,titolo,descrizione,annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
-                    ViewBag.Message = "Curriculum Aggiunto";
-                    return View("MyPage");
-                } else {
-                    ViewBag.Message = "Eta' non valida";
+            try{
+                if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
+                    && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
+                    && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
+                    if(int.TryParse(eta, out int Eta)){
+                        dm.AggiungiCV(InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,
+                            annofine,titolo,descrizione,annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
+                        ViewBag.Message = "Curriculum Aggiunto";
+                        return View("MyPage");
+                    } else {
+                        ViewBag.Message = "Eta' non valida";
+                        return View("DettaglioCurriculum");
+                    }
+                } else{
+                    ViewBag.Message = "Campi obbligatori da inserire...";
                     return View("DettaglioCurriculum");
                 }
-            } else{
-                ViewBag.Message = "Campi obbligatori da inserire...";
+            } catch(Exception) {
+                ViewBag.Message = "Qualcosa è andato storto";
                 return View("DettaglioCurriculum");
             }
         }
@@ -114,26 +122,37 @@ namespace Gestione.Controllers {
         public ActionResult ModificaCurriculum(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
-            string descrizionesp,string tipo,string livello
+            string descrizionesp,string tipo,string livello,string id
             ) {
-            if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
-                && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
-                && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
-                if(int.TryParse(eta, out int Eta)){
-                    dm.ModificaCV(InitCV(ViewBag.CV.nome,ViewBag.CV.cognome,
-                        ViewBag.CV.eta,ViewBag.CV.email,ViewBag.CV.residenza,ViewBag.CV.telefono,ViewBag.CV.annoinizio,
-                        ViewBag.CV.annofine,ViewBag.CV.titolo,ViewBag.CV.descrizione,ViewBag.CV.annoinizioesp,
-                        ViewBag.CV.annofinesp,ViewBag.CV.qualifica,ViewBag.CV.descrizionesp,ViewBag.CV.tipo,ViewBag.CV.livello),
-                        InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,annofine,titolo,descrizione,
-                        annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
-                    ViewBag.Message = "Curriculum Modificato";
-                    return View("MyPage");
+            try{
+                if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
+                    && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
+                    && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
+                    if(int.TryParse(eta, out int Eta)){
+                        dm.ModificaCV(InitCV(ViewBag.CV.nome,ViewBag.CV.cognome,
+                            ViewBag.CV.eta,ViewBag.CV.email,ViewBag.CV.residenza,ViewBag.CV.telefono,ViewBag.CV.annoinizio,
+                            ViewBag.CV.annofine,ViewBag.CV.titolo,ViewBag.CV.descrizione,ViewBag.CV.annoinizioesp,
+                            ViewBag.CV.annofinesp,ViewBag.CV.qualifica,ViewBag.CV.descrizionesp,ViewBag.CV.tipo,ViewBag.CV.livello),
+                            InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,annofine,titolo,descrizione,
+                            annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
+                        ViewBag.Message = "Curriculum Modificato";
+                        return View("MyPage");
+                    } else {
+		        	    CV trovato = dm.Search(P.Matricola);
+                         ViewBag.CV = trovato;
+                        ViewBag.Message = "Eta' non valida";
+                        return View("DettaglioCurriculum");
+                    }
                 } else {
-                    ViewBag.Message = "Eta' non valida";
+			        CV trovato = dm.Search(P.Matricola);
+                    ViewBag.CV = trovato;
+                    ViewBag.Message = "Campi obbligatori da inserire...";
                     return View("DettaglioCurriculum");
                 }
-            } else {
-                ViewBag.Message = "Campi obbligatori da inserire...";
+            } catch(Exception) {
+			    CV trovato = dm.Search(P.Matricola);
+                ViewBag.CV = trovato;
+                ViewBag.Message = "Qualcosa è andato storto.";
                 return View("DettaglioCurriculum");
             }
         }

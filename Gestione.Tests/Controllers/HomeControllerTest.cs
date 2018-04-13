@@ -33,6 +33,21 @@ namespace Gestione.Tests.Controllers {
 			Assert.IsTrue(result.ViewBag.CV.telefono == "3391627441");
 			Assert.IsTrue(result.ViewBag.CV.eta == 33);
 		}
+		  [TestMethod]
+		public void RicercaCurriculum()
+		{
+			HomeController controller = new HomeController();
+			ViewResult result = controller.RicercaCurriculum() as ViewResult;
+			controller.RicercaCurriculum("truzzotunztunz","","","","");
+			Assert.IsTrue(result.ViewBag.CV != null);
+			Assert.IsTrue(result.ViewBag.CV.Count == 3);
+			controller.RicercaCurriculum("","22","","","");
+			Assert.IsTrue(result.ViewBag.CV.Count==3);
+			controller.RicercaCurriculum("","","18","24","");
+			Assert.IsTrue(result.ViewBag.CV.Count==3);
+			controller.RicercaCurriculum("","","","","Franzoso");
+			Assert.IsTrue(result.ViewBag.CV.Count==1);
+		}
         [TestMethod]
 		public void EliminaCVTest()
 		{
