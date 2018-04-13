@@ -42,7 +42,7 @@ namespace Gestione.Controllers {
 			if (chiava != "") {
 				trovati = dm.SearchChiava(chiava);
 				if (trovati.Count > 0) {
-					ViewBag.CV= trovati;
+					ViewBag.ListaCV= trovati;
 					return View("ListaCurriculum");
 				}
 				ViewBag.Message="Non è stato trovato nessun elemento";
@@ -50,7 +50,7 @@ namespace Gestione.Controllers {
 			}else if(eta != "" && int.TryParse(eta,out codice)) {
 				trovati = dm.SearchEta(codice);
 				if (trovati.Count > 0) {
-					ViewBag.CV= trovati;
+					ViewBag.ListaCV= trovati;
 					return View("ListaCurriculum");
 				}
 				ViewBag.Message="Non è stato trovato nessun elemento";
@@ -66,7 +66,7 @@ namespace Gestione.Controllers {
 				trovati = dm.SearchRange(etaMinima,etaMassima);
 				if (trovati.Count > 0) {
 					
-					ViewBag.CV= trovati;
+					ViewBag.ListaCV= trovati;
 					return View("ListaCurriculum");
 				}
 				ViewBag.Message="Non è stato trovato nessun elemento";
@@ -74,7 +74,7 @@ namespace Gestione.Controllers {
 			}else if(cognome!="") {
 				trovati = dm.SearchCognome(cognome);
 				if(trovati.Count > 0) {
-					ViewBag.CV=trovati;
+					ViewBag.ListaCV=trovati;
 					return View("ListaCurriculum");
 				} else {
 					ViewBag.Message="Non è stato trovato nessun elemento";
