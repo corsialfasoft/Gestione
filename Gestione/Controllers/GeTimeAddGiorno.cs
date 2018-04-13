@@ -9,12 +9,12 @@ using Gestione.Models;
 namespace Gestione.Controllers {
 	public partial class HomeController : Controller {
 		public ActionResult AddGiorno() {
-			return View("GeTimeAddGiorno");
+			return View("AddGiorno");
 		}
 		[HttpPost]
 		public ActionResult AddGiorno(DateTime dateTime, string tipoOre, int ore, string Commessa) {
 			ViewBag.GeCoDataTime = dateTime;
-			ViewBag.GeCoDataType = tipoOre;
+			ViewBag.GeCoTypeOre = tipoOre;
 			ViewBag.GeCoOre = ore;
 			DomainModel dm = new DomainModel();
 			//ViewBag.GeCoIdCommessa = dm.CercaCommessa(Commessa).Id;
@@ -34,7 +34,7 @@ namespace Gestione.Controllers {
 				dm.Compila(dateTime, ore, tOre, "idUtente");
 			}
 			//ViewBag.GeCoIdCommessa = 3;
-			ViewBag.EsitoAddGiorno = ore + " Ore aggiunte!";
+			ViewBag.EsitoAddGiorno = ore + " " + tipoOre + " aggiunte!";
 
 			/*< option value = "Ore di ferie" >
 
@@ -46,7 +46,7 @@ namespace Gestione.Controllers {
 			/*CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente)
 					Compila(DateTime data, int ore, HType tipoOre, string idUtente)*/
 
-			return View("GeTimeAddGiorno");
+			return View("AddGiorno");
 		}
 	}
 }
