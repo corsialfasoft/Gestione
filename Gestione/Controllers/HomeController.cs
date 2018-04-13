@@ -12,6 +12,8 @@ namespace Gestione.Controllers {
         public string Nome { get; set; }
         public string Cognome { get; set; }
 
+		public Profilo(){}
+
         public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
             Matricola = matricola;
             Ruolo = ruolo;
@@ -24,7 +26,7 @@ namespace Gestione.Controllers {
     public partial class HomeController : Controller {
         Profilo P;
         public HomeController() {
-            P = new Profilo();
+            P = new Profilo("qwerty","admin",null,"ciao","mazzo");
 
         }
         public ActionResult Index() {
