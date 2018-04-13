@@ -7,13 +7,13 @@
 <div class="containter">
     @using(Html.BeginForm("EliminaCV","Home",FormMethod.Post)) {
         <div class="row">
-            @if(ViewBag.ListaCV != null) {
-                foreach(var cv in ViewBag.ListaCV) {
+            @if(ViewBag.CV != null) {
+                foreach(var cv in ViewBag.CV) {
                     <div class="col-md-3">
-                        <a class="btn btn-default" href="/Home/DettaglioCurriculum.cshtml">Dettaglio</a>
+                        <a class="btn btn-default" href="/Home/DettaglioCurriculum.cshtml" >Dettaglio</a>
                         <input class="btn btn-default" type="submit" value="Elimina" />
-                        <input id="nome" name="nome" type="text" placeholder="@ViewBag.cv.nome" />
-                        <input id="cognome" name="cognome" type="text" placeholder="@ViewBag.cv.cognome" />
+                        <input id="nome" name="nome" type="text" placeholder="@cv.nome" />
+                        <input id="cognome" name="cognome" type="text" placeholder="@cv.cognome" />
                     </div>
                 }
             }
