@@ -53,6 +53,7 @@ namespace Interfaces{
         public DateTime Fine {get;set;}
         public List<Studente> Studenti{get;set;}
         public List<Lezione> Lezioni{get;set;}
+		public Corso(){}
 		public Corso(int id,string descrizione, List<Lezione> leziones ){
 			this.Id = id;
 			this.Descrizione = descrizione;
@@ -64,7 +65,7 @@ namespace Interfaces{
         public string Nome {get;set;}
         public string Descrizione{get;set;}
         public int Durata{get;set;}
-		
+		public Lezione(){}
 		public Lezione(string nome){
 			this.Nome = nome;
 		}

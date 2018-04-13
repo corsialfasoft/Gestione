@@ -51,7 +51,7 @@ namespace Gestione.Controllers {
 		}
 		public ActionResult Corso(int id=1) {
 			DomainModel dm = new DomainModel();
-			Interfaces.Corso scelto = dm.SearchCorsi(id);
+			Corso scelto = dm.SearchCorsi(id);
 			List<Lezione> lezions = new List<Lezione>();
 			foreach(Lezione l in scelto.Lezioni) {
 				lezions.Add(l);

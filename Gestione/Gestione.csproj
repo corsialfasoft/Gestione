@@ -150,7 +150,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccessObject.cs" />
-    <Compile Include="Models\Corso.cs" />
     <Compile Include="Models\GeCoAddCorso.cs" />
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\GeCoAddLezione.cs" />

@@ -36,12 +36,12 @@ namespace Gestione.Controllers {
 			}else if(descrizione!="" && mieiCorsi){
 				ViewBag.Controllo=true;	
 				ViewBag.Message="Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi = dm.SearchCorsi(descrizione , p.Matricola);
+				ViewBag.Corsi = dm.SearchCorsi(descrizione , P.Matricola);
 				return View("ElencoCorsi");
 			}else if(descrizione=="" && mieiCorsi){
 				ViewBag.Controllo=true;					
 				ViewBag.Message="Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi = dm.ListaCorsi(p.Matricola);
+				ViewBag.Corsi = dm.ListaCorsi(P.Matricola);
 				return View("ElencoCorsi");
 			}else if(descrizione!="" && !mieiCorsi){
 				ViewBag.Controllo=true;

@@ -5,14 +5,7 @@ using DAO;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime {
-		public void AddCorso(Interfaces.Corso corso) {
-			throw new NotImplementedException();
-		}
-
-		public void AddLezione(int idCorso,Lezione lezione) {
-			throw new NotImplementedException();
-		}
-
+		
 		public void AggiungiCV(CV a) {
 			throw new NotImplementedException();
 		}
@@ -51,10 +44,6 @@ namespace Gestione.Models{
 		}
 
 		
-
-		public List<Interfaces.Corso> ListaCorsi(int idUtente) {
-			throw new NotImplementedException();
-		}
 
 		public void ModificaCV(CV a,CV b) {
 			throw new NotImplementedException();
