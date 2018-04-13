@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
+using DAO;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
@@ -111,9 +112,9 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public Giorno VisualizzaGiorno(DateTime data,int idUtente)
-		{
-			throw new NotImplementedException();
+		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
+			Giorno result  = new DataAccesObject().VisualizzaGiorno(data, idUtente);
+            return result;
 		}
 	}
 }

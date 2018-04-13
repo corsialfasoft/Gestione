@@ -1,12 +1,49 @@
-﻿@{
-    ViewBag.Title = "Dettagli Data";
+﻿@using System;
+
+@{
+    ViewBag.Title = "Dettagli Del Giorno";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 <div>
     <h3>@ViewBag.Message</h3>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">ViewBag.Data.data</div>
-    
+<div>
+    <form action="/Home/VisualizzaGiorno" method="post">
+        <input type="date" name="data" id="data"/>
+        <input type="submit"/>
+    </form>
 </div>
+<br>
+
+@if (ViewBag.giorno!=null) {
+    <div class="panel panel-default">
+        <div class="panel-heading">@ViewBag.giorno.data</div>
+        <table>
+            <tr>
+                <td>Tipo Ore</td>
+                <td>Ore Totali</td>
+                <td>Commessa</td>
+                <td>Ore Commessa</td>
+                <td>Note</td>
+            </tr>
+
+            <tr>
+                <td>ORE LAVORATE</td>
+                <td>4</td>
+                <td>commessa1</td>
+                <td>2</td>
+                <td>Sviluppa UI cdu001</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td>commessa2</td>
+                <td>1</td>
+                <td>non è importante</td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel-heading" style="">
+        Tipo Ore Ore Commessa Ore Commessa Descrizione Commessa Ore Lavoro Ore Permesso Ore Malattia Ore Ferie           
+    </div>
+}

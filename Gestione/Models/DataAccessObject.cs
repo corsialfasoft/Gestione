@@ -125,7 +125,14 @@ namespace DAO{
 		}
 
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
-			throw new NotImplementedException();
+            Commessa commessa1 = new Commessa(1, 2, "MVC", 3, "Iniziato progetto MVC");
+            Commessa commessa2 = new Commessa(2, 1, "Rubrica MVC", 1, "Implementata Rubrica in MVC");
+            Commessa commessa3 = new Commessa(3, 1, "Contatti", 1, "Implementata la classe Contatti");
+            Giorno giornofake = new Giorno(data, 2, 2, 0, null, idUtente);
+            giornofake.AddCommessa(commessa1);
+            giornofake.AddCommessa(commessa2);
+            giornofake.AddCommessa(commessa3);
+			return giornofake;
 		}
 	}
 }

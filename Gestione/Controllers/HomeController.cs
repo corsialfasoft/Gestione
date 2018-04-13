@@ -47,5 +47,18 @@ namespace Gestione.Controllers {
         public ActionResult VisualizzaGiorno() {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult VisualizzaGiorno(DateTime data) {
+            DTGiorno giorno = new DTGiorno();
+            giorno.data = data;
+            giorno.OreLavoro = new OreLavoro();
+            giorno.OrePermesso = 2;
+            giorno.OreMalattia = 2;
+            giorno.OreFerie = 0;
+
+            ViewBag.giorno = giorno;
+            return View();
+        }
     }
 }
