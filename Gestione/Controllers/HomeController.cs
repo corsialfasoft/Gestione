@@ -5,7 +5,27 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace Gestione.Controllers {
+    public class Profilo {
+        public string Matricola { get; set; }
+        public string Ruolo { get; set; }
+        public List<String> Funzioni { get; set; }
+        public string Nome { get; set; }
+        public string Cognome { get; set; }
+
+        public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
+            Matricola = matricola;
+            Ruolo = ruolo;
+            Funzioni = funzioni;
+            Nome = nome;
+            Cognome = cognome;
+        }
+    }
     public class HomeController : Controller {
+        Profilo P;
+        public HomeController() {
+            P = new Profilo();
+
+        }
         public ActionResult Index() {
             return View ();
         }
