@@ -47,7 +47,30 @@ namespace Gestione.Controllers {
                 && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
                 && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
                 if(int.TryParse(eta, out int Eta)){
-                    dm.AggiungiCV(new CV());
+                    CV cv = new CV();
+                    cv.nome = nome;
+                    cv.cognome = cognome;
+                    cv.eta = int.Parse(eta);
+                    cv.email = email;
+                    cv.residenza = residenza;
+                    cv.telefono = telefono;
+                    EspLav esp = new EspLav();
+                    esp.AnnoInizio = Convert.ToDateTime(annoinizioesp);
+                    esp.AnnoFine = Convert.ToDateTime(annofinesp);
+                    esp.qualifica = qualifica;
+                    esp.descrizione = descrizionesp;
+                    cv.esperienze.Add(esp);
+                    PerStud percorso = new PerStud();
+                    percorso.AnnoInizio = Convert.ToDateTime(annoinizio);
+                    percorso.AnnoFine = Convert.ToDateTime(annofine);
+                    percorso.titolo = titolo;
+                    percorso.descrizione = descrizione;
+                    cv.percorsostudi.Add(percorso);
+                    Competenza comp = new Competenza();
+                    comp.titolo = tipo;
+                    comp.livello = int.Parse(livello);
+                    cv.competenze.Add(comp);
+                    dm.AggiungiCV(cv);
                     ViewBag.Message = "Curriculum Aggiunto";
                     return View("MyPage");
                 } else {
