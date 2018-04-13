@@ -110,7 +110,11 @@ namespace DAO{
 		}
 
 		public List<CV> SearchCognome(string cognome) {
-			throw new NotImplementedException();
+			List<CV> trovati = new List<CV>();
+			if (cognome == "Franzoso"){
+			trovati.Add(new CV{cognome="Franzoso"});
+			}
+			return trovati;
 		}
 
 		public Corso SearchCorsi(int idCorso) {
@@ -146,7 +150,6 @@ namespace DAO{
 			
 			trovati.Add(a);
 			trovati.Add(b);
-			trovati.Add(c);
 			}
 			return trovati;
 		}

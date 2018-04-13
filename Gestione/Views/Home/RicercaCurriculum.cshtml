@@ -8,20 +8,27 @@
 <h2>RicercaCurriculum</h2>
 @using(Html.BeginForm("RicercaCurriculum","Home",FormMethod.Post)) {
     <div>
-        <div>
-            <p>Effettua una riceca per parola chiave</p>
-        </div>
+
         <div class="search-container">
+            <label>Parola chiave</label>
             <input type="text" placeholder="Inserisci Parola chiava" name="chiava" />
-            <button type="submit">Cerca</button>
         </div>
     </div>
-}
-@using(Html.BeginForm("RicercaCurriculum","Home,FormMethod.Post")) {
     <div>
-        <label>Età</label>
-        <input type="text" placeholder="Inserisci l'Età" name="eta" />
-        <button type="submit">Cerca</button>
+        <label>Età Minima</label>
+        <input type="text" placeholder="Inserisci l'Età Minima" name="etaMin" />
+        <label>Età Massima</label>
+        <input type="text" placeholder="Inserisci l'Età Massima" name="etaMax" />
     </div>
+    <div>
+        <label>Età Giusta</label>
+        <input type="text" placeholder="Inserisci l'Età corretta" name="eta" />
+    </div>
+    <div>
+    <label>Cerca Per cognome</label>
+    <input type="text" placeholder="Inserisci l'Età" name="cognome" />
+    </div>
+    <button>Cerca</button>
 }
+
 
