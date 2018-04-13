@@ -34,7 +34,7 @@ namespace Interfaces{
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, int idUtente);
+        List<Corso>SearchCorsi(string descrizione,	string idUtente);
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
@@ -53,12 +53,21 @@ namespace Interfaces{
         public DateTime Fine {get;set;}
         public List<Studente> Studenti{get;set;}
         public List<Lezione> Lezioni{get;set;}
-    }
+		public Corso(int id,string descrizione, List<Lezione> leziones ){
+			this.Id = id;
+			this.Descrizione = descrizione;
+			this.Lezioni = leziones;
+		}
+		}
     public class Lezione{ 
         public int Id{get;set;}
         public string Nome {get;set;}
         public string Descrizione{get;set;}
         public int Durata{get;set;}
+		
+		public Lezione(string nome){
+			this.Nome = nome;
+		}
     }
 
 	public partial class Giorno {

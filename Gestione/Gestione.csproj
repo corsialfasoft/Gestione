@@ -149,6 +149,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccessObject.cs" />
+    <Compile Include="Models\Corso.cs" />
     <Compile Include="Models\GeCoAddCorso.cs" />
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\GeCoAddLezione.cs" />
@@ -196,6 +197,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddCorso.cshtml" />
     <Content Include="Views\Home\AddLezione.cshtml" />
+    <Content Include="Views\Home\Corso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
