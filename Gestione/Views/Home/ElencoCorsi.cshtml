@@ -28,7 +28,7 @@
                 @foreach(var corso in ViewBag.Corsi) {
                     <li class="list-group-item">
                          <span class="badge">
-                             @*@Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })*@
+                             @Html.ActionLink("DETTAGLI","ElencoCorso",new { id = corso.Id })
                          </span>
                           @corso.Id .    @corso.Nome  - @corso.Descrizione 
                     </li>

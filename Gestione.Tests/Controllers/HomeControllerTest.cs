@@ -45,5 +45,19 @@ namespace Gestione.Tests.Controllers {
             // Assert
             Assert.IsNotNull(result);
         }
+		[TestMethod]
+		public void ElencoCorsi(){
+			 HomeController controller = new HomeController();
+			 ViewResult result = controller.ElencoCorsi() as ViewResult;
+			 Assert.IsNotNull( result.ViewBag.Corsi);
+
+		}
+		[TestMethod]
+		public void ElencoCorsiParam(){
+			 HomeController controller = new HomeController();
+			 ViewResult result = controller.ElencoCorsi(true,"Pasticcione") as ViewResult;
+			 Assert.IsNotNull( result.ViewBag.Corsi);
+
+		}
     }
 }

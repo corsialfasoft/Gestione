@@ -17,8 +17,8 @@ namespace Gestione.Controllers {
 			c.Nome=" Corso sui Treni";
 			List<Corso> res = new List<Corso>();
 			res.Add(c);
-			//ViewBag.Corsi = dm.ListaCorsi();
-			ViewBag.Corsi = res;
+			ViewBag.Corsi = dm.ListaCorsi();
+			
 			return View();
 		}
 		[HttpPost]
@@ -47,13 +47,15 @@ namespace Gestione.Controllers {
 				return View();
 			}
 		}
-		[HttpPost]
-		public ActionResult ElencoCorso(int idCorso){
+		
+		public ActionResult ElencoCorso(int id){
 			DomainModel dm = new DomainModel();
-			Corso c = dm.SearchCorsi(idCorso);
-			ViewBag.Corso = c;
-			ViewBag.Lezioni = c.Lezioni;
-			return View("Corso");
+			Corso c = dm.SearchCorsi(id);
+			List<Corso> res = new List<Corso>();
+			res.Add(c);
+			ViewBag.Corsi = res;
+			//ViewBag.Lezioni = c.Lezioni;
+			return View("ElencoCorsi");
 		}
 		/*
 		[HttpPost]
