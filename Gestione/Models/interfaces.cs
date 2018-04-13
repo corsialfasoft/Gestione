@@ -62,36 +62,35 @@ namespace Interfaces{
     }
 	public partial class Giorno {
 		private string _id_utente;
-		private int[] ore = new int[3];
 		private DateTime data;
 
 		public DateTime Data { get { return data; } }
-		private List<Commessa> commesse;
-
+		private List<OreCommessa> commesse;
 		public string ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
-		public int HL { get { return TotCom(); } }
-		public int[] Ore { get => ore; set => ore = value; }
-		public List<Commessa> Commesse { get => commesse; }
+		public int HPermesso{ get;set;}
+		public int HMalattia{ get;set;}
+		public int HFerie{ get;set;}
+		public List<OreCommessa> OreLavorate { get => commesse; }
 
 
 		public Giorno(DateTime data) { this.data = data; }
 		public Giorno(DateTime data, int HP, int HM, int HF, string id_utente) {
 			this.data = data;
-			Ore[(int)HType.HPermesso] = HP;
-			Ore[(int)HType.HMalattia] = HM;
-			Ore[(int)HType.HFerie] = HF;
+			HPermesso = HP;
+			HMalattia = HM;
+			HFerie = HF;
 			_id_utente = id_utente;
 		}
 
-		public void AddCommessa(Commessa com) {
+		public void AddOreCommessa(OreCommessa com) {
 			if (commesse == null)
-				commesse = new List<Commessa>();
+				commesse = new List<OreCommessa>();
 			commesse.Add(com);
 		}
-		private int TotCom() {
+		public int TotOreLavorate() {
 			int tot = 0;
-			foreach (Commessa com in Commesse) {
-				tot += com.OreLavorate;
+			foreach (OreCommessa com in OreLavorate) {
+				tot += com.Ore;
 			}
 			return tot;
 		}
@@ -102,30 +101,40 @@ namespace Interfaces{
 			return base.GetHashCode();
 		}
 	}
-	public partial class Commessa {
-
-		public int Capacita { get => _capacita; set => _capacita = value; }
+	public partial class OreCommessa {
+		public int Id{ get;set;}
 		public string Descrizione { get => _descrizione; set => _descrizione = value; }
 		public string Nome { get => _nome; set => _nome = value; }
-		public int OreLavorate { get => oreLavorate; set => oreLavorate = value; }
+		public int Ore{ get; set; }
 
-
-		private int _id; public int Id { get; set; }
 		private int oreLavorate;
 		private string _nome;
-		private int _capacita;
 		private string _descrizione;
 
-		public Commessa(int id, int oreLavorate, string nome, int capacita, string descrizione) {
-			_id = id;
+		public OreCommessa(int id, int oreLavorate, string nome, string descrizione) {
+			Id = id;
 			this.oreLavorate = oreLavorate;
 			_nome = nome;
-			_capacita = capacita;
 			_descrizione = descrizione;
 		}
     }
+	public class Commessa {
+		public int Id { get; set; }
+		public string Descrizione { get; set; }
+		public string Nome { get; set; }
+		public int Capienza { get; set; }
+		public int OreLavorate { get; set; }
 
-    public class CV {
+		public Commessa(int id, string nome, string descrizione, int capienza, int oreLavorate) {
+			Id = id;
+			OreLavorate = oreLavorate;
+			Nome = nome;
+			Descrizione = descrizione;
+			Capienza = capienza;
+		}
+	}
+
+	public class CV {
         public string matricola;
         public string nome;
         public string cognome;

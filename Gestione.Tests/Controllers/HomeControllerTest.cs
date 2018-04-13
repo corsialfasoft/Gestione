@@ -45,5 +45,11 @@ namespace Gestione.Tests.Controllers {
             // Assert
             Assert.IsNotNull(result);
         }
-    }
+		[TestMethod]
+		public void VisualizzaCommessa() {
+			HomeController controller = new HomeController();
+			ViewResult result = controller.VisualizzaCommessa("GeTime") as ViewResult;
+			Assert.IsTrue(result.ViewBag.Giorni.Count==3);
+		}
+	}
 }
