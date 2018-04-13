@@ -3,8 +3,9 @@
     ViewBag.Title = "MyPage";
 }
 <div class="text-warning">
-<h2>MyPage</h2>
-    </div>
+    @ViewBag.Message    
+</div>
+<h2>@ViewBag.Title</h2>
 @using(Html.BeginForm()) { 
 <div>
     <input type="submit" value="Visualizza" />
