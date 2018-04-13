@@ -33,5 +33,12 @@ namespace Gestione.Tests.Controllers {
 			Assert.IsTrue(result.ViewBag.CV.telefono == "3391627441");
 			Assert.IsTrue(result.ViewBag.CV.eta == 33);
 		}
+        [TestMethod]
+		public void EliminaCVTest()
+		{
+			HomeController controller = new HomeController();
+			ViewResult result = controller.EliminaCV("ciao") as ViewResult;
+			Assert.IsTrue(result.ViewBag.Message == "Non siamo riusciti a eliminare il curriculum selezionato");
+		}
     }
 }
