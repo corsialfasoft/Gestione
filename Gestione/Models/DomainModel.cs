@@ -44,7 +44,12 @@ namespace Gestione.Models{
 
 		public void EliminaCV(CV curriculum)
 		{
-			throw new NotImplementedException();
+            DataAccesObject db = new DataAccesObject();
+            try{ 
+                db.EliminaCV(curriculum);
+            }catch(Exception e){ 
+                throw e;    
+            }
 		}
 
 		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente)
@@ -69,7 +74,8 @@ namespace Gestione.Models{
 
 		public void ModificaCV(CV a,CV b)
 		{
-			throw new NotImplementedException();
+			DataAccesObject doo = new DataAccesObject();
+            doo.ModificaCV(a,b);
 		}
 
 		public CV Search(string id)

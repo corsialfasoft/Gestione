@@ -69,6 +69,7 @@ namespace DAO{
 		}
 
 		public void EliminaCV(CV curriculum) {
+            //
 			throw new NotImplementedException();
 		}
 
@@ -89,7 +90,7 @@ namespace DAO{
 		}
 
 		public void ModificaCV(CV a,CV b) {
-			throw new NotImplementedException();
+			//
 		}
 
 		public CV Search(string id) {

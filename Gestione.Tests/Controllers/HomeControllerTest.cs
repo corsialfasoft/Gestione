@@ -48,5 +48,12 @@ namespace Gestione.Tests.Controllers {
 			controller.RicercaCurriculum("","","","","Franzoso");
 			Assert.IsTrue(result.ViewBag.CV.Count==1);
 		}
+        [TestMethod]
+		public void EliminaCVTest()
+		{
+			HomeController controller = new HomeController();
+			ViewResult result = controller.EliminaCV("ciao") as ViewResult;
+			Assert.IsTrue(result.ViewBag.Message == "Non siamo riusciti a eliminare il curriculum selezionato");
+		}
     }
 }
