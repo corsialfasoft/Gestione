@@ -36,6 +36,7 @@ namespace Gestione.Controllers {
         public ActionResult DettaglioCurriculum(){
             return View();
         }
+        [HttpPost]
         public ActionResult EliminaCV(string idCV){ 
             CV temp = dm.Search(idCV); 
             string prossimo ;
