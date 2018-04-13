@@ -12,8 +12,8 @@ namespace Gestione.Controllers {
 			return View("GeTimeAddGiorno");
 		}
 		[HttpPost]
-		public ActionResult AddGiorno(DateTime dataTime, string tipoOre, int ore, string Commessa) {
-			ViewBag.GeCoDataTime = dataTime;
+		public ActionResult AddGiorno(DateTime dateTime, string tipoOre, int ore, string Commessa) {
+			ViewBag.GeCoDataTime = dateTime;
 			ViewBag.GeCoDataType = tipoOre;
 			ViewBag.GeCoOre = ore;
 			DomainModel dm = new DomainModel();
@@ -22,16 +22,16 @@ namespace Gestione.Controllers {
 
 			if (tipoOre == "Ore di lavoro"){
 				//dm.CompilaHLavoro(dataTime, ore, ViewBag.GeCoIdCommessa, "idUtente");
-				dm.CompilaHLavoro(dataTime, ore, u, "idUtente");
+				dm.CompilaHLavoro(dateTime, ore, u, "idUtente");
 			} else if (tipoOre == "Ore di permesso"){
 				HType tOre = (HType) 2;
-				dm.Compila(dataTime, ore, tOre, "idUtente");
+				dm.Compila(dateTime, ore, tOre, "idUtente");
 			} else if (tipoOre == "Ore di malattia") {
 				HType tOre = (HType) 3;
-				dm.Compila(dataTime, ore, tOre, "idUtente");
+				dm.Compila(dateTime, ore, tOre, "idUtente");
 			} else {
 				HType tOre = (HType) 1;
-				dm.Compila(dataTime, ore, tOre, "idUtente");
+				dm.Compila(dateTime, ore, tOre, "idUtente");
 			}
 			//ViewBag.GeCoIdCommessa = 3;
 			ViewBag.EsitoAddGiorno = ore + " Ore aggiunte!";
