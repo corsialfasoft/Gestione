@@ -1,14 +1,15 @@
 ﻿using Interfaces;
+using DAO;
 
 namespace Gestione.Models {
     partial class DomainModel:IGeCo,IGeCV,IGeTime{
-        public void AddCorso(Corso corso){ 
-              /*
+        DataAccesObject db = new DataAccesObject();
+        public void AddCorso(Corso corso){
+            try{ 
                db.AddCorso(corso);
-                using (NomeEntity db = new NomeEntity()){
-                    
-                }  
-             */  
+            }catch(System.NotImplementedException){ 
+                throw new System.Exception();    
+            }
         }
     }
 }

@@ -35,15 +35,15 @@ namespace Gestione.Tests.Controllers {
         }
 
         [TestMethod]
-        public void Contact() {
+        public void AddCorso() {
             // Arrange
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Contact() as ViewResult;
-
+            ViewResult result = controller.AddCorso("ciao","corso inerente al saluto", new DateTime(2015,02,15),new DateTime(2015,02,16)) as ViewResult;
+            
             // Assert
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ViewBag.Message=="Qualcosa è andato storto");
         }
     }
 }
