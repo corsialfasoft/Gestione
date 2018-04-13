@@ -194,6 +194,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\DettaglioCurriculum.cshtml" />
     <Content Include="Views\Home\MyPage.cshtml" />
+    <Content Include="Views\Home\RicercaCurriculum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

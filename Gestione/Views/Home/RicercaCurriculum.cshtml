@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "RicercaCurriculum";
+}
+<div class="text-warning">
+    <p>@ViewBag.Message</p>
+</div>
+<h2>RicercaCurriculum</h2>
+@using(Html.BeginForm("RicercaCurriculum","Home",FormMethod.Post)) {
+    <div>
+        <div>
+            <p>Effettua una riceca per parola chiave</p>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Inserisci Parola chiava" name="chiava" />
+            <button type="submit">Cerca</button>
+        </div>
+    </div>
+}
+@using(Html.BeginForm("RicercaCurriculum","Home,FormMethod.Post")) {
+    <div>
+        <label>Età</label>
+        <input type="text" placeholder="Inserisci l'Età" name="eta" />
+        <button type="submit">Cerca</button>
+    </div>
+}
+

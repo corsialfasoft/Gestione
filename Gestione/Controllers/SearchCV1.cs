@@ -27,5 +27,29 @@ namespace Gestione.Controllers {
 			ViewBag.CV = trovato;
 			return View("DettaglioCurriculum");
 		}
+		public ActionResult RicercaCurriculum()
+		{
+			return View();
+		}
+		
+		[HttpPost]
+		public ActionResult RicercaCurriculum(string chiava,string eta)
+		{
+			List<CV> trovati = new List<CV>();
+			int etagiusta;
+			if(chiava != "") {
+				trovati = dm.SearchChiava(chiava);
+				if (trovati.Count > 0) {
+					ViewBag.CVtrovati = trovati;
+					return View("ListaCurriculum");
+				}
+			}else if (eta != "" && int.TryParse(eta,out etagiusta)) {
+				trovati=dm.SearchEta(etagiusta);
+					ViewBag.CVtrovati = trovati;
+					return View("ListaCurriculum");
+			}
+			ViewBag.Message=$"Non è stato trovato nessun elemento";
+			return View();
+		}
 	}
 }
