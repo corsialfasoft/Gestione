@@ -11,15 +11,15 @@
 <br />
 <div class="container">
     <ol class="list-group" start="1">
-        @foreach(var lezioni in ViewBag.Lezioni){
-             <li class="list-group-item">
+        @foreach(var lezioni in ViewBag.Lezioni) {
+            <li class="list-group-item">
                 <span>
-                    @lezioni.Nome 
+                    @lezioni.Nome
                 </span>
             </li>
         }
     </ol>
-<br />
-    @Html.ActionLink("Iscriviti","Iscrizione","Home" );
-    @Html.ActionLink("+ Lezione","AddLezione",new { idCorso = ViewBag.Corso.Id });
+    <br />
+    <span> @Html.ActionLink("Iscriviti","Iscrizione",new { idCorso = ViewBag.Corso.Id });</span>
+    <span> @Html.ActionLink("+ Lezione","AddLezione",new { idCorso = ViewBag.Corso.Id });</span>
 </div>

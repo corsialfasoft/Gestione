@@ -19,6 +19,7 @@ namespace Gestione.Controllers {
             lez.Durata = LezDurata;
             Dm.AddLezione(idCorso, lez);
 			ViewBag.CorsoId= idCorso;
+			ViewBag.Message = "Lezione aggiunta correttamente";
             return View();
         }
     }

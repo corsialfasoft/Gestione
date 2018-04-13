@@ -63,14 +63,16 @@ namespace Gestione.Controllers {
 			ViewBag.Lezioni = lezions;
 			return View();
 		}
-		public ActionResult Iscrizione(int idCorso=1,int idStudente=1) {
+		public ActionResult Iscrizione(int idCorso) {
 			DomainModel dm = new DomainModel();
 			try {
-				dm.Iscriviti(idCorso,idStudente);
+				dm.Iscriviti(idCorso, P.Matricola);
+				ViewBag.Message = "Iscrizione andata a buon fine";
+				ViewBag.Corsi = dm.ListaCorsi();
 			} catch(Exception e) {
 				ViewBag.Message = e.Message;
 			}
-			return View();
+			return View("ElencoCorsi");
 		}
 
 	}

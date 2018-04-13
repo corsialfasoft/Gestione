@@ -27,7 +27,7 @@ namespace Interfaces{
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
-        void Iscriviti (int idCorso, int idStudente);
+        void Iscriviti (int idCorso, string idStudente);
 
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
@@ -41,7 +41,7 @@ namespace Interfaces{
         List<Corso>ListaCorsi(string idUtente);
     }
     public class Studente{ 
-        public int Id{get;set;}
+        public string Id{get;set;}
         public string Nome{get;set;}
         public string Cognome{get;set;}
     }

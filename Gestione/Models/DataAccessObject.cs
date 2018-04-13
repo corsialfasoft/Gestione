@@ -26,7 +26,7 @@ namespace DAO{
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
-        void Iscriviti (int idCorso, int idStudente);
+        void Iscriviti (int idCorso, string idStudente);
 
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
@@ -40,9 +40,7 @@ namespace DAO{
         List<Corso>ListaCorsi(string idUtente);
     }
 	public partial class DataAccesObject : IDao {
-		public void AddCorso(Corso corso) {
-			throw new NotImplementedException();
-		}
+		public void AddCorso(Corso corso) {}
 
 		public void AddLezione(int idCorso,Lezione lezione) {
 			throw new NotImplementedException();
@@ -140,7 +138,7 @@ namespace DAO{
 			return 	new Corso(1,"sto descrivendo questo corso", leziones);
 		}
 		
-		public void Iscriviti(int idCorso,int idStudente) {}
+		public void Iscriviti(int idCorso,string idStudente) {}
 
 		public List<Corso> SearchCorsi(string descrizione) {
 			List<Lezione> leziones = new List<Lezione>();

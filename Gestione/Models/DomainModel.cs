@@ -34,7 +34,7 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public void Iscriviti(int idCorso,int idStudente) {
+		public void Iscriviti(int idCorso,string idStudente) {
 			DataAccesObject dao = new DataAccesObject();
 			try{
 			dao.Iscriviti(idCorso,idStudente);
