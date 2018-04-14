@@ -133,18 +133,27 @@ namespace DAO{
 
 		public Corso SearchCorsi(int idCorso) {
 			List<Lezione> leziones = new List<Lezione>();
-			Lezione l = new Lezione("mock");
-			leziones.Add(l);
-			return 	new Corso(1,"sto descrivendo questo corso", leziones);
+			Lezione l1 = new Lezione("mock1");
+			Lezione l2= new Lezione("mock2");
+			Lezione l3= new Lezione("mock3");
+			leziones.Add(l1);
+			leziones.Add(l2);
+			leziones.Add(l3);
+			return 	new Corso(1,"sto descrivendo questo corsoooooooooooooooo  oooooooooooo" +
+								"ooooooooo oooooooooooooooooooooo  ooooooooooo ooooooooooooo" +
+								"ooo ooooo oooooooo oooooooo ooooooooo ooooooo ooooo oooooooooo" +
+								"oooo ooooo oooooooo oooooooooo ooooooooo ooooooooo ooo oooo ooo" +
+								"ooo ooooooo oooo oooo ooooo", leziones);
 		}
 		
 		public void Iscriviti(int idCorso,string idStudente) {}
 
 		public List<Corso> SearchCorsi(string descrizione) {
 			List<Lezione> leziones = new List<Lezione>();
-			Lezione l = new Lezione("mock");
-			leziones.Add(l);
-			
+			Lezione l1 = new Lezione("mock1");
+			Lezione l2 = new Lezione("mock2");
+			leziones.Add(l1);
+			leziones.Add(l2);
 			List<Corso> list = new List<Corso>();
 			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
 			return list;

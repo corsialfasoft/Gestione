@@ -52,7 +52,7 @@ namespace Gestione.Tests.Controllers {
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Corso() as ViewResult;
+            ViewResult result = controller.Corso(1) as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
