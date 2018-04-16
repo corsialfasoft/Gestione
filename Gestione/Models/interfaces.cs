@@ -64,33 +64,34 @@ namespace Interfaces{
 	public partial class Giorno {
 		private string _id_utente;
 		private DateTime data;
-
+		private int idG;
 		public DateTime Data { get { return data; } }
-		private List<OreCommessa> commesse;
+		private List<OreLavorative> commesse;
 		public string ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
 		public int HPermesso{ get;set;}
 		public int HMalattia{ get;set;}
 		public int HFerie{ get;set;}
-		public List<OreCommessa> OreLavorate { get => commesse; }
-
+		public List<OreLavorative> OreLavorate { get => commesse; }
+		public int IdGiorno{ get;set;}
 
 		public Giorno(DateTime data) { this.data = data; }
-		public Giorno(DateTime data, int HP, int HM, int HF, string id_utente) {
+		public Giorno(DateTime data, int idG, int HP, int HM, int HF, string id_utente) {
 			this.data = data;
 			HPermesso = HP;
 			HMalattia = HM;
 			HFerie = HF;
 			_id_utente = id_utente;
+			this.idG=idG;
 		}
 
-		public void AddOreCommessa(OreCommessa com) {
+		public void AddOreCommessa(OreLavorative com) {
 			if (commesse == null)
-				commesse = new List<OreCommessa>();
+				commesse = new List<OreLavorative>();
 			commesse.Add(com);
 		}
 		public int TotOreLavorate() {
 			int tot = 0;
-			foreach (OreCommessa com in OreLavorate) {
+			foreach (OreLavorative com in OreLavorate) {
 				tot += com.Ore;
 			}
 			return tot;
@@ -102,8 +103,8 @@ namespace Interfaces{
 			return base.GetHashCode();
 		}
 	}
-	public partial class OreCommessa {
-		public int Id{ get;set;}
+	public partial class OreLavorative {
+		public int IdC{ get;set;}
 		public string Descrizione { get => _descrizione; set => _descrizione = value; }
 		public string Nome { get => _nome; set => _nome = value; }
 		public int Ore{ get; set; }
@@ -112,8 +113,8 @@ namespace Interfaces{
 		private string _nome;
 		private string _descrizione;
 
-		public OreCommessa(int id, int oreLavorate, string nome, string descrizione) {
-			Id = id;
+		public OreLavorative(int idC, int oreLavorate, string nome, string descrizione) {
+			this.IdC = idC;
 			Ore = oreLavorate;
 			_nome = nome;
 			_descrizione = descrizione;
