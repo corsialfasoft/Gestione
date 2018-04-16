@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gestione.Controllers;
 using Gestione.Models;
 
 namespace Interfaces{ 
@@ -18,7 +19,7 @@ namespace Interfaces{
 	interface IGeTime {
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
-		Giorno VisualizzaGiorno(DateTime data, int idUtente);
+		DTGGiorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente);
 		DTCommessa CercaCommessa(string nomeCommessa);
 	}
