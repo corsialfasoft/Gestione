@@ -35,9 +35,6 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult RicercaCurriculum(string chiava,string eta,string etaMin,string etaMax,string cognome)
 		{
-			int codice;
-			int etaMinima;
-			int etaMassima;
 			List<CV> trovati = new List<CV>();
 			if (chiava != "") {
 				trovati = dm.SearchChiava(chiava);
@@ -47,7 +44,7 @@ namespace Gestione.Controllers {
 				}
 				ViewBag.Message="Non è stato trovato nessun elemento";
 				return View();
-			}else if(eta != "" && int.TryParse(eta,out codice)) {
+			}else if(eta != "" && int.TryParse(eta,out int codice)) {
 				trovati = dm.SearchEta(codice);
 				if (trovati.Count > 0) {
 					ViewBag.ListaCV= trovati;
@@ -55,7 +52,7 @@ namespace Gestione.Controllers {
 				}
 				ViewBag.Message="Non è stato trovato nessun elemento";
 				return View();
-			}else if(etaMin!= "" && etaMax!="" && int.TryParse(etaMin,out etaMinima) && int.TryParse(etaMax,out etaMassima)) {
+			}else if(etaMin!= "" && etaMax!="" && int.TryParse(etaMin,out int etaMinima) && int.TryParse(etaMax,out int etaMassima)) {
 				if(etaMassima < etaMinima) {
 					ViewBag.Message="L'età massima non può essere minore dell'età minima";
 					return View();

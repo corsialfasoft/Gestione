@@ -7,15 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestione", "Gestione\Gestio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestione.Tests", "Gestione.Tests\Gestione.Tests.csproj", "{686D5797-C240-48AF-8924-74B5BBE06EE8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{266C7EF8-DF00-442D-B39A-8FD1A1584A17}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Downloads\GECV.sql = ..\..\..\..\Downloads\GECV.sql
-		..\..\..\..\Downloads\ProcedureAdd.sql = ..\..\..\..\Downloads\ProcedureAdd.sql
-		..\..\..\..\Downloads\ProcedureFlo.sql = ..\..\..\..\Downloads\ProcedureFlo.sql
-		..\..\..\..\Downloads\SQL_Carmen.sql = ..\..\..\..\Downloads\SQL_Carmen.sql
-		test.sql = test.sql
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

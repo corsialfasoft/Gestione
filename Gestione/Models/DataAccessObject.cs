@@ -15,9 +15,9 @@ namespace DAO{
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
-        void AddCvStudi(string matrCv,PerStud studi);
-        void AddEspLav(string matrCv, EspLav esp );
-        void AddCompetenze(string matrCv, Competenza comp);
+        void AddCvStudi(string MatrCv,PerStud studi);
+        void AddEspLav(string MatrCv, EspLav esp );
+        void AddCompetenze(string MatrCv, Competenza comp);
 	
 	
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
@@ -44,25 +44,67 @@ namespace DAO{
         List<Corso>ListaCorsi(int idUtente);
     }
 	public partial class DataAccesObject : IDao {
-        private string GetConnection(){ 
-            SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder();
-            reader.DataSource=@"(localdb)\MSSQLLocalDB";
-            reader.InitialCatalog = "GECV";
-            return reader.ToString();
-        }
-        public void AddCompetenze(string matrCv,Competenza comp) {
-            throw new NotImplementedException();
-        }
+        public void AddCompetenze(string MatrCv,Competenza comp) {
+         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			int x;
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.AddCompetenze",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@Tipo",SqlDbType.NVarChar).Value=comp.Titolo;
+				command.Parameters.Add("@Livello",SqlDbType.Int).Value=comp.Livello;
+				command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
+				x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessun curriculum eliminato!");
+					}				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
+			}
+		} 
 
         public void AddCorso(Corso corso) {
 			throw new NotImplementedException();
 		}
 
-        public void AddCvStudi(string matrCv,PerStud studi) {
-            throw new NotImplementedException();
-        }
+        public void AddCvStudi(string MatrCv,PerStud studi) {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			int x;
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.AddCvStudi",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=studi.AnnoInizio;
+				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=studi.AnnoFine;
+				command.Parameters.Add("@Titolo",SqlDbType.VarChar).Value=studi.Titolo;
+				command.Parameters.Add("@Descrizione",SqlDbType.VarChar).Value=studi.Descrizione;
+				command.Parameters.Add("@IdCv",SqlDbType.NVarChar).Value=MatrCv;
+				 x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessun curriculum eliminato!");
+					}				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
+			}
+		}
 
-        public void AddEspLav(string matrCv,EspLav esp) {
+        public void AddEspLav(string MatrCv,EspLav esp) {
 			SqlConnection con= new SqlConnection(GetConnection());
 			try {
 				con.Open();
@@ -109,22 +151,23 @@ namespace DAO{
 		}
 
 		public void EliminaCV(CV curriculum) {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource=@"(localdb)\MSSQLLocalDB";
-			builder.InitialCatalog="GECV";
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
 			SqlConnection connection = new SqlConnection(builder.ToString());
 			int x;
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection);
-				command.CommandType=System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@parola",System.Data.SqlDbType.NVarChar).Value=curriculum.matricola;
+				SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=curriculum.Matricola;
 				 x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 
 					throw new Exception("Nessun curriculum eliminato!");
-					}
-				
+					}				
 			}catch(Exception e) {
 				throw e;
 			}finally {
@@ -147,30 +190,26 @@ namespace DAO{
 		public List<Corso> ListaCorsi(int idUtente) {
 			throw new NotImplementedException();
 		}
-
-	
-
-		
-
 		public List<CV> SearchChiava(string chiava) {
 			List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource=@"(localdb)\MSSQLLocalDB";
-			builder.InitialCatalog="GECV";
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
 			SqlConnection connection = new SqlConnection(builder.ToString());
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaParolaChiava",connection);
-				command.CommandType=System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@parola",System.Data.SqlDbType.NVarChar).Value=chiava;
+				SqlCommand command = new SqlCommand("dbo.CercaParolaChiava",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=chiava;
 				SqlDataReader reader = command.ExecuteReader();
 				while (reader.Read()){
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
 				command.Dispose();
-				return trovati;
-				
+				return trovati;				
 			}catch(Exception e) {
 				throw e;
 			}finally {
@@ -180,23 +219,24 @@ namespace DAO{
 
 		public List<CV> SearchCognome(string cognome) {
 			List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource=@"(localdb)\MSSQLLocalDB";
-			builder.InitialCatalog="GECV";
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
 			SqlConnection connection = new SqlConnection(builder.ToString());
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaCognome",connection);
-				command.CommandType=System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@cognome",System.Data.SqlDbType.NVarChar).Value=cognome;
+				SqlCommand command = new SqlCommand("dbo.CercaCognome",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@cognome", SqlDbType.NVarChar).Value=cognome;
 				SqlDataReader reader = command.ExecuteReader();
 				while (reader.Read()){
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
 				command.Dispose();
-				return trovati;
-				
+				return trovati;				
 			}catch(Exception e) {
 				throw e;
 			}finally {
@@ -218,23 +258,24 @@ namespace DAO{
 
 		public List<CV> SearchEta(int eta) {
 		List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource=@"(localdb)\MSSQLLocalDB";
-			builder.InitialCatalog="GECV";
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
 			SqlConnection connection = new SqlConnection(builder.ToString());
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaEta",connection);
-				command.CommandType=System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@eta",System.Data.SqlDbType.Int).Value=eta;
+				SqlCommand command = new SqlCommand("dbo.CercaEta",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@eta",SqlDbType.Int).Value=eta;
 				SqlDataReader reader = command.ExecuteReader();
 				while (reader.Read()){
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
 				command.Dispose();
-				return trovati;
-				
+				return trovati;				
 			}catch(Exception e) {
 				throw e;
 			}finally {
@@ -244,24 +285,25 @@ namespace DAO{
 
 		public List<CV> SearchRange(int etmin,int etmax) {
 			List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource=@"(localdb)\MSSQLLocalDB";
-			builder.InitialCatalog="GECV";
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
 			SqlConnection connection = new SqlConnection(builder.ToString());
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaEtaMinMax",connection);
-				command.CommandType=System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@e_min",System.Data.SqlDbType.Int).Value=etmin;
-				command.Parameters.Add("@e_max",System.Data.SqlDbType.Int).Value=etmax;
+				SqlCommand command = new SqlCommand("dbo.CercaEtaMinMax",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@e_min",SqlDbType.Int).Value=etmin;
+				command.Parameters.Add("@e_max",SqlDbType.Int).Value=etmax;
 				SqlDataReader reader = command.ExecuteReader();
 				while (reader.Read()){
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
 				command.Dispose();
-				return trovati;
-				
+				return trovati;				
 			}catch(Exception e) {
 				throw e;
 			}finally {

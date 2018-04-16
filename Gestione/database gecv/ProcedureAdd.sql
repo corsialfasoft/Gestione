@@ -18,7 +18,7 @@ CREATE PROCEDURE AddCvStudi
   	@AnnoF Int,
 	@Titolo VARCHAR(50), 
   	@Descrizione VARCHAR(50), 
-  	@IdCv Int
+  	@MatrCv nvarchar(50)
 	
 	as
     SET IMPLICIT_TRANSACTIONS ON;
@@ -75,7 +75,7 @@ as
 CREATE PROCEDURE AddCompetenze
 	@Tipo NVARCHAR(50),
     @Livello Int,
-    @IdCv Int
+    @MatrCv nvarchar(50)
 as
    SET IMPLICIT_TRANSACTIONS ON;
 					
@@ -100,5 +100,3 @@ as
 		COMMIT TRANSACTION 
 	
 	go
-
-
