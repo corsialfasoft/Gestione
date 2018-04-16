@@ -14,7 +14,7 @@ namespace DAO{
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
         void AddCvStudi(int idCv,PerStud studi);
-        void AddEspLav(int idCv, EspLav esp);
+        void AddEspLav(int idCv, EspLav esp );
         void AddCompetenze(int IdCv, Competenza comp);
 	
 	
