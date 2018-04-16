@@ -1,4 +1,4 @@
-﻿create table GeCorsi;
+﻿create database GeCorsi;
 
 create table Corsi(
 	id int identity(1,1) primary key not null,

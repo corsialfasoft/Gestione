@@ -146,6 +146,7 @@
     <Compile Include="Controllers\GeCoAddLezione.cs" />
     <Compile Include="Controllers\ElencoCorsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DataBase\DB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
