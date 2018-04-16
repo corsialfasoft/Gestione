@@ -94,7 +94,10 @@ namespace DAO{
 				command.CommandType=System.Data.CommandType.StoredProcedure;
 				command.Parameters.Add("@parola",System.Data.SqlDbType.NVarChar).Value=curriculum.matricola;
 				 x = command.ExecuteNonQuery();
-				if (x == 0) { throw new Exception('Nessun curriculum è stato eliminato!')};
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessun curriculum eliminato!");
+					}
 				
 			}catch(Exception e) {
 				throw e;
@@ -139,6 +142,7 @@ namespace DAO{
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
+				command.Dispose();
 				return trovati;
 				
 			}catch(Exception e) {
@@ -164,6 +168,7 @@ namespace DAO{
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
+				command.Dispose();
 				return trovati;
 				
 			}catch(Exception e) {
@@ -201,6 +206,7 @@ namespace DAO{
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
+				command.Dispose();
 				return trovati;
 				
 			}catch(Exception e) {
@@ -227,6 +233,7 @@ namespace DAO{
 					trovati.Add(Search(reader.GetString(0)));
 				}
 				reader.Close();
+				command.Dispose();
 				return trovati;
 				
 			}catch(Exception e) {
