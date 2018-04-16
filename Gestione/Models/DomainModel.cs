@@ -4,10 +4,10 @@ using Interfaces;
 using DAO;
 
 namespace Gestione.Models{
-	public partial class DomainModel : IGeCo, IGeCV, IGeTime
-	{
-        public void AddCompetenze(int IdCv,Competenza comp) {
-            throw new NotImplementedException();
+	public partial class DomainModel : IGeCo, IGeCV, IGeTime{
+	DataAccesObject dao = new DataAccesObject();	
+        public void AddCompetenze(string MatrCv,Competenza comp) {
+            dao.AddCompetenze(MatrCv,comp);
         }
 
         public void AddCorso(Corso corso)
@@ -15,12 +15,12 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-        public void AddCvStudi(int idCv,PerStud studi) {
-            throw new NotImplementedException();
+        public void AddCvStudi(string MatrCv,PerStud studi) {
+            dao.AddCvStudi(MatrCv, studi);
         }
 
-        public void AddEspLav(int idCv,EspLav esp) {
-            throw new NotImplementedException();
+        public void AddEspLav(string MatrCv,EspLav esp) {
+            dao.AddEspLav(MatrCv,esp);
         }
 
         public void AddLezione(int idCorso,Lezione lezione)
