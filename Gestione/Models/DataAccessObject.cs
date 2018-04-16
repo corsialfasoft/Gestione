@@ -15,9 +15,9 @@ namespace DAO{
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
-        void AddCvStudi(int idCv,PerStud studi);
-        void AddEspLav(int idCv, EspLav esp );
-        void AddCompetenze(int IdCv, Competenza comp);
+        void AddCvStudi(string matrCv,PerStud studi);
+        void AddEspLav(string matrCv, EspLav esp );
+        void AddCompetenze(string matrCv, Competenza comp);
 	
 	
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
@@ -44,7 +44,13 @@ namespace DAO{
         List<Corso>ListaCorsi(int idUtente);
     }
 	public partial class DataAccesObject : IDao {
-        public void AddCompetenze(int IdCv,Competenza comp) {
+        private string GetConnection(){ 
+            SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder();
+            reader.DataSource=@"(localdb)\MSSQLLocalDB";
+            reader.InitialCatalog = "GECV";
+            return reader.ToString();
+        }
+        public void AddCompetenze(string matrCv,Competenza comp) {
             throw new NotImplementedException();
         }
 
@@ -52,12 +58,32 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-        public void AddCvStudi(int idCv,PerStud studi) {
+        public void AddCvStudi(string matrCv,PerStud studi) {
             throw new NotImplementedException();
         }
 
-        public void AddEspLav(int idCv,EspLav esp) {
-            throw new NotImplementedException();
+        public void AddEspLav(string matrCv,EspLav esp) {
+			SqlConnection con= new SqlConnection(GetConnection());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("AddEspLav",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=esp.AnnoInizio;
+				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
+				command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.qualifica;
+				command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.descrizione;
+				command.Parameters.Add("@matr",SqlDbType.Int).Value=matrCv;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza Inserita");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
         }
 
         public void AddLezione(int idCorso,Lezione lezione) {
