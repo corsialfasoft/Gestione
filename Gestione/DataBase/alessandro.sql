@@ -15,18 +15,18 @@ go
 
 exec dbo.ListaCorsi;
 drop procedure dbo.ListaCorsi
-drop procedure  dbo.ListaCorsiStudendi
+drop procedure  dbo.ListaCorsiStudenti
 
-create procedure dbo.ListaCorsiStudendi
+create procedure dbo.ListaCorsiStudenti
 @idStudente nvarchar(10)
 as
    BEGIN TRANSACTION   
 		BEGIN TRY  
-		select c.nome, c.descrizione, c.dInizio, c.dFine
+		select c.id, c.nome, c.descrizione, c.dInizio, c.dFine
 		from Corsi c
 		inner join StudentiCorsi sc on c.id = sc.idCorsi 
 		inner join Studenti s on sc.idStudenti = s.matr 
-		where s.matr = @idStudente
+		where s.matr = @idStudente 
  COMMIT TRANSACTION;  
  END TRY  
 BEGIN CATCH  
