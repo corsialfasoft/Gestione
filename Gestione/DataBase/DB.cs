@@ -14,9 +14,10 @@ namespace LibreriaDB{
 		/// <param name="ServerName">Inserire il nome del Server, Default "(localdb)\MSSQLLocalDB"</param>
 		/// <returns>SqlConnectionString</returns>
 		public static string GetConnectionString(string DBName="GeCorsi", string ServerName= @"(localdb)\MSSQLLocalDB") {
-			SqlConnectionStringBuilder  SB = new SqlConnectionStringBuilder();
-			SB.DataSource = ServerName;
-			SB.InitialCatalog = DBName;
+			SqlConnectionStringBuilder SB = new SqlConnectionStringBuilder {
+				DataSource = ServerName,
+				InitialCatalog = DBName
+			};
 			return SB.ToString();
 		}
 		/// <summary>
@@ -184,8 +185,9 @@ namespace LibreriaDB{
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand(procedureName, connection);
-				command.CommandType = CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand(procedureName,connection) {
+					CommandType = CommandType.StoredProcedure
+				};
 				if(sqlParameters!=null){
 					command.Parameters.AddRange(sqlParameters);
 				}
@@ -198,12 +200,13 @@ namespace LibreriaDB{
 				connection.Dispose();
 			}
 		}
-		public static T ExecQProcedureReader<T>(string procedureName,Trasform<T> trasform, SqlParameter[] sqlParameters=null, string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
+		public static T ExecQProcedureReader<T>(string procedureName,Trasform<T> trasform, SqlParameter[] sqlParameters, string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand(procedureName, connection);
-				command.CommandType = CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand(procedureName,connection) {
+					CommandType = CommandType.StoredProcedure
+				};
 				if (sqlParameters != null) {
 					command.Parameters.AddRange(sqlParameters);
 				}

@@ -13,12 +13,14 @@ namespace Gestione.Controllers {
 			ViewBag.Controllo=null;	
 
 			DomainModel dm = new DomainModel();
-			Corso c = new Corso();
-			c.Id= 2;
-			c.Descrizione="Mi piacciono i treni!";
-			c.Nome=" Corso sui Treni";
-			List<Corso> res = new List<Corso>();
-			res.Add(c);
+			Corso c = new Corso {
+				Id = 2,
+				Descrizione = "Mi piacciono i treni!",
+				Nome = " Corso sui Treni"
+			};
+			List<Corso> res = new List<Corso> {
+				c
+			};
 			ViewBag.Corsi = dm.ListaCorsi();
 			
 			return View();
@@ -26,35 +28,34 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult ElencoCorsi(bool mieiCorsi ,string descrizione ){
 			DomainModel dm = new DomainModel();
-			int id ;
-			if(int.TryParse(descrizione,out id) && !mieiCorsi){		// Cerca Per iD corso
-				
+			if(int.TryParse(descrizione,out int id) && !mieiCorsi) {        // Cerca Per iD corso
+
 				Corso c = dm.SearchCorsi(id);
 				ViewBag.Corso = c;
 				ViewBag.Lezioni = c.Lezioni;
 				return View("Corso");
-			}else if(descrizione!="" && mieiCorsi){
-				ViewBag.Controllo=true;	
-				ViewBag.Message="Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi = dm.SearchCorsi(descrizione , P.Matricola);
+			} else if(descrizione != "" && mieiCorsi) {
+				ViewBag.Controllo = true;
+				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
+				ViewBag.Corsi = dm.SearchCorsi(descrizione,P.Matricola);
 				return View("ElencoCorsi");
-			}else if(descrizione=="" && mieiCorsi){
-				ViewBag.Controllo=true;					
-				ViewBag.Message="Ecco i tuoi risultati della ricerca";
+			} else if(descrizione == "" && mieiCorsi) {
+				ViewBag.Controllo = true;
+				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
 				ViewBag.Corsi = dm.ListaCorsi(P.Matricola);
 				return View("ElencoCorsi");
-			}else if(descrizione!="" && !mieiCorsi){
-				ViewBag.Controllo=true;
-				ViewBag.Message="Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi= dm.SearchCorsi(descrizione);
+			} else if(descrizione != "" && !mieiCorsi) {
+				ViewBag.Controllo = true;
+				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
+				ViewBag.Corsi = dm.SearchCorsi(descrizione);
 				return View("ElencoCorsi");
-			}else if(descrizione=="" && !mieiCorsi){
-				ViewBag.Controllo=false;		
-				ViewBag.Message="Casso hai sbagliato";
-				ViewBag.Corsi= dm.ListaCorsi();
+			} else if(descrizione == "" && !mieiCorsi) {
+				ViewBag.Controllo = false;
+				ViewBag.Message = "Casso hai sbagliato";
+				ViewBag.Corsi = dm.ListaCorsi();
 				return View("ElencoCorsi");
-			}else{
-				ViewBag.Messagge="Errore non gestito!";
+			} else {
+				ViewBag.Messagge = "Errore non gestito!";
 				return View();
 			}
 		}
@@ -62,8 +63,9 @@ namespace Gestione.Controllers {
 		public ActionResult ElencoCorso(int id){
 			DomainModel dm = new DomainModel();
 			Corso c = dm.SearchCorsi(id);
-			List<Corso> res = new List<Corso>();
-			res.Add(c);
+			List<Corso> res = new List<Corso> {
+				c
+			};
 			ViewBag.Corsi = res;
 			//ViewBag.Lezioni = c.Lezioni;
 			return View("ElencoCorsi");
