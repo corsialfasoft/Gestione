@@ -13,7 +13,7 @@ namespace LibreriaDB{
 		/// <param name="DBName">Inserire il nome DateBase, Default "master"</param>
 		/// <param name="ServerName">Inserire il nome del Server, Default "(localdb)\MSSQLLocalDB"</param>
 		/// <returns>SqlConnectionString</returns>
-		public static string GetConnectionString(string DBName="master", string ServerName= @"(localdb)\MSSQLLocalDB") {
+		public static string GetConnectionString(string DBName="GeCorsi", string ServerName= @"(localdb)\MSSQLLocalDB") {
 			SqlConnectionStringBuilder  SB = new SqlConnectionStringBuilder();
 			SB.DataSource = ServerName;
 			SB.InitialCatalog = DBName;
@@ -35,7 +35,7 @@ namespace LibreriaDB{
 		/// <param name="DBName">Inserire il nome DateBase, Default "master"</param>
 		/// <param name="ServerName">Inserire il nome del Server, Default "(localdb)\MSSQLLocalDB"</param>
 		/// <returns>"T"</returns>
-		public static T ExecQReader<T>(Trasform<T> trasform, string sql, string DBName = "master", string ServerName = @"(localdb)\MSSQLLocalDB") {
+		public static T ExecQReader<T>(Trasform<T> trasform, string sql, string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
@@ -58,7 +58,7 @@ namespace LibreriaDB{
 		/// <param name="DBName">Inserire il nome DateBase, Default "master"</param>
 		/// <param name="ServerName">Inserire il nome del Server, Default "(localdb)\MSSQLLocalDB"</param>
 		/// <returns>Al numero di righe "affected" (cambiate)</returns>
-		public static int ExecNonQ(string sql, string DBName = "master", string ServerName = @"(localdb)\MSSQLLocalDB") {
+		public static int ExecNonQ(string sql, string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
@@ -81,7 +81,7 @@ namespace LibreriaDB{
 		/// <param name="DBName">Inserire il nome DateBase, Default "master"</param>
 		/// <param name="ServerName">Inserire il nome del Server, Default "(localdb)\MSSQLLocalDB"</param>
 		/// <returns>DataSet</returns>
-		public static DataSet ExecQDataSet(string sql, string[] nameTable, string DBName = "master", string ServerName = @"(localdb)\MSSQLLocalDB") {
+		public static DataSet ExecQDataSet(string sql, string[] nameTable, string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
@@ -117,7 +117,7 @@ namespace LibreriaDB{
         /// <param name="DBName">Inserire il nome DateBase, Default "master"</param>
         /// <param name="ServerName">Inserire il nome del Server, Default "(localdb)\MSSQLLocalDB"</param>
         /// <returns>Al numero di operazioni esequite</returns>
-        public static int ExecQFromFile(string Path,char charSeparator = ';', string DBName = "master", string ServerName = @"(localdb)\MSSQLLocalDB") {
+        public static int ExecQFromFile(string Path,char charSeparator = ';', string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			int NExec = 0;
 			string str = "";
 			try{ 
@@ -180,7 +180,7 @@ namespace LibreriaDB{
 			string sql = $"drop database {DBName}";
 			ExecNonQ(sql);
 		}
-		public static int ExecNonQProcedure(string procedureName,SqlParameter[] sqlParameters=null, string DBName = "master", string ServerName = @"(localdb)\MSSQLLocalDB") {
+		public static int ExecNonQProcedure(string procedureName,SqlParameter[] sqlParameters=null, string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
@@ -198,7 +198,7 @@ namespace LibreriaDB{
 				connection.Dispose();
 			}
 		}
-		public static T ExecQProcedureReader<T>(string procedureName,Trasform<T> trasform, SqlParameter[] sqlParameters=null, string DBName = "master", string ServerName = @"(localdb)\MSSQLLocalDB") {
+		public static T ExecQProcedureReader<T>(string procedureName,Trasform<T> trasform, SqlParameter[] sqlParameters=null, string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
@@ -218,7 +218,7 @@ namespace LibreriaDB{
 				connection.Dispose();
 			}
 		}
-		public static int ExecQFromFileProcedure(string Path, string stringSeparator = "go", string DBName = "master", string ServerName = @"(localdb)\MSSQLLocalDB") {
+		public static int ExecQFromFileProcedure(string Path, string stringSeparator = "go", string DBName = "GeCorsi", string ServerName = @"(localdb)\MSSQLLocalDB") {
 			int NExec = 0;
 			string str = "";
 			try {
@@ -241,5 +241,4 @@ namespace LibreriaDB{
 			return NExec;
 		}
 	}
-
 }
