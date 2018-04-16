@@ -1,4 +1,4 @@
-﻿create table GeCorsi;
+﻿create database GeCorsi;
 
 create table Corsi(
 	id int identity(1,1) primary key not null,
@@ -11,6 +11,7 @@ create table Corsi(
 create table Lezioni (
 	id int identity(1,1) primary key not null,
 	durata nvarchar(50) not null,
+	descrizione nvarchar (200) not null,
 	idCorsi int foreign key references Corsi
 );
 
@@ -21,7 +22,7 @@ create table Studenti(
 );
 
 create table StudentiCorsi(
-	idCorso int foreign key references Corso,
-	idStudenti int foreign key references Studenti,
-	primary key(idCorso,idStudenti)
+	idCorsi int foreign key references Corsi,
+	idStudenti nvarchar(10) foreign key references Studenti,
+	primary key(idCorsi,idStudenti)
 );

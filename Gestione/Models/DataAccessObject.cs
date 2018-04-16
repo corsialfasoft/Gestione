@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using Interfaces;
 
 namespace DAO{
@@ -130,20 +131,15 @@ namespace DAO{
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
 		}
-
+        public string GetConnection(){ 
+            SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder();
+            reader.DataSource=@"(localdb)\MSSQLLocalDB";
+            reader.InitialCatalog = "GeCorsi";
+            return reader.ToString();
+        }
 		public Corso SearchCorsi(int idCorso) {
-			List<Lezione> leziones = new List<Lezione>();
-			Lezione l1 = new Lezione("mock1");
-			Lezione l2= new Lezione("mock2");
-			Lezione l3= new Lezione("mock3");
-			leziones.Add(l1);
-			leziones.Add(l2);
-			leziones.Add(l3);
-			return 	new Corso(1,"sto descrivendo questo corsoooooooooooooooo  oooooooooooo" +
-								"ooooooooo oooooooooooooooooooooo  ooooooooooo ooooooooooooo" +
-								"ooo ooooo oooooooo oooooooo ooooooooo ooooooo ooooo oooooooooo" +
-								"oooo ooooo oooooooo oooooooooo ooooooooo ooooooooo ooo oooo ooo" +
-								"ooo ooooooo oooo oooo ooooo", leziones);
+			List<Lezione> leziones = null;
+
 		}
 		
 		public void Iscriviti(int idCorso,string idStudente) {}
