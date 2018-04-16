@@ -163,6 +163,7 @@
     <Content Include="database gecv\ProcedureFlo.sql" />
     <Content Include="database gecv\SQL_Carmen.sql" />
     <Content Include="database gecv\test.sql" />
+    <Content Include="database gecv\ProcedureModifiche.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
