@@ -25,12 +25,14 @@ namespace Gestione.Controllers {
     }
     public partial class HomeController : Controller {
         DomainModel dm = new DomainModel();
-        Profilo P;
+		// Profilo P;
         public HomeController() {
-            P = new Profilo{Matricola="801130"};
-
+            //P = new Profilo{Matricola="801130"};
+		}
+        public ActionResult ListaCurriculum(){
+			return View();
         }
-        public ActionResult Index() {
+		public ActionResult Index() {
             return View ();
         }
         public ActionResult DettaglioCurriculum(){
