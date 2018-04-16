@@ -103,5 +103,3 @@ as
 		COMMIT TRANSACTION 
 	
 	go
-
-
