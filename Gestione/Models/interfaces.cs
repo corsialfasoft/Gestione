@@ -20,6 +20,10 @@ namespace Interfaces{
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
+        void AddCvStudi(int idCv,PerStud studi);
+        void AddEspLav(int idCv, EspLav esp);
+        void AddCompetenze(int IdCv, Competenza comp);
+	
 	}
     public interface IGeCo {
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
