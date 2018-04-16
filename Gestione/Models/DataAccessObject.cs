@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Interfaces;
+using LibreriaDB;
 
 namespace DAO{
 	public interface IDao{
@@ -77,42 +78,50 @@ namespace DAO{
 
 
 		public List<Corso> ListaCorsi() {
-			Corso c = new Corso();
-			c.Nome = "c#";
-			c.Descrizione= "Corso di programmazione su Asp.Net";
-			c.Id = 1 ;
-			Corso d = new Corso();
-			d.Nome= "Java";
-			d.Descrizione= "Corso alla proggrammazione OO";
-			d.Id=2;
-			Corso e = new Corso();
-			e.Nome = "Javascripppto";
-			e.Descrizione ="Corso alla programazione su javascripttto";
-			e.Id = 3;
-			List<Corso> result = new List<Corso>();
-			result.Add(c);
-			result.Add(d);
-			result.Add(e);
+			Corso c = new Corso {
+				Nome = "c#",
+				Descrizione = "Corso di programmazione su Asp.Net",
+				Id = 1
+			};
+			Corso d = new Corso {
+				Nome = "Java",
+				Descrizione = "Corso alla proggrammazione OO",
+				Id = 2
+			};
+			Corso e = new Corso {
+				Nome = "Javascripppto",
+				Descrizione = "Corso alla programazione su javascripttto",
+				Id = 3
+			};
+			List<Corso> result = new List<Corso> {
+				c,
+				d,
+				e
+			};
 			return result;
 		}
 
 		public List<Corso> ListaCorsi(string idUtente) {
-			Corso c = new Corso();
-			c.Nome = "c#";
-			c.Descrizione= "Corso di cerca idutente programmazione su Asp.Net";
-			c.Id = 1 ;
-			Corso d = new Corso();
-			d.Nome= "Java";
-			d.Descrizione= "Corso alla c proggrammazione OO cerca idutente";
-			d.Id=2;
-			Corso e = new Corso();
-			e.Nome = "Javascripppto";
-			e.Descrizione ="Corso alla programazione su javascripttto cerca idutente";
-			e.Id = 3;
-			List<Corso> result = new List<Corso>();
-			result.Add(c);
-			result.Add(d);
-			result.Add(e);
+			Corso c = new Corso {
+				Nome = "c#",
+				Descrizione = "Corso di cerca idutente programmazione su Asp.Net",
+				Id = 1
+			};
+			Corso d = new Corso {
+				Nome = "Java",
+				Descrizione = "Corso alla c proggrammazione OO cerca idutente",
+				Id = 2
+			};
+			Corso e = new Corso {
+				Nome = "Javascripppto",
+				Descrizione = "Corso alla programazione su javascripttto cerca idutente",
+				Id = 3
+			};
+			List<Corso> result = new List<Corso> {
+				c,
+				d,
+				e
+			};
 			return result;
 		}
 
@@ -131,6 +140,15 @@ namespace DAO{
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
 		}
+		public Corso TrasformInCorso(SqlDataReader data){
+			Corso output = new Corso {
+				Nome = data.GetString(1),
+				Descrizione = data.GetString(2),
+				Inizio = data.GetDateTime(3),
+				Fine = data.GetDateTime(4)
+			};
+			return output;
+		}
         public string GetConnection(){ 
             SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder();
             reader.DataSource=@"(localdb)\MSSQLLocalDB";
@@ -138,11 +156,14 @@ namespace DAO{
             return reader.ToString();
         }
 		public Corso SearchCorsi(int idCorso) {
-			List<Lezione> leziones = null;
-
-		}
+			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
+			return DB.ExecQProcedureReader("SearchCorso", TrasformInCorso,param);
+		}	
 		
-		public void Iscriviti(int idCorso,string idStudente) {}
+		public void Iscriviti(int idCorso,string idStudente) {
+			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
+			DB.ExecNonQProcedure("Iscrizione",param);
+		}
 
 		public List<Corso> SearchCorsi(string descrizione) {
 			List<Lezione> leziones = new List<Lezione>();
@@ -150,8 +171,9 @@ namespace DAO{
 			Lezione l2 = new Lezione("mock2");
 			leziones.Add(l1);
 			leziones.Add(l2);
-			List<Corso> list = new List<Corso>();
-			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			List<Corso> list = new List<Corso> {
+				new Corso(1,"sto descrivendo questo corso",leziones)
+			};
 			return list;
 		}
 
@@ -159,8 +181,9 @@ namespace DAO{
 			List<Lezione> leziones = new List<Lezione>();
 			Lezione l = new Lezione("mock");
 			leziones.Add(l);
-			List<Corso> list = new List<Corso>();
-			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
+			List<Corso> list = new List<Corso> {
+				new Corso(1,"sto descrivendo questo corso",leziones)
+			};
 			return list;
 		}
 
