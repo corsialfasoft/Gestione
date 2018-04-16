@@ -19,7 +19,7 @@ namespace DAO{
 	
 	
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
-		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
@@ -63,21 +63,21 @@ namespace DAO{
 			return new Commessa(10,"GeTime","Progetto GeTime",50,0);
 		}
 
-		public void Compila(DateTime data, int ore, HType tipoOre, int idUtente) {
+		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = @"(localdb)\MSSQLOCALDB";
             builder.InitialCatalog = "GeTime";
             SqlConnection conn = new SqlConnection(builder.ToString());
             try{ 
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("SP_Compila", conn);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@giorno", System.Data.SqlDbType.Date).Value=data;
-            cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.Int).Value=idUtente;
-            cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
-            cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+				conn.Open();
+				SqlCommand cmd = new SqlCommand("SP_Compila", conn);
+				cmd.CommandType = System.Data.CommandType.StoredProcedure;
+				cmd.Parameters.Add("@giorno", System.Data.SqlDbType.Date).Value=data.ToString("yyyy-MM-dd");
+				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value=idUtente;
+				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
+				cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
+				cmd.ExecuteNonQuery();
+				cmd.Dispose();
             }catch (Exception e) {
                 throw e;
             }finally{ 
@@ -89,11 +89,15 @@ namespace DAO{
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 			builder.DataSource = @"(localdb)\MSSQLLocalDB";
 			builder.InitialCatalog = "GeTime";
-			SqlConnection connection = new SqlConnection(builder.ConnectionString);
+			SqlConnection connection = new SqlConnection(builder.ToString());
 			try {
 				connection.Open();
-				string sql = $"exec SP_AddHLavoro {data}, {ore}, {idCommessa}, '{idUtente}';";
-				SqlCommand cmd = new SqlCommand(sql, connection);
+				SqlCommand cmd = new SqlCommand("SP_AddHLavoro", connection);
+				cmd.CommandType = System.Data.CommandType.StoredProcedure;
+				cmd.Parameters.Add("@data", System.Data.SqlDbType.Date).Value = data;
+				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value = ore;
+				cmd.Parameters.Add("@idCommessa", System.Data.SqlDbType.Int).Value = idCommessa;
+				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value = idUtente;
 				cmd.ExecuteNonQuery();
 				cmd.Dispose();
 			} catch (Exception e){
