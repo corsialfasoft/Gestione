@@ -5,7 +5,6 @@ as
 begin transaction;
 begin try
 	select * from Corsi where @IdCorso = id;
-	commit transaction;
 end try
 begin catch  
 	select   
@@ -13,6 +12,7 @@ begin catch
 		ERROR_MESSAGE() AS ErrorMessage;  
 	rollback transaction;
 end catch
+commit transaction;
 go
 
 create procedure Iscrizione
@@ -22,7 +22,6 @@ as
 begin transaction;
 begin try
 	insert into StudentiCorsi values (@IdCorso,@matr);
-	commit transaction;
 end try
 begin catch  
 	select   
@@ -30,6 +29,7 @@ begin catch
 		ERROR_MESSAGE() AS ErrorMessage;  
 	rollback transaction;
 end catch
+commit transaction;
 go
 
 
