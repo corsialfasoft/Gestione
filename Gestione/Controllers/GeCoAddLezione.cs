@@ -10,9 +10,7 @@ namespace Gestione.Controllers {
     public partial class HomeController{
         [HttpPost]
 		public ActionResult AddLezione(String LezNome, string LezDescrizione, int LezDurata, int idCorso) {
-           // int idCorso = (int)Session["idCorso"];
-			//int idd = int.Parse(idCorso);
-            DomainModel Dm = new DomainModel();
+			DomainModel Dm = new DomainModel();
             Lezione lez = new Lezione();
             lez.Nome = LezNome;
             lez.Descrizione = LezDescrizione;

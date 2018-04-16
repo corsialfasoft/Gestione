@@ -1,11 +1,14 @@
 ﻿
 @{
-    ViewBag.Title = "ElencoCorsi";
+    ViewBag.Title = "Elenco Corsi";
 }
-
-<h1>ElencoCorsi</h1>
+<div class="text-warning">
+    @ViewBag.Message
+</div>
+<h1>@ViewBag.Title</h1>
 <body>
 
+@if(ViewBag.Message!=null){
     <div class="row">
         <div class="col-lg-6">
             @ViewBag.Message
@@ -43,5 +46,6 @@
         </div>
     </div>
     @Html.ActionLink("Aggiungi Corso", "AddCorso");
+}                                                
 </body>
 
