@@ -40,7 +40,17 @@ namespace DAO{
         List<Corso>ListaCorsi(string idUtente);
     }
 	public partial class DataAccesObject : IDao {
-		public void AddCorso(Corso corso) {}
+		public void AddCorso(Corso corso) {
+			
+			connection.Open();
+			SqlCommand command = new SqlCommand("AddCorso",connection);
+			command.CommandType = System.Data.CommandType.StoredProcedure;
+			command.Parameters.Add("@nome",System.Data.SqlDbType.NVarChar).Value=corso.nome;
+			command.Parameters.Add("@descrizione",System.Data.SqlDbType.NVarChar).Value= corso.descrizione;
+			command.Parameters.Add("@dInizio",System.Data.SqlDbType.DateTime).Value= corso.dInizio;
+			command.Parameters.Add("@dFine",System.Data.SqlDbType.DateTime).Value= corso.dFine;
+			command.Dispose();
+		}
 
 		public void AddLezione(int idCorso,Lezione lezione) {
 			throw new NotImplementedException();
