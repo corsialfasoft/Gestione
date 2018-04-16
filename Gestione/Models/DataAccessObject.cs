@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using Interfaces;
 
@@ -138,30 +139,76 @@ namespace DAO{
             return reader.ToString();
         }
 		public Corso SearchCorsi(int idCorso) {
-			List<Lezione> leziones = null;
-
 		}
 		
 		public void Iscriviti(int idCorso,string idStudente) {}
 
 		public List<Corso> SearchCorsi(string descrizione) {
-			List<Lezione> leziones = new List<Lezione>();
-			Lezione l1 = new Lezione("mock1");
-			Lezione l2 = new Lezione("mock2");
-			leziones.Add(l1);
-			leziones.Add(l2);
-			List<Corso> list = new List<Corso>();
-			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
-			return list;
+			List<Corso> corsi = null;
+            SqlConnection con = new SqlConnection(GetConnection());
+            try{ 
+                corsi = new List<Corso>();
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SearchCorso",con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.TableMappings.Add("table","Corsi");
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
+                    int _id = (int)dr["id"];
+                    string _nome = (string) dr["nome"];
+                    string _desc = (string)dr["descrizione"];
+                    DateTime _dInizio = (DateTime)dr["dInizio"];
+                    DateTime _dFine = (DateTime)dr["dFine"];
+                    corsi.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
+                }
+                ds.Dispose();
+                da.Dispose();
+                cmd.Dispose();
+                return corsi;
+            }catch(Exception e){
+                throw e;    
+            }finally{ 
+                con.Close();    
+            }
+
 		}
 
 		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
-			List<Lezione> leziones = new List<Lezione>();
-			Lezione l = new Lezione("mock");
-			leziones.Add(l);
-			List<Corso> list = new List<Corso>();
-			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
-			return list;
+			List<Corso> corsi = null;
+            SqlConnection con = new SqlConnection(GetConnection());
+            try{ 
+                corsi = new List<Corso>();
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SearchCorsiStud",con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
+                cmd.Parameters.Add("@idStudente",SqlDbType.NVarChar).Value = idUtente;
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.TableMappings.Add("table","Corsi");
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
+                    int _id = (int)dr["id"];
+                    string _nome = (string) dr["nome"];
+                    string _desc = (string)dr["descrizione"];
+                    DateTime _dInizio = (DateTime)dr["dInizio"];
+                    DateTime _dFine = (DateTime)dr["dFine"];
+                    corsi.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
+                }
+                ds.Dispose();
+                da.Dispose();
+                cmd.Dispose();
+                return corsi;
+            }catch(Exception e){
+                throw e;    
+            }finally{ 
+                con.Close();    
+            }
 		}
 
 		public List<CV> SearchEta(int eta) {
