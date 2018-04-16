@@ -152,7 +152,6 @@
     <Compile Include="Models\DataAccessObject.cs" />
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\interfaces.cs" />
-    <Compile Include="Models\Search.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

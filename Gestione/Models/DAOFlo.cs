@@ -10,15 +10,16 @@ namespace DAO{
 			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
 			try{
 				connection.Open();
-				SqlCommand command = new SqlCommand("ModificaCurriculum",connection);
-				command.CommandType=System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@matricolaM", System.Data.SqlDbType.NVarChar).Value=a.matricola ;
-				command.Parameters.Add("@nomeM", System.Data.SqlDbType.NVarChar).Value=b.nome;
-				command.Parameters.Add("@cognomeM", System.Data.SqlDbType.NVarChar).Value=b.cognome;
-				command.Parameters.Add("@etaM", System.Data.SqlDbType.Int).Value=b.eta;
-				command.Parameters.Add("@emailM", System.Data.SqlDbType.NVarChar).Value=b.email;
-				command.Parameters.Add("@residenzaM", System.Data.SqlDbType.NVarChar).Value=b.residenza;
-				command.Parameters.Add("@telefonoM", System.Data.SqlDbType.NVarChar).Value=b.telefono;
+				SqlCommand command = new SqlCommand("ModificaCurriculum",connection) {
+					CommandType = System.Data.CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@matricolaM", System.Data.SqlDbType.NVarChar).Value=a.Matricola ;
+				command.Parameters.Add("@nomeM", System.Data.SqlDbType.NVarChar).Value=b.Nome;
+				command.Parameters.Add("@cognomeM", System.Data.SqlDbType.NVarChar).Value=b.Cognome;
+				command.Parameters.Add("@etaM", System.Data.SqlDbType.Int).Value=b.Eta;
+				command.Parameters.Add("@emailM", System.Data.SqlDbType.NVarChar).Value=b.Email;
+				command.Parameters.Add("@residenzaM", System.Data.SqlDbType.NVarChar).Value=b.Residenza;
+				command.Parameters.Add("@telefonoM", System.Data.SqlDbType.NVarChar).Value=b.Telefono;
 				command.ExecuteNonQuery();
 				command.Dispose();
 			}catch(Exception e ){
@@ -33,23 +34,24 @@ namespace DAO{
 			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
 			try{
 				connection.Open();
-				SqlCommand command = new SqlCommand("GetCv",connection);
-				command.CommandType=System.Data.CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand("GetCv",connection) {
+					CommandType = System.Data.CommandType.StoredProcedure
+				};
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matr;
 				SqlDataReader reader = command.ExecuteReader();
 				CV c = new CV();
 				while(reader.Read()){
-					c.nome = reader.GetString(0);
-					c.cognome = reader.GetString(1);
-					c.eta = reader.GetInt32(2);
-					c.matricola = reader.GetString(3);
-					c.email = reader.GetString(4);
-					c.residenza = reader.GetString(5);
-					c.telefono = reader.GetString(6);
+					c.Nome = reader.GetString(0);
+					c.Cognome = reader.GetString(1);
+					c.Eta = reader.GetInt32(2);
+					c.Matricola = reader.GetString(3);
+					c.Email = reader.GetString(4);
+					c.Residenza = reader.GetString(5);
+					c.Telefono = reader.GetString(6);
 				}
-				c.esperienze = GetEspLav(c.matricola);
-				c.percorsostudi= GetPerStudi(c.matricola);
-				c.competenze = GetComp(c.matricola);
+				c.Esperienze = GetEspLav(c.Matricola);
+				c.Percorsostudi= GetPerStudi(c.Matricola);
+				c.Competenze = GetComp(c.Matricola);
 				reader.Close();
 				command.Dispose();
 				return c;
@@ -64,15 +66,16 @@ namespace DAO{
 			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
 			try{
 				connection.Open();
-				SqlCommand command = new SqlCommand("GetComp",connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand("GetComp",connection) {
+					CommandType = System.Data.CommandType.StoredProcedure
+				};
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<Competenza> res = new List<Competenza>();
 				SqlDataReader reader = command.ExecuteReader();
 				Competenza e = new Competenza();
 				while(reader.Read()){
-					e.titolo = reader.GetString(0);
-					e.livello = reader.GetInt32(1);
+					e.Titolo = reader.GetString(0);
+					e.Livello = reader.GetInt32(1);
 				
 					res.Add(e);
 				}
@@ -90,8 +93,9 @@ namespace DAO{
 			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
 			try{
 				connection.Open();
-				SqlCommand command = new SqlCommand("GetPerStudi",connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand("GetPerStudi",connection) {
+					CommandType = System.Data.CommandType.StoredProcedure
+				};
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<PerStud> res = new List<PerStud>();
 				SqlDataReader reader = command.ExecuteReader();
@@ -99,8 +103,8 @@ namespace DAO{
 				while(reader.Read()){
 					e.AnnoInizio = reader.GetInt32(0);
 					e.AnnoFine = reader.GetInt32(1);
-					e.titolo = reader.GetString(2);
-					e.descrizione = reader.GetString(3);
+					e.Titolo = reader.GetString(2);
+					e.Descrizione = reader.GetString(3);
 					res.Add(e);
 				}
 				reader.Close();
@@ -117,8 +121,9 @@ namespace DAO{
 			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
 			try{
 				connection.Open();
-				SqlCommand command = new SqlCommand("GetEspLav",connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand("GetEspLav",connection) {
+					CommandType = System.Data.CommandType.StoredProcedure
+				};
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<EspLav> res = new List<EspLav>();
 				SqlDataReader reader = command.ExecuteReader();
@@ -126,8 +131,8 @@ namespace DAO{
 				while(reader.Read()){
 					e.AnnoInizio = reader.GetInt32(0);
 					e.AnnoFine = reader.GetInt32(1);
-					e.qualifica = reader.GetString(2);
-					e.descrizione = reader.GetString(3);
+					e.Qualifica = reader.GetString(2);
+					e.Descrizione = reader.GetString(3);
 					res.Add(e);
 				}
 				reader.Close();
@@ -144,14 +149,15 @@ namespace DAO{
 			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
 			try{
 				connection.Open();
-				SqlCommand command = new SqlCommand("AddCv",connection);
-				command.CommandType= System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@Nome",System.Data.SqlDbType.NVarChar).Value= c.nome;
-				command.Parameters.Add("@Cognome",System.Data.SqlDbType.NVarChar).Value= c.cognome;
-				command.Parameters.Add("@Eta",System.Data.SqlDbType.Int).Value= c.eta;
-				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value= c.matricola;
-				command.Parameters.Add("@Residenza",System.Data.SqlDbType.NVarChar).Value= c.residenza;
-				command.Parameters.Add("@Telefono",System.Data.SqlDbType.NVarChar).Value= c.telefono;
+				SqlCommand command = new SqlCommand("AddCv",connection) {
+					CommandType = System.Data.CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@Nome",System.Data.SqlDbType.NVarChar).Value= c.Nome;
+				command.Parameters.Add("@Cognome",System.Data.SqlDbType.NVarChar).Value= c.Cognome;
+				command.Parameters.Add("@Eta",System.Data.SqlDbType.Int).Value= c.Eta;
+				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value= c.Matricola;
+				command.Parameters.Add("@Residenza",System.Data.SqlDbType.NVarChar).Value= c.Residenza;
+				command.Parameters.Add("@Telefono",System.Data.SqlDbType.NVarChar).Value= c.Telefono;
 				command.ExecuteNonQuery();
 				command.Dispose();
 			}catch(Exception e){
@@ -161,10 +167,11 @@ namespace DAO{
 			}
 		}
 		private string GetStringBuilderCV() {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = @"(localdb)\MSSQLLocalDB";
-            builder.InitialCatalog = "GECV";
-            return builder.ToString();
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			return builder.ToString();
         }
 	}
 }

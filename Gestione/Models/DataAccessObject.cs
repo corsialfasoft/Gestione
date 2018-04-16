@@ -94,7 +94,7 @@ namespace DAO{
 				SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection) {
 					CommandType = CommandType.StoredProcedure
 				};
-				command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=curriculum.matricola;
+				command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=curriculum.Matricola;
 				 x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 
