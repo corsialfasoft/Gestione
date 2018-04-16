@@ -76,22 +76,14 @@ namespace DAO{
 
 
 		public List<Corso> ListaCorsi() {
-			Corso c = new Corso();
-			c.Nome = "c#";
-			c.Descrizione= "Corso di programmazione su Asp.Net";
-			c.Id = 1 ;
-			Corso d = new Corso();
-			d.Nome= "Java";
-			d.Descrizione= "Corso alla proggrammazione OO";
-			d.Id=2;
-			Corso e = new Corso();
-			e.Nome = "Javascripppto";
-			e.Descrizione ="Corso alla programazione su javascripttto";
-			e.Id = 3;
-			List<Corso> result = new List<Corso>();
-			result.Add(c);
-			result.Add(d);
-			result.Add(e);
+		List<Corso> result = new List<Corso>();
+		    SqlConnectio cmq = new SqlConnectio(GetConnection()); 
+            
+
+
+
+
+
 			return result;
 		}
 
