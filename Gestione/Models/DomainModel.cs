@@ -6,12 +6,24 @@ using DAO;
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
 	{
-		public void AddCorso(Corso corso)
+        public void AddCompetenze(int IdCv,Competenza comp) {
+            throw new NotImplementedException();
+        }
+
+        public void AddCorso(Corso corso)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void AddLezione(int idCorso,Lezione lezione)
+        public void AddCvStudi(int idCv,PerStud studi) {
+            throw new NotImplementedException();
+        }
+
+        public void AddEspLav(int idCv,EspLav esp) {
+            throw new NotImplementedException();
+        }
+
+        public void AddLezione(int idCorso,Lezione lezione)
 		{
 			throw new NotImplementedException();
 		}
