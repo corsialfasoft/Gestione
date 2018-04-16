@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Gestione.Models;
+using Interfaces;
 
 namespace Gestione.Controllers {
     public class Profilo {
@@ -41,6 +43,18 @@ namespace Gestione.Controllers {
         public ActionResult Contact() {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult VisualizzaGiorno() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult VisualizzaGiorno(DateTime data) {
+            DomainModel dm = new DomainModel();
+            DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
+            ViewBag.giorno = giorno;
             return View();
         }
     }
