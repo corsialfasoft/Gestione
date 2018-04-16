@@ -15,9 +15,9 @@ namespace DAO{
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
-        void AddCvStudi(int idCv,PerStud studi);
-        void AddEspLav(int idCv, EspLav esp );
-        void AddCompetenze(int IdCv, Competenza comp);
+        void AddCvStudi(string MatrCv,PerStud studi);
+        void AddEspLav(string MatrCv, EspLav esp );
+        void AddCompetenze(string MatrCv, Competenza comp);
 	
 	
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
@@ -44,19 +44,67 @@ namespace DAO{
         List<Corso>ListaCorsi(int idUtente);
     }
 	public partial class DataAccesObject : IDao {
-        public void AddCompetenze(int IdCv,Competenza comp) {
-            throw new NotImplementedException();
-        }
+        public void AddCompetenze(string MatrCv,Competenza comp) {
+         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			int x;
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.AddCompetenze",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@Tipo",SqlDbType.NVarChar).Value=comp.Titolo;
+				command.Parameters.Add("@Livello",SqlDbType.Int).Value=comp.Livello;
+				command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
+				x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessun curriculum eliminato!");
+					}				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
+			}
+		} 
 
         public void AddCorso(Corso corso) {
 			throw new NotImplementedException();
 		}
 
-        public void AddCvStudi(int idCv,PerStud studi) {
-            throw new NotImplementedException();
-        }
+        public void AddCvStudi(string MatrCv,PerStud studi) {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			int x;
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.AddCvStudi",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=studi.AnnoInizio;
+				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=studi.AnnoFine;
+				command.Parameters.Add("@Titolo",SqlDbType.VarChar).Value=studi.Titolo;
+				command.Parameters.Add("@Descrizione",SqlDbType.VarChar).Value=studi.Descrizione;
+				command.Parameters.Add("@IdCv",SqlDbType.NVarChar).Value=MatrCv;
+				 x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessun curriculum eliminato!");
+					}				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
+			}
+		}
 
-        public void AddEspLav(int idCv,EspLav esp) {
+        public void AddEspLav(string MatrCv,EspLav esp) {
             throw new NotImplementedException();
         }
 
