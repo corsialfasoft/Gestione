@@ -18,13 +18,13 @@ CREATE PROCEDURE AddCvStudi
   	@AnnoF Int,
 	@Titolo VARCHAR(50), 
   	@Descrizione VARCHAR(50), 
-  	@MatrCv nvarchar(50)
+  	@MatrCv NVARCHAR(10)
 	
 	as
     SET IMPLICIT_TRANSACTIONS ON;
 	
 	declare @IdControl int;
-	set @IdControl = (select IdCv from Curriculum where IdCv = @IdCv )
+	set @IdControl = (select top 1 IdCv from Curriculum where Matricola = @MatrCv )
 
 	if @IdControl is null
 		begin
@@ -37,9 +37,7 @@ CREATE PROCEDURE AddCvStudi
 		begin
 			print 'Warning! ID trovato';	
 			INSERT INTO PercorsoStudi (AnnoI, AnnoF, Titolo, Descrizione, IdCv )
-				VALUES(@AnnoI,@AnnoF,@Titolo,@Descrizione,@IdCv);	
-			
-			SELECT IDENT_CURRENT('PercorsoStudi') 	 
+				VALUES(@AnnoI,@AnnoF,@Titolo,@Descrizione,@IdControl);				 
 		end
 		COMMIT TRANSACTION 
 	go
@@ -61,8 +59,7 @@ as
 		begin
 			print 'Warning! ID non trovato';
             ROLLBACK TRANSACTION;
-			THROW 51000,'Warning! ID non trovato',@IdControl;
-			
+			THROW 51000,'Warning! ID non trovato',@IdControl;			
 		end
 	 else 	
 		begin
@@ -75,12 +72,12 @@ as
 CREATE PROCEDURE AddCompetenze
 	@Tipo NVARCHAR(50),
     @Livello Int,
-    @MatrCv nvarchar(50)
+    @MatrCv nvarchar(10)
 as
    SET IMPLICIT_TRANSACTIONS ON;
 					
 	declare @IdControl int;
-	set @IdControl = (select IdCv from Curriculum where IdCv = @IdCv )
+	set @IdControl = (select IdCv from Curriculum where Matricola = @MatrCv )
 
 	if @IdControl is null
 		begin
@@ -93,7 +90,7 @@ as
 		begin
 			print 'Warning! ID trovato';	
 			INSERT INTO Competenze (Tipo, Livello, IdCv)
-						VALUES (@Tipo,@Livello,@IdCv)
+						VALUES (@Tipo,@Livello,@IdControl)
 
 					SELECT IDENT_CURRENT('Competenze')			 
 		end
