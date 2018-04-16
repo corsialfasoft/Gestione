@@ -94,15 +94,15 @@ namespace DAO{
 		}
 
 		public CV Search(string id) {
-			return new CV {nome="Massimo",cognome="franzoso",telefono="3391627441",eta=33};
+			return new CV {matricola = "5",nome="Massimo",cognome="franzoso",telefono="3391627441",eta=33};
 		}
 
 		public List<CV> SearchChiava(string chiava) {
 			List<CV> trovati = new List<CV>();
 			if (chiava == "truzzotunztunz"){
-			CV a = new CV { nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz"};
-			CV b = new CV { nome ="Alex",cognome="dimitri",email="truzzotunztunz"};
-			CV c = new CV { nome="Dino",cognome="sauro",email="truzzotunztunz"};
+			CV a = new CV {matricola = "5", nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz"};
+			CV b = new CV {matricola = "dsf", nome ="Alex",cognome="dimitri",email="truzzotunztunz"};
+			CV c = new CV { matricola = "zxvc",nome="Dino",cognome="sauro",email="truzzotunztunz"};
 			trovati.Add(a);
 			trovati.Add(b);
 			trovati.Add(c);
@@ -113,7 +113,7 @@ namespace DAO{
 		public List<CV> SearchCognome(string cognome) {
 			List<CV> trovati = new List<CV>();
 			if (cognome == "Franzoso"){
-			trovati.Add(new CV{cognome="Franzoso"});
+			trovati.Add(new CV{matricola = "q",cognome="Franzoso"});
 			}
 			return trovati;
 		}
@@ -133,9 +133,9 @@ namespace DAO{
 		public List<CV> SearchEta(int eta) {
 			List<CV> trovati = new List<CV>();
 			if (eta == 22){
-			CV a = new CV { nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=22};
-			CV b = new CV { nome ="Alex",cognome="dimitri",email="weasd",eta=22};
-			CV c = new CV { nome="Dino",cognome="sauro",email="eeeeee",eta=22};
+			CV a = new CV {matricola = "5", nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=22};
+			CV b = new CV {matricola = "s", nome ="Alex",cognome="dimitri",email="weasd",eta=22};
+			CV c = new CV {matricola = "df", nome="Dino",cognome="sauro",email="eeeeee",eta=22};
 			trovati.Add(a);
 			trovati.Add(b);
 			trovati.Add(c);
@@ -146,8 +146,8 @@ namespace DAO{
 		public List<CV> SearchRange(int etmin,int etmax) {
 			List<CV> trovati = new List<CV>();
 			if (etmin>=22 && etmax<=25){
-			CV a = new CV { nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=25};
-			CV b = new CV { nome ="Alex",cognome="dimitri",email="weasd",eta=22};
+			CV a = new CV {matricola = "5", nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=25};
+			CV b = new CV {matricola = "cvd", nome ="Alex",cognome="dimitri",email="weasd",eta=22};
 			
 			trovati.Add(a);
 			trovati.Add(b);

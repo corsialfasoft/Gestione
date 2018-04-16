@@ -36,6 +36,13 @@ namespace Gestione.Controllers {
         public ActionResult DettaglioCurriculum(){
             return View();
         }
+
+
+        public ActionResult DettCv(string id){
+            DomainModel dm = new DomainModel();
+            ViewBag.CV = dm.Search(id);
+            return View("DettaglioCurriculum");
+        }
         [HttpPost]
         public ActionResult EliminaCV(string idCV){ 
             CV temp = dm.Search(idCV); 
