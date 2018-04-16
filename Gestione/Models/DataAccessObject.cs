@@ -10,7 +10,7 @@ namespace DAO{
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
 		CV Search(string id); //search di un curriculum per id di un curriculum
-		List<CV> \SearchChiava(string chiava); //search generale per parole chiava 
+		List<CV> SearchChiava(string chiava); //search generale per parole chiava 
 		List<CV> SearchEta(int eta); //search solo per quella precisa età
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
@@ -94,7 +94,7 @@ namespace DAO{
 				command.CommandType=System.Data.CommandType.StoredProcedure;
 				command.Parameters.Add("@parola",System.Data.SqlDbType.NVarChar).Value=curriculum.matricola;
 				 x = command.ExecuteNonQuery();
-				if (x == 0) { throw new Exception('Nessun curriculum è stato eliminato!')};
+				if (x == 0) { throw new Exception("Nessun curriculum è stato eliminato!");}
 				
 			}catch(Exception e) {
 				throw e;
