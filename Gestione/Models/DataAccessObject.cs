@@ -15,7 +15,9 @@ namespace DAO{
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
-	
+        void AddCvStudi(int idCv,PerStud studi);
+        void AddEspLav(int idCv, EspLav esp );
+        void AddCompetenze(int IdCv, Competenza comp);
 	
 	
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
@@ -42,17 +44,27 @@ namespace DAO{
         List<Corso>ListaCorsi(int idUtente);
     }
 	public partial class DataAccesObject : IDao {
-		public void AddCorso(Corso corso) {
+        public void AddCompetenze(int IdCv,Competenza comp) {
+            throw new NotImplementedException();
+        }
+
+        public void AddCorso(Corso corso) {
 			throw new NotImplementedException();
 		}
 
-		public void AddLezione(int idCorso,Lezione lezione) {
+        public void AddCvStudi(int idCv,PerStud studi) {
+            throw new NotImplementedException();
+        }
+
+        public void AddEspLav(int idCv,EspLav esp) {
+            throw new NotImplementedException();
+        }
+
+        public void AddLezione(int idCorso,Lezione lezione) {
 			throw new NotImplementedException();
 		}
 
-		public void AggiungiCV(CV a) {
-			//
-		}
+		
 
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
@@ -107,13 +119,9 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-		public void ModificaCV(CV a,CV b) {
-			//
-		}
+	
 
-		public CV Search(string id) {
-			return new CV {matricola = "5",nome="Massimo",cognome="franzoso",telefono="3391627441",eta=33};
-		}
+		
 
 		public List<CV> SearchChiava(string chiava) {
 			List<CV> trovati = new List<CV>();
