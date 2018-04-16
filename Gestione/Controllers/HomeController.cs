@@ -54,7 +54,11 @@ namespace Gestione.Controllers {
         public ActionResult VisualizzaGiorno(DateTime data) {
             DomainModel dm = new DomainModel();
             DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
-            ViewBag.giorno = giorno;
+            if (giorno!=null) {
+                ViewBag.giorno = giorno;
+            } else {
+                ViewBag.Message = "Data non trovata!";
+            }
             return View();
         }
     }
