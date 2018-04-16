@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interfaces;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace DAO{
 	public interface IDao{
@@ -8,7 +10,7 @@ namespace DAO{
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
 		CV Search(string id); //search di un curriculum per id di un curriculum
-		List<CV> SearchChiava(string chiava); //search generale per parole chiava 
+		List<CV> \SearchChiava(string chiava); //search generale per parole chiava 
 		List<CV> SearchEta(int eta); //search solo per quella precisa età
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
@@ -69,8 +71,24 @@ namespace DAO{
 		}
 
 		public void EliminaCV(CV curriculum) {
-            //
-			throw new NotImplementedException();
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource=@"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog="GECV";
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			int x;
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection);
+				command.CommandType=System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@parola",System.Data.SqlDbType.NVarChar).Value=curriculum.matricola;
+				 x = command.ExecuteNonQuery();
+				if (x == 0) { throw new Exception('Nessun curriculum è stato eliminato!')};
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
+			}
 		}
 
 		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente) {
@@ -99,23 +117,52 @@ namespace DAO{
 
 		public List<CV> SearchChiava(string chiava) {
 			List<CV> trovati = new List<CV>();
-			if (chiava == "truzzotunztunz"){
-			CV a = new CV {matricola = "5", nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz"};
-			CV b = new CV {matricola = "dsf", nome ="Alex",cognome="dimitri",email="truzzotunztunz"};
-			CV c = new CV { matricola = "zxvc",nome="Dino",cognome="sauro",email="truzzotunztunz"};
-			trovati.Add(a);
-			trovati.Add(b);
-			trovati.Add(c);
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource=@"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog="GECV";
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.CercaParolaChiava",connection);
+				command.CommandType=System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@parola",System.Data.SqlDbType.NVarChar).Value=chiava;
+				SqlDataReader reader = command.ExecuteReader();
+				while (reader.Read()){
+					trovati.Add(Search(reader.GetString(0)));
+				}
+				reader.Close();
+				return trovati;
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
 			}
-			return trovati;
 		}
 
 		public List<CV> SearchCognome(string cognome) {
 			List<CV> trovati = new List<CV>();
-			if (cognome == "Franzoso"){
-			trovati.Add(new CV{matricola = "q",cognome="Franzoso"});
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource=@"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog="GECV";
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.CercaCognome",connection);
+				command.CommandType=System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@cognome",System.Data.SqlDbType.NVarChar).Value=cognome;
+				SqlDataReader reader = command.ExecuteReader();
+				while (reader.Read()){
+					trovati.Add(Search(reader.GetString(0)));
+				}
+				reader.Close();
+				return trovati;
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
 			}
-			return trovati;
 		}
 
 		public Corso SearchCorsi(int idCorso) {
@@ -131,28 +178,54 @@ namespace DAO{
 		}
 
 		public List<CV> SearchEta(int eta) {
-			List<CV> trovati = new List<CV>();
-			if (eta == 22){
-			CV a = new CV {matricola = "5", nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=22};
-			CV b = new CV {matricola = "s", nome ="Alex",cognome="dimitri",email="weasd",eta=22};
-			CV c = new CV {matricola = "df", nome="Dino",cognome="sauro",email="eeeeee",eta=22};
-			trovati.Add(a);
-			trovati.Add(b);
-			trovati.Add(c);
+		List<CV> trovati = new List<CV>();
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource=@"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog="GECV";
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.CercaEta",connection);
+				command.CommandType=System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@eta",System.Data.SqlDbType.Int).Value=eta;
+				SqlDataReader reader = command.ExecuteReader();
+				while (reader.Read()){
+					trovati.Add(Search(reader.GetString(0)));
+				}
+				reader.Close();
+				return trovati;
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
 			}
-			return trovati;
 		}
 
 		public List<CV> SearchRange(int etmin,int etmax) {
 			List<CV> trovati = new List<CV>();
-			if (etmin>=22 && etmax<=25){
-			CV a = new CV {matricola = "5", nome="Pino",cognome="Panino",telefono="123",email="truzzotunztunz",eta=25};
-			CV b = new CV {matricola = "cvd", nome ="Alex",cognome="dimitri",email="weasd",eta=22};
-			
-			trovati.Add(a);
-			trovati.Add(b);
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource=@"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog="GECV";
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand("dbo.CercaEtaMinMax",connection);
+				command.CommandType=System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@e_min",System.Data.SqlDbType.Int).Value=etmin;
+				command.Parameters.Add("@e_max",System.Data.SqlDbType.Int).Value=etmax;
+				SqlDataReader reader = command.ExecuteReader();
+				while (reader.Read()){
+					trovati.Add(Search(reader.GetString(0)));
+				}
+				reader.Close();
+				return trovati;
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				connection.Dispose();
 			}
-			return trovati;
 		}
 
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
