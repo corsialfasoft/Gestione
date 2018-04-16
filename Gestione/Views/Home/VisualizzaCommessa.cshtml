@@ -20,7 +20,7 @@
     </div>
     <hr />
     <table class="table table-striped">
-        <thead>
+        <thead class="thead-light">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Date</th>
@@ -28,11 +28,11 @@
             </tr>
         </thead>
         <tbody>
-            @for (int index = 0;index< ViewBag.Giorni.Count; index++) {
+            @for (int index = 1;index<= ViewBag.Giorni.Count; index++) {
                 <tr>
                     <th scope="row">@index</th>
-                    <td>@ViewBag.Giorni[index].Data.ToShortDateString()</td>
-                    <td>@ViewBag.Giorni[index].OreLavorate</td>
+                    <td>@ViewBag.Giorni[index-1].Data.ToShortDateString()</td>
+                    <td>@ViewBag.Giorni[index-1].OreLavorate</td>
                 </tr>
             }
         </tbody>
