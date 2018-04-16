@@ -51,6 +51,12 @@ namespace Gestione.Controllers {
 
 			return View();
 		}
+        public ActionResult ElencoCorsiStudente(string matricola) {
+           DomainModel dm = new DomainModel();
+            List<Corso> corso = dm.ListaCorsi(matricola);
+            ViewBag.CorsiStudente = corso;
+            return View();
+        }
 		public ActionResult Corso(int id) {
 			DomainModel dm = new DomainModel();
 			Corso scelto = dm.SearchCorsi(id);
