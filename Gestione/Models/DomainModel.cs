@@ -37,14 +37,11 @@ namespace Gestione.Models{
 		public void Iscriviti(int idCorso,string idStudente) {
 			DataAccesObject dao = new DataAccesObject();
 			try{
-			dao.Iscriviti(idCorso,idStudente);
+				dao.Iscriviti(idCorso,idStudente);
 			}catch(Exception e){				
 				throw e ;
 			}
 		}
-
-		
-
 		public void ModificaCV(CV a,CV b) {
 			throw new NotImplementedException();
 		}
@@ -59,9 +56,7 @@ namespace Gestione.Models{
 
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
-		}
-
-		
+		}	
 
 		public List<CV> SearchEta(int eta) {
 			throw new NotImplementedException();

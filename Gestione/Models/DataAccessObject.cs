@@ -49,23 +49,22 @@ namespace DAO{
 			SqlConnection connection = new SqlConnection(GetConnection());
 			int IdCo = 0;
 			try{
-			connection.Open();
-			SqlCommand command = new SqlCommand("AddCorso",connection);
-			command.CommandType = System.Data.CommandType.StoredProcedure;
-			command.Parameters.Add("@nome",System.Data.SqlDbType.NVarChar).Value= corso.Nome;
-			command.Parameters.Add("@descrizione",System.Data.SqlDbType.NVarChar).Value= corso.Descrizione;
-			command.Parameters.Add("@dInizio",System.Data.SqlDbType.DateTime).Value= corso.Inizio;
-			command.Parameters.Add("@dFine",System.Data.SqlDbType.DateTime).Value= corso.Fine;
-			SqlDataReader reader = command.ExecuteReader();
+				connection.Open();
+				SqlCommand command = new SqlCommand("AddCorso",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
+				command.Parameters.Add("@nome",SqlDbType.NVarChar).Value= corso.Nome;
+				command.Parameters.Add("@descrizione",SqlDbType.NVarChar).Value= corso.Descrizione;
+				command.Parameters.Add("@dInizio",SqlDbType.DateTime).Value= corso.Inizio;
+				command.Parameters.Add("@dFine",SqlDbType.DateTime).Value= corso.Fine;
+				SqlDataReader reader = command.ExecuteReader();
 				while(reader.Read()){
-				IdCo = (int)reader.GetDecimal(0);
+					IdCo = (int)reader.GetDecimal(0);
 				}
+				reader.Close();
+				command.Dispose();
 				if(IdCo == 0) {
-						throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
-				} else { 
-						reader.Close();
-						command.Dispose();
-						connection.Close();
+					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
 				}
 			} catch (Exception e) {
 				throw e;
@@ -80,19 +79,17 @@ namespace DAO{
 			try { 
 				connection.Open();
 				SqlCommand command = new SqlCommand("AddLezioni",connection);
-				command.Parameters.Add("@idCorsi",System.Data.SqlDbType.Int).Value= idCorso;
-				command.Parameters.Add("@descrizione",System.Data.SqlDbType.NVarChar).Value= lezione.Descrizione;
-				command.Parameters.Add("@durata",System.Data.SqlDbType.NVarChar).Value= lezione.Durata;
+				command.Parameters.Add("@idCorsi",SqlDbType.Int).Value= idCorso;
+				command.Parameters.Add("@descrizione",SqlDbType.NVarChar).Value= lezione.Descrizione;
+				command.Parameters.Add("@durata",SqlDbType.NVarChar).Value= lezione.Durata;
 				SqlDataReader reader = command.ExecuteReader();
 					while(reader.Read()){
 						IdLez = (int)reader.GetDecimal(0);
 					} 
+					reader.Close();
+					command.Dispose();
 					if(IdLez == 0) {
 						throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
-					} else { 
-						reader.Close();
-						command.Dispose();
-						connection.Close();
 					}
 			} catch (Exception e) {
 				throw e;
@@ -133,10 +130,11 @@ namespace DAO{
 		public List<Corso> ListaCorsi() {
 		    List<Corso> result = new List<Corso>();
             SqlConnection con = new SqlConnection(GetConnection());
-		    SqlCommand cmd = new SqlCommand("dbo.ListaCorsi",con); 
-            cmd.CommandType = CommandType.StoredProcedure;
-            try{
-            DataSet ds = new DataSet();
+			SqlCommand cmd = new SqlCommand("dbo.ListaCorsi",con) {
+				CommandType = CommandType.StoredProcedure
+			};
+			try {
+				DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.TableMappings.Add("Table","Corsi");
                 da.SelectCommand = cmd;
@@ -153,7 +151,6 @@ namespace DAO{
                 da.Dispose();
                 cmd.Dispose();
 		        return result;
-
               }catch(Exception e){
                 throw e;    
             }finally{ 
@@ -164,16 +161,15 @@ namespace DAO{
 		public List<Corso> ListaCorsi(string idUtente) {
 			List<Corso> result = new List<Corso> ();
 		    SqlConnection con = new SqlConnection(GetConnection());
-		    SqlCommand cmd = new SqlCommand("dbo.ListaCorsiStudenti",con); 
-              cmd.CommandType = CommandType.StoredProcedure;
-            con.Open();
+			SqlCommand cmd = new SqlCommand("dbo.ListaCorsiStudenti",con) {
+				CommandType = CommandType.StoredProcedure
+			};
+			con.Open();
 			cmd.Parameters.Add("@idStudente",SqlDbType.NVarChar).Value = idUtente;
            try{
             DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.TableMappings.Add("Table","Corsi");
-                //da.TableMappings.Add("Table1","Studenti");
-                //da.TableMappings.Add("Table2","StudentiCorsi");
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
@@ -188,7 +184,6 @@ namespace DAO{
                 da.Dispose();
                 cmd.Dispose();
 			    return result;
-
               }catch(Exception e){
                 throw e;    
             }finally{ 
@@ -211,7 +206,7 @@ namespace DAO{
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
 		}
-		public Corso TrasformInCorso(SqlDataReader data){
+		private Corso TrasformInCorso(SqlDataReader data){
 			Corso output = new Corso {
 				Nome = data.GetString(1),
 				Descrizione = data.GetString(2),
@@ -220,11 +215,12 @@ namespace DAO{
 			};
 			return output;
 		}
-        public string GetConnection(){ 
-            SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder();
-            reader.DataSource=@"(localdb)\MSSQLLocalDB";
-            reader.InitialCatalog = "GeCorsi";
-            return reader.ToString();
+        private string GetConnection(){
+			SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GeCorsi"
+			};
+			return reader.ToString();
         }
 		public Corso SearchCorsi(int idCorso) {
 			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
@@ -242,9 +238,10 @@ namespace DAO{
             try{ 
                 corsi = new List<Corso>();
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SearchCorso",con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
+				SqlCommand cmd = new SqlCommand("SearchCorso",con) {
+					CommandType = CommandType.StoredProcedure
+				};
+				cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.TableMappings.Add("Table","Corsi");
@@ -267,7 +264,6 @@ namespace DAO{
             }finally{ 
                 con.Close();    
             }
-
 		}
 
 		public List<Corso> SearchCorsi(string descrizione,string idUtente)  {
@@ -276,9 +272,10 @@ namespace DAO{
             try{ 
                 corsi = new List<Corso>();
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SearchCorsiStud",con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
+				SqlCommand cmd = new SqlCommand("SearchCorsiStud",con) {
+					CommandType = CommandType.StoredProcedure
+				};
+				cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
                 cmd.Parameters.Add("@idStudente",SqlDbType.NVarChar).Value = idUtente;
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter();

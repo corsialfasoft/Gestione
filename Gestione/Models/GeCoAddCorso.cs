@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using DAO;
+using System;
 
 namespace Gestione.Models {
     partial class DomainModel:IGeCo,IGeCV,IGeTime{
@@ -7,8 +8,8 @@ namespace Gestione.Models {
         public void AddCorso(Corso corso){
             try{ 
                db.AddCorso(corso);
-            }catch(System.NotImplementedException){ 
-                throw new System.Exception();    
+            }catch(Exception e){ 
+                throw e; 
             }
         }
     }
