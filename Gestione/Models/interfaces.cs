@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gestione.Controllers;
+using Gestione.Models;
 
 namespace Interfaces{ 
 	public interface IGeCV{
@@ -19,8 +20,8 @@ namespace Interfaces{
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		DTGGiorno VisualizzaGiorno(DateTime data, string idUtente);
-		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
-		Commessa CercaCommessa(string nomeCommessa);
+		List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente);
+		DTCommessa CercaCommessa(string nomeCommessa);
 	}
     public interface IGeCo {
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
