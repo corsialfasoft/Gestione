@@ -5,8 +5,7 @@ using Interfaces;
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime
 	{
-		public void AddCorso(Corso corso)
-		{
+		public void AddCorso(Corso corso) {
 			throw new NotImplementedException();
 		}
 
@@ -25,16 +24,6 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-
-		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
 
 		public void EliminaCV(CV curriculum)
 		{
