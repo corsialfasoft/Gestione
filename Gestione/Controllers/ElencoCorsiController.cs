@@ -13,12 +13,14 @@ namespace Gestione.Controllers {
 			ViewBag.Controllo=null;	
 
 			DomainModel dm = new DomainModel();
-			Corso c = new Corso();
-			c.Id= 2;
-			c.Descrizione="Mi piacciono i treni!";
-			c.Nome=" Corso sui Treni";
-			List<Corso> res = new List<Corso>();
-			res.Add(c);
+			Corso c = new Corso {
+				Id = 2,
+				Descrizione = "Mi piacciono i treni!",
+				Nome = " Corso sui Treni"
+			};
+			List<Corso> res = new List<Corso> {
+				c
+			};
 			ViewBag.Corsi = dm.ListaCorsi();
 			
 			return View();
@@ -62,8 +64,9 @@ namespace Gestione.Controllers {
 		public ActionResult ElencoCorso(int id){
 			DomainModel dm = new DomainModel();
 			Corso c = dm.SearchCorsi(id);
-			List<Corso> res = new List<Corso>();
-			res.Add(c);
+			List<Corso> res = new List<Corso> {
+				c
+			};
 			ViewBag.Corsi = res;
 			//ViewBag.Lezioni = c.Lezioni;
 			return View("ElencoCorsi");
