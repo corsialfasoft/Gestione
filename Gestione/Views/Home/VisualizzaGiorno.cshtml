@@ -3,42 +3,46 @@
 @using DAO;
 @using Gestione.Controllers;
 
+@{
+    ViewBag.Title = "Dettagli del Giorno";
+    ViewBag.Message = "Selezionare la data di cui si vogliono visualizzare i dettagli";
+}
+
 <style>
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
     }
-
     td {
         border: 1px solid #dddddd;
         text-align: center;
         padding: 8px;
     }
-
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+    input {
+
+    }
 </style>
 
-@{
-    ViewBag.Title = "Dettagli Del Giorno";
-}
 <h2>@ViewBag.Title</h2>
+<br>
 <div>
-    <h3>@ViewBag.Message</h3>
+    <h4>@ViewBag.Message</h4>
 </div>
 <div>
     <form action="/Home/VisualizzaGiorno" method="post">
-        <input type="date" name="data" id="data" />
-        <input type="submit" />
+        <input type="date" name="data" id="data" required />
+        <input type="submit" value="Seleziona" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
     </form>
 </div>
 <br>
 
 @if(ViewBag.giorno != null) {
     <div class="panel panel-default">
-        <div class="panel-heading">@ViewBag.giorno.data</div>
+        <div class="panel-heading">@ViewBag.giorno.data.ToString("dd-MM-yyyy")</div>
         <table>
             <tr>
                 <td>Tipo Ore</td>
