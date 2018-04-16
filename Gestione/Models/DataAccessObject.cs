@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Interfaces;
+using System.Data.SqlClient;
 
 namespace DAO{
 	public interface IDao{
@@ -62,8 +63,26 @@ namespace DAO{
 			return new Commessa(10,"GeTime","Progetto GeTime",50,0);
 		}
 
-		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
-			throw new NotImplementedException();
+		public void Compila(DateTime data, int ore, HType tipoOre, int idUtente) {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = @"(localdb)\MSSQLOCALDB";
+            builder.InitialCatalog = "GeTime";
+            SqlConnection conn = new SqlConnection(builder.ToString());
+            try{ 
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SP_Compila", conn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("@giorno", System.Data.SqlDbType.Date).Value=data;
+            cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.Int).Value=idUtente;
+            cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
+            cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            }catch (Exception e) {
+                throw e;
+            }finally{ 
+                conn.Dispose();
+            }
 		}
 
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
