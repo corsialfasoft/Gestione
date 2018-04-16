@@ -145,6 +145,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DTGiorno.cs" />
     <Compile Include="Controllers\GeTimeAddGiorno.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\VisualizzaCommessa.cs" />
@@ -165,6 +166,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="SQL\SP_Compila.sql" />
+    <Content Include="SQL\SP_VisualizzaGiorno.sql" />
     <Content Include="SQL\DDLGeTime.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -199,6 +202,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddGiorno.cshtml" />
     <Content Include="Views\Home\VisualizzaCommessa.cshtml" />
+    <Content Include="Views\Home\VisualizzaGiorno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
