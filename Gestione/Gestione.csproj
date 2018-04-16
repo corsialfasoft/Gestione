@@ -159,7 +159,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="database gecv\ddl-gecv.sql" />
+    <Content Include="database gecv\GECV.sql" />
     <Content Include="database gecv\ProcedureAdd.sql" />
+    <Content Include="database gecv\ProcedureFlo.sql" />
+    <Content Include="database gecv\SQL_Carmen.sql" />
+    <Content Include="database gecv\test.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
