@@ -19,7 +19,7 @@ as
 		end
 go
 
-Alter procedure CercaEtaMinMax
+create procedure CercaEtaMinMax
 	@e_min int , 
 	@e_max int 
 as

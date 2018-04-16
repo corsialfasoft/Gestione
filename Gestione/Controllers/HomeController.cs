@@ -45,14 +45,16 @@ namespace Gestione.Controllers {
             ViewBag.CV = dm.Search(id);
             return View("DettaglioCurriculum");
         }
-        [HttpPost]
-        public ActionResult EliminaCV(string idCV){ 
-            CV temp = dm.Search(idCV); 
+       // [HttpPost] Commentato per risolvere bug su elimina da lista
+        public ActionResult EliminaCV(string id){ 
+            CV temp = dm.Search(id); 
             string prossimo ;
             try{ 
                 dm.EliminaCV(temp);
                 ViewBag.Message = "Curriculum eliminato con successo";
-                if(P.Ruolo=="admin"){ 
+				Profilo P = new Profilo();
+				P.Ruolo="admin"; // ATTENZIONE SETTATO SUL CONTROLLER!!!!
+                 if(P.Ruolo=="admin"){ 
                     prossimo = "ListaCurriculum";
                 }else{
                     prossimo = "MyPage";  
@@ -137,6 +139,7 @@ namespace Gestione.Controllers {
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello,string id
             ) {
+			Profilo P = new Profilo();
             try{
                 if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
                     && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)

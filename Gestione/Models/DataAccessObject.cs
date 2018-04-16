@@ -105,16 +105,16 @@ namespace DAO{
 		}
 
         public void AddEspLav(string MatrCv,EspLav esp) {
-			SqlConnection con= new SqlConnection(GetConnection());
+			SqlConnection con= new SqlConnection(GetStringBuilderCV());
 			try {
 				con.Open();
 				SqlCommand command = new SqlCommand("AddEspLav",con);
 				command.CommandType=CommandType.StoredProcedure;
 				command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=esp.AnnoInizio;
 				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
-				command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.qualifica;
-				command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.descrizione;
-				command.Parameters.Add("@matr",SqlDbType.Int).Value=matrCv;
+				command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.Qualifica;
+				command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.Descrizione;
+				command.Parameters.Add("@matr",SqlDbType.Int).Value=MatrCv;
                 int x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 
