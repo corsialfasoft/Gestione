@@ -130,39 +130,69 @@ namespace DAO{
 
 
 		public List<Corso> ListaCorsi() {
-		List<Corso> result = new List<Corso>();
-		    SqlConnectio cmq = new SqlConnectio(GetConnection()); 
-            
+		    List<Corso> result = new List<Corso>();
+            SqlConnection con = new SqlConnection(GetConnection());
+		    SqlCommand cmd = new SqlCommand("dbo.ListaCorsi",con); 
+            cmd.CommandType = CommandType.StoredProcedure;
+            try{
+            DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.TableMappings.Add("Table","Corsi");
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
+                    int _id = (int)dr["id"];
+                    string _nome = (string) dr["nome"];
+                    string _desc = (string)dr["descrizione"];
+                    DateTime _dInizio = (DateTime)dr["dInizio"];
+                    DateTime _dFine = (DateTime)dr["dFine"];
+                    result.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
+                }
+                ds.Dispose();
+                da.Dispose();
+                cmd.Dispose();
+		        return result;
 
-
-
-
-
-			return result;
+              }catch(Exception e){
+                throw e;    
+            }finally{ 
+                con.Close();    
+            }
 		}
 
 		public List<Corso> ListaCorsi(string idUtente) {
-			Corso c = new Corso {
-				Nome = "c#",
-				Descrizione = "Corso di cerca idutente programmazione su Asp.Net",
-				Id = 1
-			};
-			Corso d = new Corso {
-				Nome = "Java",
-				Descrizione = "Corso alla c proggrammazione OO cerca idutente",
-				Id = 2
-			};
-			Corso e = new Corso {
-				Nome = "Javascripppto",
-				Descrizione = "Corso alla programazione su javascripttto cerca idutente",
-				Id = 3
-			};
-			List<Corso> result = new List<Corso> {
-				c,
-				d,
-				e
-			};
-			return result;
+			List<Corso> result = new List<Corso> ();
+		    SqlConnection con = new SqlConnection(GetConnection());
+		    SqlCommand cmd = new SqlCommand("dbo.ListaCorsiStudenti",con); 
+              cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+			cmd.Parameters.Add("@idStudente",SqlDbType.NVarChar).Value = idUtente;
+           try{
+            DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.TableMappings.Add("Table","Corsi");
+                //da.TableMappings.Add("Table1","Studenti");
+                //da.TableMappings.Add("Table2","StudentiCorsi");
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
+                    int _id = (int)dr["id"];
+                    string _nome = (string) dr["nome"];
+                    string _desc = (string)dr["descrizione"];
+                    DateTime _dInizio = (DateTime)dr["dInizio"];
+                    DateTime _dFine = (DateTime)dr["dFine"];
+                    result.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
+                }
+                ds.Dispose();
+                da.Dispose();
+                cmd.Dispose();
+			    return result;
+
+              }catch(Exception e){
+                throw e;    
+            }finally{ 
+                con.Close();    
+            }
 		}
 
 		public void ModificaCV(CV a,CV b) {
@@ -216,7 +246,7 @@ namespace DAO{
                 cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter();
-                da.TableMappings.Add("table","Corsi");
+                da.TableMappings.Add("Table","Corsi");
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
@@ -251,7 +281,7 @@ namespace DAO{
                 cmd.Parameters.Add("@idStudente",SqlDbType.NVarChar).Value = idUtente;
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter();
-                da.TableMappings.Add("table","Corsi");
+                da.TableMappings.Add("Table","Corsi");
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
