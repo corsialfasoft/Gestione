@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using Interfaces;
+using LibreriaDB;
 
 namespace DAO{
 	public interface IDao{
@@ -130,23 +132,24 @@ namespace DAO{
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
 		}
-
-		public Corso SearchCorsi(int idCorso) {
-			List<Lezione> leziones = new List<Lezione>();
-			Lezione l1 = new Lezione("mock1");
-			Lezione l2= new Lezione("mock2");
-			Lezione l3= new Lezione("mock3");
-			leziones.Add(l1);
-			leziones.Add(l2);
-			leziones.Add(l3);
-			return 	new Corso(1,"sto descrivendo questo corsoooooooooooooooo  oooooooooooo" +
-								"ooooooooo oooooooooooooooooooooo  ooooooooooo ooooooooooooo" +
-								"ooo ooooo oooooooo oooooooo ooooooooo ooooooo ooooo oooooooooo" +
-								"oooo ooooo oooooooo oooooooooo ooooooooo ooooooooo ooo oooo ooo" +
-								"ooo ooooooo oooo oooo ooooo", leziones);
+		public Corso TrasformInCorso(SqlDataReader data){
+			Corso output = new Corso {
+				Nome = data.GetString(1),
+				Descrizione = data.GetString(2),
+				Inizio = data.GetDateTime(3),
+				Fine = data.GetDateTime(4)
+			};
+			return output;
 		}
+		public Corso SearchCorsi(int idCorso) {
+			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
+			return DB.ExecQProcedureReader("SearchCorso", TrasformInCorso,param);
+		}	
 		
-		public void Iscriviti(int idCorso,string idStudente) {}
+		public void Iscriviti(int idCorso,string idStudente) {
+			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
+			DB.ExecNonQProcedure("Iscrizione",param);
+		}
 
 		public List<Corso> SearchCorsi(string descrizione) {
 			List<Lezione> leziones = new List<Lezione>();
