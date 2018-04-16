@@ -185,8 +185,9 @@ namespace LibreriaDB{
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand(procedureName, connection);
-				command.CommandType = CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand(procedureName,connection) {
+					CommandType = CommandType.StoredProcedure
+				};
 				if(sqlParameters!=null){
 					command.Parameters.AddRange(sqlParameters);
 				}
@@ -203,8 +204,9 @@ namespace LibreriaDB{
 			SqlConnection connection = new SqlConnection(GetConnectionString(DBName, ServerName));
 			try {
 				connection.Open();
-				SqlCommand command = new SqlCommand(procedureName, connection);
-				command.CommandType = CommandType.StoredProcedure;
+				SqlCommand command = new SqlCommand(procedureName,connection) {
+					CommandType = CommandType.StoredProcedure
+				};
 				if (sqlParameters != null) {
 					command.Parameters.AddRange(sqlParameters);
 				}

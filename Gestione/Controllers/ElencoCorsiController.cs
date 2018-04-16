@@ -28,35 +28,34 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult ElencoCorsi(bool mieiCorsi ,string descrizione ){
 			DomainModel dm = new DomainModel();
-			int id ;
-			if(int.TryParse(descrizione,out id) && !mieiCorsi){		// Cerca Per iD corso
-				
+			if(int.TryParse(descrizione,out int id) && !mieiCorsi) {        // Cerca Per iD corso
+
 				Corso c = dm.SearchCorsi(id);
 				ViewBag.Corso = c;
 				ViewBag.Lezioni = c.Lezioni;
 				return View("Corso");
-			}else if(descrizione!="" && mieiCorsi){
-				ViewBag.Controllo=true;	
-				ViewBag.Message="Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi = dm.SearchCorsi(descrizione , P.Matricola);
+			} else if(descrizione != "" && mieiCorsi) {
+				ViewBag.Controllo = true;
+				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
+				ViewBag.Corsi = dm.SearchCorsi(descrizione,P.Matricola);
 				return View("ElencoCorsi");
-			}else if(descrizione=="" && mieiCorsi){
-				ViewBag.Controllo=true;					
-				ViewBag.Message="Ecco i tuoi risultati della ricerca";
+			} else if(descrizione == "" && mieiCorsi) {
+				ViewBag.Controllo = true;
+				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
 				ViewBag.Corsi = dm.ListaCorsi(P.Matricola);
 				return View("ElencoCorsi");
-			}else if(descrizione!="" && !mieiCorsi){
-				ViewBag.Controllo=true;
-				ViewBag.Message="Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi= dm.SearchCorsi(descrizione);
+			} else if(descrizione != "" && !mieiCorsi) {
+				ViewBag.Controllo = true;
+				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
+				ViewBag.Corsi = dm.SearchCorsi(descrizione);
 				return View("ElencoCorsi");
-			}else if(descrizione=="" && !mieiCorsi){
-				ViewBag.Controllo=false;		
-				ViewBag.Message="Casso hai sbagliato";
-				ViewBag.Corsi= dm.ListaCorsi();
+			} else if(descrizione == "" && !mieiCorsi) {
+				ViewBag.Controllo = false;
+				ViewBag.Message = "Casso hai sbagliato";
+				ViewBag.Corsi = dm.ListaCorsi();
 				return View("ElencoCorsi");
-			}else{
-				ViewBag.Messagge="Errore non gestito!";
+			} else {
+				ViewBag.Messagge = "Errore non gestito!";
 				return View();
 			}
 		}
