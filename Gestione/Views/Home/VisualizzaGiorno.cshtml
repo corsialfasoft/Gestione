@@ -45,10 +45,10 @@
         <div class="panel-heading">Dettagli del @ViewBag.giorno.data.ToString("dd-MM-yyyy")</div>
         <table>
             <tr>
-                <td>Tipo Ore</td>
-                <td>Ore Totali</td>
+                <td>Tipo</td>
+                <td>Totale ore</td>
                 <td>Commessa</td>
-                <td>Ore Commessa</td>
+                <td>Ore lavoro commessa</td>
                 <td>Note</td>
             </tr>
             @{
@@ -57,7 +57,7 @@
             @foreach(OreLavorate orelavorate in ViewBag.giorno.OreLavorate) {
                 <tr>
                     @if (count == 0) {
-                        <td>Ore Lavorate</td>
+                        <td>Totale ore lavoro</td>
                         <td>@ViewBag.giorno.TotOreLavorate</td>
                         count++;
                     } else {
@@ -70,15 +70,15 @@
                 </tr>
             }
             <tr>
-                <td>Ore Permesso</td>
+                <td>Totale ore permesso</td>
                 <td>@ViewBag.giorno.OrePermesso</td>
             </tr>
             <tr>
-                <td>Ore Malattia</td>
+                <td>Totale ore malattia</td>
                 <td>@ViewBag.giorno.OreMalattia</td>
             </tr>
             <tr>
-                <td>Ore Ferie</td>
+                <td>Totale ore ferie</td>
                 <td>@ViewBag.giorno.OreFerie</td>
             </tr>
         </table>
