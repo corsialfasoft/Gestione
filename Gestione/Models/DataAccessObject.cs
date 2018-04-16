@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.Serialization;
 using Interfaces;
 
 namespace DAO{
@@ -42,19 +43,59 @@ namespace DAO{
     }
 	public partial class DataAccesObject : IDao {
 		public void AddCorso(Corso corso) {
-			
+			SqlConnection connection = new SqlConnection(GetConnection());
+			int IdCo = 0;
+			try{
 			connection.Open();
 			SqlCommand command = new SqlCommand("AddCorso",connection);
 			command.CommandType = System.Data.CommandType.StoredProcedure;
-			command.Parameters.Add("@nome",System.Data.SqlDbType.NVarChar).Value=corso.nome;
-			command.Parameters.Add("@descrizione",System.Data.SqlDbType.NVarChar).Value= corso.descrizione;
-			command.Parameters.Add("@dInizio",System.Data.SqlDbType.DateTime).Value= corso.dInizio;
-			command.Parameters.Add("@dFine",System.Data.SqlDbType.DateTime).Value= corso.dFine;
-			command.Dispose();
+			command.Parameters.Add("@nome",System.Data.SqlDbType.NVarChar).Value= corso.Nome;
+			command.Parameters.Add("@descrizione",System.Data.SqlDbType.NVarChar).Value= corso.Descrizione;
+			command.Parameters.Add("@dInizio",System.Data.SqlDbType.DateTime).Value= corso.Inizio;
+			command.Parameters.Add("@dFine",System.Data.SqlDbType.DateTime).Value= corso.Fine;
+			SqlDataReader reader = command.ExecuteReader();
+				while(reader.Read()){
+				IdCo = (int)reader.GetDecimal(0);
+				}
+				if(IdCo == 0) {
+						throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
+				} else { 
+						reader.Close();
+						command.Dispose();
+						connection.Close();
+				}
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				connection.Dispose();
+			}
 		}
 
 		public void AddLezione(int idCorso,Lezione lezione) {
-			throw new NotImplementedException();
+			SqlConnection connection = new SqlConnection(GetConnection());
+			int IdLez = 0;
+			try { 
+				connection.Open();
+				SqlCommand command = new SqlCommand("AddLezioni",connection);
+				command.Parameters.Add("@idCorsi",System.Data.SqlDbType.Int).Value= idCorso;
+				command.Parameters.Add("@descrizione",System.Data.SqlDbType.NVarChar).Value= lezione.Descrizione;
+				command.Parameters.Add("@durata",System.Data.SqlDbType.NVarChar).Value= lezione.Durata;
+				SqlDataReader reader = command.ExecuteReader();
+					while(reader.Read()){
+						IdLez = (int)reader.GetDecimal(0);
+					} 
+					if(IdLez == 0) {
+						throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
+					} else { 
+						reader.Close();
+						command.Dispose();
+						connection.Close();
+					}
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				connection.Dispose();
+			}
 		}
 
 		public void AggiungiCV(CV a) {
@@ -184,6 +225,24 @@ namespace DAO{
 
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
 			throw new NotImplementedException();
+		}
+
+		[Serializable]
+		private class LezioneNonAggiuntaException : Exception {
+			public LezioneNonAggiuntaException() {}
+			public LezioneNonAggiuntaException(string message) : base(message) {}
+			public LezioneNonAggiuntaException(string message,Exception innerException) : base(message,innerException){}
+			protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){
+			}
+		}
+
+		[Serializable]
+		private class CorsoNonAggiuntaException : Exception {
+			public CorsoNonAggiuntaException() {}
+			public CorsoNonAggiuntaException(string message) : base(message) { }
+			public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
+			protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {
+			}
 		}
 	}
 }
