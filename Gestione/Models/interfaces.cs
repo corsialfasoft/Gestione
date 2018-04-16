@@ -20,9 +20,9 @@ namespace Interfaces{
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
-        void AddCvStudi(int idCv,PerStud studi);
-        void AddEspLav(int idCv, EspLav esp);
-        void AddCompetenze(int IdCv, Competenza comp);
+        void AddCvStudi(string MatrCv,PerStud studi);
+        void AddEspLav(string MatrCv, EspLav esp);
+        void AddCompetenze(string MatrCv, Competenza comp);
 	
 	}
     public interface IGeCo {
