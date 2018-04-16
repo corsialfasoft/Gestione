@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using Interfaces;
 
 namespace DAO{
@@ -16,7 +17,7 @@ namespace DAO{
 	
 	
 	
-		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
+		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
@@ -39,6 +40,7 @@ namespace DAO{
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(int idUtente);
     }
+
 	public partial class DataAccesObject : IDao {
 		public void AddCorso(Corso corso) {
 			throw new NotImplementedException();
@@ -64,8 +66,22 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 
-		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente) {
-			throw new NotImplementedException();
+		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource = @"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog = "GeTime";
+			SqlConnection connection = new SqlConnection(builder.ConnectionString);
+			try {
+				connection.Open();
+				string sql = $"exec SP_AddHLavoro {data}, {ore}, {idCommessa}, '{idUtente}';";
+				SqlCommand cmd = new SqlCommand(sql, connection);
+				cmd.ExecuteNonQuery();
+				cmd.Dispose();
+			} catch (Exception e){
+				throw e;
+			}finally{
+				connection.Close();
+			}
 		}
 
 		public void EliminaCV(CV curriculum) {
