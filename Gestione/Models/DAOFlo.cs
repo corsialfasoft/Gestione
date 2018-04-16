@@ -41,7 +41,7 @@ namespace DAO{
 				SqlDataReader reader = command.ExecuteReader();
 				CV c = new CV();
 				while(reader.Read()){
-					c.Nome = reader.GetString(0);
+					c.Nome =  reader.GetString(0);
 					c.Cognome = reader.GetString(1);
 					c.Eta = reader.GetInt32(2);
 					c.Matricola = reader.GetString(3);
@@ -74,8 +74,8 @@ namespace DAO{
 				SqlDataReader reader = command.ExecuteReader();
 				Competenza e = new Competenza();
 				while(reader.Read()){
-					e.Titolo = reader.GetString(0);
-					e.Livello = reader.GetInt32(1);
+					e.Titolo = reader.GetString(1);
+					e.Livello = reader.GetInt32(0);
 				
 					res.Add(e);
 				}
@@ -183,13 +183,13 @@ namespace DAO{
 				command.Parameters.Add("@matricola" , System.Data.SqlDbType.NVarChar).Value= matricola;
 				command.Parameters.Add("@annoIdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoInizio;
 				command.Parameters.Add("@annoFdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoFine;
-				command.Parameters.Add("@qualificaDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.qualifica;
-				command.Parameters.Add("@descrDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.descrizione;
+				command.Parameters.Add("@qualificaDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.Qualifica;
+				command.Parameters.Add("@descrDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.Descrizione;
 
 				command.Parameters.Add("@annoIMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoInizio;
 				command.Parameters.Add("@annoFMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoFine;
-				command.Parameters.Add("@qualificaMod" , System.Data.SqlDbType.NVarChar).Value= Mod.qualifica;
-				command.Parameters.Add("@descrMod" , System.Data.SqlDbType.NVarChar).Value= Mod.descrizione;
+				command.Parameters.Add("@qualificaMod" , System.Data.SqlDbType.NVarChar).Value= Mod.Qualifica;
+				command.Parameters.Add("@descrMod" , System.Data.SqlDbType.NVarChar).Value= Mod.Descrizione;
 				command.ExecuteNonQuery();
 				command.Dispose();
 			}catch(Exception e ){
@@ -207,13 +207,13 @@ namespace DAO{
 				command.Parameters.Add("@matricola" , System.Data.SqlDbType.NVarChar).Value= matricola;
 				command.Parameters.Add("@annoIdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoInizio;
 				command.Parameters.Add("@annoFdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoFine;
-				command.Parameters.Add("@titoloDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.titolo;
-				command.Parameters.Add("@descrDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.descrizione;
+				command.Parameters.Add("@titoloDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.Titolo;
+				command.Parameters.Add("@descrDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.Descrizione;
 
 				command.Parameters.Add("@annoIMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoInizio;
 				command.Parameters.Add("@annoFMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoFine;
-				command.Parameters.Add("@titoloMod" , System.Data.SqlDbType.NVarChar).Value= Mod.titolo;
-				command.Parameters.Add("@descrMod" , System.Data.SqlDbType.NVarChar).Value= Mod.descrizione;
+				command.Parameters.Add("@titoloMod" , System.Data.SqlDbType.NVarChar).Value= Mod.Titolo;
+				command.Parameters.Add("@descrMod" , System.Data.SqlDbType.NVarChar).Value= Mod.Descrizione;
 				command.ExecuteNonQuery();
 				command.Dispose();
 			}catch(Exception e ){
@@ -229,10 +229,10 @@ namespace DAO{
 				SqlCommand command = new SqlCommand("ModComp",connection);
 				command.CommandType = System.Data.CommandType.StoredProcedure;
 				command.Parameters.Add("@matricola" , System.Data.SqlDbType.NVarChar).Value= matricola;
-				command.Parameters.Add("@titoloDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.titolo;
-				command.Parameters.Add("@livDaMod" , System.Data.SqlDbType.Int).Value= daMod.livello;
-				command.Parameters.Add("@titoloMod" , System.Data.SqlDbType.NVarChar).Value= Mod.titolo;
-				command.Parameters.Add("@livMod" , System.Data.SqlDbType.Int).Value= Mod.livello;
+				command.Parameters.Add("@titoloDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.Titolo;
+				command.Parameters.Add("@livDaMod" , System.Data.SqlDbType.Int).Value= daMod.Livello;
+				command.Parameters.Add("@titoloMod" , System.Data.SqlDbType.NVarChar).Value= Mod.Titolo;
+				command.Parameters.Add("@livMod" , System.Data.SqlDbType.Int).Value= Mod.Livello;
 				command.ExecuteNonQuery();
 				command.Dispose();
 			}catch(Exception e ){

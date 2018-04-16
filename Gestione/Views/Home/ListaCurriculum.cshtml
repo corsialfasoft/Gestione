@@ -11,10 +11,10 @@
             @if(ViewBag.ListaCV != null) {
                 foreach(CV cv in ViewBag.ListaCV) {
                     <div class="col-md-3">
-                        <a class="btn btn-default" href="/Home/DettCv/id=@cv.matricola" >Dettaglio</a>
+                        <a class="btn btn-default" href="/Home/DettCv/id=@cv.Matricola" >Dettaglio</a>
                         <input class="btn btn-default" type="submit" value="Elimina" />
-                        <input id="nome" name="nome" type="text" placeholder="@cv.nome" />
-                        <input id="cognome" name="cognome" type="text" placeholder="@cv.cognome" />
+                        <input id="nome" name="nome" type="text" placeholder="@cv.Nome" />
+                        <input id="cognome" name="cognome" type="text" placeholder="@cv.Cognome" />
                     </div>
                 }
             }
