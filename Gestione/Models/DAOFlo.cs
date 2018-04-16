@@ -173,5 +173,73 @@ namespace DAO{
 			};
 			return builder.ToString();
         }
+
+		public void ModEspLav(string matricola , EspLav daMod , EspLav Mod){
+			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
+			try{
+				connection.Open();
+				SqlCommand command = new SqlCommand("ModEspLav",connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@matricola" , System.Data.SqlDbType.NVarChar).Value= matricola;
+				command.Parameters.Add("@annoIdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoInizio;
+				command.Parameters.Add("@annoFdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoFine;
+				command.Parameters.Add("@qualificaDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.qualifica;
+				command.Parameters.Add("@descrDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.descrizione;
+
+				command.Parameters.Add("@annoIMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoInizio;
+				command.Parameters.Add("@annoFMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoFine;
+				command.Parameters.Add("@qualificaMod" , System.Data.SqlDbType.NVarChar).Value= Mod.qualifica;
+				command.Parameters.Add("@descrMod" , System.Data.SqlDbType.NVarChar).Value= Mod.descrizione;
+				command.ExecuteNonQuery();
+				command.Dispose();
+			}catch(Exception e ){
+				throw e;
+			}finally{
+				connection.Dispose();
+			}
+		}
+		public void ModPerStudi(string matricola , PerStud daMod , PerStud Mod){
+			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
+			try{
+				connection.Open();
+				SqlCommand command = new SqlCommand("ModPerStud",connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@matricola" , System.Data.SqlDbType.NVarChar).Value= matricola;
+				command.Parameters.Add("@annoIdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoInizio;
+				command.Parameters.Add("@annoFdaMod" , System.Data.SqlDbType.Int).Value= daMod.AnnoFine;
+				command.Parameters.Add("@titoloDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.titolo;
+				command.Parameters.Add("@descrDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.descrizione;
+
+				command.Parameters.Add("@annoIMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoInizio;
+				command.Parameters.Add("@annoFMod" , System.Data.SqlDbType.Int).Value= Mod.AnnoFine;
+				command.Parameters.Add("@titoloMod" , System.Data.SqlDbType.NVarChar).Value= Mod.titolo;
+				command.Parameters.Add("@descrMod" , System.Data.SqlDbType.NVarChar).Value= Mod.descrizione;
+				command.ExecuteNonQuery();
+				command.Dispose();
+			}catch(Exception e ){
+				throw e;
+			}finally{
+				connection.Dispose();
+			}
+		}
+		public void ModComp (string matricola , Competenza daMod , Competenza Mod){
+			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
+			try{
+				connection.Open();
+				SqlCommand command = new SqlCommand("ModComp",connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@matricola" , System.Data.SqlDbType.NVarChar).Value= matricola;
+				command.Parameters.Add("@titoloDaMod" , System.Data.SqlDbType.NVarChar).Value= daMod.titolo;
+				command.Parameters.Add("@livDaMod" , System.Data.SqlDbType.Int).Value= daMod.livello;
+				command.Parameters.Add("@titoloMod" , System.Data.SqlDbType.NVarChar).Value= Mod.titolo;
+				command.Parameters.Add("@livMod" , System.Data.SqlDbType.Int).Value= Mod.livello;
+				command.ExecuteNonQuery();
+				command.Dispose();
+			}catch(Exception e ){
+				throw e;
+			}finally{
+				connection.Dispose();
+			}
+		}
 	}
 }

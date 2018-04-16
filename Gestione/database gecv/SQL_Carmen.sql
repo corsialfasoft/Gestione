@@ -29,3 +29,34 @@ SELECT C.IdCv FROM Curriculum C
 INNER JOIN Competenze CS ON C.IdCv = CS.IdCv
 WHERE CS.Tipo like '%'+ @competenza +'%'
 GO
+
+Create Procedure GetCV
+	@Matricola nvarchar(10)
+as
+select top 1 c.nome,c.cognome,c.eta,c.matricola,c.email,c.residenza,c.telefono
+	from Curriculum c where c.Matricola=@Matricola;
+go
+
+Create Procedure GetComp
+	@Matricola nvarchar(10)
+as
+	declare @idc int  ;
+	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
+	select c.Livello,c.Tipo from Competenze c where c.IdCv=@idc;
+go
+
+Create procedure GetPerStudi
+	@Matricola nvarchar(10)
+as
+	declare @idc int  ;
+	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
+	select p.AnnoI,p.AnnoF,p.Titolo,p.Descrizione from PercorsoStudi p where p.IdCv=@idc;
+go
+
+Create procedure GetEspLav
+	@Matricola nvarchar(10)
+as
+	declare @idc int  ;
+	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
+	select e.AnnoI,e.AnnoF,e.Qualifica,e.Descrizione from EspLav e where e.IdCv=@idc;
+go

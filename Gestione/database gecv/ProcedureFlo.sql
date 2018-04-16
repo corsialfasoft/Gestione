@@ -31,32 +31,32 @@ as
 	Select c.Matricola from Curriculum c where c.cognome= @cognome;
 go
 
-Create procedure ModificaCurriculum
-	@idcurr int ,
+alter procedure ModificaCurriculum
+	@matricolaM nvarchar(10),
 	@nomeM nvarchar(50),
 	@cognomeM nvarchar(50),
 	@etaM int,
-	@matricolaM nvarchar(10),
 	@emailM nvarchar(30),
 	@residenzaM nvarchar(100),
 	@telefonoM nvarchar(10)
 as
 	begin transaction
 	declare @test int;
-	set @test = (select c.IdCv from Curriculum c where c.IdCv=@idcurr);
+	set @test = (select c.IdCv from Curriculum c where c.matricola = @matricolaM);
 	if	@test is null
 		begin 
 			rollback transaction ;
-			throw 66666 , 'id errato riprovare!' ,2;
+			throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
 		end
 	else
 		begin 
 		UPDATE Curriculum SET Nome= @nomeM , Cognome= @cognomeM , Eta= @etaM ,
-				Matricola = @matricolaM ,Email = @emailM , Residenza = @residenzaM , Telefono= @telefonoM 
-				where IdCv = @idcurr;
+				Email = @emailM , Residenza = @residenzaM , Telefono= @telefonoM 
+				where IdCv = @test;
 		commit transaction
 		end
 go
+
 
 Create procedure CercaEta
 	@eta int
