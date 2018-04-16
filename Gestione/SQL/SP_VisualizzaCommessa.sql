@@ -15,6 +15,7 @@ as
 	from Commesse C
 	where nome = @nomeCommessa;
 go
+
 insert into Giorni(giorno,idUtente) values ('2018-04-13','12342'),('2018-04-14','12342'),('2018-04-15','12342');
 insert into Commesse(nome,descrizione,stimaOre) values('GeTime','non so cosa fare',100);
 insert into OreLavorative(idGiorno,idCommessa,ore) values(1,1,10);
