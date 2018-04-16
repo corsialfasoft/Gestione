@@ -67,29 +67,33 @@ namespace Gestione.Controllers {
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello) {
                 try{
-                    CV cv = new CV();
-                    cv.nome = nome;
-                    cv.cognome = cognome;
-                    cv.eta = int.Parse(eta);
-                    cv.email = email;
-                    cv.residenza = residenza;
-                    cv.telefono = telefono;
-                    EspLav esp = new EspLav();
-                    esp.AnnoInizio = int.Parse(annoinizioesp);
-                    esp.AnnoFine = int.Parse(annofinesp);
-                    esp.qualifica = qualifica;
-                    esp.descrizione = descrizionesp;
-                    cv.esperienze.Add(esp);
-                    PerStud percorso = new PerStud();
-                    percorso.AnnoInizio = int.Parse(annoinizio);
-                    percorso.AnnoFine = int.Parse(annofine);
-                    percorso.titolo = titolo;
-                    percorso.descrizione = descrizione;
-                    cv.percorsostudi.Add(percorso);
-                    Competenza comp = new Competenza();
-                    comp.titolo = tipo;
-                    comp.livello = int.Parse(livello);
-                    cv.competenze.Add(comp);
+				CV cv = new CV {
+					Nome = nome,
+					Cognome = cognome,
+					Eta = int.Parse(eta),
+					Email = email,
+					Residenza = residenza,
+					Telefono = telefono
+				};
+				EspLav esp = new EspLav {
+					AnnoInizio = int.Parse(annoinizioesp),
+					AnnoFine = int.Parse(annofinesp),
+					Qualifica = qualifica,
+					Descrizione = descrizionesp
+				};
+				cv.Esperienze.Add(esp);
+				PerStud percorso = new PerStud {
+					AnnoInizio = int.Parse(annoinizio),
+					AnnoFine = int.Parse(annofine),
+					Titolo = titolo,
+					Descrizione = descrizione
+				};
+				cv.Percorsostudi.Add(percorso);
+				Competenza comp = new Competenza {
+					Titolo = tipo,
+					Livello = int.Parse(livello)
+				};
+				cv.Competenze.Add(comp);
                     return cv;
             } catch(Exception e) {
                 throw e;

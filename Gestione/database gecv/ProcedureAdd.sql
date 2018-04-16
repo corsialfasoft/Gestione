@@ -18,7 +18,7 @@ CREATE PROCEDURE AddCvStudi
   	@AnnoF Int,
 	@Titolo VARCHAR(50), 
   	@Descrizione VARCHAR(50), 
-  	@IdCv Int
+  	@MatrCv nvarchar(50)
 	
 	as
     SET IMPLICIT_TRANSACTIONS ON;
@@ -51,11 +51,11 @@ CREATE PROCEDURE AddEspLav
   	@AnnoF Int,
 	@Qualifica NVARCHAR(50), 
   	@Descrizione NVARCHAR(50), 
-  	@IdCv Int
+  	@matr nvarchar(10)
 as
-SET IMPLICIT_TRANSACTIONS ON;			
+	begin transaction ;			
  	declare @IdControl int;
-	set @IdControl = (select IdCv from Curriculum where IdCv = @IdCv )
+	set @IdControl = (select IdCv from Curriculum where Matricola = @matr )
 
 	if @IdControl is null
 		begin
@@ -66,11 +66,8 @@ SET IMPLICIT_TRANSACTIONS ON;
 		end
 	 else 	
 		begin
-			print 'Warning! ID trovato';	
 			INSERT INTO EspLav (AnnoI, AnnoF, Qualifica, Descrizione, IdCv) 
-			VALUES (@AnnoI, @AnnoF, @Qualifica,@Descrizione,@IdCv);
-
-			SELECT IDENT_CURRENT('EspLav') 		 
+			VALUES (@AnnoI, @AnnoF, @Qualifica,@Descrizione,@IdControl);
 		end
 		COMMIT TRANSACTION 
 	go
@@ -78,7 +75,7 @@ SET IMPLICIT_TRANSACTIONS ON;
 CREATE PROCEDURE AddCompetenze
 	@Tipo NVARCHAR(50),
     @Livello Int,
-    @IdCv Int
+    @MatrCv nvarchar(50)
 as
    SET IMPLICIT_TRANSACTIONS ON;
 					
@@ -103,5 +100,3 @@ as
 		COMMIT TRANSACTION 
 	
 	go
-
-
