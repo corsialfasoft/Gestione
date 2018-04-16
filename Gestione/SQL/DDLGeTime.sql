@@ -5,7 +5,7 @@ create table TipologiaOre(
 	nomeTipoOre varchar(20),
 	descrizione varchar(50)
 );
-insert into TipologiaOre(nomeTipoOre,descrizione) values('HLavorate','sono le ore lavorate su una commessa'), ('HMalatia','sono le ore di malatia'), ('HPermesso','sono le di permesso richieste in un giorno'), ('HFerie','sono 8 ore di ferie')
+insert into TipologiaOre(nomeTipoOre,descrizione) values('HLavorate','sono le ore lavorate su una commessa'), ('HMalatia','sono le ore di malatia'), ('HPermesso','sono le ore di permesso richieste in un giorno'), ('HFerie','sono 8 ore di ferie')
 create table Giorni(
 	id int primary key identity(1,1),
 	giorno date not null,
