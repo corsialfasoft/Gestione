@@ -24,6 +24,7 @@ namespace DAO{
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
+        
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
@@ -200,7 +201,7 @@ namespace DAO{
 
 		}
 
-		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
+		public List<Corso> SearchCorsi(string descrizione,string idUtente)  {
 			List<Corso> corsi = null;
             SqlConnection con = new SqlConnection(GetConnection());
             try{ 
