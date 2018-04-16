@@ -105,7 +105,27 @@ namespace DAO{
 		}
 
         public void AddEspLav(string MatrCv,EspLav esp) {
-            throw new NotImplementedException();
+			SqlConnection con= new SqlConnection(GetConnection());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("AddEspLav",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=esp.AnnoInizio;
+				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
+				command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.qualifica;
+				command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.descrizione;
+				command.Parameters.Add("@matr",SqlDbType.Int).Value=matrCv;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza Inserita");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
         }
 
         public void AddLezione(int idCorso,Lezione lezione) {
