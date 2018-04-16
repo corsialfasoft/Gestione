@@ -9,7 +9,7 @@ insert into TipologiaOre(nomeTipoOre,descrizione) values('HLavorate','sono le or
 create table Giorni(
 	id int primary key identity(1,1),
 	giorno date not null,
-	idUtente nvarchar(max) not null, 
+	idUtente nvarchar(10) not null, 
 );
 create table OreNonLavorative(
 	id int primary key identity(1,1),
