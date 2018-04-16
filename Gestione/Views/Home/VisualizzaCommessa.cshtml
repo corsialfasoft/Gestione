@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Visualizza Commessa";
+}
+<h2>@ViewBag.Title</h2>
+<div class="jumbotron jumbotron-fluid">
+    <form action="/Home/VisualizzaCommessa" method="post">
+        <input type="search" name="commessa" placeholder="Inserire il nome della commessa..." size="100" id="cerca" />
+        <input type="submit" name="commessa" value="Cerca" />
+    </form>
+</div>
+<div class="container">
+    <h3>
+        @ViewBag.Message
+    </h3>
+</div>
+@if (ViewBag.Giorni != null && ViewBag.Giorni.Count > 0) {
+    <div class="container h2">
+        @ViewBag.NomeCommessa
+    </div>
+    <hr />
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Ore Lavorate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int index = 1;index<= ViewBag.Giorni.Count; index++) {
+                <tr>
+                    <th scope="row">@index</th>
+                    <td>@ViewBag.Giorni[index-1].Data.ToShortDateString()</td>
+                    <td>@ViewBag.Giorni[index-1].OreLavorate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

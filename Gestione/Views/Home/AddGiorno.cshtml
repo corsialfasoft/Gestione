@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Aggiungi Giorno";
+    
+}
+<h2>@ViewBag.Title:</h2>
+<br><br>
+<div>
+    @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
+    <div class="Conteiner">
+        Data (*)          <input type="date" name="dateTime" />
+        <br><br>
+        <form method="get">
+            Tipologia Ore (*)
+            <input list="HType" name="tipoOre">
+            <datalist id="HType">
+                <option value="Ore di lavoro">
+                <option value="Ore di permesso">
+                <option value="Ore di ferie">
+                <option value="Ore di malattia">
+            </datalist>
+        </form>
+        <br><br>
+        Nome Commessa <input type="text" name="Commessa" value=" - - - " /> (Solo per ore di lavoro)
+        <br><br>
+        Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8>
+        <br><br>
+        <input type="submit" name="caricaOre" value="Carica Ore" />
+        <br><br>
+    </div>
+    }
+</div>
+<p>(*) Campi obligatori</p>
+<br><br>
+@if(ViewBag.GeCoDataTime != null){
+    <p>@ViewBag.GeCoDataTime.ToString("dd/MM/yyyy")</p>}
+    <p>@ViewBag.EsitoAddGiorno</p>
+<br><br>

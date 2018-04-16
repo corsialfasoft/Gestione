@@ -1,0 +1,82 @@
+﻿@using System;
+@using Interfaces;
+@using DAO;
+@using Gestione.Controllers;
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Dettagli Del Giorno";
+}
+<h2>@ViewBag.Title</h2>
+<div>
+    <h3>@ViewBag.Message</h3>
+</div>
+<div>
+    <form action="/Home/VisualizzaGiorno" method="post">
+        <input type="date" name="data" id="data" />
+        <input type="submit" />
+    </form>
+</div>
+<br>
+
+@if(ViewBag.giorno != null) {
+    <div class="panel panel-default">
+        <div class="panel-heading">@ViewBag.giorno.data</div>
+        <table>
+            <tr>
+                <td>Tipo Ore</td>
+                <td>Ore Totali</td>
+                <td>Commessa</td>
+                <td>Ore Commessa</td>
+                <td>Note</td>
+            </tr>
+            @{
+                int count = 0;
+            }
+            @foreach(OreLavorate orelavorate in ViewBag.giorno.OreLavorate) {
+                <tr>
+                    @if (count == 0) {
+                        <td>Ore Lavorate</td>
+                        <td>@ViewBag.giorno.TotOreLavorate</td>
+                        count++;
+                    } else {
+                        <td></td>
+                        <td></td>
+                    }
+                    <td>@orelavorate.nome</td>
+                    <td>@orelavorate.oreGiorno</td>
+                    <td>@orelavorate.descrizione</td>
+                </tr>
+            }
+            <tr>
+                <td>Ore Permesso</td>
+                <td>@ViewBag.giorno.OrePermesso</td>
+            </tr>
+            <tr>
+                <td>Ore Malattia</td>
+                <td>@ViewBag.giorno.OreMalattia</td>
+            </tr>
+            <tr>
+                <td>Ore Ferie</td>
+                <td>@ViewBag.giorno.OreFerie</td>
+            </tr>
+        </table>
+    </div>
+}
