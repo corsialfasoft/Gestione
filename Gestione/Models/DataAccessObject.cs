@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interfaces;
+using System.Data.SqlClient;
 
 namespace DAO{
 	public interface IDao{
@@ -137,17 +138,44 @@ namespace DAO{
 		}
 
 		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
-            Giorno result;
-            Commessa commessa1 = new Commessa(1, "MVC", "lavorato su proj mvc", 40, 2);
-            Commessa commessa2 = new Commessa(2, "Rubrica", "lavorato su Rubrica.cs", 40, 1);
-            Commessa commessa3 = new Commessa(3, "EF", "lavorato su proj ef", 30, 1);
-            OreCommessa orecommessa1 = new OreCommessa(1, commessa1.OreLavorate, commessa1.Nome, commessa1.Descrizione);
-            OreCommessa orecommessa2 = new OreCommessa(2, commessa2.OreLavorate, commessa2.Nome, commessa2.Descrizione);
-            OreCommessa orecommessa3 = new OreCommessa(3, commessa3.OreLavorate, commessa3.Nome, commessa3.Descrizione);
-            result = new Giorno(data, 2, 2, 0, idUtente);
-            result.AddOreCommessa(orecommessa1);
-            result.AddOreCommessa(orecommessa2);
-            result.AddOreCommessa(orecommessa3);
+            Giorno result = null;
+            SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder();
+            scsb.DataSource= @"(localdb)\MSSQLLocalDB";
+            scsb.InitialCatalog="GeTime";
+            SqlConnection connection = new SqlConnection(scsb.ToString());
+            try {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SP_VisualizzaGiorno",connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.Add("@Data", System.Data.SqlDbType.Date).Value = data.ToString("yyyy-MM-dd");
+                command.Parameters.Add("@IdUtente", System.Data.SqlDbType.NVarChar).Value = idUtente;
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) {
+                    result = new Giorno(data);
+                    do {
+                        switch (reader.GetInt32(0)) {
+                            case 1:
+                                result.HMalattia = reader.GetInt32(1);
+                                break;
+                            case 2:
+                                result.HPermesso = reader.GetInt32(1);
+                                break;
+                            case 3:
+                                result.HFerie = reader.GetInt32(1);
+                                break;
+                            case 4:
+                                result.AddOreCommessa(new OreCommessa(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
+                                break;
+                        }
+                    } while(reader.Read());
+                }
+                reader.Close();
+                command.Dispose();
+            } catch (Exception e) {
+                throw e;
+            } finally {
+                connection.Dispose();
+            }
             return result;
 		}
 	}
