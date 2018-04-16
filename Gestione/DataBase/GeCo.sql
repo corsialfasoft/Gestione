@@ -12,6 +12,7 @@ create table Corsi(
 create table Lezioni (
 	id int identity(1,1) primary key not null,
 	durata nvarchar(50) not null,
+	descrizione nvarchar(50) not null,
 	idCorsi int foreign key references Corsi
 );
 
@@ -26,3 +27,6 @@ create table StudentiCorsi(
 	idStudenti nvarchar(10) foreign key references Studenti,
 	primary key(idCorsi,idStudenti)
 );
+
+ALTER TABLE Lezioni
+ADD descrizione nvarchar(50);
