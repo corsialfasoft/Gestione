@@ -140,11 +140,11 @@ namespace DAO{
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
-                    int _id = (int)dr["id"];
-                    string _nome = (string) dr["nome"];
-                    string _desc = (string)dr["descrizione"];
-                    DateTime _dInizio = (DateTime)dr["dInizio"];
-                    DateTime _dFine = (DateTime)dr["dFine"];
+                    Int32 _id = (Int32) dr[0];
+                    String _nome = (String) dr[1];
+                    String _desc = (String)dr[2];
+                    DateTime _dInizio = (DateTime)dr[3];
+                    DateTime _dFine = (DateTime)dr[4];
                     result.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
                 }
                 ds.Dispose();
