@@ -9,22 +9,30 @@ namespace Gestione.Models {
 	public partial class DomainModel {
 		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
 			IDao dao = new DataAccesObject();
-			List<Giorno> giorni = dao.GiorniCommessa(idCommessa, idUtente);
-			List<DTGiorno> dTGiorni = new List<DTGiorno>();
-			if (giorni != null && giorni.Count > 0) {
-				foreach (Giorno giorno in giorni) {
-					if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
-						dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
+			try{ 
+				List<Giorno> giorni = dao.GiorniCommessa(idCommessa, idUtente);
+				List<DTGiorno> dTGiorni = new List<DTGiorno>();
+				if (giorni != null && giorni.Count > 0) {
+					foreach (Giorno giorno in giorni) {
+						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
+							dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
+					}
 				}
+				return dTGiorni;
+			}catch(Exception e){
+				throw e;
 			}
-			return dTGiorni;
 		}
 		public DTCommessa CercaCommessa(string nomeCommessa) {
 			IDao dao = new DataAccesObject();
-			Commessa commessa = dao.CercaCommessa(nomeCommessa);
-			if(commessa!=null)
-				return new  DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate);
-			return null;
+			try{ 
+				Commessa commessa = dao.CercaCommessa(nomeCommessa);
+				if(commessa!=null)
+					return new  DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate);
+				return null;
+			}catch(Exception e){
+					throw e;
+			}
 		}
 	}
 	public class DTGiorno {

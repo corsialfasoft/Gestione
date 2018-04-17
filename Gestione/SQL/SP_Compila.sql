@@ -1,24 +1,25 @@
 ﻿CREATE PROCEDURE SP_Compila
-	@giorno as date,
-	@idUtente as nvarchar(10),
-	@ore as int,
-	@TipoOre as int
+	@giorno date,
+	@idUtente nvarchar(10),
+	@ore int,
+	@TipoOre int
 AS
 DECLARE @idGiorno int = (
 SELECT TOP 1 id FROM Giorni
 WHERE giorno=@giorno AND idUtente=@idUtente);
 
-IF @idGiorno IS NOT NULL
+IF @idGiorno IS NULL
 	BEGIN
 		INSERT INTO Giorni (giorno, idUtente) VALUES (@giorno, @idUtente);
 		SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'))
 	END
 
 DECLARE @TotOreLav int = 
-(SELECT SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno)
-
-SET @TotOreLav += (
-SELECT SUM(ore) FROM OreNonLavorative WHERE idGiorno=@idGiorno)
+(SELECT top 1 SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno)
+IF @TotOreLav IS NULL
+	set @TotOreLav =0;
+SET @TotOreLav =  @TotOreLav +  (
+SELECT top 1 SUM(ore) FROM OreNonLavorative WHERE idGiorno=@idGiorno)
 
 IF @TotOreLav+@ore>8 
 	BEGIN

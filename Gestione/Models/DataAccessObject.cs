@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Interfaces;
-using System.Data.SqlClient;
 using LibreriaDB;
 namespace DAO{
 	public interface IDao{
@@ -19,7 +18,7 @@ namespace DAO{
 	
 	
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
-		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
@@ -78,27 +77,32 @@ namespace DAO{
 			return commessa;
 		}
 
-		public void Compila(DateTime data, int ore, HType tipoOre, int idUtente) {
+		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = @"(localdb)\MSSQLOCALDB";
+            builder.DataSource = @"(localdb)\MSSQLLocalDB";
             builder.InitialCatalog = "GeTime";
             SqlConnection conn = new SqlConnection(builder.ToString());
             try{ 
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("SP_Compila", conn);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@giorno", System.Data.SqlDbType.Date).Value=data;
-            cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.Int).Value=idUtente;
-            cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
-            cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+				conn.Open();
+				SqlCommand cmd = new SqlCommand("SP_Compila", conn);
+				cmd.CommandType = System.Data.CommandType.StoredProcedure;
+				cmd.Parameters.Add("@giorno", System.Data.SqlDbType.Date).Value=data.ToString("yyyy-MM-dd");
+				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value=idUtente;
+				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
+				cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
+				SqlDataReader result = cmd.ExecuteReader();
+				if(result.Read() && result.GetInt16(0) == 0) { 
+					throw new Exception();
+				}
+					
+				cmd.Dispose();
             }catch (Exception e) {
                 throw e;
             }finally{ 
                 conn.Dispose();
             }
 
+		}
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente) {
 			throw new NotImplementedException();
 		}
@@ -111,7 +115,7 @@ namespace DAO{
 			while(data.Read()){
 				Giorno giorno = new Giorno(data.GetDateTime(1));
 				giorno.IdGiorno=data.GetInt32(0);
-				giorno.AddOreCommessa(new OreLavorative(data.GetInt32(3),data.GetInt32(2),data.GetString(4),data.GetString(5)));
+				giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3),data.GetInt32(2),data.GetString(4),data.GetString(5)));
 				list.Add(giorno);
 			}
 			return list;
@@ -206,7 +210,7 @@ namespace DAO{
                                 result.HFerie = reader.GetInt32(1);
                                 break;
                             case 4:
-                                result.AddOreCommessa(new OreCommessa(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
+                                result.AddOreLavorative(new OreLavorative(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
                                 break;
                         }
                     } while(reader.Read());

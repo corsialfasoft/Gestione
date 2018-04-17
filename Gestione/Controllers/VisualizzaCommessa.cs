@@ -17,15 +17,19 @@ namespace Gestione.Controllers {
 			if(commessa.Length==0)
 				ViewBag.Message = "Inserire un nome di commessa";
 			else{ 
-				DTCommessa dTCommessa = model.CercaCommessa(commessa);
-				if(dTCommessa != null){ 
-					List<DTGiorno> giorni = model.GiorniCommessa(dTCommessa.Id, P.Matricola);
-					if(giorni!=null && giorni.Count>0){
-						ViewBag.NomeCommessa= dTCommessa.Nome;
-						ViewBag.Giorni = giorni;
-					}else
-						ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
+				try{ 
+					DTCommessa dTCommessa = model.CercaCommessa(commessa);
+					if(dTCommessa != null){ 
+						List<DTGiorno> giorni = model.GiorniCommessa(dTCommessa.Id, P.Matricola);
+						if(giorni!=null && giorni.Count>0){
+							ViewBag.NomeCommessa= dTCommessa.Nome;
+							ViewBag.Giorni = giorni;
+						}else
+							ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
 				
+					}
+				}catch(Exception e){
+					ViewBag.Message = "Errore del server";
 				}
 			}
 			return View("VisualizzaCommessa");

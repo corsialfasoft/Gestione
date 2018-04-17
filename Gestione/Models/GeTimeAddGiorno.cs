@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DAO;
 using Interfaces;
 
 namespace Gestione.Models {
@@ -9,7 +10,12 @@ namespace Gestione.Models {
 			
 		}
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
-
+			IDao dao = new DataAccesObject();
+			try {
+				dao.Compila(data, ore, tipoOre,idUtente);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
 	}
 }
