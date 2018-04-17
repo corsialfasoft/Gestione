@@ -20,7 +20,7 @@
             </datalist>
         </form>
         <br><br>
-        Nome Commessa <input type="text" name="Commessa" value=" - - - " /> (Solo per ore di lavoro)
+        Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " /> (Solo per ore di lavoro)
         <br><br>
         Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8>
         <br><br>
@@ -32,6 +32,6 @@
 <p>(*) Campi obligatori</p>
 <br><br>
 @if(ViewBag.GeCoDataTime != null){
-    <p>@ViewBag.GeCoDataTime.ToString("dd/MM/yyyy")</p>}
+    <p>@ViewBag.GeCoDataTime.ToString("yyyy-MM-dd")</p>}
     <p>@ViewBag.EsitoAddGiorno</p>
 <br><br>
