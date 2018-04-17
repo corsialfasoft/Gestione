@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Interfaces;
+using System.Data.SqlClient;
 
 namespace DAO{
 	public interface IDao{
@@ -158,5 +159,86 @@ namespace DAO{
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
 			throw new NotImplementedException();
 		}
+
+
+        public void IscrizioneAlPortale(string nome,string cognome,string usr,string pass) {
+            if(Reader<string>(TakeMatricola, $"SELECT Users FROM Utente WHERE Users='{usr}'") == ""){
+                Procedura($"exec CreateMatricola '{nome}','{cognome}','{usr}','{pass}',4");
+            } else {
+                throw new Exception();
+            }
+        }
+
+        public string SearchMatricola(string usr,string psw) {
+            return Reader<string>(TakeMatricola, $"SELECT Matricola FROM Utente WHERE Users='{usr}' and Passwd='{psw}'");
+        }
+
+        public Profilo SearchProfile(string matricola) {
+            return Reader<Profilo>(TakeProfilo,$"SELECT Utente.Matricola,Utente.Nome,Utente.Cognome,Utente.Users,Utente.Passwd,TipoUtente.Tipo FROM Utente " +
+                $"INNER JOIN TipoUtente ON Utente.fkTipo=TipoUtente.Id WHERE Matricola='{matricola}'");
+        }
+
+        private Profilo TakeProfilo(SqlDataReader reader) {
+            Profilo profile = new Profilo();
+            while (reader.Read()){
+                profile.Matricola = reader.GetString(0);
+                profile.Nome = reader.GetString(1);
+                profile.Cognome =  reader.GetString(2);
+                profile.usr = reader.GetString(3);
+                profile.pswd = reader.GetString(4);
+                profile.Ruolo = reader.GetString(5);
+            }
+            reader.Close();
+            return profile;
+        }
+
+        private SqlConnection InitConnection() {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource = @"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog = "Profilatura";
+			return new SqlConnection(builder.ConnectionString);
+		}
+
+        public void Procedura(string sql){
+            SqlConnection connection = InitConnection();
+			try {
+				connection.Open();				
+				SqlCommand cmd = new SqlCommand(sql, connection);
+				cmd.ExecuteNonQuery();
+				cmd.Dispose();
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				connection.Dispose();
+			}
+        }
+
+        public delegate T Delelato<T>(SqlDataReader reader);
+        public T Reader<T>(Delelato<T> metodo, string sql){
+            SqlConnection con = InitConnection();
+            try{
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader reader = cmd.ExecuteReader();
+                T ris = metodo(reader);
+                reader.Dispose();
+                cmd.Dispose();
+                return ris;
+            }
+            catch(Exception e){
+                throw e;
+            }
+            finally{
+                con.Dispose();
+            }
+        }
+        public string TakeMatricola(SqlDataReader reader){
+            string matricola = "";
+            while (reader.Read()){
+                matricola = reader.GetString(0);
+            }
+            reader.Close();
+            return matricola;
+        }
 	}
 }

@@ -16,6 +16,7 @@ namespace Gestione.Controllers {
 		public ActionResult MyPage(string id)
 		{
 			DomainModel dm = new DomainModel();
+            Profilo P = Session["profile"] as Profilo;
 			if (id == P.Matricola || id == null) {
 				id = P.Matricola;
 			}

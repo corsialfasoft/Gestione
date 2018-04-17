@@ -161,6 +161,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="StoredProcedureProfilature.sql" />
+    <Content Include="ProfilaturaDDL.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -177,6 +179,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Home\5713198.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -197,6 +200,8 @@
     <Content Include="Views\Home\MyPage.cshtml" />
     <Content Include="Views\Home\RicercaCurriculum.cshtml" />
     <Content Include="Views\Home\ListaCurriculum.cshtml" />
+    <Content Include="Views\Home\Iscriviti.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -156,6 +156,22 @@ namespace Interfaces{
         public string titolo {get; set;}
         public int livello {get; set;}
     }
+    public class Profilo {
+        public string Matricola { get; set; }
+        public string Ruolo { get; set; }
+        public List<String> Funzioni { get; set; }
+        public string Nome { get; set; }
+        public string Cognome { get; set; }
+        public string usr { get; set; }
+        public string pswd { get; set;}
 
-
+        public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
+            Matricola = matricola;
+            Ruolo = ruolo;
+            Funzioni = funzioni;
+            Nome = nome;
+            Cognome = cognome;
+        }
+        public Profilo(){ }
+    }
 }

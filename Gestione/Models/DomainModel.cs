@@ -127,5 +127,36 @@ namespace Gestione.Models{
 		{
 			throw new NotImplementedException();
 		}
+
+
+        public string SearchMatricola(string usr,string psw) {
+            DataAccesObject dao = new DataAccesObject();
+            try{
+                string matricola = dao.SearchMatricola(usr,psw);
+                if(matricola != "") {
+                    return matricola;
+                } else {
+                    throw new Exception();
+                }
+            } catch(Exception e) {
+                throw e;
+            }
+        }
+
+        public void IscrizioneAlPortale(string nome, string cognome,string usr,string pass) {
+            DataAccesObject dao = new DataAccesObject();
+            try{
+                dao.IscrizioneAlPortale(nome,cognome,usr,pass);
+            } catch(Exception e) {
+                throw e;
+            }
+        }
+
+        public Profilo SearchProfile(string usr,string pass) {
+            DataAccesObject dao = new DataAccesObject();
+            Profilo prf = new Profilo();
+            prf = dao.SearchProfile(SearchMatricola(usr,pass));
+            return prf;
+        }
 	}
 }

@@ -7,36 +7,30 @@ using Gestione.Models;
 using Interfaces;
 
 namespace Gestione.Controllers {
-    public class Profilo {
-        public string Matricola { get; set; }
-        public string Ruolo { get; set; }
-        public List<String> Funzioni { get; set; }
-        public string Nome { get; set; }
-        public string Cognome { get; set; }
-
-        public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
-            Matricola = matricola;
-            Ruolo = ruolo;
-            Funzioni = funzioni;
-            Nome = nome;
-            Cognome = cognome;
-        }
-        public Profilo(){ }
-    }
     public partial class HomeController : Controller {
         DomainModel dm = new DomainModel();
         Profilo P;
-        public HomeController() {
-            P = new Profilo{Matricola="801130"};
-
-        }
         public ActionResult Index() {
-            return View ();
+            return View();
+        }
+
+        public ActionResult Logout() {
+            ViewBag.Message = "LogOut eseguito con successo";
+            Session["profile"] = null;
+            return View("Index");
+        }
+
+        public ActionResult Login() {
+            return View();
         }
         public ActionResult DettaglioCurriculum(){
             return View();
         }
+        public ActionResult Iscriviti() {
+            return View();
+        }
         public ActionResult EliminaCV(string idCV){ 
+            P = Session["profile"] as Profilo;
             CV temp = dm.Search(idCV); 
             string prossimo ;
             try{ 
@@ -123,6 +117,7 @@ namespace Gestione.Controllers {
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello,string id
             ) {
+            P = Session["profile"] as Profilo;
             try{
                 if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
                     && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
@@ -153,6 +148,31 @@ namespace Gestione.Controllers {
                 ViewBag.CV = trovato;
                 ViewBag.Message = "Qualcosa è andato storto.";
                 return View("DettaglioCurriculum");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Iscriviti(string nome,string cognome,string usr,string psw) {
+            DomainModel dm = new DomainModel();
+            try{
+                dm.IscrizioneAlPortale(nome,cognome,usr,psw);
+                ViewBag.Message = "Utente registrato con successo";
+                return View("Index");
+            } catch(Exception) {
+                ViewBag.Message = "User esistente, inserire un user valido";
+                return View("Iscriviti");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Login(string usr, string psw) {
+            DomainModel dm = new DomainModel();
+            try{
+                Session["profile"] = dm.SearchProfile(usr,psw);
+                return View("MyPage");
+            } catch(Exception) {
+                ViewBag.Message = "Login e password non validi";
+                return View("Login");
             }
         }
     }
