@@ -14,8 +14,8 @@ IF @idGiorno IS NOT NULL
 		SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'))
 	END
 
-DECLARE @TotOreLav int = 
-(SELECT SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno)
+DECLARE @TotOreLav int  = 0; 
+set  @TotOreLav += (SELECT SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno)
 
 SET @TotOreLav += (
 SELECT SUM(ore) FROM OreNonLavorative WHERE idGiorno=@idGiorno)
