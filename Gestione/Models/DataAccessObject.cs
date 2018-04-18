@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Interfaces;
-using System.Data.SqlClient;
 using LibreriaDB;
 namespace DAO{
 	public interface IDao{
@@ -81,7 +80,7 @@ namespace DAO{
 
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = @"(localdb)\MSSQLOCALDB";
+            builder.DataSource = @"(localdb)\MSSQLLocalDB";
             builder.InitialCatalog = "GeTime";
             SqlConnection conn = new SqlConnection(builder.ToString());
             try{ 
@@ -92,14 +91,16 @@ namespace DAO{
 				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value=idUtente;
 				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
 				cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
-				cmd.ExecuteNonQuery();
+				cmd.ExecuteNonQuery();	
 				cmd.Dispose();
-            }catch (Exception e) {
+            } catch (SqlException e) {
+                throw new Exception(e.Message);
+            } catch (Exception e) {
                 throw e;
             }finally{ 
                 conn.Dispose();
             }
-
+        }
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 			builder.DataSource = @"(localdb)\MSSQLLocalDB";
@@ -130,7 +131,7 @@ namespace DAO{
 			while(data.Read()){
 				Giorno giorno = new Giorno(data.GetDateTime(1));
 				giorno.IdGiorno=data.GetInt32(0);
-				giorno.AddOreCommessa(new OreLavorative(data.GetInt32(3),data.GetInt32(2),data.GetString(4),data.GetString(5)));
+				giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3),data.GetInt32(2),data.GetString(4),data.GetString(5)));
 				list.Add(giorno);
 			}
 			return list;
@@ -225,7 +226,7 @@ namespace DAO{
                                 result.HFerie = reader.GetInt32(1);
                                 break;
                             case 4:
-                                result.AddOreCommessa(new OreCommessa(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
+                                result.AddOreLavorative(new OreLavorative(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
                                 break;
                         }
                     } while(reader.Read());

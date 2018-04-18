@@ -34,7 +34,6 @@ as
 		begin
 			begin try
 				insert into OreLavorative(idGiorno, idCommessa, ore) values(@idGiorno, @idCommessa, @ore);
-				return 1;
 			end try
 			begin catch			
 				if(@@Error = 2627)
@@ -45,10 +44,7 @@ as
 			end catch
 		end
 	else
-		begin
-			return 0;
-		end
-	
+		throw 111133,'non si puo inserire il record',22;
 go
 
 exec SP_AddHLavoro "2018/04/8", 1, 1, "n.1";

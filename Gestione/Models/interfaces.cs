@@ -67,12 +67,12 @@ namespace Interfaces{
 		private DateTime data;
 		private int idG;
 		public DateTime Data { get { return data; } }
-		private List<OreLavorative> commesse;
+		private List<OreLavorative> oreLavorative;
 		public string ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
 		public int HPermesso{ get;set;}
 		public int HMalattia{ get;set;}
 		public int HFerie{ get;set;}
-		public List<OreLavorative> OreLavorate { get => commesse; }
+		public List<OreLavorative> OreLavorate { get => oreLavorative; }
 		public int IdGiorno{ get;set;}
 
 		public Giorno(DateTime data) { this.data = data; }
@@ -85,10 +85,10 @@ namespace Interfaces{
 			this.idG=idG;
 		}
 
-		public void AddOreCommessa(OreLavorative com) {
-			if (commesse == null)
-				commesse = new List<OreLavorative>();
-			commesse.Add(com);
+		public void AddOreLavorative(OreLavorative com) {
+			if (oreLavorative == null)
+				oreLavorative = new List<OreLavorative>();
+			oreLavorative.Add(com);
 		}
 		public int TotOreLavorate() {
 			int tot = 0;
@@ -109,8 +109,6 @@ namespace Interfaces{
 		public string Descrizione { get => _descrizione; set => _descrizione = value; }
 		public string Nome { get => _nome; set => _nome = value; }
 		public int Ore{ get; set; }
-
-		private int oreLavorate;
 		private string _nome;
 		private string _descrizione;
 

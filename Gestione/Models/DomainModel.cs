@@ -102,7 +102,7 @@ namespace Gestione.Models{
                 DTgiorno.OrePermesso = giornoInterface.HPermesso;
                 DTgiorno.OreMalattia = giornoInterface.HMalattia;
                 DTgiorno.OreFerie = giornoInterface.HFerie;
-                foreach(OreCommessa orecommessa in giornoInterface.OreLavorate) {
+                foreach(OreLavorative orecommessa in giornoInterface.OreLavorate) {
                     OreLavorate orelavorate = new OreLavorate();
                     orelavorate.nome = orecommessa.Nome;
                     orelavorate.oreGiorno = orecommessa.Ore;
