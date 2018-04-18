@@ -2,8 +2,11 @@
     ViewBag.Title = "Aggiungi Giorno";
     
 }
-<h2>@ViewBag.Title:</h2>
-<br><br>
+<h2>@ViewBag.Title</h2>
+<div class="text-danger container">
+    <h4>@ViewBag.Message</h4>
+</div>
+<br>
 <div>
     @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
     <div class="Conteiner">

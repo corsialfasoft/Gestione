@@ -90,13 +90,11 @@ namespace DAO{
 				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value=idUtente;
 				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
 				cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
-				SqlDataReader result = cmd.ExecuteReader();
-				if(result.Read() && result.GetInt16(0) == 0) { 
-					throw new Exception();
-				}
-					
+				cmd.ExecuteNonQuery();	
 				cmd.Dispose();
-            }catch (Exception e) {
+            } catch (SqlException e) {
+                throw new Exception(e.Message);
+            } catch (Exception e) {
                 throw e;
             }finally{ 
                 conn.Dispose();
