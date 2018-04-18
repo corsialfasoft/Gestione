@@ -12,17 +12,21 @@ namespace Gestione.Controllers {
 			return View("VisualizzaCommessa");
 		}
 		[HttpPost]
-		public ActionResult VisualizzaCommessa(string nCom) {
+		public ActionResult VisualizzaCommessa(string commessa) {
 			DomainModel model = new DomainModel();
-			DTCommessa commessa = model.CercaCommessa(nCom);
-			if(commessa!=null){ 
-				List<DTGiorno> giorni = model.GiorniCommessa(commessa.Id, P.Matricola);
-				if(giorni!=null && giorni.Count>0){
-					ViewBag.NomeCommessa= commessa.Nome;
-					ViewBag.Giorni = giorni;
-				}else
-					ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
+			if(commessa.Length==0)
+				ViewBag.Message = "Inserire un nome di commessa";
+			else{ 
+				DTCommessa dTCommessa = model.CercaCommessa(commessa);
+				if(dTCommessa != null){ 
+					List<DTGiorno> giorni = model.GiorniCommessa(dTCommessa.Id, P.Matricola);
+					if(giorni!=null && giorni.Count>0){
+						ViewBag.NomeCommessa= dTCommessa.Nome;
+						ViewBag.Giorni = giorni;
+					}else
+						ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
 				
+				}
 			}
 			return View("VisualizzaCommessa");
 		}

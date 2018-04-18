@@ -27,7 +27,7 @@ namespace Gestione.Controllers {
     public partial class HomeController : Controller {
         Profilo P;
         public HomeController() {
-            P = new Profilo("11","direttore",new List<string>{"Visualizza commessa"},"nauman","aziz");
+            P = new Profilo("12342","direttore",new List<string>{"Visualizza commessa"},"nauman","aziz");
 
         }
         public ActionResult Index() {
@@ -54,7 +54,11 @@ namespace Gestione.Controllers {
         public ActionResult VisualizzaGiorno(DateTime data) {
             DomainModel dm = new DomainModel();
             DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
-            ViewBag.giorno = giorno;
+            if (giorno!=null) {
+                ViewBag.giorno = giorno;
+            } else {
+                ViewBag.Message = "Data non trovata!";
+            }
             return View();
         }
     }
