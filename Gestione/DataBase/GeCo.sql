@@ -11,6 +11,7 @@ create table Corsi(
 
 create table Lezioni (
 	id int identity(1,1) primary key not null,
+	nome nvarchar(200) not null,
 	durata nvarchar(50) not null,
 	descrizione nvarchar(50) not null,
 	idCorsi int foreign key references Corsi

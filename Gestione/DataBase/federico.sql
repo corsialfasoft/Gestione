@@ -25,14 +25,14 @@ EXEC AddCorso 'Lucrezio','Dottotani','2018-02-22','2018-02-23';
 
 CREATE PROCEDURE AddLezione
 @idCorsi int,
+@nome nvarchar(200),
 @descrizione NVARCHAR(100),
 @durata NVARCHAR(15)
-
 as
 BEGIN TRANSACTION
 BEGIN TRY
-INSERT INTO Lezioni(idCorsi,descrizione,durata)
-				VALUES(@idCorsi,@descrizione,@durata)
+INSERT INTO Lezioni(nome, durata, descrizione, idCorsi)
+				VALUES(@nome,@durata,@descrizione,@idCorsi)
 END TRY
 BEGIN CATCH
   SELECT 
@@ -44,3 +44,4 @@ END CATCH
 COMMIT TRANSACTION
 go
 
+exec AddLezione 1,'gio','xdrg','2'
