@@ -20,7 +20,8 @@
             @foreach(var lezioni in ViewBag.Lezioni) {
             <li class="list-group-item">
                 <span class="Lezione_Nome">
-                    @lezioni.Nome
+                    @lezioni.Descrizione
+                    @lezioni.Durata
                 </span>
             </li>
             }

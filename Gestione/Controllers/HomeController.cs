@@ -60,11 +60,7 @@ namespace Gestione.Controllers {
 		public ActionResult Corso(int id) {
 			DomainModel dm = new DomainModel();
 			Corso scelto = dm.SearchCorsi(id);
-			List<Lezione> lezions = new List<Lezione>();
-			
-			foreach(Lezione l in scelto.Lezioni) {
-				lezions.Add(l);
-			}
+			List<Lezione> lezions = dm.ListaLezioni(scelto);			
             ViewBag.Corso = scelto;
 			ViewBag.Lezioni = lezions;
 			return View();

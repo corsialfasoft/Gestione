@@ -32,4 +32,10 @@ end catch
 commit transaction;
 go
 
+create procedure ListaLezioni
+@IdCorso int
+as
+	select * from Lezioni l where @IdCorso = l.idCorsi;
+go 
 
+ exec ListaLezioni 1

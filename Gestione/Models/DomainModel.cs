@@ -5,7 +5,10 @@ using DAO;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime {
-		
+		DataAccesObject dao = new DataAccesObject();
+		public List<Lezione> ListaLezioni(Corso input){
+			return dao.ListaLezioni(input);
+		}
 		public void AggiungiCV(CV a) {
 			throw new NotImplementedException();
 		}
@@ -35,13 +38,61 @@ namespace Gestione.Models{
 		}
 
 		public void Iscriviti(int idCorso,string idStudente) {
-			DataAccesObject dao = new DataAccesObject();
 			try{
 				dao.Iscriviti(idCorso,idStudente);
 			}catch(Exception e){				
 				throw e ;
 			}
 		}
+		public void AddLezione(int idCorso, Lezione lezione){			
+			try{
+				dao.AddLezione(idCorso,lezione);
+			}catch(Exception e){
+				throw e;
+			}
+		}
+		public List<Corso> ListaCorsi(string idUtente){
+			try{
+				return dao.ListaCorsi(idUtente);
+			}catch(Exception e){ 
+                throw e; 
+            }
+		}
+		public List<Corso> ListaCorsi(){
+			try{
+				return dao.ListaCorsi();
+			}catch(Exception e){ 
+                throw e; 
+            }
+		}
+		public Corso SearchCorsi(int idCorso){			
+			try{
+				return dao.SearchCorsi(idCorso);
+			}catch(Exception e){ 
+                throw e; 
+            }
+		}
+		public List<Corso> SearchCorsi (string descrizione){
+			try{
+				return  dao.SearchCorsi(descrizione);
+			}catch(Exception e){ 
+                throw e; 
+            }
+		}
+		public List<Corso> SearchCorsi (string descrizione,string idUtente){
+			try{
+				return dao.SearchCorsi(descrizione,idUtente);
+			}catch(Exception e){ 
+                throw e; 
+            }
+		}
+		public void AddCorso(Corso corso){
+            try{ 
+               dao.AddCorso(corso);
+            }catch(Exception e){ 
+                throw e; 
+            }
+        }
 		public void ModificaCV(CV a,CV b) {
 			throw new NotImplementedException();
 		}

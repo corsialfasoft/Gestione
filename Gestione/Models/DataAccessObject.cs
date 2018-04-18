@@ -43,8 +43,24 @@ namespace DAO{
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(string idUtente);
+		List<Lezione> ListaLezioni(Corso corso);
     }
 	public partial class DataAccesObject : IDao {
+		private List<Lezione> TrasformInLezione(SqlDataReader data){
+			List<Lezione> output = new List<Lezione>();
+			while(data.Read()){
+				Lezione tmp = new Lezione {
+					Durata = int.Parse(data.GetString(1)),
+					Descrizione = data.GetString(2)
+				};
+				output.Add(tmp);
+			}
+			return output;
+		}
+		public List<Lezione> ListaLezioni(Corso corso){
+			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
+			return DB.ExecQProcedureReader("ListaLezioni",TrasformInLezione,param);
+		}
 		public void AddCorso(Corso corso) {
 			SqlConnection connection = new SqlConnection(GetConnection());
 			int IdCo = 0;
@@ -78,10 +94,13 @@ namespace DAO{
 			int IdLez = 0;
 			try { 
 				connection.Open();
-				SqlCommand command = new SqlCommand("AddLezioni",connection);
+				SqlCommand command = new SqlCommand("AddLezione",connection) {
+					CommandType = CommandType.StoredProcedure
+				};
 				command.Parameters.Add("@idCorsi",SqlDbType.Int).Value= idCorso;
+				command.Parameters.Add("@nome",SqlDbType.NVarChar).Value=lezione.Nome;
 				command.Parameters.Add("@descrizione",SqlDbType.NVarChar).Value= lezione.Descrizione;
-				command.Parameters.Add("@durata",SqlDbType.NVarChar).Value= lezione.Durata;
+				command.Parameters.Add("@durata",SqlDbType.NVarChar).Value= lezione.Durata.ToString();
 				SqlDataReader reader = command.ExecuteReader();
 					while(reader.Read()){
 						IdLez = (int)reader.GetDecimal(0);
@@ -207,14 +226,17 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 		private Corso TrasformInCorso(SqlDataReader data){
-			Corso output = new Corso {
-				Nome = data.GetString(1),
-				Descrizione = data.GetString(2),
-				Inizio = data.GetDateTime(3),
-				Fine = data.GetDateTime(4)
-			};
-			return output;
-		}
+			Corso output = new Corso();
+			if(data.Read()){
+					output.Id = data.GetInt32(0);
+					output.Nome = data.GetString(1);
+					output.Descrizione = data.GetString(2);
+					output.Inizio = data.GetDateTime(3);
+					output.Fine = data.GetDateTime(4);					
+					}
+		return output;
+			}
+		
         private string GetConnection(){
 			SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder {
 				DataSource = @"(localdb)\MSSQLLocalDB",
@@ -248,11 +270,11 @@ namespace DAO{
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
-                    int _id = (int)dr["id"];
-                    string _nome = (string) dr["nome"];
-                    string _desc = (string)dr["descrizione"];
-                    DateTime _dInizio = (DateTime)dr["dInizio"];
-                    DateTime _dFine = (DateTime)dr["dFine"];
+                    int _id = (int)dr[0];
+                    string _nome = (string) dr[1];
+                    string _desc = (string)dr[2];
+                    DateTime _dInizio = (DateTime)dr[3];
+                    DateTime _dFine = (DateTime)dr[4];
                     corsi.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
                 }
                 ds.Dispose();
@@ -283,11 +305,11 @@ namespace DAO{
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
-                    int _id = (int)dr["id"];
-                    string _nome = (string) dr["nome"];
-                    string _desc = (string)dr["descrizione"];
-                    DateTime _dInizio = (DateTime)dr["dInizio"];
-                    DateTime _dFine = (DateTime)dr["dFine"];
+                    int _id = (int)dr[0];
+                    string _nome = (string) dr[1];
+                    string _desc = (string)dr[2];
+                    DateTime _dInizio = (DateTime)dr[3];
+                    DateTime _dFine = (DateTime)dr[4];
                     corsi.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
                 }
                 ds.Dispose();
