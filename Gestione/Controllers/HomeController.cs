@@ -139,16 +139,16 @@ namespace Gestione.Controllers {
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello,string id
             ) {
+			DomainModel dm = new DomainModel();
 			Profilo P = new Profilo();
+			P.Matricola="GGGGG"; // aggiunto a caso per testare salva modifiche!
             try{
                 if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
                     && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
                     && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
                     if(int.TryParse(eta, out int Eta)){
-                        dm.ModificaCV(InitCV(ViewBag.CV.nome,ViewBag.CV.cognome,
-                            ViewBag.CV.eta,ViewBag.CV.email,ViewBag.CV.residenza,ViewBag.CV.telefono,ViewBag.CV.annoinizio,
-                            ViewBag.CV.annofine,ViewBag.CV.titolo,ViewBag.CV.descrizione,ViewBag.CV.annoinizioesp,
-                            ViewBag.CV.annofinesp,ViewBag.CV.qualifica,ViewBag.CV.descrizionesp,ViewBag.CV.tipo,ViewBag.CV.livello),
+						ViewBag.CV = dm.Search(P.Matricola);
+                        dm.ModificaCV(dm.Search(P.Matricola),
                             InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,annofine,titolo,descrizione,
                             annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
                         ViewBag.Message = "Curriculum Modificato";

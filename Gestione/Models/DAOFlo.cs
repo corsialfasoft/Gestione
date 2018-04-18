@@ -37,17 +37,18 @@ namespace DAO{
 				SqlCommand command = new SqlCommand("GetCv",connection) {
 					CommandType = System.Data.CommandType.StoredProcedure
 				};
+			
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matr;
 				SqlDataReader reader = command.ExecuteReader();
 				CV c = new CV();
 				while(reader.Read()){
-					c.Nome = reader.GetString(0);
-					c.Cognome = reader.GetString(1);
+					c.Nome = reader.GetString(0) ?? "";
+					c.Cognome = reader.GetString(1)?? "";
 					c.Eta = reader.GetInt32(2);
-					c.Matricola = reader.GetString(3);
-					c.Email = reader.GetString(4);
-					c.Residenza = reader.GetString(5);
-					c.Telefono = reader.GetString(6);
+					c.Matricola = reader.GetString(3) ?? "";
+					c.Email = reader.GetValue(4)==DBNull.Value ? "" : reader.GetString(4) ;
+					c.Residenza = reader.GetValue(5)==DBNull.Value ? "" : reader.GetString(5) ;
+					c.Telefono =  reader.GetValue(6)==DBNull.Value ? "" : reader.GetString(6) ;
 				}
 				c.Percorsostudi= GetPerStudi(c.Matricola);
 				c.Esperienze = GetEspLav(c.Matricola);
@@ -74,7 +75,7 @@ namespace DAO{
 				SqlDataReader reader = command.ExecuteReader();
 				Competenza e = new Competenza();
 				while(reader.Read()){
-					e.Titolo = reader.GetString(0);
+					e.Titolo = reader.GetValue(0)==DBNull.Value ? "" : reader.GetString(0) ;
 					e.Livello = reader.GetInt32(1);
 				
 					res.Add(e);
@@ -103,8 +104,8 @@ namespace DAO{
 				while(reader.Read()){
 					e.AnnoInizio = reader.GetInt32(0);
 					e.AnnoFine = reader.GetInt32(1);
-					e.Titolo = reader.GetString(2);
-					e.Descrizione = reader.GetString(3);
+					e.Titolo = reader.GetValue(2)==DBNull.Value ? "" : reader.GetString(2) ;
+					e.Descrizione = reader.GetValue(3)==DBNull.Value ? "" : reader.GetString(3) ;
 					res.Add(e);
 				}
 				reader.Close();
@@ -131,8 +132,8 @@ namespace DAO{
 				while(reader.Read()){
 					e.AnnoInizio = reader.GetInt32(0);
 					e.AnnoFine = reader.GetInt32(1);
-					e.Qualifica = reader.GetString(2);
-					e.Descrizione = reader.GetString(3);
+					e.Qualifica = reader.GetValue(2)==DBNull.Value ? "" : reader.GetString(2) ;
+					e.Descrizione =reader.GetValue(3)==DBNull.Value ? "" : reader.GetString(3) ;
 					res.Add(e);
 				}
 				reader.Close();
