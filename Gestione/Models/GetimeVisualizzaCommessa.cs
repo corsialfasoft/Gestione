@@ -8,9 +8,8 @@ using Interfaces;
 namespace Gestione.Models {
 	public partial class DomainModel {
 		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
-			IDao dao = new DataAccesObject();
 			try{ 
-				List<Giorno> giorni = dao.GiorniCommessa(idCommessa, idUtente);
+				List<Giorno> giorni = DAO.GiorniCommessa(idCommessa, idUtente);
 				List<DTGiorno> dTGiorni = new List<DTGiorno>();
 				if (giorni != null && giorni.Count > 0) {
 					foreach (Giorno giorno in giorni) {
@@ -24,9 +23,8 @@ namespace Gestione.Models {
 			}
 		}
 		public DTCommessa CercaCommessa(string nomeCommessa) {
-			IDao dao = new DataAccesObject();
 			try{ 
-				Commessa commessa = dao.CercaCommessa(nomeCommessa);
+				Commessa commessa = DAO.CercaCommessa(nomeCommessa);
 				if(commessa!=null)
 					return new  DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate);
 				return null;

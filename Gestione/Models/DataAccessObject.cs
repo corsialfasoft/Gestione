@@ -100,7 +100,7 @@ namespace DAO{
             }finally{ 
                 conn.Dispose();
             }
-
+        }
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 			builder.DataSource = @"(localdb)\MSSQLLocalDB";
