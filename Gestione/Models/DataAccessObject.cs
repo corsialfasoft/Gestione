@@ -17,7 +17,7 @@ namespace DAO{
 	
 	
 	
-		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
+		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
@@ -40,6 +40,7 @@ namespace DAO{
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(int idUtente);
     }
+
 	public partial class DataAccesObject : IDao {
 		public void AddCorso(Corso corso) {
 			throw new NotImplementedException();
@@ -100,9 +101,26 @@ namespace DAO{
                 conn.Dispose();
             }
 
-		}
-		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente) {
-			throw new NotImplementedException();
+		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource = @"(localdb)\MSSQLLocalDB";
+			builder.InitialCatalog = "GeTime";
+			SqlConnection connection = new SqlConnection(builder.ToString());
+			try {
+				connection.Open();
+				SqlCommand cmd = new SqlCommand("SP_AddHLavoro", connection);
+				cmd.CommandType = System.Data.CommandType.StoredProcedure;
+				cmd.Parameters.Add("@data", System.Data.SqlDbType.Date).Value = data;
+				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value = ore;
+				cmd.Parameters.Add("@idCommessa", System.Data.SqlDbType.Int).Value = idCommessa;
+				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value = idUtente;
+				cmd.ExecuteNonQuery();
+				cmd.Dispose();
+			} catch (Exception e){
+				throw e;
+			}finally{
+				connection.Close();
+			}
 		}
 
 		public void EliminaCV(CV curriculum) {
