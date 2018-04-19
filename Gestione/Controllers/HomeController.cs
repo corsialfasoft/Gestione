@@ -24,7 +24,8 @@ namespace Gestione.Controllers {
         public Profilo(){ }
     }
     public partial class HomeController : Controller {
-        DomainModel dm = new DomainModel();
+        Profilo P = new Profilo();
+		DomainModel dm = new DomainModel();
 		// Profilo P;
         public HomeController() {
             //P = new Profilo{Matricola="801130"};

@@ -89,6 +89,12 @@ namespace Gestione.Models{
         }
 
         public void ModificaCV(CV a,CV b) ///////////////////////////
+		public void ModComp(Competenza daMod,Competenza Mod,string matricola) {
+			dao.ModComp(matricola,daMod,Mod);
+
+		}
+
+		public void ModificaCV(CV a,CV b)
 		{
 			DataAccesObject doo = new DataAccesObject();
             doo.ModificaCV(a,b);

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gestione;
 using Gestione.Controllers;
+using Gestione.Models;
 
 namespace Gestione.Tests.Controllers {
     [TestClass]
@@ -55,5 +56,18 @@ namespace Gestione.Tests.Controllers {
 			ViewResult result = controller.EliminaCV("ciao") as ViewResult;
 			Assert.IsTrue(result.ViewBag.Message == "Non siamo riusciti a eliminare il curriculum selezionato");
 		}
+		 [TestMethod]
+		public void AddCompTest(){
+			HomeController controller = new HomeController();
+			DomainModel dm = new DomainModel();
+			dm.AddCompetenze("GGGGG" , new Interfaces.Competenza{Titolo="Mangiaspade" , Livello=32});
+		}
+		 [TestMethod]
+		 public void ModificaComp(){
+			DomainModel dm = new DomainModel();
+			dm.AddCompetenze("GGGGG" , new Interfaces.Competenza{Titolo="Porcospino" , Livello=32});
+			dm.ModComp(new Interfaces.Competenza{Titolo="Porcospino" , Livello=32}, new Interfaces.Competenza{Titolo="Mangiapanino" , Livello=9999} , "GGGGG");
+		 }
+
     }
 }
