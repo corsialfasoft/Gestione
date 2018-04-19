@@ -88,7 +88,6 @@ namespace Gestione.Models{
             dao.ModEspLav(MatrCv,espV,esp);
         }
 
-        public void ModificaCV(CV a,CV b) ///////////////////////////
 		public void ModComp(Competenza daMod,Competenza Mod,string matricola) {
 			dao.ModComp(matricola,daMod,Mod);
 
