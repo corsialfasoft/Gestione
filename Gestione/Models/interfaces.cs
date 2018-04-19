@@ -12,7 +12,8 @@ namespace Interfaces{
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
-	}
+        void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+    }
 	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);

@@ -18,9 +18,10 @@ namespace DAO{
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp );
         void AddCompetenze(string MatrCv, Competenza comp);
-	
-	
-		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
+        void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+
+
+        void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);

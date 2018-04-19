@@ -90,7 +90,11 @@ namespace Gestione.Models{
             doo.ModificaCV(a,b);
 		}
 
-		public CV Search(string id)
+        public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod) {
+            dao.ModPerStudi(matricola,daMod,Mod);
+        }
+
+        public CV Search(string id)
 		{
 			DataAccesObject dao = new DataAccesObject();
 			return dao.Search(id);
