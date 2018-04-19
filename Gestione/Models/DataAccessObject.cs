@@ -18,6 +18,9 @@ namespace DAO{
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp );
         void AddCompetenze(string MatrCv, Competenza comp);
+        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
+		void ModComp( string matricola, Competenza daMod , Competenza Mod ); // Modifica la singola competenza
+	
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
 
 

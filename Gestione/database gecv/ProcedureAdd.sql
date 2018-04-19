@@ -69,7 +69,7 @@ as
 		COMMIT TRANSACTION 
 	go
 
-CREATE PROCEDURE AddCompetenze
+alter PROCEDURE AddCompetenze
 	@Tipo NVARCHAR(50),
     @Livello Int,
     @MatrCv nvarchar(10)
