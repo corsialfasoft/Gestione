@@ -45,24 +45,15 @@ namespace DAO{
         List<Corso>ListaCorsi(string idUtente);
 		List<Lezione> ListaLezioni(Corso corso);
     }
+	
 	public partial class DataAccesObject : IDao {
-		private List<Lezione> TrasformInLezione(SqlDataReader data){
-			List<Lezione> output = new List<Lezione>();
-			while(data.Read()){
-				Lezione tmp = new Lezione {
-					Durata = int.Parse(data.GetString(1)),
-					Descrizione = data.GetString(2)
-				};
-				output.Add(tmp);
-			}
-			return output;
-		}
+		ITrasformer transf = new Trasformator();
 		public List<Lezione> ListaLezioni(Corso corso){
 			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
-			return DB.ExecQProcedureReader("ListaLezioni",TrasformInLezione,param);
+			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param);
 		}
 		public void AddCorso(Corso corso) {
-			SqlConnection connection = new SqlConnection(GetConnection());
+			SqlConnection connection = new SqlConnection(DB.GetConnectionString());
 			int IdCo = 0;
 			try{
 				connection.Open();
@@ -82,15 +73,15 @@ namespace DAO{
 				if(IdCo == 0) {
 					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
 				}
-			} catch (Exception e) {
-				throw e;
+			} catch (Exception) {
+				throw;
 			} finally {
 				connection.Dispose();
 			}
 		}
 
 		public void AddLezione(int idCorso,Lezione lezione) {
-			SqlConnection connection = new SqlConnection(GetConnection());
+			SqlConnection connection = new SqlConnection(DB.GetConnectionString());
 			int IdLez = 0;
 			try { 
 				connection.Open();
@@ -148,7 +139,7 @@ namespace DAO{
 
 		public List<Corso> ListaCorsi() {
 		    List<Corso> result = new List<Corso>();
-            SqlConnection con = new SqlConnection(GetConnection());
+            SqlConnection con = new SqlConnection(DB.GetConnectionString());
 			SqlCommand cmd = new SqlCommand("dbo.ListaCorsi",con) {
 				CommandType = CommandType.StoredProcedure
 			};
@@ -179,7 +170,7 @@ namespace DAO{
 
 		public List<Corso> ListaCorsi(string idUtente) {
 			List<Corso> result = new List<Corso> ();
-		    SqlConnection con = new SqlConnection(GetConnection());
+		    SqlConnection con = new SqlConnection(DB.GetConnectionString());
 			SqlCommand cmd = new SqlCommand("dbo.ListaCorsiStudenti",con) {
 				CommandType = CommandType.StoredProcedure
 			};
@@ -225,28 +216,11 @@ namespace DAO{
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
 		}
-		private Corso TrasformInCorso(SqlDataReader data){
-			Corso output = new Corso();
-			if(data.Read()){
-					output.Id = data.GetInt32(0);
-					output.Nome = data.GetString(1);
-					output.Descrizione = data.GetString(2);
-					output.Inizio = data.GetDateTime(3);
-					output.Fine = data.GetDateTime(4);					
-					}
-		return output;
-			}
 		
-        private string GetConnection(){
-			SqlConnectionStringBuilder reader = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GeCorsi"
-			};
-			return reader.ToString();
-        }
+      
 		public Corso SearchCorsi(int idCorso) {
 			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
-			return DB.ExecQProcedureReader("SearchCorso", TrasformInCorso,param);
+			return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param);
 		}	
 		
 		public void Iscriviti(int idCorso,string idStudente) {
@@ -256,7 +230,7 @@ namespace DAO{
 
 		public List<Corso> SearchCorsi(string descrizione) {
 			List<Corso> corsi = null;
-            SqlConnection con = new SqlConnection(GetConnection());
+            SqlConnection con = new SqlConnection(DB.GetConnectionString());
             try{ 
                 corsi = new List<Corso>();
                 con.Open();
@@ -290,7 +264,7 @@ namespace DAO{
 
 		public List<Corso> SearchCorsi(string descrizione,string idUtente)  {
 			List<Corso> corsi = null;
-            SqlConnection con = new SqlConnection(GetConnection());
+            SqlConnection con = new SqlConnection(DB.GetConnectionString());
             try{ 
                 corsi = new List<Corso>();
                 con.Open();
