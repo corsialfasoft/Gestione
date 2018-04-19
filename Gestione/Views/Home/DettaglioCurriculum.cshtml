@@ -147,8 +147,8 @@
             </div>
         }
     }else {
-        using(Html.BeginForm("ModificaAnag","Home",FormMethod.Post)) {
-            <fieldset>
+        <fieldset>
+        @using(Html.BeginForm("ModificaAnag","Home",FormMethod.Post)) {
                 <legend>Dati Anagrafici:</legend>
                 <div class="row">
                     <div class="col-md-2">

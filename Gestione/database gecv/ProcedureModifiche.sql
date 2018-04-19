@@ -54,7 +54,7 @@ as
 			end
 go
 
-alter procedure ModComp
+create procedure ModComp
 	@matricola nvarchar(10),
 	@titoloDaMod nvarchar(50),
 	@livDaMod int , 
