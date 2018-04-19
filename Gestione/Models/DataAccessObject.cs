@@ -89,52 +89,42 @@ namespace DAO{
 		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
 			throw new NotImplementedException();
 		}
-
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente) {
 			throw new NotImplementedException();
 		}
-
 		public void EliminaCV(CV curriculum) {
 			throw new NotImplementedException();
 		}
-
 		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente) {
 			throw new NotImplementedException();
 		}
 		public List<Corso> ListaCorsi() {		   
 			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null);       
 		}
-
 		public List<Corso> ListaCorsi(string idUtente) {
 			SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
 			return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInListaCorso,param);
 		}
-
 		public void ModificaCV(CV a,CV b) {
 			throw new NotImplementedException();
 		}
-
 		public CV Search(string id) {
 			throw new NotImplementedException();
 		}
-
 		public List<CV> SearchChiava(string chiava) {
 			throw new NotImplementedException();
 		}
-
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
 		}      
 		public Corso SearchCorsi(int idCorso) {
 			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
 			return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param);
-		}	
-		
+		}		
 		public void Iscriviti(int idCorso,string idStudente) {
 			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
 			DB.ExecNonQProcedure("Iscrizione",param);
 		}
-
 		public List<Corso> SearchCorsi(string descrizione) {
 			SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
 			return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInListaCorso,param);
@@ -147,15 +137,12 @@ namespace DAO{
 		public List<CV> SearchEta(int eta) {
 			throw new NotImplementedException();
 		}
-
 		public List<CV> SearchRange(int etmin,int etmax) {
 			throw new NotImplementedException();
 		}
-
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
 			throw new NotImplementedException();
 		}
-
 		[Serializable]
 		private class LezioneNonAggiuntaException : Exception {
 			public LezioneNonAggiuntaException() {}
@@ -164,7 +151,6 @@ namespace DAO{
 			protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){
 			}
 		}
-
 		[Serializable]
 		private class CorsoNonAggiuntaException : Exception {
 			public CorsoNonAggiuntaException() {}

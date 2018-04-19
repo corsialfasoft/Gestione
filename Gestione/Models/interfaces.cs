@@ -38,6 +38,7 @@ namespace Interfaces{
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(string idUtente);
+		//Mostra la lista delle lezioni relative a un corso
 		List<Lezione> ListaLezioni(Corso corso);
     }
     public class Studente{ 

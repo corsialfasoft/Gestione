@@ -27,8 +27,7 @@ namespace Gestione.Controllers {
     public partial class HomeController : Controller {
         Profilo P;
         public HomeController() {
-            P = new Profilo("qwerty","admin",null,"ciao","mazzo");
-
+            P = new Profilo("prova","admin",null,"ciao","mazzo");
 		}
 		public ActionResult ElencoCorsi(){
 			DomainModel dm = new DomainModel();
@@ -124,12 +123,10 @@ namespace Gestione.Controllers {
         }
         public ActionResult About() {
             ViewBag.Message = "Your application description page.";
-
 			return View();
 		}
 		public ActionResult Contact() {
 			ViewBag.Message = "Your contact page.";
-
 			return View();
 		}
         public ActionResult ElencoCorsiStudente(string matricola) {
