@@ -43,6 +43,7 @@ namespace DAO{
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(string idUtente);
+		//mostra tutte le lezioni associate a un corso
 		List<Lezione> ListaLezioni(Corso corso);
     }
 	
@@ -53,73 +54,38 @@ namespace DAO{
 			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param);
 		}
 		public void AddCorso(Corso corso) {
-			SqlConnection connection = new SqlConnection(DB.GetConnectionString());
-			int IdCo = 0;
-			try{
-				connection.Open();
-				SqlCommand command = new SqlCommand("AddCorso",connection) {
-					CommandType = CommandType.StoredProcedure
-				};
-				command.Parameters.Add("@nome",SqlDbType.NVarChar).Value= corso.Nome;
-				command.Parameters.Add("@descrizione",SqlDbType.NVarChar).Value= corso.Descrizione;
-				command.Parameters.Add("@dInizio",SqlDbType.DateTime).Value= corso.Inizio;
-				command.Parameters.Add("@dFine",SqlDbType.DateTime).Value= corso.Fine;
-				SqlDataReader reader = command.ExecuteReader();
-				while(reader.Read()){
-					IdCo = (int)reader.GetDecimal(0);
-				}
-				reader.Close();
-				command.Dispose();
-				if(IdCo == 0) {
-					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
-				}
-			} catch (Exception) {
-				throw;
-			} finally {
-				connection.Dispose();
+			SqlParameter[] param = {
+				new SqlParameter("@nome", corso.Nome),
+				new SqlParameter("@descrizione", corso.Descrizione),
+				new SqlParameter("@dInizio", corso.Inizio),
+				new SqlParameter("@dFine", corso.Fine)
+			};
+			int RowAffected = DB.ExecNonQProcedure("AddCorso", param);
+			if(RowAffected == 0){
+				throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
 			}
 		}
-
 		public void AddLezione(int idCorso,Lezione lezione) {
-			SqlConnection connection = new SqlConnection(DB.GetConnectionString());
-			int IdLez = 0;
-			try { 
-				connection.Open();
-				SqlCommand command = new SqlCommand("AddLezione",connection) {
-					CommandType = CommandType.StoredProcedure
-				};
-				command.Parameters.Add("@idCorsi",SqlDbType.Int).Value= idCorso;
-				command.Parameters.Add("@nome",SqlDbType.NVarChar).Value=lezione.Nome;
-				command.Parameters.Add("@descrizione",SqlDbType.NVarChar).Value= lezione.Descrizione;
-				command.Parameters.Add("@durata",SqlDbType.NVarChar).Value= lezione.Durata.ToString();
-				SqlDataReader reader = command.ExecuteReader();
-					while(reader.Read()){
-						IdLez = (int)reader.GetDecimal(0);
-					} 
-					reader.Close();
-					command.Dispose();
-					if(IdLez == 0) {
-						throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
-					}
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				connection.Dispose();
+			SqlParameter[] param = {
+				new SqlParameter ("@idCorsi", idCorso),
+				new SqlParameter ("@nome", lezione.Nome),
+				new SqlParameter("@descrizione", lezione.Descrizione),
+				new SqlParameter("@durata", lezione.Durata)
+			};
+			int RowAffected = DB.ExecNonQProcedure("AddLezione", param);
+			if(RowAffected == 0){
+				throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
 			}
 		}
-
 		public void AggiungiCV(CV a) {
 			throw new NotImplementedException();
 		}
-
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
 		}
-
 		public Commessa CercaCommessa(string nomeCommessa) {
 			throw new NotImplementedException();
 		}
-
 		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
 			throw new NotImplementedException();
 		}
@@ -135,70 +101,13 @@ namespace DAO{
 		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente) {
 			throw new NotImplementedException();
 		}
-
-
-		public List<Corso> ListaCorsi() {
-		    List<Corso> result = new List<Corso>();
-            SqlConnection con = new SqlConnection(DB.GetConnectionString());
-			SqlCommand cmd = new SqlCommand("dbo.ListaCorsi",con) {
-				CommandType = CommandType.StoredProcedure
-			};
-			try {
-				DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.TableMappings.Add("Table","Corsi");
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
-                    Int32 _id = (Int32) dr[0];
-                    String _nome = (String) dr[1];
-                    String _desc = (String)dr[2];
-                    DateTime _dInizio = (DateTime)dr[3];
-                    DateTime _dFine = (DateTime)dr[4];
-                    result.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
-                }
-                ds.Dispose();
-                da.Dispose();
-                cmd.Dispose();
-		        return result;
-              }catch(Exception e){
-                throw e;    
-            }finally{ 
-                con.Close();    
-            }
+		public List<Corso> ListaCorsi() {		   
+			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null);       
 		}
 
 		public List<Corso> ListaCorsi(string idUtente) {
-			List<Corso> result = new List<Corso> ();
-		    SqlConnection con = new SqlConnection(DB.GetConnectionString());
-			SqlCommand cmd = new SqlCommand("dbo.ListaCorsiStudenti",con) {
-				CommandType = CommandType.StoredProcedure
-			};
-			con.Open();
-			cmd.Parameters.Add("@idStudente",SqlDbType.NVarChar).Value = idUtente;
-           try{
-            DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.TableMappings.Add("Table","Corsi");
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
-                    int _id = (int)dr["id"];
-                    string _nome = (string) dr["nome"];
-                    string _desc = (string)dr["descrizione"];
-                    DateTime _dInizio = (DateTime)dr["dInizio"];
-                    DateTime _dFine = (DateTime)dr["dFine"];
-                    result.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
-                }
-                ds.Dispose();
-                da.Dispose();
-                cmd.Dispose();
-			    return result;
-              }catch(Exception e){
-                throw e;    
-            }finally{ 
-                con.Close();    
-            }
+			SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
+			return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInListaCorso,param);
 		}
 
 		public void ModificaCV(CV a,CV b) {
@@ -215,9 +124,7 @@ namespace DAO{
 
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
-		}
-		
-      
+		}      
 		public Corso SearchCorsi(int idCorso) {
 			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
 			return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param);
@@ -229,74 +136,14 @@ namespace DAO{
 		}
 
 		public List<Corso> SearchCorsi(string descrizione) {
-			List<Corso> corsi = null;
-            SqlConnection con = new SqlConnection(DB.GetConnectionString());
-            try{ 
-                corsi = new List<Corso>();
-                con.Open();
-				SqlCommand cmd = new SqlCommand("SearchCorso",con) {
-					CommandType = CommandType.StoredProcedure
-				};
-				cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.TableMappings.Add("Table","Corsi");
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
-                    int _id = (int)dr[0];
-                    string _nome = (string) dr[1];
-                    string _desc = (string)dr[2];
-                    DateTime _dInizio = (DateTime)dr[3];
-                    DateTime _dFine = (DateTime)dr[4];
-                    corsi.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
-                }
-                ds.Dispose();
-                da.Dispose();
-                cmd.Dispose();
-                return corsi;
-            }catch(Exception e){
-                throw e;    
-            }finally{ 
-                con.Close();    
-            }
+			SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
+			return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInListaCorso,param);
 		}
-
 		public List<Corso> SearchCorsi(string descrizione,string idUtente)  {
-			List<Corso> corsi = null;
-            SqlConnection con = new SqlConnection(DB.GetConnectionString());
-            try{ 
-                corsi = new List<Corso>();
-                con.Open();
-				SqlCommand cmd = new SqlCommand("SearchCorsiStud",con) {
-					CommandType = CommandType.StoredProcedure
-				};
-				cmd.Parameters.Add("@idCorso",SqlDbType.Int).Value = descrizione;
-                cmd.Parameters.Add("@idStudente",SqlDbType.NVarChar).Value = idUtente;
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.TableMappings.Add("Table","Corsi");
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-                foreach(DataRow dr in ds.Tables["Corsi"].Rows){ 
-                    int _id = (int)dr[0];
-                    string _nome = (string) dr[1];
-                    string _desc = (string)dr[2];
-                    DateTime _dInizio = (DateTime)dr[3];
-                    DateTime _dFine = (DateTime)dr[4];
-                    corsi.Add(new Corso{Id=_id,Nome=_nome,Descrizione=_desc,Inizio=_dInizio,Fine=_dFine});
-                }
-                ds.Dispose();
-                da.Dispose();
-                cmd.Dispose();
-                return corsi;
-            }catch(Exception e){
-                throw e;    
-            }finally{ 
-                con.Close();    
-            }
+			SqlParameter [] param = {new SqlParameter("@descrizione", descrizione),
+				new SqlParameter("@idStudente", idUtente)};
+			return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInListaCorso,param);
 		}
-
 		public List<CV> SearchEta(int eta) {
 			throw new NotImplementedException();
 		}

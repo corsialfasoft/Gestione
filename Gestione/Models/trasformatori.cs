@@ -5,6 +5,7 @@ namespace DAO{
 	public interface ITrasformer {
 		List<Lezione> TrasformInLezione(SqlDataReader data);
 		Corso TrasformInCorso(SqlDataReader data);
+		List<Corso> TrasformInListaCorso(SqlDataReader data);
 	}
 	public class Trasformator :ITrasformer{
 		public List<Lezione> TrasformInLezione(SqlDataReader data){
@@ -20,8 +21,9 @@ namespace DAO{
 			return output;
 		}
 		public Corso TrasformInCorso(SqlDataReader data){
-			Corso output = new Corso();
+			Corso output = null;
 			if(data.Read()){
+					 output = new Corso();
 					output.Id = data.GetInt32(0);
 					output.Nome = data.GetString(1);
 					output.Descrizione = data.GetString(2);
@@ -29,6 +31,16 @@ namespace DAO{
 					output.Fine = data.GetDateTime(4);					
 					}
 		return output;
-		}		
+		}	
+		public List<Corso> TrasformInListaCorso(SqlDataReader data){
+			List<Corso> output = new List<Corso>();
+			do{
+				Corso tmp = TrasformInCorso(data);
+				if(tmp==null)
+					break;
+				output.Add(tmp);
+			}while(true);
+			return output;
+		}	
 	}
 }
