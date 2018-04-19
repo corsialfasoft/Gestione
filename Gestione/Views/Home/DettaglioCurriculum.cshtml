@@ -146,8 +146,8 @@
                 </div>
             </div>
         }
-    } else {
-        using(Html.BeginForm("ModificaCurriculum","Home",FormMethod.Post)) {
+    }else {
+        using(Html.BeginForm("ModificaAnag","Home",FormMethod.Post)) {
             <fieldset>
                 <legend>Dati Anagrafici:</legend>
                 <div class="row">
@@ -193,20 +193,22 @@
                     </div>
                 </div>
             </fieldset>
+        }
+        using(Html.BeginForm("AddPerStud","Home",FormMethod.Post)){
             <fieldset>
                 <legend>Percorso Studi:</legend>
                 <div class="row">
                     <div class="col-md-2">
-                        Anno Inizio
+                        Anno Inizio:
                     </div>
                     <div class="col-md-2">
-                        <input id="annoinizio" name="annoinizio" type="text" />
+                        @Html.TextBox("annoinizio",null,new { placeholder = "Inserisci l'anno d'inizio" })
                     </div>
                     <div class="col-md-2">
                         Anno Fine:
                     </div>
                     <div class="col-md-2">
-                        <input id="annofine" name="annofine" type="text" />
+                        @Html.TextBox("annofine",null,new { placeholder = "Inserisci l'anno di fine" })
                     </div>
                 </div>
                 <div class="row">
@@ -214,17 +216,61 @@
                         Titolo:
                     </div>
                     <div class="col-md-2">
-                        <input id="titolo" name="titolo" type="text" value="Prova" />
+                        @Html.TextBox("titolo",null,new { placeholder = "Inserisci il titolo" })
                     </div>
                     <div class="col-md-2">
                         Descrizione:
                     </div>
                     <div class="col-md-2">
-                        <input id="descrizione" name="descrizione" type="text" value="Prova" />
+                        @Html.TextBox("descrizione",null,new { placeholder = "Inserisci la descrizione" })
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="btn btn-default" href="/Home/AggiungiPercorsoStudi" role="button">Aggiungi</a>
+                    </div>
+                </div>
+            <hr />
+            @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
+                using(Html.BeginForm("ModPerStud","Home",FormMethod.Post)) {
+                    <div class="row">
+                        <div class="col-md-2">
+                            Anno Inizio:
+                        </div>
+                        <div class="col-md-2">
+                            <input id="annoinizio" name="annoinizio" type="text" />
+                        </div>
+                        <div class="col-md-2">
+                            Anno Fine:
+                        </div>
+                        <div class="col-md-2">
+                            <input id="annofine" name="annofine" type="text" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Titolo:
+                        </div>
+                        <div class="col-md-2">
+                            <input id="titolo" name="titolo" type="text" value="Prova" />
+                        </div>
+                        <div class="col-md-2">
+                            Descrizione:
+                        </div>
+                        <div class="col-md-2">
+                            <input id="descrizione" name="descrizione" type="text" value="Prova" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a class="btn btn-default" href="/Home/ModificaPercorsoStudi?idPercorso=@i" role="button">Modifica</a>
+                        </div>
+                    </div>
+                }
+            }
             </fieldset>
             <br />
+            @using(Html.BeginForm("AddEspLav","Home",FormMethod.Post)){
             <fieldset>
                 <legend>Esperienze Lavorative:</legend>
                 <div class="row">
@@ -232,13 +278,13 @@
                         Anno Inizio
                     </div>
                     <div class="col-md-2">
-                        <input id="annoinizioesp" name="annoinizioesp" type="text" />
+                        @Html.TextBox("annoinizioesp",null,new { placeholder = "Inserisci l'anno d'inizio" })
                     </div>
                     <div class="col-md-2">
                         Anno Fine:
                     </div>
                     <div class="col-md-2">
-                        <input id="annofinesp" name="annofinesp" type="text" />
+                        @Html.TextBox("annofinesp",null,new { placeholder = "Inserisci l'anno di fine" })
                     </div>
                 </div>
                 <br />
@@ -247,19 +293,84 @@
                         Qualifica:
                     </div>
                     <div class="col-md-2">
-                        <input id="qualifica" name="qualifica" type="text" value="Prova" />
+                        @Html.TextBox("qualifica",null,new { placeholder = "Inserisci la qualifica" })
                     </div>
                     <div class="col-md-2">
                         Descrizione:
                     </div>
                     <div class="col-md-2">
-                        <input id="descrizionesp" name="descrizionesp" type="text" value="Prova" />
+                        @Html.TextBox("descrizionesp",null,new { placeholder = "Inserisci la descrizione" })
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="btn btn-default" href="/Home/AggiungiEspLav" role="button">Aggiungi</a>
+                    </div>
+                </div>
+                }
+                <hr />
+                @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
+                    using(Html.BeginForm("ModPerStud","Home",FormMethod.Post)) {
+                        <div class="row">
+                            <div class="col-md-2">
+                                Anno Inizio:
+                            </div>
+                            <div class="col-md-2">
+                                <input id="annoinizioesp" name="annoinizioesp" type="text" />
+                            </div>
+                            <div class="col-md-2">
+                                Anno Fine:
+                            </div>
+                            <div class="col-md-2">
+                                <input id="annofinesp" name="annofinesp" type="text" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+                                Qualifica:
+                            </div>
+                            <div class="col-md-2">
+                                <input id="qualifica" name="qualifica" type="text" value="Prova" />
+                            </div>
+                            <div class="col-md-2">
+                                Descrizione:
+                            </div>
+                            <div class="col-md-2">
+                                <input id="descrizionesp" name="descrizionesp" type="text" value="Prova" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <a class="btn btn-default" href="/Home/ModificaEspLav" role="button">Modifica</a>
+                            </div>
+                        </div>
+                    }
+                }
             </fieldset>
             <br />
             <fieldset>
                 <legend>Competenze:</legend>
+                <div class="row">
+                    <div class="col-md-2">
+                        Tipo:
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBox("tipo",null,new { placeholder = "Inserisci il tipo" })
+                    </div>
+                    <div class="col-md-2">
+                        Livello:
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBox("livello",null,new { placeholder = "Inserisci il il livello" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="btn btn-default" href="/Home/AggiungiCompetenza" role="button">Aggiungi</a>
+                    </div>
+                </div>
+                <hr />
                 <div class="row">
                     <div class="col-md-2">
                         Tipo:
@@ -274,19 +385,26 @@
                         <input id="livello" name="livello" type="text" value="1" />
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="btn btn-default" href="/Home/ModificaCompetenza" role="button">Modifica</a>
+                    </div>
+                </div>
             </fieldset>
+            <hr />
+            <br />
             <br />
             <div class="row">
                 <div class="col-md-2">
                     <input type="submit" value="Salva Modifiche">
                 </div>
                 <div class="col-md-2">
-                    <a href="/Home/MyPage" role="button">Torna Indietro</a>
+                    <a class="btn btn-default" href="/Home/MyPage" role="button">Torna Indietro</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/Home/EliminaCV" role="button">Elimina</a>
+                    <a class="btn btn-default" href="/Home/EliminaCV" role="button">Elimina</a>
                 </div>
             </div>
         }
-    } 
+    }
 </div>

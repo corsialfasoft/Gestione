@@ -143,6 +143,11 @@ namespace Interfaces{
         public List<EspLav> Esperienze {get; set;}
         public List<PerStud> Percorsostudi {get; set;}
         public List<Competenza> Competenze {get; set;}
+        public CV(){
+            Esperienze = new List<EspLav>();
+            Percorsostudi = new List<PerStud>();
+            Competenze = new List<Competenza>();
+        }
     }
     public class EspLav {
         public int AnnoInizio {get; set;}

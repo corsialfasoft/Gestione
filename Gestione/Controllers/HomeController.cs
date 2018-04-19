@@ -71,39 +71,46 @@ namespace Gestione.Controllers {
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
             string descrizionesp,string tipo,string livello) {
                 try{
-				CV cv = new CV {
-					Nome = nome,
-					Cognome = cognome,
-					Eta = int.Parse(eta),
-					Email = email,
-					Residenza = residenza,
-					Telefono = telefono
-				};
-				EspLav esp = new EspLav {
-					AnnoInizio = int.Parse(annoinizioesp),
-					AnnoFine = int.Parse(annofinesp),
-					Qualifica = qualifica,
-					Descrizione = descrizionesp
-				};
-				cv.Esperienze.Add(esp);
-				PerStud percorso = new PerStud {
-					AnnoInizio = int.Parse(annoinizio),
-					AnnoFine = int.Parse(annofine),
-					Titolo = titolo,
-					Descrizione = descrizione
-				};
-				cv.Percorsostudi.Add(percorso);
-				Competenza comp = new Competenza {
-					Titolo = tipo,
-					Livello = int.Parse(livello)
-				};
-				cv.Competenze.Add(comp);
+				    CV cv = new CV {
+					    Nome = nome,
+					    Cognome = cognome,
+					    Eta = int.Parse(eta),
+					    Email = email,
+					    Residenza = residenza,
+					    Telefono = telefono,
+                        Matricola="AAAA"
+				    };
+				    EspLav esp = new EspLav {
+					    AnnoInizio = int.Parse(annoinizioesp),
+					    AnnoFine = int.Parse(annofinesp),
+					    Qualifica = qualifica,
+					    Descrizione = descrizionesp
+				    };
+				    cv.Esperienze.Add(esp);
+				    PerStud percorso = new PerStud {
+					    AnnoInizio = int.Parse(annoinizio),
+					    AnnoFine = int.Parse(annofine),
+					    Titolo = titolo,
+					    Descrizione = descrizione
+				    };
+				    cv.Percorsostudi.Add(percorso);
+				    Competenza comp = new Competenza {
+					    Titolo = tipo,
+					    Livello = int.Parse(livello)
+				    };
+				    cv.Competenze.Add(comp);
                     return cv;
             } catch(Exception e) {
                 throw e;
             }
         }
         
+        public ActionResult ModificaPercorsoStudi(int idPercorso) {
+            ViewBag.PercorsoStudi = ViewBag.CV.Percorsostudi[idPercorso];
+            ViewBag.Message = "Per salvare clicca salva modifiche";
+            return View();
+        }
+
         [HttpPost]
         public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
@@ -141,7 +148,7 @@ namespace Gestione.Controllers {
             ) {
 			DomainModel dm = new DomainModel();
 			Profilo P = new Profilo();
-			P.Matricola="GGGGG"; // aggiunto a caso per testare salva modifiche!
+			P.Matricola="AAAA"; // aggiunto a caso per testare salva modifiche!
             try{
                 if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
                     && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)

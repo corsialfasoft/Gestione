@@ -1,4 +1,4 @@
-﻿alter procedure ModEspLav
+﻿create procedure ModEspLav
 	@matricola nvarchar(10),
 	@annoIdaMod int, @annoFdaMod int,
 	@qualificaDaMod nvarchar(50),
@@ -33,7 +33,7 @@ as
 			end
 go
 
-Alter procedure ModPerStud
+create procedure ModPerStud
 	@matricola nvarchar(10),
 	@annoIdaMod int, @annoFdaMod int,
 	@titoloDaMod nvarchar(50),

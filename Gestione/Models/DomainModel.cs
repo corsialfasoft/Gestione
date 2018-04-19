@@ -84,7 +84,7 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public void ModificaCV(CV a,CV b)
+		public void ModificaCV(CV a,CV b) ///////////////////////////
 		{
 			DataAccesObject doo = new DataAccesObject();
             doo.ModificaCV(a,b);
