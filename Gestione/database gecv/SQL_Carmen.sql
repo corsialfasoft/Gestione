@@ -4,7 +4,7 @@ AS
 SELECT IdCv FROM Curriculum WHERE Matricola=@Matricola;
 GO
 
-Alter PROCEDURE CercaParolaChiava
+create PROCEDURE CercaParolaChiava
 	@parola nvarchar(20)
 AS
 SELECT C.Matricola FROM Curriculum C

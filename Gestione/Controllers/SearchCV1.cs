@@ -13,8 +13,8 @@ namespace Gestione.Controllers {
 			return View();
 		}
 		[HttpPost]
-		public ActionResult MyPage(string id)
-		{
+		public ActionResult MyPage(string id){
+			Profilo P = new Profilo();
 			DomainModel dm = new DomainModel();
 			if (id == P.Matricola || id == null) {
 				id = P.Matricola;

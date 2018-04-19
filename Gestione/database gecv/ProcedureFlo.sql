@@ -1,4 +1,4 @@
-﻿Alter procedure DeleteCurriculum
+﻿create procedure DeleteCurriculum
 	@idcurr nvarchar(50)
 as
 	begin transaction 
@@ -19,7 +19,7 @@ as
 		end
 go
 
-Alter procedure CercaEtaMinMax
+create procedure CercaEtaMinMax
 	@e_min int , 
 	@e_max int 
 as
@@ -31,7 +31,7 @@ as
 	Select c.Matricola from Curriculum c where c.cognome= @cognome;
 go
 
-alter procedure ModificaCurriculum
+create procedure ModificaCurriculum
 	@matricolaM nvarchar(10),
 	@nomeM nvarchar(50),
 	@cognomeM nvarchar(50),
@@ -78,6 +78,3 @@ create procedure CercaMatricola
 as
 	select c.IdCv From Curriculum c where c.matricola=@matri;
 go
-
-exec CercaMatricola 'Aaha11';	
-	
