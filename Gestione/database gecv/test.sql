@@ -1,12 +1,12 @@
 ﻿select * from Curriculum
 
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'AAAA',)
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'BBBB')
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'CCCC')
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'DDDD')
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'EEEE')
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Franzoso',23,'FFFF')
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Urdue',29,'GGGGG')
+Insert into Curriculum (nome,Cognome,Eta,Matricola,email,telefono,residenza) values ('Pino','Panino',22,'AAAA','adsf@dfads.it',302446500,'Casa Mia')
+Insert into Curriculum (nome,Cognome,Eta,Matricola,email,telefono,residenza) values ('Pino','Panino',22,'BBBB','adsf@dfads.it',302446500,'Casa Mia')
+Insert into Curriculum (nome,Cognome,Eta,Matricola,email,telefono,residenza) values ('Pino','Panino',22,'CCCC','adsf@dfads.it',302446500,'Casa Mia')
+Insert into Curriculum (nome,Cognome,Eta,Matricola,email,telefono,residenza) values ('Pino','Panino',22,'DDDD','adsf@dfads.it',302446500,'Casa Mia')
+Insert into Curriculum (nome,Cognome,Eta,Matricola,email,telefono,residenza) values ('Pino','Panino',22,'EEEE','adsf@dfads.it',302446500,'Casa Mia')
+Insert into Curriculum (nome,Cognome,Eta,Matricola,email,telefono,residenza) values ('Pino','Franzoso',23,'FFFF','adsf@dfads.it',302446500,'Casa Mia')
+Insert into Curriculum (nome,Cognome,Eta,Matricola,email,telefono,residenza) values ('Pino','Urdue',29,'GGGGG','adsf@dfads.it',302446500,'Casa Mia')
 
 sELECT * FROM EspLav
 
