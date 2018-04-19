@@ -142,9 +142,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\GeCoAddCorso.cs" />
-    <Compile Include="Controllers\GeCoAddLezione.cs" />
-    <Compile Include="Controllers\ElencoCorsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataBase\DB.cs" />
     <Compile Include="Global.asax.cs">
@@ -159,11 +156,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DataBase\alessandro.sql" />
-    <Content Include="DataBase\dragos.sql" />
-    <Content Include="DataBase\federico.sql" />
     <Content Include="DataBase\GeCo.sql" />
-    <Content Include="DataBase\matteo.sql" />
+    <Content Include="DataBase\stored-procedure.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

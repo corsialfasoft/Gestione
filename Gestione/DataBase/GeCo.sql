@@ -1,6 +1,6 @@
 ﻿create database GeCorsi;
-
 use GeCorsi;
+
 create table Corsi(
 	id int identity(1,1) primary key not null,
 	nome nvarchar(50) not null,
@@ -28,6 +28,3 @@ create table StudentiCorsi(
 	idStudenti nvarchar(10) foreign key references Studenti,
 	primary key(idCorsi,idStudenti)
 );
-
-ALTER TABLE Lezioni
-ADD descrizione nvarchar(50);
