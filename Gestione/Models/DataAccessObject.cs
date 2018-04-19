@@ -105,7 +105,7 @@ namespace DAO{
 		}
 
         public void AddEspLav(string MatrCv,EspLav esp) {
-			SqlConnection con= new SqlConnection(GetConnection());
+			SqlConnection con= new SqlConnection(DB.GetConnection());
 			try {
 				con.Open();
 				SqlCommand command = new SqlCommand("AddEspLav",con);
