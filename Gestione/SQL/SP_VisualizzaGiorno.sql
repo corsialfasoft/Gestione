@@ -14,7 +14,6 @@ as
 			union all
 		select  onl.tipoOre, onl.ore, '','', 1
 			from OreNonLavorative onl inner join Giorni g on onl.idGiorno = g.id
-									  inner join TipologiaOre tip on onl.tipoOre = tip.id
 			where g.giorno = @Data and g.idUtente = @IdUtente;
 	end try
 	begin catch
