@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Lezione";
+}
+<h2>@ViewBag.Title</h2>
+<div class="text">
+    @ViewBag.Message
+</div>
+@using(Html.BeginForm("AddLezione","Home",FormMethod.Post)) {
+    <div class="row">
+        <div class="col-md-3">
+            <label>Nome</label>
+            <input name="LezNome" type="text" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label>Descrizione</label>
+            <textarea name="LezDescrizione" rows="4" cols="50"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label>Durata</label>
+            <input name="LezDurata" type="number" />
+            <input name="idCorso" type="hidden" value="@ViewBag.CorsoId" />
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Aggiungi" />
+        </div>
+    </div>
+}
