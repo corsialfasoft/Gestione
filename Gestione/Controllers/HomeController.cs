@@ -66,7 +66,7 @@ namespace Gestione.Controllers {
 				return View("ElencoCorsi");
 			} else if(descrizione == "" && !mieiCorsi) {
 				ViewBag.Controllo = false;
-				ViewBag.Message = "Casso hai sbagliato";
+				ViewBag.Message = "input errato, riprova!";
 				ViewBag.Corsi = dm.ListaCorsi();
 				return View("ElencoCorsi");
 			} else {

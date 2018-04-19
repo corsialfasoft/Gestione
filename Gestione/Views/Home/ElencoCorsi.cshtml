@@ -2,15 +2,11 @@
 @{
     ViewBag.Title = "Elenco Corsi";
 }
-<div class="text-warning">
-    @ViewBag.Message
-</div>
+
 <h1>@ViewBag.Title</h1>
 <body>
     <div class="row">
-        <div class="col-lg-6">
-            @ViewBag.Message
-        </div>
+        
         <div class="col-md-6" style="text-align:right">
             @using(Html.BeginForm("ElencoCorsi","Home",FormMethod.Post)) {
                 <label>Cerca Tra I Miei Corsi</label>
