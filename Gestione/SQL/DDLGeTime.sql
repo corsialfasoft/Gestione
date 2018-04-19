@@ -12,11 +12,11 @@ create table Giorni(
 	idUtente nvarchar(10) not null, 
 );
 create table OreNonLavorative(
-	id int primary key identity(1,1),
 	tipoOre int foreign key references TipologiaOre not null,
 	ore int not null,
 	idGiorno int foreign key references Giorni not null
-)
+	primary key(idGiorno,tipoOre)
+);
 
 create table Commesse(
 	id int primary key identity(1,1),

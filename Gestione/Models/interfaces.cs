@@ -67,7 +67,7 @@ namespace Interfaces{
 		private DateTime data;
 		private int idG;
 		public DateTime Data { get { return data; } }
-		private List<OreLavorative> oreLavorative;
+		private List<OreLavorative> oreLavorative = new List<OreLavorative>();
 		public string ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
 		public int HPermesso{ get;set;}
 		public int HMalattia{ get;set;}
@@ -86,8 +86,6 @@ namespace Interfaces{
 		}
 
 		public void AddOreLavorative(OreLavorative com) {
-			if (oreLavorative == null)
-				oreLavorative = new List<OreLavorative>();
 			oreLavorative.Add(com);
 		}
 		public int TotOreLavorate() {
