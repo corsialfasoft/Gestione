@@ -97,7 +97,7 @@ namespace Gestione.Controllers {
                  string matr = (Session["profile"] as Profilo).Matricola;//
                     dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
                     ViewBag.Message = "Dati anagrafici modificati";
-                    return View("DettaglioCurriculum");
+                    return View("MyPage");
                 }
             }catch(Exception){ 
                 ViewBag.Message = "Si è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
@@ -114,18 +114,19 @@ namespace Gestione.Controllers {
 
 		[HttpPost]
 		public ActionResult PassaComp(string tipo, int livello){
-			ViewBag.Comp= InitComp(tipo, livello);
+			ViewBag.Comp = InitComp(tipo, livello);
+            Session["competenza"] = ViewBag.Comp;
 			return View("ModComp");
 		}
 		[HttpPost]
 		public ActionResult ModificaCompetenza(string tipo , int livello){
 			Competenza c = new Competenza();
 			c = InitComp(tipo,livello);
-			Competenza daMod = ViewBag.Comp as Competenza;
+			Competenza daMod = Session["competenza"] as Competenza;
 			string matr = (Session["profile"] as Profilo).Matricola;//
 			dm.ModComp(daMod,c,matr);
 			ViewBag.Comp = c;
-			return View ("ModComp");
+			return View ("MyPage");
 		}
 
 		private Competenza InitComp(string tipo,int livello) {
@@ -135,7 +136,14 @@ namespace Gestione.Controllers {
 			return c;
 		}
 
-		private EspLav InitEspLav(int annoinizio,int annofine,string qualifica,string descrizione) {
+		private EspLav InitEspLav(int annoInizioEsp,int annoFineEsp,string qualifica,string descrizioneEsp) {
+            EspLav esp = new EspLav();
+            esp.AnnoInizio = annoInizioEsp;
+            esp.AnnoFine = annoFineEsp;
+            esp.Qualifica = qualifica;
+            esp.Descrizione = descrizioneEsp;
+            return esp;
+        }
         [HttpPost]
         public ActionResult PassaPerStud(int annoInizio,int annoFine,string titolo,string descrizione) {
             ViewBag.Percorso = InitPercorso(annoInizio,annoFine,titolo,descrizione);
@@ -150,15 +158,6 @@ namespace Gestione.Controllers {
             percorso.Titolo = titolo;
             percorso.Descrizione = descrizione;
             return percorso;
-        }
-
-        private EspLav InitEspLav(int annoinizio,int annofine,string qualifica,string descrizione) {
-            EspLav esp = new EspLav();
-            esp.AnnoInizio = annoinizio;
-            esp.AnnoFine = annofine;
-            esp.Qualifica = qualifica;
-            esp.Descrizione = descrizione;
-            return esp;
         }
 
         [HttpPost]

@@ -10,19 +10,20 @@ namespace Gestione.Controllers {
 	public partial class HomeController : Controller {
 		public ActionResult MyPage()
 		{
+            ViewBag.Profilo = Session["profile"] as Profilo;
 			return View();
 		}
 		[HttpPost]
 		public ActionResult MyPage(string id){
-			Profilo P = new Profilo();
+			Profilo P = Session["profile"] as Profilo;
 			DomainModel dm = new DomainModel();
 			if (id == P.Matricola || id == null) {
 				id = P.Matricola;
 			}
 			CV trovato = dm.Search(id);
 			if (trovato == null) {
-				ViewBag.Message=$"Non è stato trovato alcun Curriculum con questo codice";
-				return View("");
+				ViewBag.Message = $"Non è stato trovato alcun Curriculum con questo codice";
+				return View();
 			}
 			ViewBag.CV = trovato;
 			return View("DettaglioCurriculum");

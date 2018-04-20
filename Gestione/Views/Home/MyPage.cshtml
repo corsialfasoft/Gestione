@@ -1,11 +1,15 @@
 ﻿@{
     ViewBag.Title = "MyPage";
 }
-<div class="text-warning">
 <h2>MyPage</h2>
-    </div>
-@using(Html.BeginForm("MyPage","Home",FormMethod.Post)) { 
-<div>
-    <input type="submit" value="Visualizza" />
+<div class="text-warning">
+    <p>@ViewBag.Message</p>
 </div>
+@using(Html.BeginForm("MyPage","Home",FormMethod.Post)) { 
+    <div style="display:none">
+        <input type="text" value="@ViewBag.Profilo.Matricola" />
+    </div>
+    <div>
+        <input type="submit" value="Visualizza" />
+    </div>
 }

@@ -1,34 +1,29 @@
 ﻿
 @{
-    ViewBag.Title = "ModComp";
+    ViewBag.Title = "Modifica Competenza";
 }
 
 <h2>ModComp</h2>
-
-
-    @using(Html.BeginForm("ModificaCompetenza","Home",FormMethod.Post)) {
-        <div >
-            <div class="row">
-                <div class="col-md-2">
-                    Tipo*:
-                </div>
-                <div class="col-md-2">
-                    <label id="tipoV">@ViewBag.Comp.Titolo</label>
-                    <input id="tipo" name="tipo" type="text" value="@ViewBag.Comp.Titolo" required />
-                </div>
-                <div class="col-md-2">
-                    Livello:
-                </div>
-                <div class="col-md-2">
-                    <label id="livelloV">@ViewBag.Comp.Livello</label>
-                    <input id="livello"  name="livello" type="number" value="@ViewBag.Comp.Livello" />
-                </div>
+@using(Html.BeginForm("ModificaCompetenza","Home",FormMethod.Post)) {
+    <div>
+        <div class="row">
+            <div class="col-md-2">
+                Tipo*:
             </div>
-            <div class="row">
-                <div class="col-md-2">
-                    
-                    <input id="salva"  class="btn btn-default" type="submit" value="Salva Modifiche">
-                </div>
+            <div class="col-md-2">
+                <input id="tipo" name="tipo" type="text" value="@ViewBag.Comp.Titolo"/>
+            </div>
+            <div class="col-md-2">
+                Livello:
+            </div>
+            <div class="col-md-2">
+                <input id="livello"  name="livello" type="number" value="@ViewBag.Comp.Livello" />
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input id="salva"  class="btn btn-default" type="submit" value="Salva Modifiche">
+            </div>
+        </div>
+    </div>
 }
