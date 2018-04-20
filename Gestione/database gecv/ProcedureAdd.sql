@@ -13,7 +13,7 @@
     COMMIT TRANSACTION 
 	go
 
-CREATE PROCEDURE AddCvStudi
+alter PROCEDURE AddCvStudi
     @AnnoI Int, 
   	@AnnoF Int,
 	@Titolo VARCHAR(50), 
@@ -44,7 +44,7 @@ CREATE PROCEDURE AddCvStudi
 	
 
 
-CREATE PROCEDURE AddEspLav
+alter PROCEDURE AddEspLav
     @AnnoI Int, 
   	@AnnoF Int,
 	@Qualifica NVARCHAR(50), 
@@ -92,7 +92,7 @@ as
 			INSERT INTO Competenze (Tipo, Livello, IdCv)
 						VALUES (@Tipo,@Livello,@IdControl)
 
-					SELECT IDENT_CURRENT('Competenze')			 
+					 
 		end
 		COMMIT TRANSACTION 
 	

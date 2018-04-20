@@ -59,14 +59,13 @@ namespace Gestione.Tests.Controllers {
 		 [TestMethod]
 		public void AddCompTest(){
 			HomeController controller = new HomeController();
-			DomainModel dm = new DomainModel();
-			dm.AddCompetenze("GGGGG" , new Interfaces.Competenza{Titolo="Mangiaspade" , Livello=32});
+			controller.AddComp("Inglese","10","GGGGG");
 		}
 		 [TestMethod]
 		 public void ModificaComp(){
-			DomainModel dm = new DomainModel();
-			dm.AddCompetenze("GGGGG" , new Interfaces.Competenza{Titolo="Porcospino" , Livello=32});
-			dm.ModComp(new Interfaces.Competenza{Titolo="Porcospino" , Livello=32}, new Interfaces.Competenza{Titolo="Mangiapanino" , Livello=9999} , "GGGGG");
+			HomeController controller = new HomeController();
+			controller.AddComp("Maiale","4","GGGGG");
+			controller.ModComp("Maiale","4","Mucca","5","GGGGG");
 		 }
 		 [TestMethod]
 		 public void AddPersStud(){
@@ -74,7 +73,23 @@ namespace Gestione.Tests.Controllers {
 			DomainModel dm = new DomainModel();
 			ViewResult vr = controller.DettaglioCurriculum() as ViewResult;
 			controller.AddPerStudi(3,4,"Licenza Media","Ho imparato a parlare","GGGGG");
-
+		 }
+		 [TestMethod]
+		 public void ModPerStudi(){
+			HomeController controller = new HomeController();
+			controller.AddPerStudi(5,6,"Elementare","Inizio","GGGGG");
+			controller.ModPerStudi(5,6,"Elementare","Inizio",9,20,"Medie","Fine","GGGGG" );
+		 }
+		 [TestMethod]
+		 public void AddEspLav(){
+			HomeController controller = new HomeController();
+			controller.AddEspLav(5,6,"Muratore","Fatto I muri","GGGGG" );
+		 }
+		 [TestMethod]
+		 public void ModEspLav(){
+			HomeController controller= new HomeController();
+			controller.AddEspLav(9,10,"Mangia","Mangio Panini","GGGGG");
+			controller.ModEspLav(9,10,"Mangia","Mangio Panini",12 ,15,"Carrucola" ,"DelP","GGGGG");
 		 }
     }
 }
