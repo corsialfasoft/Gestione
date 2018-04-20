@@ -4,38 +4,34 @@
 	@ore int,
 	@TipoOre int
 AS
-DECLARE @idGiorno int = (
-SELECT TOP 1 id FROM Giorni
-WHERE giorno=@giorno AND idUtente=@idUtente);
+	DECLARE @idGiorno int = (
+	SELECT TOP 1 id FROM Giorni
+	WHERE giorno=@giorno AND idUtente=@idUtente);
 
-IF @idGiorno IS NULL
-	BEGIN
-		INSERT INTO Giorni (giorno, idUtente) VALUES (@giorno, @idUtente);
-		SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'))
-	END
+	IF @idGiorno IS NULL
+		BEGIN
+			INSERT INTO Giorni (giorno, idUtente) VALUES (@giorno, @idUtente);
+			SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'))
+		END
 
-DECLARE @OreLav int = (SELECT top 1 SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno)
-IF @OreLav IS NULL
-	set @OreLav =0;
-DECLARE @OreNLav int =  (SELECT top 1 SUM(ore) FROM OreNonLavorative WHERE idGiorno=@idGiorno)
-IF @OreNLav IS NULL
-	set @OreNLav =0;
-IF @OreNLav+ @OreLav +@ore>8 
-	throw 111133,'non si puo inserire il record',22;
-ELSE
-	BEGIN
-		begin try
-				INSERT INTO OreNonLavorative (tipoOre, ore, idGiorno) VALUES (@TipoOre, @ore, @idGiorno);
-			end try
-			begin catch			
-				if(@@Error = 2627)
-					begin
-						declare @oreNL int = (select top 1 ore from OreNonLavorative where idGiorno=@idGiorno and tipoOre = @TipoOre);
-						update OreNonLavorative set ore=@ore+@oreNL where idGiorno=@idGiorno and tipoOre = @TipoOre;
-					end
-			end catch
+	DECLARE @OreLav int = ISNULL((SELECT top 1 SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno),0)
+	DECLARE @OreNLav int =  ISNULL((SELECT top 1 SUM(ore) FROM OreNonLavorative WHERE idGiorno=@idGiorno),0)
+	IF @OreNLav+ @OreLav +@ore>8 
+		throw 111133,'non si puo inserire il record',22;
+	ELSE
+		BEGIN
+			begin try
+					INSERT INTO OreNonLavorative (tipoOre, ore, idGiorno) VALUES (@TipoOre, @ore, @idGiorno);
+				end try
+				begin catch			
+					if(@@Error = 2627)
+						begin
+							declare @oreNL int = (select top 1 ore from OreNonLavorative where idGiorno=@idGiorno and tipoOre = @TipoOre);
+							update OreNonLavorative set ore=@ore+@oreNL where idGiorno=@idGiorno and tipoOre = @TipoOre;
+						end
+				end catch
 		
-	END
+		END
 GO
 create procedure SP_AddHLavoro
 	@data Date,
@@ -43,32 +39,16 @@ create procedure SP_AddHLavoro
 	@idCommessa int,
 	@idUtente as nvarchar(10)
 as
-	DECLARE @idGiorno int = (
-	SELECT id FROM Giorni
-	WHERE giorno=@data AND idUtente=@idUtente);
-
+	DECLARE @idGiorno int = (SELECT id FROM Giorni WHERE giorno=@data AND idUtente=@idUtente);
 	IF @idGiorno IS NULL
 		BEGIN
 			INSERT INTO Giorni (giorno, idUtente) VALUES (@data, @idUtente);
 			SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'));
 		end;
 
-	declare @oreNonLav int;
-	set @oreNonLav = (select sum(ore) from OreNonLavorative where idGiorno = @idGiorno);
+	declare @oreNonLav int =  ISNULL((select sum(ore) from OreNonLavorative where idGiorno = @idGiorno),0);
+	declare @oreLav int = ISNULL((select sum(ore) from OreLavorative where idGiorno = @idGiorno),0);
 
-	declare @oreLav int;
-	set @oreLav = (select sum(ore) from OreLavorative where idGiorno = @idGiorno);
-
-	if (@oreNonLav is null)
-		begin
-			set @oreNonLav = 0;
-		end
-
-	if (@oreLav is null)
-		begin
-			set @oreLav = 0;
-		end
-	
 	if (@ore + @oreLav + @oreNonLav <= 8)
 		begin
 			begin try
@@ -106,22 +86,12 @@ create procedure SP_VisualizzaGiorno
 	@Data date,
 	@IdUtente nvarchar(20)
 as
-	begin transaction;
-	begin try
-		select 4, ol.ore, c.nome, c.descrizione, c.id
-			from Commesse c inner join OreLavorative ol on c.id = ol.idCommessa
-							inner join Giorni g on ol.idGiorno = g.id
-			where g.giorno = @Data and g.idUtente = @IdUtente
-			union all
-		select  onl.tipoOre, onl.ore, '','', 1
-			from OreNonLavorative onl inner join Giorni g on onl.idGiorno = g.id
-			where g.giorno = @Data and g.idUtente = @IdUtente;
-	end try
-	begin catch
-		select
-			error_number() as MamboNumber5,
-			error_message() as DataNonTrovata;
-			rollback transaction;
-	end catch
-	commit transaction;
+	select 4, ol.ore, c.nome, c.descrizione, c.id
+		from Commesse c inner join OreLavorative ol on c.id = ol.idCommessa
+						inner join Giorni g on ol.idGiorno = g.id
+		where g.giorno = @Data and g.idUtente = @IdUtente
+		union all
+	select  onl.tipoOre, onl.ore, '','', 1
+		from OreNonLavorative onl inner join Giorni g on onl.idGiorno = g.id
+		where g.giorno = @Data and g.idUtente = @IdUtente;
 go

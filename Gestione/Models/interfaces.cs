@@ -78,7 +78,7 @@ namespace Interfaces{
 		private string _id_utente;
 		private DateTime data;
 		private int idG;
-		public DateTime Data { get { return data; } }
+		public DateTime Data { get { return data; } set{ data=value;} }
 		private List<OreLavorative> oreLavorative = new List<OreLavorative>();
 		public string ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
 		public int HPermesso{ get;set;}
