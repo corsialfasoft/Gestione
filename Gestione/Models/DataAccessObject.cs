@@ -99,9 +99,9 @@ namespace DAO{
 
 		public Commessa CercaCommessa(string nomeCommessa) {
 			try {
-				SqlParameter[] parameter = new SqlParameter[1];
-				parameter[0] = new SqlParameter("@nomeCommessa", System.Data.SqlDbType.NVarChar);
-				parameter[0].Value = nomeCommessa;
+				SqlParameter[] parameter = {
+					new SqlParameter("@nomeCommessa", nomeCommessa)
+				};			
 				return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, parameter, "GeTime");
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
@@ -112,11 +112,12 @@ namespace DAO{
 
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
             try{ 
-                SqlParameter[] parameters = new SqlParameter[4];
-                parameters[0] = new SqlParameter("@giorno", System.Data.SqlDbType.Date); parameters[0].Value=data.ToString("yyyy-MM-dd");
-                parameters[1] = new SqlParameter("@idUtente", System.Data.SqlDbType.NVarChar); parameters[1].Value=idUtente;
-                parameters[2] = new SqlParameter("@ore", System.Data.SqlDbType.Int); parameters[2].Value=ore;
-                parameters[3] = new SqlParameter("@TipoOre", System.Data.SqlDbType.Int); parameters[3].Value=(int)tipoOre;
+                SqlParameter[] parameters = {
+					new SqlParameter("@giorno",data.ToString("yyyy-MM-dd")),
+					new SqlParameter("@idUtente",idUtente),
+					new SqlParameter("@ore", ore),
+					new SqlParameter("@TipoOre", (int)tipoOre)
+					};
 				DB.ExecNonQProcedure("SP_Compila", parameters, "GeTime");
             } catch (SqlException e) {
                 throw new Exception(e.Message);
@@ -126,11 +127,12 @@ namespace DAO{
         }
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
 			try {
-                SqlParameter[] parameters = new SqlParameter[4];
-                parameters[0] = new SqlParameter("@data", System.Data.SqlDbType.Date); parameters[0].Value = data.ToString("yyyy-MM-dd");
-                parameters[1] = new SqlParameter("@ore", System.Data.SqlDbType.Int); parameters[1].Value = ore;
-                parameters[2] = new SqlParameter("@idCommessa", System.Data.SqlDbType.Int); parameters[2].Value = idCommessa;
-                parameters[3] = new SqlParameter("@idUtente", System.Data.SqlDbType.NVarChar); parameters[3].Value = idUtente;
+                SqlParameter[] parameters = {
+					new SqlParameter("@data",data.ToString("yyyy-MM-dd")),
+					new SqlParameter("@ore", ore),
+					new SqlParameter("@idCommessa",idCommessa),
+					new SqlParameter("@idUtente", idUtente)
+					};
                 DB.ExecNonQProcedure("SP_AddHLavoro", parameters, "GeTime");
 			} catch (Exception e){
 				throw e;
@@ -142,11 +144,10 @@ namespace DAO{
 		}
 		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
 			try{
-				SqlParameter[] parameter = new SqlParameter[2];
-				parameter[0]= new SqlParameter("@idC",System.Data.SqlDbType.Int);
-				parameter[0].Value=idCommessa;
-				parameter[1] = new SqlParameter("@idU", System.Data.SqlDbType.NVarChar);
-				parameter[1].Value=idUtente;
+				SqlParameter[] parameter = {
+					new SqlParameter("@idC", idCommessa),				
+					new SqlParameter("@idU",idUtente)
+				};
 				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInGiorno,parameter,"GeTime");
 			}catch(SqlException e){
 				throw new Exception(e.Message);
@@ -199,11 +200,10 @@ namespace DAO{
 
 		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
             try {
-                SqlParameter[] parameter = new SqlParameter[2];
-                parameter[0] = new SqlParameter("@Data", SqlDbType.Date);
-                parameter[0].Value = data.ToString("yyyy-MM-dd"); 
-                parameter[1] = new SqlParameter("@IdUtente", SqlDbType.NVarChar);
-                parameter[1].Value = idUtente;
+                SqlParameter[] parameter = {
+					new SqlParameter("@Data", data.ToString("yyyy-MM-dd")),               
+					new SqlParameter("@IdUtente", idUtente)
+				};                
                 Giorno result = DB.ExecQProcedureReader("SP_VisualizzaGiorno", transf.TeasformInGiorno, parameter, "GeTime");
                 if(result!=null)
                     result.Data=data;
@@ -212,9 +212,25 @@ namespace DAO{
                 throw e;
             } 
 		}
+	}
 
-        [Serializable]
-		private class LezioneNonAggiuntaException : Exception {
+	[Serializable]
+	internal class LezionNonModificataException : Exception {
+		public LezionNonModificataException() {
+		}
+
+		public LezionNonModificataException(string message) : base(message) {
+		}
+
+		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException) {
+		}
+
+		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context) {
+		}
+	}
+
+	[Serializable]
+		internal class LezioneNonAggiuntaException : Exception {
 			public LezioneNonAggiuntaException() {}
 			public LezioneNonAggiuntaException(string message) : base(message) {}
 			public LezioneNonAggiuntaException(string message,Exception innerException) : base(message,innerException){}
@@ -222,7 +238,7 @@ namespace DAO{
 			}
 		}
 		[Serializable]
-		private class CorsoNonAggiuntaException : Exception {
+		internal class CorsoNonAggiuntaException : Exception {
 			public CorsoNonAggiuntaException() {}
 			public CorsoNonAggiuntaException(string message) : base(message) { }
 			public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
@@ -230,24 +246,4 @@ namespace DAO{
 			}
 		}
 	}
-
-	[Serializable]
-	internal class LezionNonModificataException : Exception
-	{
-		public LezionNonModificataException()
-		{
-		}
-
-		public LezionNonModificataException(string message) : base(message)
-		{
-		}
-
-		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException)
-		{
-		}
-
-		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context)
-		{
-		}
-	}
-}
+	

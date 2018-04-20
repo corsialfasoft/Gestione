@@ -1,13 +1,56 @@
-﻿using System;
+﻿using Gestione.Models;
+using Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Interfaces;
-using Gestione.Models;
 
 namespace Gestione.Controllers {
-	public partial class HomeController : Controller {
+	public partial class HomeController{
+		 public ActionResult VisualizzaGiorno() {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult VisualizzaGiorno(DateTime data) {
+            DomainModel dm = new DomainModel();
+            DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
+            if (giorno!=null) {
+                ViewBag.giorno = giorno;
+            } else {
+                ViewBag.Message = "Data non trovata!";
+            }
+            return View();
+        }
+		public ActionResult VisualizzaCommessa() {
+			return View("VisualizzaCommessa");
+		}
+		[HttpPost]
+		public ActionResult VisualizzaCommessa(string commessa) {
+			DomainModel model = new DomainModel();
+			if(commessa.Length==0)
+				ViewBag.Message = "Inserire un nome di commessa";
+			else{ 
+				try{ 
+					DTCommessa dTCommessa = model.CercaCommessa(commessa);
+					if(dTCommessa != null){ 
+						List<DTGiorno> giorni = model.GiorniCommessa(dTCommessa.Id, P.Matricola);
+						if(giorni!=null && giorni.Count>0){
+							ViewBag.NomeCommessa= dTCommessa.Nome;
+							ViewBag.Giorni = giorni;
+						}else
+							ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
+				
+					}
+				}catch(Exception e){
+					ViewBag.Message = "Errore del server";
+				}
+			}
+			return View("VisualizzaCommessa");
+		}
+        public ActionResult GeTimeHome() {
+            return View();
+        }
 		public ActionResult AddGiorno() {
 			return View("AddGiorno");
 		}
@@ -66,5 +109,5 @@ namespace Gestione.Controllers {
         public ActionResult Modifica() {
             return View();
         }
-    }
+    }	
 }

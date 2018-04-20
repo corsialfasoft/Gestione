@@ -33,8 +33,7 @@ namespace Gestione.Controllers
         public HomeController(Profilo p) {
             P = p;
         }
-        public HomeController()
-		{
+        public HomeController(){
 			P = new Profilo("prova","admin",null,"ciao","mazzo");
 		}
 		public ActionResult ElencoCorsi()
@@ -161,8 +160,7 @@ namespace Gestione.Controllers
 			ViewBag.Lezioni = lezions;
 			return View();
 		}
-		public ActionResult Iscrizione(int idCorso)
-		{
+		public ActionResult Iscrizione(int idCorso){
 			DomainModel dm = new DomainModel();
 			try {
 				dm.Iscriviti(idCorso,P.Matricola);
@@ -202,23 +200,6 @@ namespace Gestione.Controllers
 				throw;
 			}
 			Response.Redirect($"Corso/{idCorso}");
-		}
-	
-
-        public ActionResult VisualizzaGiorno() {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult VisualizzaGiorno(DateTime data) {
-            DomainModel dm = new DomainModel();
-            DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
-            if (giorno!=null) {
-                ViewBag.giorno = giorno;
-            } else {
-                ViewBag.Message = "Data non trovata!";
-            }
-            return View();
-        }
+		}       
     }
 }
