@@ -11,8 +11,7 @@ namespace Gestione.Controllers {
   
 
         [HttpPost]
-        public ActionResult ModPerStud(int annoInizioV,int annoFineV, string titoloV,string descrizioneV,
-            int annoInizio, int annoFine, string titolo, string descrizione) {
+        public ActionResult ModPerStud(int annoInizioV,int annoFineV, string titoloV,string descrizioneV, int annoInizio, int annoFine, string titolo, string descrizione) {
             if(annoFine> annoInizio && titolo.Length>0 && descrizione.Length > 0){
 			    DomainModel dm = new DomainModel();
                 Profilo p = Session["profile"] as Profilo;
@@ -23,6 +22,12 @@ namespace Gestione.Controllers {
                 ViewBag.Message ="Formato inserito non corretto";
             return View($"DettCv?id={P.Matricola}");
         }
+        [HttpPost]
+        public ActionResult ModStudi(int annoInizioV, int annoFineV, string titoloV, string descrizioneV) {
+                PerStud perSV = new PerStud { AnnoInizio = annoInizioV, AnnoFine = annoFineV, Titolo = titoloV, Descrizione = descrizioneV };
+            ViewBag.PercorsoStudi = perSV;
+            return View("ModPerStudi");
+        }   
         [HttpPost]
         public ActionResult AddPerStud(int annoInizio, int annoFine, string titolo, string descrizione) {
             if (annoFine > annoInizio && titolo.Length > 0 && descrizione.Length > 0) {

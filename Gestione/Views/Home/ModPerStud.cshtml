@@ -1,0 +1,55 @@
+﻿@{ ViewBag.Title = "Modifica Percorso Studi"; }
+
+<h2 id="titolo">@ViewBag.Title</h2>
+<div class="text-warning">
+    <h4>@ViewBag.Message</h4>
+</div>
+
+<div class="containter">
+            <div name="">
+                <div class="row">
+                    <div class="col-md-2">
+                        Anno Inizio:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="annoInizioV">@ViewBag.Percorsostudi.AnnoInizio</label>
+                        <input style="display:none" id="annoInizio" name="annoinizio" type="number" value="@ViewBag.Percorsostudi.AnnoInizio" />
+                    </div>
+                    <div class="col-md-2">
+                        Anno Fine:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="annoFineV">@ViewBag.Percorsostudi.AnnoFine</label>
+                        <input style="display:none" id="annoFine" name="annofine" type="number" value="@ViewBag.Percorsostudi.AnnoFine" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        Titolo*:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="titoloV">@ViewBag.CV.Percorsostudi.Titolo</label>
+                        <input style="display:none" id="titolo" name="titolo" type="text" value="@ViewBag.CV.Percorsostudi.Titolo" required />
+                    </div>
+                    <div class="col-md-2">
+                        Descrizione:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="descrizioneV">@ViewBag.Percorsostudi.Descrizione</label>
+                        <input style="display:none" id="descrizione" name="descrizione" type="text" value="@ViewBag.Percorsostudi.Descrizione" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input id="modifica" class="btn btn-default" type="button" OnClick="ModPerStud()" value="Modifica" />
+                        <input id="salva" class="btn btn-default" style="display:none" type="submit" value="Salva Modifiche">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input style="display:none" id="annoInizioV" value="@ViewBag.Percorsostudi.AnnoInizio" type="number" />
+                <input style="display:none" id="annoFineV" value="@ViewBag.Percorsostudi.AnnoFine" type="number" />
+                <input style="display:none" id="titoloV" value="@ViewBag.Percorsostudi.Titolo" type="text" />
+                <input style="display:none" id="descrizioneV" value="@ViewBag.Percorsostudi.Descrizione" type="text" />
+            </div> 
+</div>

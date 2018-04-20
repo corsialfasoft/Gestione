@@ -206,6 +206,7 @@
     <Content Include="Views\Home\MyPage.cshtml" />
     <Content Include="Views\Home\RicercaCurriculum.cshtml" />
     <Content Include="Views\Home\ListaCurriculum.cshtml" />
+    <Content Include="Views\Home\ModPerStud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

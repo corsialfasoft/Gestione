@@ -39,6 +39,9 @@ namespace Gestione.Controllers {
         public ActionResult DettaglioCurriculum(){
             return View();
         }
+        public ActionResult ModPerStud() {
+            return View();
+        }
 
 
         public ActionResult DettCv(string id){
