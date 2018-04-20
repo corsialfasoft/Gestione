@@ -160,14 +160,13 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="SQL\GeCo.sql" />
-    <Content Include="SQL\stored-procedure.sql" />
+    <Content Include="SQL\DDLGeCo.sql" />
+    <Content Include="SQL\SP_GeCo.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="SQL\SP_Compila.sql" />
-    <Content Include="SQL\SP_VisualizzaGiorno.sql" />
+    <Content Include="SQL\SP_GeTime.sql" />
     <Content Include="SQL\DDLGeTime.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -189,8 +188,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="SQL\SP_VisualizzaCommessa.sql" />
-    <Content Include="SQL\SP_AddHLavoro.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
