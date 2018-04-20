@@ -1,0 +1,58 @@
+﻿@{  ViewBag.Title = "Modifica Studi";}
+
+<h2 id="titolo">@ViewBag.Title</h2>
+<div class="text-warning">
+    <h4>@ViewBag.Message</h4>
+</div>
+
+<div class="containter">
+                @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
+        using(Html.BeginForm("ModStudi","Home",FormMethod.Post)) {
+            <div name="@i">
+                <div class="row">
+                    <div class="col-md-2">
+                        Anno Inizio:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="annoInizioV">@ViewBag.CV.Percorsostudi[i].AnnoInizio</label>
+                        <input style="display:none" id="annoInizio" name="annoinizio" type="number" value="@ViewBag.CV.Percorsostudi[i].AnnoInizio" />
+                    </div>
+                    <div class="col-md-2">
+                        Anno Fine:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="annoFineV">@ViewBag.CV.Percorsostudi[i].AnnoFine</label>
+                        <input style="display:none" id="annoFine" name="annofine" type="number" value="@ViewBag.CV.Percorsostudi[i].AnnoFine" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        Titolo*:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="titoloV">@ViewBag.CV.Percorsostudi[i].Titolo</label>
+                        <input style="display:none" id="titolo" name="titolo" type="text" value="@ViewBag.CV.Percorsostudi[i].Titolo"  />
+                    </div>
+                    <div class="col-md-2">
+                        Descrizione:
+                    </div>
+                    <div class="col-md-2">
+                        <label id="descrizioneV">@ViewBag.CV.Percorsostudi[i].Descrizione</label>
+                        <input style="display:none" id="descrizione" name="descrizione" type="text" value="@ViewBag.CV.Percorsostudi[i].Descrizione" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">            
+                        <input id="modifica" class="btn btn-default" type="submit" value="Modifica"/>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input style="display:none" id="annoInizioV" value="@ViewBag.CV.Percorsostudi[i].AnnoInizio" type="number" />
+                <input style="display:none" id="annoFineV" value="@ViewBag.CV.Percorsostudi[i].AnnoFine" type="number" />
+                <input style="display:none" id="titoloV" value="@ViewBag.CV.Percorsostudi[i].Titolo" type="text" />
+                <input style="display:none" id="descrizioneV" value="@ViewBag.CV.Percorsostudi[i].Descrizione" type="text" />
+            </div>
+}
+}
+</div>
