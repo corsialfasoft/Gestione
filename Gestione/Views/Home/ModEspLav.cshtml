@@ -6,19 +6,19 @@
     <p>@ViewBag.Message</p>
 </div>
 
-@using(Html.BeginForm("ModificaEspLav","Home",FormMethod.Post)){
+@using(Html.BeginForm("ModEspLav","Home",FormMethod.Post)){
     <div class="row">
         <div class="col-md-2">
             Anno Inizio:
         </div>
         <div class="col-md-2">
-            <input id="annoInizioEsp" style="display:none" name="annoInizioEsp" type="text" value="@ViewBag.Esperienza.AnnoInizio" />
+            <input id="annoInizioEsp"name="annoInizioEsp" type="text" value="@ViewBag.Esperienza.AnnoInizio" />
         </div>
         <div class="col-md-2">
             Anno Fine:
         </div>
         <div class="col-md-2">
-            <input id="annoFineEsp" style="display:none" name="annoFineEsp" type="text" value="@ViewBag.Esperienza.AnnoFine" />
+            <input id="annoFineEsp" name="annoFineEsp" type="text" value="@ViewBag.Esperienza.AnnoFine" />
         </div>
     </div>
     <br />
@@ -27,13 +27,13 @@
             Qualifica*:
         </div>
         <div class="col-md-2">
-            <input id="qualifica" style="display:none" name="qualifica" type="text" value="@ViewBag.Esperienza.Qualifica" required/>
+            <input id="qualifica" name="qualifica" type="text" value="@ViewBag.Esperienza.Qualifica" required/>
         </div>
         <div class="col-md-2">
             Descrizione:
         </div>
         <div class="col-md-2">
-            <input id="descrizioneEsp" style="display:none" name="descrizioneEsp" type="text" value="@ViewBag.Esperienza.Descrizione" />
+            <input id="descrizioneEsp" name="descrizioneEsp" type="text" value="@ViewBag.Esperienza.Descrizione" />
         </div>
     </div>
     <div class="row">

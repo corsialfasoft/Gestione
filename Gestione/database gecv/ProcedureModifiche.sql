@@ -26,6 +26,8 @@ as
 			end
 go
 
+exec ModEspLav 'AAAA',0,0,'srfg','binzinaro',1,2,'fatto','rifatto'
+
 Alter procedure ModPerStud
 	@matricola nvarchar(10),
 	@annoIdaMod int, @annoFdaMod int,

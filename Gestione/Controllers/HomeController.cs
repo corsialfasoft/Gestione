@@ -101,6 +101,7 @@ namespace Gestione.Controllers {
         [HttpPost]
         public ActionResult PassaEspLav(int annoInizioEsp,int annoFineEsp,string qualifica,string descrizioneEsp) {
             ViewBag.Esperienza = InitEspLav(annoInizioEsp,annoFineEsp,qualifica,descrizioneEsp);
+            Session["esperienza"] = ViewBag.Esperienza;
             return View("ModEspLav");
         }
 
