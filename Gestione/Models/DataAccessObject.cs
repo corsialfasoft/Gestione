@@ -197,7 +197,7 @@ namespace DAO{
         private string GetConnectinoCv() {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(){ 
                 DataSource = @"(localdb)\MSSQLLocalDB",
-                InitialCatalog = "GeCv"
+                InitialCatalog = "GECV"
             };
             return builder.ToString();
         }

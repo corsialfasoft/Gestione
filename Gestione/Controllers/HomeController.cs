@@ -70,15 +70,15 @@ namespace Gestione.Controllers {
         [HttpPost]
         public ActionResult ModificaCv(string nome,string cognome,int eta,string email,string residenza,string telefono){
             try{//se si vuoe fare il test commentare le righe dove ci sono le // alle fine e assegnare un valore alla matricola
-               if(Session["profilo"]!=null){ //
-                 string matr = (Session["profilo"] as Profilo).Matricola;//
+               if(Session["profile"]!=null){ //
+                 string matr = (Session["profile"] as Profilo).Matricola;//
                     dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
                     ViewBag.Message = "Dati anagrafici modificati modificato";
                 }//
             }catch(Exception){ 
-                ViewBag.Message = "SI è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
+                ViewBag.Message = "Si è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
             }
-            return View("DettCv");
+            return View($"DettCv?id={P.Matricola}");
         }
 
         private CV InitCV(string nome,string cognome,string eta,

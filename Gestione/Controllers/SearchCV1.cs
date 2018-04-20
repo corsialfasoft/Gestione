@@ -35,6 +35,8 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult RicercaCurriculum(string chiava,string eta,string etaMin,string etaMax,string cognome)
 		{
+            P.Matricola = "AAAA";
+            Session["profile"] = P;
 			List<CV> trovati = new List<CV>();
 			if (chiava != "") {
 				trovati = dm.SearchChiava(chiava);
