@@ -65,5 +65,6 @@ namespace Gestione.Tests.Controllers {
             Assert.IsTrue(result.ViewBag.giorno.TotOreLavorate == 4); //non funziona se nn sono presenti nel DB questi valori!!!!!!!!!
             Assert.IsTrue(result.ViewBag.giorno.OreMalattia == 0); //non funziona se nn sono presenti nel DB questi valori!!!!!!!!!
         }
+
     }
 }
