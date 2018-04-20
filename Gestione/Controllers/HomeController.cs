@@ -76,9 +76,7 @@ namespace Gestione.Controllers {
 		public ActionResult ElencoCorso(int id){
 			DomainModel dm = new DomainModel();
 			Corso c = dm.SearchCorsi(id);
-			List<Corso> res = new List<Corso> {
-				c
-			};
+			List<Corso> res = new List<Corso> { c };
 			ViewBag.Corsi = res;
 			return View("ElencoCorsi");
 		}
