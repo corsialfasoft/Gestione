@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using DAO;
 using Interfaces;
-using DAO;
 
 namespace Gestione.Models {
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime {

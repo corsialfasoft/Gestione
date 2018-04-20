@@ -102,19 +102,12 @@ namespace DAO{
 				SqlParameter[] parameter = new SqlParameter[1];
 				parameter[0] = new SqlParameter("@nomeCommessa", System.Data.SqlDbType.NVarChar);
 				parameter[0].Value = nomeCommessa;
-				return DB.ExecQProcedureReader("SP_CercaCommessa", TrasformInCommessa, parameter, "GeTime");
+				return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, parameter, "GeTime");
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
 			} catch (Exception e) {
 				throw e;
 			}
-		}
-		private Commessa TrasformInCommessa(SqlDataReader data) {
-			Commessa commessa = null;
-			if(data.Read()) {
-				commessa = new Commessa(data.GetInt32(0), data.GetString(1), data.GetString(2),data.GetInt32(3), data.GetInt32(4));
-			}
-			return commessa;
 		}
 
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
@@ -165,16 +158,6 @@ namespace DAO{
 		public void EliminaCV(CV curriculum) {
 			throw new NotImplementedException();
 		}
-		private List<Giorno> TrasformInGiorno(SqlDataReader data) {
-			List<Giorno> list = new List<Giorno>();
-			while(data.Read()){
-				Giorno giorno = new Giorno(data.GetDateTime(1));
-				giorno.IdGiorno=data.GetInt32(0);
-				giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3),data.GetInt32(2),data.GetString(4),data.GetString(5)));
-				list.Add(giorno);
-			}
-			return list;
-		}
 		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
 			try{
 				SqlParameter[] parameter = new SqlParameter[2];
@@ -182,7 +165,7 @@ namespace DAO{
 				parameter[0].Value=idCommessa;
 				parameter[1] = new SqlParameter("@idU", System.Data.SqlDbType.NVarChar);
 				parameter[1].Value=idUtente;
-				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", TrasformInGiorno,parameter,"GeTime");
+				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInGiorno,parameter,"GeTime");
 			}catch(SqlException e){
 				throw new Exception(e.Message);
 			}catch(Exception e){

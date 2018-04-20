@@ -30,7 +30,10 @@ namespace Gestione.Controllers
 	public partial class HomeController : Controller
 	{
 		Profilo P;
-		public HomeController()
+        public HomeController(Profilo p) {
+            P = p;
+        }
+        public HomeController()
 		{
 			P = new Profilo("prova","admin",null,"ciao","mazzo");
 		}
@@ -200,40 +203,7 @@ namespace Gestione.Controllers
 			}
 			Response.Redirect($"Corso/{idCorso}");
 		}
-	}
-        public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
-            Matricola = matricola;
-            Ruolo = ruolo;
-            Funzioni = funzioni;
-            Nome = nome;
-            Cognome = cognome;
-        }
-	}
-    public partial class HomeController : Controller {
-        Profilo P;
-        public HomeController() {
-            P = new Profilo("12342","direttore",new List<string>{"Visualizza commessa"},"nauman","aziz");
-
-        }
-        public HomeController(Profilo p) {
-            P = p;
-
-        }
-        public ActionResult Index() {
-            return View();
-        }
-
-        public ActionResult About() {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact() {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+	
 
         public ActionResult VisualizzaGiorno() {
             return View();

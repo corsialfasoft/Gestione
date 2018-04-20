@@ -145,7 +145,6 @@
     <Compile Include="Controllers\DTGiorno.cs" />
     <Compile Include="Controllers\GeTimeAddGiorno.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="SQL\DB.cs" />
     <Compile Include="Controllers\VisualizzaCommessa.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

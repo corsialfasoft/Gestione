@@ -17,19 +17,7 @@ namespace Gestione.Models{
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
 		}
-		public Commessa CercaCommessa(string nomeCommessa) {
-			throw new NotImplementedException();
-		}
-		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
-			throw new NotImplementedException();
-		}
-		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente) {
-			throw new NotImplementedException();
-		}
 		public void EliminaCV(CV curriculum) {
-			throw new NotImplementedException();
-		}
-		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente) {
 			throw new NotImplementedException();
 		}
 		public void Iscriviti(int idCorso,string idStudente) {
@@ -80,23 +68,7 @@ namespace Gestione.Models{
 			}catch(Exception e){ 
                 throw e; 
             }
-
-
-		public void EliminaCV(CV curriculum)
-		{
-			throw new NotImplementedException();
-		}
-
-		
-		public void Iscriviti(int idCorso,int idStudente)
-		{
-			throw new NotImplementedException();
-		}
-
-		public List<Corso> ListaCorsi()
-		{
-			throw new NotImplementedException();
-		}
+        }
 		public void AddCorso(Corso corso){
             try{ 
                dao.AddCorso(corso);
@@ -130,7 +102,6 @@ namespace Gestione.Models{
 		public List<CV> SearchRange(int etmin,int etmax) {
 			throw new NotImplementedException();
 		}
-
 		public DTGGiorno VisualizzaGiorno(DateTime data,string idUtente) {
             Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
             if (giornoInterface!=null) {
@@ -151,6 +122,5 @@ namespace Gestione.Models{
             }
             return null;
 		}
-
 	}
 }
