@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 namespace DAO{
@@ -8,8 +9,32 @@ namespace DAO{
 		List<Corso> TrasformInListaCorso(SqlDataReader data);
         Commessa TrasformInCommessa(SqlDataReader data);
         List<Giorno> TrasformInGiorno(SqlDataReader data);
+        Giorno TeasformInGiorno(SqlDataReader reader);
     }
 	public class Trasformator :ITrasformer{
+        public Giorno TeasformInGiorno(SqlDataReader reader) {
+            Giorno result = null;
+            if (reader.Read()) {
+                result = new Giorno(DateTime.Today);
+                do {
+                    switch (reader.GetInt32(0)) {
+                        case 1:
+                            result.HMalattia = reader.GetInt32(1);
+                            break;
+                        case 2:
+                            result.HPermesso = reader.GetInt32(1);
+                            break;
+                        case 3:
+                            result.HFerie = reader.GetInt32(1);
+                            break;
+                        case 4:
+                            result.AddOreLavorative(new OreLavorative(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
+                            break;
+                    }
+                } while (reader.Read());
+            }
+            return result;
+        }
         public List<Giorno> TrasformInGiorno(SqlDataReader data) {
             List<Giorno> list = new List<Giorno>();
             while (data.Read()) {
