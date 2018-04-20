@@ -19,7 +19,7 @@ namespace Gestione.Controllers{
 			Mod.Titolo=tipo;
 			Mod.Livello=int.Parse(livello);
 			dm.ModComp(daMod,Mod,p.Matricola);
-            return View($"DettCv?id={P.Matricola}");
+            return View($"MyPage");
         }
         [HttpPost]
         public ActionResult AddComp(string tipo,string livello){
@@ -29,7 +29,7 @@ namespace Gestione.Controllers{
 			comp.Livello=int.Parse(livello);
 			DomainModel dm = new  DomainModel();
 			dm.AddCompetenze(p.Matricola,comp);
-            return View($"DettCv?id={P.Matricola}");
+            return View($"MyPage");
         }
 	 }
 }

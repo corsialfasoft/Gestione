@@ -28,7 +28,7 @@ namespace Gestione.Controllers {
 		DomainModel dm = new DomainModel();
 		// Profilo P;
         public HomeController() {
-            //P = new Profilo{Matricola="801130"};
+            P = new Profilo{Matricola="BBBB"};
 		}
         public ActionResult ListaCurriculum(){
 			return View();
@@ -45,6 +45,9 @@ namespace Gestione.Controllers {
         public ActionResult ModEspLav() {
             return View();
         }
+        public ActionResult ModPerStud() {
+            return View();
+        }
 
         public CV InitForseCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
             CV cv = new CV();
@@ -57,6 +60,7 @@ namespace Gestione.Controllers {
             return cv;
         }
 
+        [HttpGet]
         public ActionResult DettCv(string id){
             DomainModel dm = new DomainModel();
             ViewBag.CV = dm.Search(id);
@@ -105,6 +109,22 @@ namespace Gestione.Controllers {
             return View("ModEspLav");
         }
 
+        [HttpPost]
+        public ActionResult PassaPerStud(int annoInizio,int annoFine,string titolo,string descrizione) {
+            ViewBag.Percorso = InitPercorso(annoInizio,annoFine,titolo,descrizione);
+            Session["percorso"] = ViewBag.Percorso;
+            return View("ModPerStud");
+        }
+
+        private PerStud InitPercorso(int annoInizio,int annoFine,string titolo,string descrizione) {
+            PerStud percorso = new PerStud();
+            percorso.AnnoInizio = annoInizio;
+            percorso.AnnoFine = annoFine;
+            percorso.Titolo = titolo;
+            percorso.Descrizione = descrizione;
+            return percorso;
+        }
+
         private EspLav InitEspLav(int annoinizio,int annofine,string qualifica,string descrizione) {
             EspLav esp = new EspLav();
             esp.AnnoInizio = annoinizio;
@@ -132,7 +152,7 @@ namespace Gestione.Controllers {
 					    Email = email,
 					    Residenza = residenza,
 					    Telefono = telefono,
-                        Matricola="AAAA"
+                        Matricola="BBBB"
 				    };
 				    EspLav esp = new EspLav {
 					    AnnoInizio = int.Parse(annoinizioesp),

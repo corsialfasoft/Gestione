@@ -76,12 +76,10 @@ namespace DAO{
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<Competenza> res = new List<Competenza>();
 				SqlDataReader reader = command.ExecuteReader();
-				Competenza e = new Competenza();
 				while(reader.Read()){
-					e.Livello = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0);
-					e.Titolo = reader.GetValue(1) == DBNull.Value ? "" : reader.GetString(1);
-				
-					res.Add(e);
+					res.Add(new Competenza{ Livello = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0),
+                        Titolo = reader.GetValue(1) == DBNull.Value ? "" : reader.GetString(1)
+                    });
 				}
 				reader.Close();
 				command.Dispose();
@@ -103,13 +101,12 @@ namespace DAO{
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<PerStud> res = new List<PerStud>();
 				SqlDataReader reader = command.ExecuteReader();
-				PerStud e = new PerStud();
 				while(reader.Read()){
-					e.AnnoInizio = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0);
-					e.AnnoFine = reader.GetValue(1) == DBNull.Value ? 0 : reader.GetInt32(1);
-					e.Titolo = reader.GetValue(2) == DBNull.Value ? "" : reader.GetString(2);
-					e.Descrizione = reader.GetValue(3) == DBNull.Value ? "" : reader.GetString(3);
-					res.Add(e);
+					res.Add(new PerStud{AnnoInizio = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0),
+                        AnnoFine = reader.GetValue(1) == DBNull.Value ? 0 : reader.GetInt32(1),
+                        Titolo = reader.GetValue(2) == DBNull.Value ? "" : reader.GetString(2),
+                        Descrizione = reader.GetValue(3) == DBNull.Value ? "" : reader.GetString(3)
+                        });
 				}
 				reader.Close();
 				command.Dispose();
@@ -131,13 +128,12 @@ namespace DAO{
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<EspLav> res = new List<EspLav>();
 				SqlDataReader reader = command.ExecuteReader();
-				EspLav e = new EspLav();
 				while(reader.Read()){
-					e.AnnoInizio = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0);
-					e.AnnoFine = reader.GetValue(1) == DBNull.Value ? 0 : reader.GetInt32(1);
-					e.Qualifica = reader.GetValue(2)==DBNull.Value ? "" : reader.GetString(2);
-					e.Descrizione =reader.GetValue(3)==DBNull.Value ? "" : reader.GetString(3);
-					res.Add(e);
+					res.Add(new EspLav{ AnnoInizio = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0),
+                        AnnoFine = reader.GetValue(1) == DBNull.Value ? 0 : reader.GetInt32(1),
+                        Qualifica = reader.GetValue(2)==DBNull.Value ? "" : reader.GetString(2),
+                        Descrizione = reader.GetValue(3)==DBNull.Value ? "" : reader.GetString(3)
+                    });
 				}
 				reader.Close();
 				command.Dispose();

@@ -208,6 +208,7 @@
     <Content Include="Views\Home\ListaCurriculum.cshtml" />
     <Content Include="Views\Home\ModAnag.cshtml" />
     <Content Include="Views\Home\ModEspLav.cshtml" />
+    <Content Include="Views\Home\ModPerStud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

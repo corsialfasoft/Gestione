@@ -23,7 +23,8 @@ namespace Gestione.Controllers {
             EspLav esp = new EspLav{ AnnoInizio=annoinizioesp,AnnoFine= annofinesp,Qualifica=qualifica,Descrizione=descrizionesp};
             Profilo p = Session["profile"] as Profilo;
             dm.AddEspLav(p.Matricola,esp);
-            return View($"DettCv?id={P.Matricola}");
+            ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
+            return View($"MyPage");
         }
 
         
