@@ -40,6 +40,7 @@ namespace Interfaces{
         List<Corso>ListaCorsi(string idUtente);
 		//Mostra la lista delle lezioni relative a un corso
 		List<Lezione> ListaLezioni(Corso corso);
+		void ModLezione(int idLezione,Lezione lezione);
     }
     public class Studente{ 
         public string Id{get;set;}

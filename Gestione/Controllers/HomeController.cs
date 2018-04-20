@@ -154,5 +154,23 @@ namespace Gestione.Controllers {
 			}
 			return View("ElencoCorsi");
 		}
+		public ActionResult ModificaLezione()
+		{
+			ViewBag.CorsoId=1;
+			DomainModel dm = new DomainModel();
+			ViewBag.Lezione= new Lezione{Id=1,Nome="Ciao",Descrizione="sono un mock",Durata=4};
+			return View();
+		}
+		[HttpPost]
+		public ActionResult ModificaLezione(string LezNome, string LezDescrizione, int LezDurata, int idCorso) {
+		DomainModel dm = new DomainModel();
+		Lezione lezione = new Lezione {
+			Nome= LezNome,
+			Descrizione=LezDescrizione,
+			Durata=LezDurata
+		};
+		dm.ModLezione(idCorso,lezione);
+		return View("ElencoCorsi");
+		}
 	}
 }
