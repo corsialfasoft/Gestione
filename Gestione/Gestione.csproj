@@ -201,6 +201,7 @@
     <Content Include="Views\Home\AddGiorno.cshtml" />
     <Content Include="Views\Home\VisualizzaCommessa.cshtml" />
     <Content Include="Views\Home\VisualizzaGiorno.cshtml" />
+    <Content Include="Views\Home\GeTimeHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

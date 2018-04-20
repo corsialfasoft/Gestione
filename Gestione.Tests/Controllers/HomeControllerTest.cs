@@ -9,7 +9,7 @@ using Gestione.Controllers;
 
 namespace Gestione.Tests.Controllers {
     [TestClass]
-    public class HomeControllerTest {
+    public partial class HomeControllerTest {
         [TestMethod]
         public void Index() {
             // Arrange
@@ -45,11 +45,7 @@ namespace Gestione.Tests.Controllers {
             // Assert
             Assert.IsNotNull(result);
         }
-		[TestMethod]
-		public void VisualizzaCommessa() {
-			HomeController controller = new HomeController();
-			ViewResult result = controller.VisualizzaCommessa("GeTime") as ViewResult;
-			Assert.IsTrue(result.ViewBag.Giorni.Count==3);
-		}
-	}
+	
+
+    }
 }

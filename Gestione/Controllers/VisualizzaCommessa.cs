@@ -34,7 +34,10 @@ namespace Gestione.Controllers {
 			}
 			return View("VisualizzaCommessa");
 		}
+        public ActionResult GeTimeHome() {
+            return View();
+        }
 
-	}
+    }
 	
 }
