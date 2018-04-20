@@ -145,4 +145,14 @@ create procedure ListaLezioni
 as
 	select * from Lezioni l where @IdCorso = l.idCorsi;
 go 
-
+-- Max
+Create procedure ModLezione
+@idLezione int,
+@nome nvarchar(200),
+@descrizione nvarchar(50),
+@durata nvarchar(50)
+as
+	Update Lezioni 
+	set nome=@nome,descrizione=@descrizione,durata=@durata
+	where id=@idLezione;
+go;

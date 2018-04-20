@@ -12,6 +12,7 @@ namespace DAO{
 			List<Lezione> output = new List<Lezione>();
 			while(data.Read()){
 				Lezione tmp = new Lezione {
+					Id = data.GetInt32(0),
 					Nome = data.GetString(1),
 					Durata = int.Parse(data.GetString(2)),
 					Descrizione = data.GetString(3)
