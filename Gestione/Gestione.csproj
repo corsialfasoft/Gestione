@@ -143,16 +143,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DTGiorno.cs" />
-    <Compile Include="Controllers\GeTimeAddGiorno.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\VisualizzaCommessa.cs" />
+    <Compile Include="Controllers\GeCo-Controller.cs" />
+    <Compile Include="Controllers\GeTime-Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\GeTimeAddGiorno.cs" />
     <Compile Include="Models\DataAccessObject.cs" />
     <Compile Include="Models\DomainModel.cs" />
-    <Compile Include="Models\GetimeVisualizzaCommessa.cs" />
     <Compile Include="Models\interfaces.cs" />
     <Compile Include="Models\trasformatori.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

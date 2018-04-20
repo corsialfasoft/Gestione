@@ -105,22 +105,63 @@ namespace Gestione.Models{
 		public DTGGiorno VisualizzaGiorno(DateTime data,string idUtente) {
             Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
             if (giornoInterface!=null) {
-                DTGGiorno DTgiorno = new DTGGiorno();
-                DTgiorno.data = giornoInterface.Data;
-                DTgiorno.OrePermesso = giornoInterface.HPermesso;
-                DTgiorno.OreMalattia = giornoInterface.HMalattia;
-                DTgiorno.OreFerie = giornoInterface.HFerie;
-                foreach(OreLavorative orecommessa in giornoInterface.OreLavorate) {
-                    OreLavorate orelavorate = new OreLavorate();
-                    orelavorate.nome = orecommessa.Nome;
-                    orelavorate.oreGiorno = orecommessa.Ore;
-                    orelavorate.descrizione = orecommessa.Descrizione;
-                    DTgiorno.OreLavorate.Add(orelavorate);
+				DTGGiorno DTgiorno = new DTGGiorno {
+					data = giornoInterface.Data,
+					OrePermesso = giornoInterface.HPermesso,
+					OreMalattia = giornoInterface.HMalattia,
+					OreFerie = giornoInterface.HFerie
+				};
+				foreach(OreLavorative orecommessa in giornoInterface.OreLavorate) {
+					OreLavorate orelavorate = new OreLavorate {
+						nome = orecommessa.Nome,
+						oreGiorno = orecommessa.Ore,
+						descrizione = orecommessa.Descrizione
+					};
+					DTgiorno.OreLavorate.Add(orelavorate);
                 }
                 DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
                 return DTgiorno;
             }
             return null;
+		}
+		public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente){
+            try {
+                dao.CompilaHLavoro(data, ore, idCommessa, idUtente);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
+			try {
+                dao.Compila(data, ore, tipoOre,idUtente);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
+			try{ 
+				List<Giorno> giorni = dao.GiorniCommessa(idCommessa, idUtente);
+				List<DTGiorno> dTGiorni = new List<DTGiorno>();
+				if (giorni != null && giorni.Count > 0) {
+					foreach (Giorno giorno in giorni) {
+						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
+							dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
+					}
+				}
+				return dTGiorni;
+			}catch(Exception e){
+				throw e;
+			}
+		}
+		public DTCommessa CercaCommessa(string nomeCommessa) {
+			try{ 
+				Commessa commessa = dao.CercaCommessa(nomeCommessa);
+				if(commessa!=null)
+					return new  DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate);
+				return null;
+			}catch(Exception e){
+					throw e;
+			}
 		}
 	}
 }
