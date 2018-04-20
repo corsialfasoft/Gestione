@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAO;
+using Gestione.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Interfaces{ 
@@ -39,6 +41,41 @@ namespace Interfaces{
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(int idUtente);
+    }
+    interface IProfiler { 
+        bool Login(string usr, string psw);
+        Profilo GetProfilo();
+    }
+    public class Profiler : IProfiler {
+        private Profiler(){
+            DataAccesObject dm = new DataAccesObject();
+            _profilo = dm.SearchProfile("default");
+            if (_profilo != null) {
+                _profilo.Funzioni= new List<string>() {"" };
+            }
+        }
+        private Profiler _Profiler =null;
+        private Profilo _profilo = null;
+        public Profiler Instance() {
+            if(_Profiler == null) 
+                _Profiler= new Profiler();
+            return _Profiler;
+        }
+
+        public bool Login(string usr, string psw) {
+            DataAccesObject dm = new DataAccesObject();
+            try { 
+                string matricola = dm.SearchMatricola(usr,psw);
+                _profilo = dm.SearchProfile(matricola);
+                return true;
+            } catch (Exception) {
+                return false;
+            }
+        }
+
+        public Profilo GetProfilo() {
+            return _profilo;
+        }
     }
     public class Studente{ 
         public int Id{get;set;}
@@ -159,13 +196,13 @@ namespace Interfaces{
     public class Profilo {
         public string Matricola { get; set; }
         public string Ruolo { get; set; }
-        public List<String> Funzioni { get; set; }
+        public List<Funzione> Funzioni { get; set; }
         public string Nome { get; set; }
         public string Cognome { get; set; }
         public string usr { get; set; }
         public string pswd { get; set;}
 
-        public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
+        public Profilo(string matricola, string ruolo, List<Funzione> funzioni, string nome, string cognome) {
             Matricola = matricola;
             Ruolo = ruolo;
             Funzioni = funzioni;
@@ -173,5 +210,17 @@ namespace Interfaces{
             Cognome = cognome;
         }
         public Profilo(){ }
+    }
+
+    public class Funzione {
+        public int Id { get; set; }
+        public string Sistema { get; set; }
+        public string Descrizione { get; set; }
+
+        public Funzione(int id, string sistema, string descrizione) {
+            Id = id;
+            Sistema = sistema;
+            Descrizione = descrizione;
+        }
     }
 }

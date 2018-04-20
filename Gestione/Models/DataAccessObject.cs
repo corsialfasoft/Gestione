@@ -174,8 +174,9 @@ namespace DAO{
         }
 
         public Profilo SearchProfile(string matricola) {
-            return Reader<Profilo>(TakeProfilo,$"SELECT Utente.Matricola,Utente.Nome,Utente.Cognome,Utente.Users,Utente.Passwd,TipoUtente.Tipo FROM Utente " +
-                $"INNER JOIN TipoUtente ON Utente.fkTipo=TipoUtente.Id WHERE Matricola='{matricola}'");
+            return Reader<Profilo>(TakeProfilo,$"SELECT Utente.Matricola,Utente.Nome,Utente.Cognome,Utente.Users,Utente.Passwd,TipoUtente.Tipo,F.id,F.sistema,F.descrizione "+
+                "FROM Utente INNER JOIN TipoUtente ON Utente.fkTipo = TipoUtente.Id INNER JOIN TipoUtenteFunzioni UF on Utente.fkTipo = UF.idtipoUtente"
+                +" INNER JOIN Funzioni F on UF.idFunzione = F.idWHERE Matricola ='{matricola}'");
         }
 
         private Profilo TakeProfilo(SqlDataReader reader) {
