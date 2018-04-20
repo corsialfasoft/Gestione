@@ -141,7 +141,7 @@ namespace DAO{
 				SqlParameter[] parameter = new SqlParameter[2];
 				parameter[0]= new SqlParameter("@idC",System.Data.SqlDbType.Int);
 				parameter[0].Value=idCommessa;
-				parameter[1] = new SqlParameter("@idU", System.Data.SqlDbType.Int);
+				parameter[1] = new SqlParameter("@idU", System.Data.SqlDbType.NVarChar);
 				parameter[1].Value=idUtente;
 				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", TrasformInGiorno,parameter,"GeTime");
 			}catch(SqlException e){

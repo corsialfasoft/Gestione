@@ -9,7 +9,7 @@ go
 create procedure SP_CercaCommessa
 	@nomeCommessa nvarchar(50)
 as	
-	select id,nome,descrizione,stimaOre, (select SUM(OL.ore)
+	select id,nome,descrizione,stimaOre, (select ISNULL(SUM(OL.ore),0)
 										  from OreLavorative OL inner join Commesse C1 on OL.idCommessa=C1.id
 										  where C.id=C1.id) as OreTotLavorate
 	from Commesse C
