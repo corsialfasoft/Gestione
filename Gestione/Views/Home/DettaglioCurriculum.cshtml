@@ -1,6 +1,6 @@
-﻿@if(ViewBag.CV == null){
+﻿@if(ViewBag.CV == null) {
     ViewBag.Title = "Compila il tuo Curriculum";
-}else{
+} else {
     ViewBag.Title = "Dettaglio Curriculum";
 }
 
@@ -25,7 +25,7 @@
                         Cognome:*
                     </div>
                     <div class="col-md-2">
-                         @Html.TextBox("cognome",null,new { placeholder = "Inserisci il cognome" })
+                        @Html.TextBox("cognome",null,new { placeholder = "Inserisci il cognome" })
                     </div>
                 </div>
                 <div class="row">
@@ -61,144 +61,6 @@
                 <legend>Percorso Studi:</legend>
                 <div class="row">
                     <div class="col-md-2">
-                        Anno Inizio
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("annoinizio",null,new { placeholder = "Inserisci l'anno d'inizio" })
-                    </div>
-                    <div class="col-md-2">
-                        Anno Fine:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("annofine",null,new { placeholder = "Inserisci l'anno di fine" })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        Titolo:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("titolo",null,new { placeholder = "Inserisci il titolo" })
-                    </div>
-                    <div class="col-md-2">
-                        Descrizione:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("descrizione",null,new { placeholder = "Inserisci la descrizione" })
-                    </div>
-                </div>
-            </fieldset>
-            <br />
-            <fieldset>
-                <legend>Esperienze Lavorative:</legend>
-                <div class="row">
-                    <div class="col-md-2">
-                        Anno Inizio
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("annoinizioesp",null,new { placeholder = "Inserisci l'anno d'inizio" })
-                    </div>
-                    <div class="col-md-2">
-                        Anno Fine:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("annofinesp",null,new { placeholder = "Inserisci l'anno di fine" })
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-2">
-                        Qualifica:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("qualifica",null,new { placeholder = "Inserisci la qualifica" })
-                    </div>
-                    <div class="col-md-2">
-                        Descrizione:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("descrizionesp",null,new { placeholder = "Inserisci la descrizione" })
-                    </div>
-                </div>
-            </fieldset>
-            <br />
-            <fieldset>
-                <legend>Competenze:</legend>
-                <div class="row">
-                    <div class="col-md-2">
-                        Tipo:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("tipo",null,new { placeholder = "Inserisci il tipo" })
-                    </div>
-                    <div class="col-md-2">
-                        Livello:
-                    </div>
-                    <div class="col-md-2">
-                        @Html.TextBox("livello",null,new { placeholder = "Inserisci il il livello" })
-                    </div>
-                </div>
-            </fieldset>
-            <br />
-            <div class="row">
-                <div class="col-md-2">
-                    <input type="submit" value="Aggiungi">
-                </div>
-            </div>
-        }
-    }else {
-        using(Html.BeginForm("ModificaAnag","Home",FormMethod.Post)) {
-            <fieldset>
-                <legend>Dati Anagrafici:</legend>
-                <div class="row">
-                    <div class="col-md-2">
-                        Nome:*
-                    </div>
-                    <div class="col-md-2">
-                        <input id="nome" name="nome" type="text" value="@ViewBag.CV.Nome" />
-                    </div>
-                    <div class="col-md-2">
-                        Cognome:*
-                    </div>
-                    <div class="col-md-2">
-                        <input id="cognome" name="cognome" type="text" value="@ViewBag.CV.Cognome" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        Età:*
-                    </div>
-                    <div class="col-md-2">
-                        <input id="eta" name="eta" type="text" value="@ViewBag.CV.Eta" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        E-mail:*
-                    </div>
-                    <div class="col-md-2">
-                        <input id="email" name="email" type="text" value="@ViewBag.CV.Email" />
-                    </div>
-                    <div class="col-md-2">
-                        Residenza:*
-                    </div>
-                    <div class="col-md-2">
-                        <input id="residenza" name="residenza" type="text" value="@ViewBag.CV.Residenza" />
-                    </div>
-                    <div class="col-md-2">
-                        Telefono:*
-                    </div>
-                    <div class="col-md-2">
-                        <input id="telefono" name="telefono" type="text" value="@ViewBag.CV.Telefono" />
-                    </div>
-                </div>
-            </fieldset>
-        }
-        using(Html.BeginForm("AddPerStud","Home",FormMethod.Post)){
-            <fieldset>
-                <legend>Percorso Studi:</legend>
-                <div class="row">
-                    <div class="col-md-2">
                         Anno Inizio:
                     </div>
                     <div class="col-md-2">
@@ -213,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        Titolo:
+                        Titolo*:
                     </div>
                     <div class="col-md-2">
                         @Html.TextBox("titolo",null,new { placeholder = "Inserisci il titolo" })
@@ -225,57 +87,13 @@
                         @Html.TextBox("descrizione",null,new { placeholder = "Inserisci la descrizione" })
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <a class="btn btn-default" href="/Home/AggiungiPercorsoStudi" role="button">Aggiungi</a>
-                    </div>
-                </div>
-            <hr />
-            @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
-                using(Html.BeginForm("ModPerStud","Home",FormMethod.Post)) {
-                    <div class="row">
-                        <div class="col-md-2">
-                            Anno Inizio:
-                        </div>
-                        <div class="col-md-2">
-                            <input id="annoinizio" name="annoinizio" type="text" />
-                        </div>
-                        <div class="col-md-2">
-                            Anno Fine:
-                        </div>
-                        <div class="col-md-2">
-                            <input id="annofine" name="annofine" type="text" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            Titolo:
-                        </div>
-                        <div class="col-md-2">
-                            <input id="titolo" name="titolo" type="text" value="Prova" />
-                        </div>
-                        <div class="col-md-2">
-                            Descrizione:
-                        </div>
-                        <div class="col-md-2">
-                            <input id="descrizione" name="descrizione" type="text" value="Prova" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a class="btn btn-default" href="/Home/ModificaPercorsoStudi?idPercorso=@i" role="button">Modifica</a>
-                        </div>
-                    </div>
-                }
-            }
             </fieldset>
             <br />
-            @using(Html.BeginForm("AddEspLav","Home",FormMethod.Post)){
             <fieldset>
                 <legend>Esperienze Lavorative:</legend>
                 <div class="row">
                     <div class="col-md-2">
-                        Anno Inizio
+                        Anno Inizio:
                     </div>
                     <div class="col-md-2">
                         @Html.TextBox("annoinizioesp",null,new { placeholder = "Inserisci l'anno d'inizio" })
@@ -290,7 +108,7 @@
                 <br />
                 <div class="row">
                     <div class="col-md-2">
-                        Qualifica:
+                        Qualifica*:
                     </div>
                     <div class="col-md-2">
                         @Html.TextBox("qualifica",null,new { placeholder = "Inserisci la qualifica" })
@@ -302,51 +120,6 @@
                         @Html.TextBox("descrizionesp",null,new { placeholder = "Inserisci la descrizione" })
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <a class="btn btn-default" href="/Home/AggiungiEspLav" role="button">Aggiungi</a>
-                    </div>
-                </div>
-                }
-                <hr />
-                @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
-                    using(Html.BeginForm("ModPerStud","Home",FormMethod.Post)) {
-                        <div class="row">
-                            <div class="col-md-2">
-                                Anno Inizio:
-                            </div>
-                            <div class="col-md-2">
-                                <input id="annoinizioesp" name="annoinizioesp" type="text" />
-                            </div>
-                            <div class="col-md-2">
-                                Anno Fine:
-                            </div>
-                            <div class="col-md-2">
-                                <input id="annofinesp" name="annofinesp" type="text" />
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-md-2">
-                                Qualifica:
-                            </div>
-                            <div class="col-md-2">
-                                <input id="qualifica" name="qualifica" type="text" value="Prova" />
-                            </div>
-                            <div class="col-md-2">
-                                Descrizione:
-                            </div>
-                            <div class="col-md-2">
-                                <input id="descrizionesp" name="descrizionesp" type="text" value="Prova" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <a class="btn btn-default" href="/Home/ModificaEspLav" role="button">Modifica</a>
-                            </div>
-                        </div>
-                    }
-                }
             </fieldset>
             <br />
             <fieldset>
@@ -359,52 +132,394 @@
                         @Html.TextBox("tipo",null,new { placeholder = "Inserisci il tipo" })
                     </div>
                     <div class="col-md-2">
-                        Livello:
+                        Livello*:
                     </div>
                     <div class="col-md-2">
                         @Html.TextBox("livello",null,new { placeholder = "Inserisci il il livello" })
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <a class="btn btn-default" href="/Home/AggiungiCompetenza" role="button">Aggiungi</a>
-                    </div>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-md-2">
-                        Tipo:
-                    </div>
-                    <div class="col-md-2">
-                        <input id="tipo" name="tipo" type="text" value="Prova" />
-                    </div>
-                    <div class="col-md-2">
-                        Livello:
-                    </div>
-                    <div class="col-md-2">
-                        <input id="livello" name="livello" type="text" value="1" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <a class="btn btn-default" href="/Home/ModificaCompetenza" role="button">Modifica</a>
-                    </div>
-                </div>
             </fieldset>
-            <hr />
-            <br />
             <br />
             <div class="row">
                 <div class="col-md-2">
-                    <input type="submit" value="Salva Modifiche">
-                </div>
-                <div class="col-md-2">
-                    <a class="btn btn-default" href="/Home/MyPage" role="button">Torna Indietro</a>
-                </div>
-                <div class="col-md-2">
-                    <a class="btn btn-default" href="/Home/EliminaCV" role="button">Elimina</a>
+                    <input class="btn btn-default" type="submit" value="Aggiungi">
                 </div>
             </div>
         }
+    } else {
+        using(Html.BeginForm("ModificaAnag","Home",FormMethod.Post)) {
+            <div id="anag">
+                <fieldset>
+                    <legend>Dati Anagrafici:</legend>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Nome:*
+                        </div>
+                        <div class="col-md-2">
+                            <label id="nomeV">@ViewBag.CV.Nome</label>
+                            <input style="display:none" id="nome" name="nome" type="text" value="@ViewBag.CV.Nome" />
+                        </div>
+                        <div class="col-md-2">
+                            Cognome:*
+                        </div>
+                        <div class="col-md-2">
+                            <label id="cognomeV">@ViewBag.CV.Cognome</label>
+                            <input style="display:none" id="cognome" name="cognome" type="text" value="@ViewBag.CV.Cognome" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Età:*
+                        </div>
+                        <div class="col-md-2">
+                            <label id="etaV">@ViewBag.CV.Eta</label>
+                            <input style="display:none" id="eta" name="eta" type="number" value="@ViewBag.CV.Eta" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            E-mail:*
+                        </div>
+                        <div class="col-md-2">
+                            <label id="emailV">@ViewBag.CV.Email</label>
+                            <input style="display:none" id="email" name="email" type="text" value="@ViewBag.CV.Email" />
+                        </div>
+                        <div class="col-md-2">
+                            Residenza:*
+                        </div>
+                        <div class="col-md-2">
+                            <label id="residenzaV">@ViewBag.CV.Residenza</label>
+                            <input style="display:none" id="residenza" name="residenza" type="text" value="@ViewBag.CV.Residenza" />
+                        </div>
+                        <div class="col-md-2">
+                            Telefono:*
+                        </div>
+                        <div class="col-md-2">
+                            <label id="telefonoV">@ViewBag.CV.Telefono</label>
+                            <input style="display:none" id="telefono" name="telefono" type="text" value="@ViewBag.CV.Telefono" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input id="nascondi" class="btn btn-default" type="button" OnClick="ModAnag('anag')" value="Modifica" />
+                            <input id="rivela" class="btn btn-default" style="display:none" type="submit" value="Salva Modifiche">
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
     }
+    <fieldset>
+        @using(Html.BeginForm("AddPerStud","Home",FormMethod.Post)) {
+            <legend>Percorso Studi:</legend>
+            <div class="row">
+                <div class="col-md-2">
+                    Anno Inizio:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("annoinizio",null,new { placeholder = "Inserisci l'anno d'inizio" })
+                </div>
+                <div class="col-md-2">
+                    Anno Fine:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("annofine",null,new { placeholder = "Inserisci l'anno di fine" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Titolo*:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("titolo",null,new { placeholder = "Inserisci il titolo" })
+                </div>
+                <div class="col-md-2">
+                    Descrizione:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("descrizione",null,new { placeholder = "Inserisci la descrizione" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <input class="btn btn-default" type="submit" value="Aggiungi">
+                </div>
+            </div>
+        }
+        <hr />
+        @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
+            using(Html.BeginForm("ModPerStud","Home",FormMethod.Post)) {
+                <div name="@i">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Anno Inizio:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="annoInizioV">@ViewBag.CV.Percorsostudi[i].AnnoInizio</label>
+                            <input style="display:none" id="annoInizio" name="annoinizio" type="number" value="@ViewBag.CV.Percorsostudi[i].AnnoInizio"/>
+                        </div>
+                        <div class="col-md-2">
+                            Anno Fine:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="annoFineV">@ViewBag.CV.Percorsostudi[i].AnnoFine</label>
+                            <input style="display:none" id="annoFine" name="annofine" type="number" value="@ViewBag.CV.Percorsostudi[i].AnnoFine"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Titolo*:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="titoloV">@ViewBag.CV.Percorsostudi[i].Titolo</label>
+                            <input style="display:none" id="titolo" name="titolo" type="text" value="@ViewBag.CV.Percorsostudi[i].Titolo" required />
+                        </div>
+                        <div class="col-md-2">
+                            Descrizione:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="descrizioneV">@ViewBag.CV.Percorsostudi[i].Descrizione</label>
+                            <input style="display:none" id="descrizione" name="descrizione" type="text" value="@ViewBag.CV.Percorsostudi[i].Descrizione" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input id="modifica" class="btn btn-default" type="button" OnClick="ModPerStud(@i)" value="Modifica" />
+                            <input id="salva" class="btn btn-default" style="display:none" type="submit" value="Salva Modifiche">
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </fieldset>
+    <br />
+    <fieldset>
+        @using(Html.BeginForm("AddEspLav","Home",FormMethod.Post)) {
+        <legend>Esperienze Lavorative:</legend>
+        <div class="row">
+            <div class="col-md-2">
+                Anno Inizio:
+            </div>
+            <div class="col-md-2">
+                @Html.TextBox("annoinizioesp",null,new { placeholder = "Inserisci l'anno d'inizio" })
+            </div>
+            <div class="col-md-2">
+                Anno Fine:
+            </div>
+            <div class="col-md-2">
+                @Html.TextBox("annofinesp",null,new { placeholder = "Inserisci l'anno di fine" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                Qualifica*:
+            </div>
+            <div class="col-md-2">
+                @Html.TextBox("qualifica",null,new { placeholder = "Inserisci la qualifica" })
+            </div>
+            <div class="col-md-2">
+                Descrizione:
+            </div>
+            <div class="col-md-2">
+                @Html.TextBox("descrizionesp",null,new { placeholder = "Inserisci la descrizione" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input class="btn btn-default" type="submit" value="Aggiungi">
+            </div>
+        </div>
+}
+        <hr />
+        @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
+            using(Html.BeginForm("ModEspLav","Home",FormMethod.Post)) {
+                <div name="@i">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Anno Inizio:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="annoInizioEspV">@ViewBag.CV.Esperienze[i].AnnoInizio</label>
+                            <input id="annoInioEsp" style="display:none" name="annoinizio" type="text" value="@ViewBag.CV.Esperienze[i].AnnoInizio"/>
+                        </div>
+                        <div class="col-md-2">
+                            Anno Fine:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="annoFineEspV">@ViewBag.CV.Esperienze[i].AnnoFine</label>
+                            <input id="annoFineEsp" style="display:none" name="annofine" type="text" value="@ViewBag.CV.Esperienze[i].AnnoFine"/>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-2">
+                            Qualifica*:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="qualificaV">@ViewBag.CV.Esperienze[i].Qualifica</label>
+                            <input id="qualifica" style="display:none" name="qualifica" type="text" value="@ViewBag.CV.Esperienze[i].Qualifica" required/>
+                        </div>
+                        <div class="col-md-2">
+                            Descrizione:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="descrizioneEspV">@ViewBag.CV.Esperienze[i].Descrizione</label>
+                            <input id="descrizioneEsp" style="display:none" name="descrizione" type="text" value="@ViewBag.CV.Esperienze[i].Descrizione" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input id="modificaEsp" class="btn btn-default" type="button" OnClick="ModEspLav(@i)" value="Modifica" />
+                            <input id="salva" class="btn btn-default" style="display:none" type="submit" value="Salva Modifiche">
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+</fieldset>
+    <br />
+    <fieldset>
+        @using(Html.BeginForm("AddComp","Home",FormMethod.Post)) {
+            <legend>Competenze:</legend>
+            <div class="row">
+                <div class="col-md-2">
+                    Tipo*:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("tipo",null,new { placeholder = "Inserisci il tipo" })
+                </div>
+                <div class="col-md-2">
+                    Livello:
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("livello",null,new { placeholder = "Inserisci il il livello" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <input class="btn btn-default" type="submit" value="Aggiungi">
+                </div>
+            </div>
+        }
+        <hr />
+        @for(int i = 0; i < ViewBag.CV.Percorsostudi.Count; i++) {
+            using(Html.BeginForm("ModComp","Home",FormMethod.Post)) {
+                <div name="@i">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Tipo*:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="tipoV">@ViewBag.CV.Competenze[i].Titolo</label>
+                            <input id="tipo" style="display:none" name="tipo" type="text" value="@ViewBag.CV.Competenze[i].Titolo" required/>
+                        </div>
+                        <div class="col-md-2">
+                            Livello:
+                        </div>
+                        <div class="col-md-2">
+                            <label id="livelloV">@ViewBag.CV.Competenze[i].Livello</label>
+                            <input id="livello" style="display:none" name="livello" type="number" value="@ViewBag.CV.Competenze[i].Livello" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input id="modificaComp" class="btn btn-default" type="button" OnClick="ModComp(@i)" value="Modifica" />
+                            <input id="salva" style="display:none" class="btn btn-default" type="submit" value="Salva Modifiche">
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+</fieldset>
+    <hr />
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <a class="btn btn-default" href="/Home/MyPage" role="button">Torna Indietro</a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-default" href="/Home/EliminaCV" role="button">Elimina</a>
+        </div>
+    </div>
+}
 </div>
+
+<script>
+    function ModAnag(i) {
+        var nascondi = document.getElementById("nascondi");
+        var rivela = document.getElementById("rivela");
+        var nomev = document.getElementById("nomeV");
+        var nome = document.getElementById("nome");
+        var cognomev = document.getElementById("cognomeV");
+        var cognome = document.getElementById("cognome");
+        var etav = document.getElementById("etaV");
+        var eta = document.getElementById("eta");
+        var emailv = document.getElementById("emailV");
+        var email = document.getElementById("email");
+        var residenzav = document.getElementById("residenzaV");
+        var residenza = document.getElementById("residenza");
+        var telefonov = document.getElementById("telefonoV");
+        var telefono = document.getElementById("telefono");
+        rivela.style.display = "inherit";
+        nascondi.style.display = "none";
+        nomev.style.display = "none";
+        nome.style.display = "inherit";
+        cognomev.style.display = "none";
+        cognome.style.display = "inherit";
+        etav.style.display = "none";
+        eta.style.display = "inherit";
+        emailv.style.display = "none";
+        email.style.display = "inherit";
+        telefonov.style.display = "none";
+        telefono.style.display = "inherit";
+        residenzav.style.display = "none";
+        residenza.style.display = "inherit";
+    }
+    Element.prototype.getElementById = function (id) {
+        return document.getElementById(id);
+    }
+    function ModPerStud(i) {
+        var div = document.getElementsByName(i)[0];
+        var annoiniziov = div.getElementById("annoInizioV");
+        var annofinev = div.getElementById("annoFineV");
+        var titolov = div.getElementById("titoloV");
+        var descrizionev = div.getElementById("descrizioneV");
+        var button = div.getElementById("modifica");
+        annoiniziov.style.display = "none";
+        annofinev.style.display = "none";
+        titolov.style.display = "none";
+        descrizionev.style.display = "none";
+        for (i = 0; i < div.getElementsByTagName("input").length; i++) {
+            div.getElementsByTagName("input")[i].style.display = "inherit";
+        }
+        button.style.display = "none";
+    }
+    function ModEspLav(i) {
+        var div = document.getElementsByName(i)[1];
+        var annoiniziov = div.getElementById("annoInizioEspV");
+        var annofinev = div.getElementById("annoFineEspV");
+        var qualificav = div.getElementById("qualificaV");
+        var descrizionev = div.getElementById("descrizioneEspV");
+        var button = div.getElementById("modificaEsp");
+        annoiniziov.style.display = "none";
+        annofinev.style.display = "none";
+        qualificav.style.display = "none";
+        descrizionev.style.display = "none";
+        for (i = 0; i < div.getElementsByTagName("input").length; i++) {
+            div.getElementsByTagName("input")[i].style.display = "inherit";
+        }
+        button.style.display = "none";
+    }
+    function ModComp(i) {
+        var div = document.getElementsByName(i)[2];
+        var tipov = div.getElementById("tipoV");
+        var livellov = div.getElementById("livelloV");
+        var button = div.getElementById("modificaComp");
+        tipov.style.display = "none";
+        livellov.style.display = "none";
+        for (i = 0; i < div.getElementsByTagName("input").length; i++) {
+            div.getElementsByTagName("input")[i].style.display = "inherit";
+        }
+        button.style.display = "none";
+    }
+</script>

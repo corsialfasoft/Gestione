@@ -1,6 +1,6 @@
 ﻿select * from Curriculum
 
-Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'AAAA',)
+Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'AAAA')
 Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'BBBB')
 Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'CCCC')
 Insert into Curriculum (nome,Cognome,Eta,Matricola) values ('Pino','Panino',22,'DDDD')
