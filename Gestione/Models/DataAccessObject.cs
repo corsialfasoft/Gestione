@@ -223,7 +223,6 @@ namespace DAO{
             }finally{ 
                 con.Dispose();    
             }
-
         }
 
         public List<CV> SearchChiava(string chiava) {

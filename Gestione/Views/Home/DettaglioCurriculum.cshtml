@@ -147,7 +147,7 @@
             </div>
         }
     } else {
-        using(Html.BeginForm("ModificaCv","Home",FormMethod.Post)) {
+        using(Html.BeginForm("PassaCV","Home",FormMethod.Post)) {
             <div id="anag">
                 <fieldset>
                     <legend>Dati Anagrafici:</legend>
@@ -201,8 +201,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <input id="nascondi" class="btn btn-default" type="button" OnClick="ModAnag('anag')" value="Modifica" />
-                            <input id="rivela" class="btn btn-default" style="display:none" type="submit" value="Salva Modifiche">
+                            <input class="btn btn-default" type="submit" value="Modifica">
                         </div>
                     </div>
                 </fieldset>
@@ -337,22 +336,21 @@
 }
         <hr />
         @for(int i = 0; i < ViewBag.CV.Esperienze.Count; i++) {
-            using(Html.BeginForm("ModEspLav","Home",FormMethod.Post)) {
-                <div name="@i">
+            using(Html.BeginForm("PassaEspLav","Home",FormMethod.Post)) {
                     <div class="row">
                         <div class="col-md-2">
                             Anno Inizio:
                         </div>
                         <div class="col-md-2">
                             <label id="annoInizioEspV">@ViewBag.CV.Esperienze[i].AnnoInizio</label>
-                            <input id="annoInioEsp" style="display:none" name="annoinizio" type="text" value="@ViewBag.CV.Esperienze[i].AnnoInizio"/>
+                            <input id="annoInizioEsp" style="display:none" name="annoInizioEsp" type="text" value="@ViewBag.CV.Esperienze[i].AnnoInizio"/>
                         </div>
                         <div class="col-md-2">
                             Anno Fine:
                         </div>
                         <div class="col-md-2">
                             <label id="annoFineEspV">@ViewBag.CV.Esperienze[i].AnnoFine</label>
-                            <input id="annoFineEsp" style="display:none" name="annofine" type="text" value="@ViewBag.CV.Esperienze[i].AnnoFine"/>
+                            <input id="annoFineEsp" style="display:none" name="annoFineEsp" type="text" value="@ViewBag.CV.Esperienze[i].AnnoFine"/>
                         </div>
                     </div>
                     <br />
@@ -362,29 +360,21 @@
                         </div>
                         <div class="col-md-2">
                             <label id="qualificaV">@ViewBag.CV.Esperienze[i].Qualifica</label>
-                            <input id="qualifica" style="display:none" name="qualifica" type="text" value="@ViewBag.CV.Esperienze[i].Qualifica" required/>
+                            <input id="qualifica" style="display:none" name="qualifica" type="text" value="@ViewBag.CV.Esperienze[i].Qualifica" />
                         </div>
                         <div class="col-md-2">
                             Descrizione:
                         </div>
                         <div class="col-md-2">
                             <label id="descrizioneEspV">@ViewBag.CV.Esperienze[i].Descrizione</label>
-                            <input id="descrizioneEsp" style="display:none" name="descrizione" type="text" value="@ViewBag.CV.Esperienze[i].Descrizione" />
+                            <input id="descrizioneEsp" style="display:none" name="descrizioneEsp" type="text" value="@ViewBag.CV.Esperienze[i].Descrizione" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <input id="modificaEsp" class="btn btn-default" type="button" OnClick="ModEspLav(@i)" value="Modifica" />
-                            <input id="salva" class="btn btn-default" style="display:none" type="submit" value="Salva Modifiche">
+                            <input class="btn btn-default" type="submit" value="Modifica">
                         </div>
                     </div>
-                </div>
-                <div>
-                    <input style="display:none" id="annoInizioEspV" value="@ViewBag.CV.Esperienze[i].AnnoInizio" type="number"/>
-                    <input style="display:none" id="annoFineEspV" value="@ViewBag.CV.Esperienze[i].AnnoFine" type="number"/>
-                    <input style="display:none" id="qualificaV" value="@ViewBag.CV.Esperienze[i].Qualifica" type="text"/>
-                    <input style="display:none" id="descrizioneEspV" value="@ViewBag.CV.Esperienze[i].Descrizione" type="text" />
-                </div>
             }
         }
 </fieldset>
@@ -454,83 +444,3 @@
     </div>
 }
 </div>
-
-<script>
-    function ModAnag(i) {
-        var nascondi = document.getElementById("nascondi");
-        var rivela = document.getElementById("rivela");
-        var nomev = document.getElementById("nomeV");
-        var nome = document.getElementById("nome");
-        var cognomev = document.getElementById("cognomeV");
-        var cognome = document.getElementById("cognome");
-        var etav = document.getElementById("etaV");
-        var eta = document.getElementById("eta");
-        var emailv = document.getElementById("emailV");
-        var email = document.getElementById("email");
-        var residenzav = document.getElementById("residenzaV");
-        var residenza = document.getElementById("residenza");
-        var telefonov = document.getElementById("telefonoV");
-        var telefono = document.getElementById("telefono");
-        rivela.style.display = "inherit";
-        nascondi.style.display = "none";
-        nomev.style.display = "none";
-        nome.style.display = "inherit";
-        cognomev.style.display = "none";
-        cognome.style.display = "inherit";
-        etav.style.display = "none";
-        eta.style.display = "inherit";
-        emailv.style.display = "none";
-        email.style.display = "inherit";
-        telefonov.style.display = "none";
-        telefono.style.display = "inherit";
-        residenzav.style.display = "none";
-        residenza.style.display = "inherit";
-    }
-    Element.prototype.getElementById = function (id) {
-        return document.getElementById(id);
-    }
-    function ModPerStud(i) {
-        var div = document.getElementsByName(i)[0];
-        var annoiniziov = div.getElementById("annoInizioV");
-        var annofinev = div.getElementById("annoFineV");
-        var titolov = div.getElementById("titoloV");
-        var descrizionev = div.getElementById("descrizioneV");
-        var button = div.getElementById("modifica");
-        annoiniziov.style.display = "none";
-        annofinev.style.display = "none";
-        titolov.style.display = "none";
-        descrizionev.style.display = "none";
-        for (i = 0; i < div.getElementsByTagName("input").length; i++) {
-            div.getElementsByTagName("input")[i].style.display = "inherit";
-        }
-        button.style.display = "none";
-    }
-    function ModEspLav(i) {
-        var div = document.getElementsByName(i)[1];
-        var annoiniziov = div.getElementById("annoInizioEspV");
-        var annofinev = div.getElementById("annoFineEspV");
-        var qualificav = div.getElementById("qualificaV");
-        var descrizionev = div.getElementById("descrizioneEspV");
-        var button = div.getElementById("modificaEsp");
-        annoiniziov.style.display = "none";
-        annofinev.style.display = "none";
-        qualificav.style.display = "none";
-        descrizionev.style.display = "none";
-        for (i = 0; i < div.getElementsByTagName("input").length; i++) {
-            div.getElementsByTagName("input")[i].style.display = "inherit";
-        }
-        button.style.display = "none";
-    }
-    function ModComp(i) {
-        var div = document.getElementsByName(i)[2];
-        var tipov = div.getElementById("tipoV");
-        var livellov = div.getElementById("livelloV");
-        var button = div.getElementById("modificaComp");
-        tipov.style.display = "none";
-        livellov.style.display = "none";
-        for (i = 0; i < div.getElementsByTagName("input").length; i++) {
-            div.getElementsByTagName("input")[i].style.display = "inherit";
-        }
-        button.style.display = "none";
-    }
-</script>

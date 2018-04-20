@@ -39,10 +39,23 @@ namespace Gestione.Controllers {
         public ActionResult DettaglioCurriculum(){
             return View();
         }
-        public ActionResult ModPerStud() {
+        public ActionResult ModAnag() {
+            return View();
+        }
+        public ActionResult ModEspLav() {
             return View();
         }
 
+        public CV InitForseCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
+            CV cv = new CV();
+            cv.Nome = nome;
+            cv.Cognome = cognome;
+            cv.Eta = eta;
+            cv.Email = email;
+            cv.Residenza = residenza;
+            cv.Telefono = telefono;
+            return cv;
+        }
 
         public ActionResult DettCv(string id){
             DomainModel dm = new DomainModel();
@@ -71,17 +84,39 @@ namespace Gestione.Controllers {
         }
 
         [HttpPost]
-        public ActionResult ModificaCv(string nome,string cognome,int eta,string email,string residenza,string telefono){
-            try{//se si vuoe fare il test commentare le righe dove ci sono le // alle fine e assegnare un valore alla matricola
+        public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
+            try{
                if(Session["profile"]!=null){ //
                  string matr = (Session["profile"] as Profilo).Matricola;//
                     dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
-                    ViewBag.Message = "Dati anagrafici modificati modificato";
-                }//
+                    ViewBag.Message = "Dati anagrafici modificati";
+                    return View("DettaglioCurriculum");
+                }
             }catch(Exception){ 
                 ViewBag.Message = "Si è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
             }
-            return View($"DettCv?id={P.Matricola}");
+            return View("ModAnag");
+        }
+
+        [HttpPost]
+        public ActionResult PassaEspLav(int annoInizioEsp,int annoFineEsp,string qualifica,string descrizioneEsp) {
+            ViewBag.Esperienza = InitEspLav(annoInizioEsp,annoFineEsp,qualifica,descrizioneEsp);
+            return View("ModEspLav");
+        }
+
+        private EspLav InitEspLav(int annoinizio,int annofine,string qualifica,string descrizione) {
+            EspLav esp = new EspLav();
+            esp.AnnoInizio = annoinizio;
+            esp.AnnoFine = annofine;
+            esp.Qualifica = qualifica;
+            esp.Descrizione = descrizione;
+            return esp;
+        }
+
+        [HttpPost]
+        public ActionResult PassaCV(string nome,string cognome,int eta,string email,string residenza,string telefono){
+            ViewBag.CV = InitForseCV(nome,cognome,eta,email,residenza,telefono);
+            return View("ModAnag");
         }
 
         private CV InitCV(string nome,string cognome,string eta,
@@ -123,6 +158,7 @@ namespace Gestione.Controllers {
             }
         }
         
+        //Da  cancellare
         public ActionResult ModificaPercorsoStudi(int idPercorso) {
             ViewBag.PercorsoStudi = ViewBag.CV.Percorsostudi[idPercorso];
             ViewBag.Message = "Per salvare clicca salva modifiche";
