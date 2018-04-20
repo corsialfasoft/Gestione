@@ -9,7 +9,7 @@ namespace Gestione.Controllers {
         public int OreMalattia {get; set;}
         public int OreFerie {get; set;}
         public DTGGiorno() {}
-        public List<OreLavorate> OreLavorates = new List<OreLavorate>();
+        private List<OreLavorate> OreLavorates = new List<OreLavorate>();
         public List<OreLavorate> OreLavorate { get {return OreLavorates;}}
     }
 

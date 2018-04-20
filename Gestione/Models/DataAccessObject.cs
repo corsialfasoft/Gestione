@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Interfaces;
-using System.Data.SqlClient;
-
+using LibreriaDB;
 namespace DAO{
 	public interface IDao{
 		void ModificaCV(CV a, CV b); //modifica un curriculum nel db
@@ -60,12 +59,28 @@ namespace DAO{
 		}
 
 		public Commessa CercaCommessa(string nomeCommessa) {
-			return new Commessa(10,"GeTime","Progetto GeTime",50,0);
+			try {
+				SqlParameter[] parameter = new SqlParameter[1];
+				parameter[0] = new SqlParameter("@nomeCommessa", System.Data.SqlDbType.NVarChar);
+				parameter[0].Value = nomeCommessa;
+				return DB.ExecQProcedureReader("SP_CercaCommessa", TrasformInCommessa, parameter, "GeTime");
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		private Commessa TrasformInCommessa(SqlDataReader data) {
+			Commessa commessa = null;
+			if(data.Read()) {
+				commessa = new Commessa(data.GetInt32(0), data.GetString(1), data.GetString(2),data.GetInt32(3), data.GetInt32(4));
+			}
+			return commessa;
 		}
 
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = @"(localdb)\MSSQLOCALDB";
+            builder.DataSource = @"(localdb)\MSSQLLocalDB";
             builder.InitialCatalog = "GeTime";
             SqlConnection conn = new SqlConnection(builder.ToString());
             try{ 
@@ -76,15 +91,16 @@ namespace DAO{
 				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value=idUtente;
 				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
 				cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
-				cmd.ExecuteNonQuery();
+				cmd.ExecuteNonQuery();	
 				cmd.Dispose();
-            }catch (Exception e) {
+            } catch (SqlException e) {
+                throw new Exception(e.Message);
+            } catch (Exception e) {
                 throw e;
             }finally{ 
                 conn.Dispose();
             }
-		}
-
+        }
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 			builder.DataSource = @"(localdb)\MSSQLLocalDB";
@@ -110,21 +126,29 @@ namespace DAO{
 		public void EliminaCV(CV curriculum) {
 			throw new NotImplementedException();
 		}
-
+		private List<Giorno> TrasformInGiorno(SqlDataReader data) {
+			List<Giorno> list = new List<Giorno>();
+			while(data.Read()){
+				Giorno giorno = new Giorno(data.GetDateTime(1));
+				giorno.IdGiorno=data.GetInt32(0);
+				giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3),data.GetInt32(2),data.GetString(4),data.GetString(5)));
+				list.Add(giorno);
+			}
+			return list;
+		}
 		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
-			List<Giorno> giorni = new List<Giorno>();
-			Commessa com = new Commessa(10,"GeTime","Progetto GeTime", 50,0);
-			DateTime data = DateTime.Today;
-			Giorno giorno = new Giorno(data, 0, 0, 0, "11");
-			giorno.AddOreCommessa(new OreCommessa(10,2,com.Nome,com.Descrizione));
-			giorni.Add(giorno);
-			giorno = new Giorno(data.AddDays(-1), 0, 0, 0, "9");
-			giorno.AddOreCommessa(new OreCommessa(11, 2, com.Nome, com.Descrizione));
-			giorni.Add(giorno);
-			giorni.Add(new Giorno(data.AddDays(-1), 0,0,0,"11"));
-			giorno.AddOreCommessa(new OreCommessa(13, 2, com.Nome, com.Descrizione));
-			giorni.Add(giorno);
-			return giorni;
+			try{
+				SqlParameter[] parameter = new SqlParameter[2];
+				parameter[0]= new SqlParameter("@idC",System.Data.SqlDbType.Int);
+				parameter[0].Value=idCommessa;
+				parameter[1] = new SqlParameter("@idU", System.Data.SqlDbType.Int);
+				parameter[1].Value=idUtente;
+				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", TrasformInGiorno,parameter,"GeTime");
+			}catch(SqlException e){
+				throw new Exception(e.Message);
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
 		public void Iscriviti(int idCorso,int idStudente) {
@@ -176,17 +200,44 @@ namespace DAO{
 		}
 
 		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
-            Giorno result;
-            Commessa commessa1 = new Commessa(1, "MVC", "lavorato su proj mvc", 40, 2);
-            Commessa commessa2 = new Commessa(2, "Rubrica", "lavorato su Rubrica.cs", 40, 1);
-            Commessa commessa3 = new Commessa(3, "EF", "lavorato su proj ef", 30, 1);
-            OreCommessa orecommessa1 = new OreCommessa(1, commessa1.OreLavorate, commessa1.Nome, commessa1.Descrizione);
-            OreCommessa orecommessa2 = new OreCommessa(2, commessa2.OreLavorate, commessa2.Nome, commessa2.Descrizione);
-            OreCommessa orecommessa3 = new OreCommessa(3, commessa3.OreLavorate, commessa3.Nome, commessa3.Descrizione);
-            result = new Giorno(data, 2, 2, 0, idUtente);
-            result.AddOreCommessa(orecommessa1);
-            result.AddOreCommessa(orecommessa2);
-            result.AddOreCommessa(orecommessa3);
+            Giorno result = null;
+            SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder();
+            scsb.DataSource= @"(localdb)\MSSQLLocalDB";
+            scsb.InitialCatalog="GeTime";
+            SqlConnection connection = new SqlConnection(scsb.ToString());
+            try {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SP_VisualizzaGiorno",connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.Add("@Data", System.Data.SqlDbType.Date).Value = data.ToString("yyyy-MM-dd");
+                command.Parameters.Add("@IdUtente", System.Data.SqlDbType.NVarChar).Value = idUtente;
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) {
+                    result = new Giorno(data);
+                    do {
+                        switch (reader.GetInt32(0)) {
+                            case 1:
+                                result.HMalattia = reader.GetInt32(1);
+                                break;
+                            case 2:
+                                result.HPermesso = reader.GetInt32(1);
+                                break;
+                            case 3:
+                                result.HFerie = reader.GetInt32(1);
+                                break;
+                            case 4:
+                                result.AddOreLavorative(new OreLavorative(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
+                                break;
+                        }
+                    } while(reader.Read());
+                }
+                reader.Close();
+                command.Dispose();
+            } catch (Exception e) {
+                throw e;
+            } finally {
+                connection.Dispose();
+            }
             return result;
 		}
 	}
