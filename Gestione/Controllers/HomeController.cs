@@ -154,11 +154,9 @@ namespace Gestione.Controllers {
 			}
 			return View("ElencoCorsi");
 		}
-		public ActionResult ModificaLezione()
+		public ActionResult ModificaLezione(Lezione lezione)
 		{
-			ViewBag.CorsoId=1;
-			DomainModel dm = new DomainModel();
-			ViewBag.Lezione= new Lezione{Id=1,Nome="Ciao",Descrizione="sono un mock",Durata=4};
+			ViewBag.Lezione = lezione;
 			return View();
 		}
 		[HttpPost]

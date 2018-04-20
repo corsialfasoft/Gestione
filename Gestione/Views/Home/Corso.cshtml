@@ -22,6 +22,7 @@
                 <span class="Lezione_Nome">
                     @lezioni.Descrizione
                     @lezioni.Durata
+                    @Html.ActionLink("Modifica","ModificaLezione",new {idCorso=ViewBag.Corso.Id },new {Lezione = lezioni } )
                 </span>
             </li>
             }
