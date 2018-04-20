@@ -95,7 +95,7 @@ namespace DAO{
 				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=studi.AnnoFine;
 				command.Parameters.Add("@Titolo",SqlDbType.VarChar).Value=studi.Titolo;
 				command.Parameters.Add("@Descrizione",SqlDbType.VarChar).Value=studi.Descrizione;
-				command.Parameters.Add("@IdCv",SqlDbType.NVarChar).Value=MatrCv;
+				command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
 				 x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 
@@ -118,7 +118,7 @@ namespace DAO{
 				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
 				command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.Qualifica;
 				command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.Descrizione;
-				command.Parameters.Add("@matr",SqlDbType.Int).Value=MatrCv;
+				command.Parameters.Add("@matr",SqlDbType.NVarChar).Value=MatrCv;
                 int x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 

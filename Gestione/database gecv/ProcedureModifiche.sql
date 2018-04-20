@@ -1,4 +1,4 @@
-﻿create procedure ModEspLav
+﻿alter procedure ModEspLav
 	@matricola nvarchar(10),
 	@annoIdaMod int, @annoFdaMod int,
 	@qualificaDaMod nvarchar(50),
@@ -26,7 +26,7 @@ as
 			end
 go
 
-create procedure ModPerStud
+Alter procedure ModPerStud
 	@matricola nvarchar(10),
 	@annoIdaMod int, @annoFdaMod int,
 	@titoloDaMod nvarchar(50),
@@ -54,7 +54,7 @@ as
 			end
 go
 
-create procedure ModComp
+alter procedure ModComp
 	@matricola nvarchar(10),
 	@titoloDaMod nvarchar(50),
 	@livDaMod int , 
@@ -67,7 +67,6 @@ as
 		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
 	else
 		begin 
-			begin transaction 
 			declare @idComp int;
 			set @idComp = (select c.IdCs from Competenze c where c.Tipo= @titoloDaMod and c.Livello=@livDaMod and c.IdCv=@idcurr);
 			if @idComp is null
