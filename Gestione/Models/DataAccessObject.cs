@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Runtime.Serialization;
 using Interfaces;
+using LibreriaDB;
 
 namespace DAO{
 	public interface IDao{
@@ -21,10 +25,12 @@ namespace DAO{
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
+        
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
+		void ModLezione(Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
         void Iscriviti (int idCorso, string idStudente);
 
@@ -38,137 +44,157 @@ namespace DAO{
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
         List<Corso>ListaCorsi(string idUtente);
+		//mostra tutte le lezioni associate a un corso
+		List<Lezione> ListaLezioni(Corso corso);
     }
+	
 	public partial class DataAccesObject : IDao {
-		public void AddCorso(Corso corso) {}
-
-		public void AddLezione(int idCorso,Lezione lezione) {
-			throw new NotImplementedException();
+		ITrasformer transf = new Trasformator();
+		public List<Lezione> ListaLezioni(Corso corso){
+			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
+			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param,"GeCorsi");
 		}
-
+		public void AddCorso(Corso corso) {
+			SqlParameter[] param = {
+				new SqlParameter("@nome", corso.Nome),
+				new SqlParameter("@descrizione", corso.Descrizione),
+				new SqlParameter("@dInizio", corso.Inizio),
+				new SqlParameter("@dFine", corso.Fine)
+			};
+			int RowAffected = DB.ExecNonQProcedure("AddCorso", param,"GeCorsi");
+			if(RowAffected == 0){
+				throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
+			}
+		}
+		public void AddLezione(int idCorso,Lezione lezione) {
+			SqlParameter[] param = {
+				new SqlParameter ("@idCorsi", idCorso),
+				new SqlParameter ("@nome", lezione.Nome),
+				new SqlParameter("@descrizione", lezione.Descrizione),
+				new SqlParameter("@durata", lezione.Durata)
+			};
+			int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
+			if(RowAffected == 0){
+				throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
+			}
+		}
+			public void ModLezione(Lezione lezione)
+		{
+			SqlParameter[] param = {
+				new SqlParameter("@idLezione",lezione.Id),
+				new SqlParameter("@nome",lezione.Nome),
+				new SqlParameter("@descrizione",lezione.Descrizione),
+				new SqlParameter("@durata",lezione.Durata)
+			};
+			int RowAffected =DB.ExecNonQProcedure("ModLezione",param,"GeCorsi",@"(localdb)\MSSQLLocalDB");
+			if (RowAffected == 0) {
+				throw new LezionNonModificataException("Non hai modificato la lezione");
+			}
+		}
 		public void AggiungiCV(CV a) {
 			throw new NotImplementedException();
 		}
-
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
 		}
-
 		public Commessa CercaCommessa(string nomeCommessa) {
 			throw new NotImplementedException();
 		}
-
 		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
 			throw new NotImplementedException();
 		}
-
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente) {
 			throw new NotImplementedException();
 		}
-
 		public void EliminaCV(CV curriculum) {
 			throw new NotImplementedException();
 		}
-
 		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente) {
 			throw new NotImplementedException();
 		}
-
-
-		public List<Corso> ListaCorsi() {
-			Corso c = new Corso();
-			c.Nome = "c#";
-			c.Descrizione= "Corso di programmazione su Asp.Net";
-			c.Id = 1 ;
-			Corso d = new Corso();
-			d.Nome= "Java";
-			d.Descrizione= "Corso alla proggrammazione OO";
-			d.Id=2;
-			Corso e = new Corso();
-			e.Nome = "Javascripppto";
-			e.Descrizione ="Corso alla programazione su javascripttto";
-			e.Id = 3;
-			List<Corso> result = new List<Corso>();
-			result.Add(c);
-			result.Add(d);
-			result.Add(e);
-			return result;
+		public List<Corso> ListaCorsi() {		   
+			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null,"GeCorsi");       
 		}
-
 		public List<Corso> ListaCorsi(string idUtente) {
-			Corso c = new Corso();
-			c.Nome = "c#";
-			c.Descrizione= "Corso di cerca idutente programmazione su Asp.Net";
-			c.Id = 1 ;
-			Corso d = new Corso();
-			d.Nome= "Java";
-			d.Descrizione= "Corso alla c proggrammazione OO cerca idutente";
-			d.Id=2;
-			Corso e = new Corso();
-			e.Nome = "Javascripppto";
-			e.Descrizione ="Corso alla programazione su javascripttto cerca idutente";
-			e.Id = 3;
-			List<Corso> result = new List<Corso>();
-			result.Add(c);
-			result.Add(d);
-			result.Add(e);
-			return result;
+			SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
+			return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInListaCorso,param,"GeCorsi");
 		}
-
 		public void ModificaCV(CV a,CV b) {
 			throw new NotImplementedException();
 		}
-
 		public CV Search(string id) {
 			throw new NotImplementedException();
 		}
-
 		public List<CV> SearchChiava(string chiava) {
 			throw new NotImplementedException();
 		}
-
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
-		}
-
+		}      
 		public Corso SearchCorsi(int idCorso) {
-			List<Lezione> leziones = new List<Lezione>();
-			Lezione l = new Lezione("mock");
-			leziones.Add(l);
-			return 	new Corso(1,"sto descrivendo questo corso", leziones);
+			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
+			return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param,"GeCorsi");
+		}		
+		public void Iscriviti(int idCorso,string idStudente) {
+			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
+			DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
 		}
-		
-		public void Iscriviti(int idCorso,string idStudente) {}
-
 		public List<Corso> SearchCorsi(string descrizione) {
-			List<Lezione> leziones = new List<Lezione>();
-			Lezione l = new Lezione("mock");
-			leziones.Add(l);
-			
-			List<Corso> list = new List<Corso>();
-			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
-			return list;
+			SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
+			return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInListaCorso,param, "GeCorsi");
 		}
-
-		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
-			List<Lezione> leziones = new List<Lezione>();
-			Lezione l = new Lezione("mock");
-			leziones.Add(l);
-			List<Corso> list = new List<Corso>();
-			list.Add(new Corso(1,"sto descrivendo questo corso", leziones));
-			return list;
+		public List<Corso> SearchCorsi(string descrizione,string idUtente)  {
+			SqlParameter [] param = {new SqlParameter("@descrizione", descrizione),
+				new SqlParameter("@idStudente", idUtente)};
+			return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInListaCorso,param,"GeCorsi");
 		}
-
 		public List<CV> SearchEta(int eta) {
 			throw new NotImplementedException();
 		}
-
 		public List<CV> SearchRange(int etmin,int etmax) {
 			throw new NotImplementedException();
 		}
-
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
 			throw new NotImplementedException();
+		}
+
+	
+
+		[Serializable]
+		private class LezioneNonAggiuntaException : Exception {
+			public LezioneNonAggiuntaException() {}
+			public LezioneNonAggiuntaException(string message) : base(message) {}
+			public LezioneNonAggiuntaException(string message,Exception innerException) : base(message,innerException){}
+			protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){
+			}
+		}
+		[Serializable]
+		private class CorsoNonAggiuntaException : Exception {
+			public CorsoNonAggiuntaException() {}
+			public CorsoNonAggiuntaException(string message) : base(message) { }
+			public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
+			protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {
+			}
+		}
+	}
+
+	[Serializable]
+	internal class LezionNonModificataException : Exception
+	{
+		public LezionNonModificataException()
+		{
+		}
+
+		public LezionNonModificataException(string message) : base(message)
+		{
+		}
+
+		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException)
+		{
+		}
+
+		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context)
+		{
 		}
 	}
 }

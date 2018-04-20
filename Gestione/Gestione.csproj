@@ -142,24 +142,22 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\GeCoAddCorso.cs" />
-    <Compile Include="Controllers\GeCoAddLezione.cs" />
-    <Compile Include="Controllers\ElencoCorsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="SQL\DB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccessObject.cs" />
-    <Compile Include="Models\GeCoAddCorso.cs" />
     <Compile Include="Models\DomainModel.cs" />
-    <Compile Include="Models\GeCoAddLezione.cs" />
-    <Compile Include="Models\ElencoCorsiModel.cs" />
     <Compile Include="Models\interfaces.cs" />
+    <Compile Include="Models\trasformatori.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="SQL\GeCo.sql" />
+    <Content Include="SQL\stored-procedure.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -180,6 +178,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Content\corso.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -200,6 +199,7 @@
     <Content Include="Views\Home\AddLezione.cshtml" />
     <Content Include="Views\Home\Corso.cshtml" />
     <Content Include="Views\Home\ElencoCorsi.cshtml" />
+    <Content Include="Views\Home\ModificaLezione.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
