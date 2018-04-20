@@ -68,6 +68,13 @@ namespace Gestione.Tests.Controllers {
 			dm.AddCompetenze("GGGGG" , new Interfaces.Competenza{Titolo="Porcospino" , Livello=32});
 			dm.ModComp(new Interfaces.Competenza{Titolo="Porcospino" , Livello=32}, new Interfaces.Competenza{Titolo="Mangiapanino" , Livello=9999} , "GGGGG");
 		 }
+		 [TestMethod]
+		 public void AddPersStud(){
+			HomeController controller = new HomeController();
+			DomainModel dm = new DomainModel();
+			ViewResult vr = controller.DettaglioCurriculum() as ViewResult;
+			controller.AddPerStudi(3,4,"Licenza Media","Ho imparato a parlare","GGGGG");
 
+		 }
     }
 }
