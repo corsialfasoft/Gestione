@@ -169,6 +169,10 @@
     <Content Include="SQL\SP_Compila.sql" />
     <Content Include="SQL\SP_VisualizzaGiorno.sql" />
     <Content Include="SQL\DDLGeTime.sql" />
+    <Content Include="ImgResource\Corso.jpg" />
+    <Content Include="ImgResource\CV.png" />
+    <Content Include="ImgResource\Logo.jpg" />
+    <Content Include="ImgResource\Ore.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
