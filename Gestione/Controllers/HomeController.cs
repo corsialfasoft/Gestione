@@ -30,7 +30,10 @@ namespace Gestione.Controllers
 	public partial class HomeController : Controller
 	{
 		Profilo P;
-		public HomeController()
+        public HomeController(Profilo p) {
+            P = p;
+        }
+        public HomeController()
 		{
 			P = new Profilo("prova","admin",null,"ciao","mazzo");
 		}
@@ -200,5 +203,22 @@ namespace Gestione.Controllers
 			}
 			Response.Redirect($"Corso/{idCorso}");
 		}
-	}
+	
+
+        public ActionResult VisualizzaGiorno() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult VisualizzaGiorno(DateTime data) {
+            DomainModel dm = new DomainModel();
+            DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
+            if (giorno!=null) {
+                ViewBag.giorno = giorno;
+            } else {
+                ViewBag.Message = "Data non trovata!";
+            }
+            return View();
+        }
+    }
 }

@@ -142,13 +142,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DTGiorno.cs" />
+    <Compile Include="Controllers\GeTimeAddGiorno.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="SQL\DB.cs" />
+    <Compile Include="Controllers\VisualizzaCommessa.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GeTimeAddGiorno.cs" />
     <Compile Include="Models\DataAccessObject.cs" />
     <Compile Include="Models\DomainModel.cs" />
+    <Compile Include="Models\GetimeVisualizzaCommessa.cs" />
     <Compile Include="Models\interfaces.cs" />
     <Compile Include="Models\trasformatori.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,6 +166,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="SQL\SP_Compila.sql" />
+    <Content Include="SQL\SP_VisualizzaGiorno.sql" />
+    <Content Include="SQL\DDLGeTime.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -182,6 +189,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="SQL\SP_VisualizzaCommessa.sql" />
+    <Content Include="SQL\SP_AddHLavoro.sql" />
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -200,6 +210,10 @@
     <Content Include="Views\Home\Corso.cshtml" />
     <Content Include="Views\Home\ElencoCorsi.cshtml" />
     <Content Include="Views\Home\ModificaLezione.cshtml" />
+    <Content Include="Views\Home\AddGiorno.cshtml" />
+    <Content Include="Views\Home\VisualizzaCommessa.cshtml" />
+    <Content Include="Views\Home\VisualizzaGiorno.cshtml" />
+    <Content Include="Views\Home\GeTimeHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -216,6 +230,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibreriaDB\LibreriaDB.csproj">
+      <Project>{7eb39dd4-ccbf-4514-b216-c48782df8b88}</Project>
+      <Name>LibreriaDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
