@@ -142,6 +142,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EspLav.cs" />
+    <Compile Include="Controllers\ControllerComp.cs" />
+    <Compile Include="Controllers\GeCVModPerStudi.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchCV1.cs" />
     <Compile Include="Global.asax.cs">

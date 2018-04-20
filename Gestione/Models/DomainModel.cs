@@ -84,13 +84,26 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		public void ModificaCV(CV a,CV b) ///////////////////////////
-		{
-			DataAccesObject doo = new DataAccesObject();
-            doo.ModificaCV(a,b);
+        public void ModEspLav(string MatrCv,EspLav espV,EspLav esp) {
+            dao.ModEspLav(MatrCv,espV,esp);
+        }
+
+		public void ModComp(Competenza daMod,Competenza Mod,string matricola) {
+			dao.ModComp(matricola,daMod,Mod);
+
 		}
 
-		public CV Search(string id)
+		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr)
+		{
+			DataAccesObject doo = new DataAccesObject();
+            doo.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
+		}
+
+        public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod) {
+            dao.ModPerStudi(matricola,daMod,Mod);
+        }
+
+        public CV Search(string id)
 		{
 			DataAccesObject dao = new DataAccesObject();
 			return dao.Search(id);
