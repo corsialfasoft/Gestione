@@ -45,6 +45,9 @@ namespace Gestione.Controllers {
         public ActionResult ModEspLav() {
             return View();
         }
+		public ActionResult ModComp(){
+			return View();
+		}
 
         public CV InitForseCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
             CV cv = new CV();
@@ -104,7 +107,30 @@ namespace Gestione.Controllers {
             return View("ModEspLav");
         }
 
-        private EspLav InitEspLav(int annoinizio,int annofine,string qualifica,string descrizione) {
+		[HttpPost]
+		public ActionResult PassaComp(string tipo, int livello){
+			ViewBag.Comp= InitComp(tipo, livello);
+			return View("ModComp");
+		}
+		[HttpPost]
+		public ActionResult ModificaCompetenza(string tipo , int livello){
+			Competenza c = new Competenza();
+			c = InitComp(tipo,livello);
+			Competenza daMod = ViewBag.Comp as Competenza;
+			string matr = (Session["profile"] as Profilo).Matricola;//
+			dm.ModComp(daMod,c,matr);
+			ViewBag.Comp = c;
+			return View ("ModComp");
+		}
+
+		private Competenza InitComp(string tipo,int livello) {
+			Competenza c = new Competenza();
+			c.Titolo=tipo;
+			c.Livello=livello;
+			return c;
+		}
+
+		private EspLav InitEspLav(int annoinizio,int annofine,string qualifica,string descrizione) {
             EspLav esp = new EspLav();
             esp.AnnoInizio = annoinizio;
             esp.AnnoFine = annofine;
