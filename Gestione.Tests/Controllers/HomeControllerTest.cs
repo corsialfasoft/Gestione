@@ -127,21 +127,24 @@ namespace Gestione.Tests.Controllers {
 			result.ViewBag.CorsiStudente = corso;
 			Assert.IsInstanceOfType(result.ViewBag.CorsiStudente, typeof(List<Corso>) );
 		}
-		[TestMethod]
-		public void ModificaLezione()
-		{
-			DomainModel dm = new DomainModel();
-			HomeController controller = new HomeController();
-			int idCorso = 1;
-			Lezione a =new Lezione {Nome="javahahahaha",Descrizione="java avanzato",Durata=9 };
-			dm.AddLezione(1,a);
-			Corso corso = dm.SearchCorsi(idCorso);
-			List<Lezione> lezioni = dm.ListaLezioni(corso);
-			var query = from lez in lezioni
-						where lez.Nome == "javahahahaha"
-						select lez;
-			int idLezione= query.First().Id;
-		   ActionResult result= controller.ModificaLezione("Maremma",idLezione,"Mamma",10,1 );
-		}
+		//[TestMethod]
+		//public void ModificaLezione()
+		//{ TO DO, BISOGNA CREARE UN CONTESTO
+		//	DomainModel dm = new DomainModel();
+		//	HomeController controller = new HomeController();
+		//	int idCorso = 1;
+		//	Lezione a =new Lezione {Nome="Omnes",Descrizione="java avanzato",Durata=9 };
+		//	dm.AddLezione(1,a);
+		//	Corso corso = dm.SearchCorsi(idCorso);
+		//	List<Lezione> lezioni = dm.ListaLezioni(corso);
+		//	var query = from lez in lezioni
+		//				where lez.Nome == "Omnes"
+		//				select lez;
+		//	int idLezione= query.Last().Id;
+		//	ViewResult result = controller.ModificaLezione(a.Nome,idLezione,a.Descrizione,a.Durata,1) as ViewResult;
+		//	controller.ModificaLezionePost("Servabit","ille",8,idLezione,1);
+		//	List<Lezione> lezioniModificata = dm.ListaLezioni(corso);
+		//	Assert.IsTrue(lezioniModificata.Last() != a);
+		//}
 	}
 }

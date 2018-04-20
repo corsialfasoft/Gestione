@@ -183,7 +183,7 @@ namespace Gestione.Controllers
 			return View();
 		}
 		[HttpPost]
-		public void ModificaLezione(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int idCorso)
+		public void ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int idCorso)
 		{
 			DomainModel dm = new DomainModel();
 			Lezione lezione = new Lezione {
