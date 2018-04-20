@@ -155,4 +155,4 @@ as
 	Update Lezioni 
 	set nome=@nome,descrizione=@descrizione,durata=@durata
 	where id=@idLezione;
-go;
+go
