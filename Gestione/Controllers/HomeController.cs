@@ -45,6 +45,9 @@ namespace Gestione.Controllers {
         public ActionResult ModEspLav() {
             return View();
         }
+		public ActionResult ModComp(){
+			return View();
+		}
         public ActionResult ModPerStud() {
             return View();
         }
@@ -109,6 +112,30 @@ namespace Gestione.Controllers {
             return View("ModEspLav");
         }
 
+		[HttpPost]
+		public ActionResult PassaComp(string tipo, int livello){
+			ViewBag.Comp= InitComp(tipo, livello);
+			return View("ModComp");
+		}
+		[HttpPost]
+		public ActionResult ModificaCompetenza(string tipo , int livello){
+			Competenza c = new Competenza();
+			c = InitComp(tipo,livello);
+			Competenza daMod = ViewBag.Comp as Competenza;
+			string matr = (Session["profile"] as Profilo).Matricola;//
+			dm.ModComp(daMod,c,matr);
+			ViewBag.Comp = c;
+			return View ("ModComp");
+		}
+
+		private Competenza InitComp(string tipo,int livello) {
+			Competenza c = new Competenza();
+			c.Titolo=tipo;
+			c.Livello=livello;
+			return c;
+		}
+
+		private EspLav InitEspLav(int annoinizio,int annofine,string qualifica,string descrizione) {
         [HttpPost]
         public ActionResult PassaPerStud(int annoInizio,int annoFine,string titolo,string descrizione) {
             ViewBag.Percorso = InitPercorso(annoInizio,annoFine,titolo,descrizione);
