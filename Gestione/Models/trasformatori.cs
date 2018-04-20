@@ -23,13 +23,14 @@ namespace DAO{
 		public Corso TrasformInCorso(SqlDataReader data){
 			Corso output = null;
 			if(data.Read()){
-					 output = new Corso();
-					output.Id = data.GetInt32(0);
-					output.Nome = data.GetString(1);
-					output.Descrizione = data.GetString(2);
-					output.Inizio = data.GetDateTime(3);
-					output.Fine = data.GetDateTime(4);					
-					}
+				output = new Corso {
+					Id = data.GetInt32(0),
+					Nome = data.GetString(1),
+					Descrizione = data.GetString(2),
+					Inizio = data.GetDateTime(3),
+					Fine = data.GetDateTime(4)
+				};
+			}
 		return output;
 		}	
 		public List<Corso> TrasformInListaCorso(SqlDataReader data){
