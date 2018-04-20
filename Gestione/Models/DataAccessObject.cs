@@ -25,6 +25,7 @@ namespace DAO{
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
+
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
@@ -32,7 +33,6 @@ namespace DAO{
 		void ModLezione(Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
         void Iscriviti (int idCorso, string idStudente);
-
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
