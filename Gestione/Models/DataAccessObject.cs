@@ -77,7 +77,7 @@ namespace DAO{
 				throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
 			}
 		}
-			public void ModLezione(Lezione lezione)
+		public void ModLezione(Lezione lezione)
 		{
 			SqlParameter[] param = {
 				new SqlParameter("@idLezione",lezione.Id),
@@ -111,47 +111,29 @@ namespace DAO{
 		}
 
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = @"(localdb)\MSSQLLocalDB";
-            builder.InitialCatalog = "GeTime";
-            SqlConnection conn = new SqlConnection(builder.ToString());
             try{ 
-				conn.Open();
-				SqlCommand cmd = new SqlCommand("SP_Compila", conn);
-				cmd.CommandType = System.Data.CommandType.StoredProcedure;
-				cmd.Parameters.Add("@giorno", System.Data.SqlDbType.Date).Value=data.ToString("yyyy-MM-dd");
-				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value=idUtente;
-				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value=ore;
-				cmd.Parameters.Add("@TipoOre", System.Data.SqlDbType.Int).Value=(int)tipoOre;
-				cmd.ExecuteNonQuery();	
-				cmd.Dispose();
+                SqlParameter[] parameters = new SqlParameter[4];
+                parameters[0] = new SqlParameter("@giorno", System.Data.SqlDbType.Date); parameters[0].Value=data.ToString("yyyy-MM-dd");
+                parameters[1] = new SqlParameter("@idUtente", System.Data.SqlDbType.NVarChar); parameters[1].Value=idUtente;
+                parameters[2] = new SqlParameter("@ore", System.Data.SqlDbType.Int); parameters[2].Value=ore;
+                parameters[3] = new SqlParameter("@TipoOre", System.Data.SqlDbType.Int); parameters[3].Value=(int)tipoOre;
+				DB.ExecNonQProcedure("SP_Compila", parameters, "GeTime");
             } catch (SqlException e) {
                 throw new Exception(e.Message);
             } catch (Exception e) {
                 throw e;
-            }finally{ 
-                conn.Dispose();
             }
         }
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource = @"(localdb)\MSSQLLocalDB";
-			builder.InitialCatalog = "GeTime";
-			SqlConnection connection = new SqlConnection(builder.ToString());
 			try {
-				connection.Open();
-				SqlCommand cmd = new SqlCommand("SP_AddHLavoro", connection);
-				cmd.CommandType = System.Data.CommandType.StoredProcedure;
-				cmd.Parameters.Add("@data", System.Data.SqlDbType.Date).Value = data;
-				cmd.Parameters.Add("@ore", System.Data.SqlDbType.Int).Value = ore;
-				cmd.Parameters.Add("@idCommessa", System.Data.SqlDbType.Int).Value = idCommessa;
-				cmd.Parameters.Add("@idUtente", System.Data.SqlDbType.NVarChar).Value = idUtente;
-				cmd.ExecuteNonQuery();
-				cmd.Dispose();
+                SqlParameter[] parameters = new SqlParameter[4];
+                parameters[0] = new SqlParameter("@data", System.Data.SqlDbType.Date); parameters[0].Value = data.ToString("yyyy-MM-dd");
+                parameters[1] = new SqlParameter("@ore", System.Data.SqlDbType.Int); parameters[1].Value = ore;
+                parameters[2] = new SqlParameter("@idCommessa", System.Data.SqlDbType.Int); parameters[2].Value = idCommessa;
+                parameters[3] = new SqlParameter("@idUtente", System.Data.SqlDbType.NVarChar); parameters[3].Value = idUtente;
+                DB.ExecNonQProcedure("SP_AddHLavoro", parameters, "GeTime");
 			} catch (Exception e){
 				throw e;
-			}finally{
-				connection.Close();
 			}
 		}
 
@@ -216,50 +198,22 @@ namespace DAO{
 		}
 
 		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
-            Giorno result = null;
-            SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder();
-            scsb.DataSource= @"(localdb)\MSSQLLocalDB";
-            scsb.InitialCatalog="GeTime";
-            SqlConnection connection = new SqlConnection(scsb.ToString());
             try {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SP_VisualizzaGiorno",connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.Add("@Data", System.Data.SqlDbType.Date).Value = data.ToString("yyyy-MM-dd");
-                command.Parameters.Add("@IdUtente", System.Data.SqlDbType.NVarChar).Value = idUtente;
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read()) {
-                    result = new Giorno(data);
-                    do {
-                        switch (reader.GetInt32(0)) {
-                            case 1:
-                                result.HMalattia = reader.GetInt32(1);
-                                break;
-                            case 2:
-                                result.HPermesso = reader.GetInt32(1);
-                                break;
-                            case 3:
-                                result.HFerie = reader.GetInt32(1);
-                                break;
-                            case 4:
-                                result.AddOreLavorative(new OreLavorative(reader.GetInt32(4), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
-                                break;
-                        }
-                    } while(reader.Read());
-                }
-                reader.Close();
-                command.Dispose();
+                SqlParameter[] parameter = new SqlParameter[2];
+                parameter[0] = new SqlParameter("@Data", SqlDbType.Date);
+                parameter[0].Value = data.ToString("yyyy-MM-dd"); 
+                parameter[1] = new SqlParameter("@IdUtente", SqlDbType.NVarChar);
+                parameter[1].Value = idUtente;
+                Giorno result = DB.ExecQProcedureReader("SP_VisualizzaGiorno", transf.TeasformInGiorno, parameter, "GeTime");
+                if(result!=null)
+                    result.Data=data;
+                return result;
             } catch (Exception e) {
                 throw e;
-            } finally {
-                connection.Dispose();
-            }
-            return result;
+            } 
 		}
 
-	
-
-		[Serializable]
+        [Serializable]
 		private class LezioneNonAggiuntaException : Exception {
 			public LezioneNonAggiuntaException() {}
 			public LezioneNonAggiuntaException(string message) : base(message) {}
