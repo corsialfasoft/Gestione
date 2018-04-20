@@ -6,7 +6,7 @@ using System.Data;
 
 namespace DAO{
 	public interface IDao{
-		void ModificaCV(CV a, CV b); //modifica un curriculum nel db
+		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
 		CV Search(string id); //search di un curriculum per id di un curriculum
@@ -194,7 +194,39 @@ namespace DAO{
 		public List<Corso> ListaCorsi(int idUtente) {
 			throw new NotImplementedException();
 		}
-		public List<CV> SearchChiava(string chiava) {
+        private string GetConnectinoCv() {
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(){ 
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                InitialCatalog = "GeCv"
+            };
+            return builder.ToString();
+        }
+        public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr) {
+            SqlConnection con = new SqlConnection (GetConnectinoCv());
+            try{ 
+                con.Open();
+                SqlCommand cmd = new SqlCommand ("ModificaCV",con){ CommandType = CommandType.StoredProcedure};
+                cmd.Parameters.Add("@matr",SqlDbType.NVarChar).Value = matr;
+                cmd.Parameters.Add("@nome",SqlDbType.VarChar).Value = nome;
+                cmd.Parameters.Add("@cognome",SqlDbType.VarChar).Value = cognome;
+                cmd.Parameters.Add("@eta",SqlDbType.Int).Value = eta;
+                cmd.Parameters.Add("@email",SqlDbType.NVarChar).Value = email;
+                cmd.Parameters.Add("@residenza",SqlDbType.VarChar).Value = residenza;
+                cmd.Parameters.Add("@telefono",SqlDbType.NVarChar).Value = telefono;
+                int x = cmd.ExecuteNonQuery();
+                cmd.Dispose();
+                if(x==0){
+                    throw new Exception();      
+                }
+            }catch(Exception e){ 
+                throw e;        
+            }finally{ 
+                con.Dispose();    
+            }
+
+        }
+
+        public List<CV> SearchChiava(string chiava) {
 			List<CV> trovati = new List<CV>();
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
 				DataSource = @"(localdb)\MSSQLLocalDB",

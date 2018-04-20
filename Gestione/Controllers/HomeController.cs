@@ -67,6 +67,20 @@ namespace Gestione.Controllers {
             return View(prossimo);
         }
 
+        [HttpPost]
+        public ActionResult ModificaCv(string nome,string cognome,int eta,string email,string residenza,string telefono){
+            try{
+               // if(Session["profilo"]!=null){ 
+                 //   string matr = (Session["profilo"] as Profilo).Matricola;
+                    dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,"CCCC");   
+                    ViewBag.Message = "Dati anagrafici modificati modificato";
+                //}
+            }catch(Exception){ 
+                ViewBag.Message = "SI è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
+            }
+            return View("DettCv");
+        }
+
         private CV InitCV(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
@@ -141,44 +155,5 @@ namespace Gestione.Controllers {
             }
         }
 
-        [HttpPost]
-        public ActionResult ModificaCurriculum(string nome,string cognome,string eta,
-            string email,string residenza,string telefono,string annoinizio,string annofine,
-            string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
-            string descrizionesp,string tipo,string livello,string id
-            ) {
-			DomainModel dm = new DomainModel();
-			Profilo P = new Profilo();
-			P.Matricola="AAAA"; // aggiunto a caso per testare salva modifiche!
-            try{
-                if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
-                    && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
-                    && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
-                    if(int.TryParse(eta, out int Eta)){
-						ViewBag.CV = dm.Search(P.Matricola);
-                        dm.ModificaCV(dm.Search(P.Matricola),
-                            InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,annofine,titolo,descrizione,
-                            annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
-                        ViewBag.Message = "Curriculum Modificato";
-                        return View("MyPage");
-                    } else {
-		        	    CV trovato = dm.Search(P.Matricola);
-                         ViewBag.CV = trovato;
-                        ViewBag.Message = "Eta' non valida";
-                        return View("DettaglioCurriculum");
-                    }
-                } else {
-			        CV trovato = dm.Search(P.Matricola);
-                    ViewBag.CV = trovato;
-                    ViewBag.Message = "Campi obbligatori da inserire...";
-                    return View("DettaglioCurriculum");
-                }
-            } catch(Exception) {
-			    CV trovato = dm.Search(P.Matricola);
-                ViewBag.CV = trovato;
-                ViewBag.Message = "Qualcosa è andato storto.";
-                return View("DettaglioCurriculum");
-            }
-        }
     }
 }

@@ -50,6 +50,13 @@ namespace Gestione.Tests.Controllers {
 			Assert.IsTrue(result.ViewBag.CV.Count==1);
 		}
         [TestMethod]
+		public void ModificaCv()
+		{
+			HomeController controller = new HomeController();
+			ViewResult result = controller.ModificaCv("Sotto","Caga",66,"iCazzi@mia.fuck","Via leMani dal Naso","9999") as ViewResult;
+			Assert.IsTrue(result.ViewBag.Message == "Dati anagrafici modificati modificato");
+		}
+        [TestMethod]
 		public void EliminaCVTest()
 		{
 			HomeController controller = new HomeController();
