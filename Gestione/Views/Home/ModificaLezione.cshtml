@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "ModificaLezione";
 }
-
+<h2>@ViewBag.Message</h2>
 <h2>Modifica lezione.</h2>
 @using(Html.BeginForm("ModificaLezione","Home",FormMethod.Post)) {
     <div class="row">
@@ -20,8 +20,9 @@
     <div class="row">
         <div class="col-md-3">
             <label>Durata</label>
-            <input name="LezDurata" ID="Durata" value="@ViewBag.Lezione.Durata" type="number" required />
-            <input name="idCorso" type="hidden" value="@ViewBag.CorsoId" />
+            <input name="LezDurata" value="@ViewBag.Lezione.Durata" type="number" required />
+            <input name="idCorso" type="hidden" value="@ViewBag.Id" />
+            <input name="idLezione" type="hidden" value="@ViewBag.Lezione.Id" />
         </div>
         <div class="col-md-3">
             <input type="submit" value="Modifica" />

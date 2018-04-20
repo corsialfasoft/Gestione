@@ -86,10 +86,10 @@ namespace Gestione.Models{
                 throw e; 
             }
         }
-		public void ModLezione(int idLezione,Lezione lezione)
+		public void ModLezione(Lezione lezione)
 		{
 			try {
-				dao.ModLezione(idLezione,lezione);
+				dao.ModLezione(lezione);
 			}catch( Exception e) {
 				throw e;
 			}

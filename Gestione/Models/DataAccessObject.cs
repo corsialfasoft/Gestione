@@ -30,7 +30,7 @@ namespace DAO{
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
-		void ModLezione(int idLezione,Lezione lezione);
+		void ModLezione(Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
         void Iscriviti (int idCorso, string idStudente);
 
@@ -78,10 +78,10 @@ namespace DAO{
 				throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
 			}
 		}
-			public void ModLezione(int idLezione,Lezione lezione)
+			public void ModLezione(Lezione lezione)
 		{
 			SqlParameter[] param = {
-				new SqlParameter("@idLezione",idLezione),
+				new SqlParameter("@idLezione",lezione.Id),
 				new SqlParameter("@nome",lezione.Nome),
 				new SqlParameter("@descrizione",lezione.Descrizione),
 				new SqlParameter("@durata",lezione.Durata)
