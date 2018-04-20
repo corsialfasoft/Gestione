@@ -30,6 +30,7 @@ namespace DAO{
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
+		void ModLezione(Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
         void Iscriviti (int idCorso, string idStudente);
 
@@ -75,6 +76,19 @@ namespace DAO{
 			int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
 			if(RowAffected == 0){
 				throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
+			}
+		}
+			public void ModLezione(Lezione lezione)
+		{
+			SqlParameter[] param = {
+				new SqlParameter("@idLezione",lezione.Id),
+				new SqlParameter("@nome",lezione.Nome),
+				new SqlParameter("@descrizione",lezione.Descrizione),
+				new SqlParameter("@durata",lezione.Durata)
+			};
+			int RowAffected =DB.ExecNonQProcedure("ModLezione",param,"GeCorsi",@"(localdb)\MSSQLLocalDB");
+			if (RowAffected == 0) {
+				throw new LezionNonModificataException("Non hai modificato la lezione");
 			}
 		}
 		public void AggiungiCV(CV a) {
@@ -143,6 +157,9 @@ namespace DAO{
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
 			throw new NotImplementedException();
 		}
+
+	
+
 		[Serializable]
 		private class LezioneNonAggiuntaException : Exception {
 			public LezioneNonAggiuntaException() {}
@@ -158,6 +175,26 @@ namespace DAO{
 			public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
 			protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {
 			}
+		}
+	}
+
+	[Serializable]
+	internal class LezionNonModificataException : Exception
+	{
+		public LezionNonModificataException()
+		{
+		}
+
+		public LezionNonModificataException(string message) : base(message)
+		{
+		}
+
+		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException)
+		{
+		}
+
+		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context)
+		{
 		}
 	}
 }

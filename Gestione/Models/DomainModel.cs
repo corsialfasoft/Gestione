@@ -86,6 +86,14 @@ namespace Gestione.Models{
                 throw e; 
             }
         }
+		public void ModLezione(Lezione lezione)
+		{
+			try {
+				dao.ModLezione(lezione);
+			}catch( Exception e) {
+				throw e;
+			}
+		}
 		public void ModificaCV(CV a,CV b) {
 			throw new NotImplementedException();
 		}
