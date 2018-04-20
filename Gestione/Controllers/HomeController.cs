@@ -30,6 +30,10 @@ namespace Gestione.Controllers {
             P = new Profilo("12342","direttore",new List<string>{"Visualizza commessa"},"nauman","aziz");
 
         }
+        public HomeController(Profilo p) {
+            P = p;
+
+        }
         public ActionResult Index() {
             return View();
         }

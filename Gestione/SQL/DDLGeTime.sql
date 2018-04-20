@@ -31,5 +31,27 @@ create table OreLavorative(
 	primary key(idGiorno,idCommessa)
 );
 
+--TestVisualizzaGiorno 
+insert into Giorni(giorno,idUtente) values ('2000-01-01','GeTimeTestVisualizzaGiorno','questo Giorno viene utilizzata per il test')
+declare @idG int = IDENT_CURRENT('Giorni');
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaGiorno','questa commessa viene utilizzata per il test',5)
+declare @idC int = IDENT_CURRENT('Commesse');
+insert into OreLavorativa(idGiorno,idCommessa,ore) values (@idG,@idC,4)
+insert into OreNonLavorativa(tipoOre,ore,idGiorno) values (1,4,@idG)
 
+--TestVisualizzaCommessa 
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaCommessa','questa commessa viene utilizzata per il test',5)
+
+declare @idC1 int = IDENT_CURRENT('Commesse');
+insert into Giorni(giorno,idUtente) values ('2000-01-01','GeTimeTestVisualizzaCommessa','questo Giorno viene utilizzata per il test')
+declare @idG1 int = IDENT_CURRENT('Giorni');
+insert into OreLavorativa(idGiorno,idCommessa,ore) values (@idG1,@idC1,4)
+
+insert into Giorni(giorno,idUtente) values ('2000-01-02','GeTimeTestVisualizzaCommessa','questo Giorno viene utilizzata per il test')
+declare @idG2 int = IDENT_CURRENT('Giorni');
+insert into OreLavorativa(idGiorno,idCommessa,ore) values (@idG2,@idC1,4)
+--TestCompilaOreLavorative
+
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestCompilaOreL','questa commessa viene utilizzata per il test',5)
 drop database GeTime;
+

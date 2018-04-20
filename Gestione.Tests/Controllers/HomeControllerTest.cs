@@ -9,7 +9,7 @@ using Gestione.Controllers;
 
 namespace Gestione.Tests.Controllers {
     [TestClass]
-    public class HomeControllerTest {
+    public partial class HomeControllerTest {
         [TestMethod]
         public void Index() {
             // Arrange
