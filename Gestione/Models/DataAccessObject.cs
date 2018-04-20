@@ -51,7 +51,7 @@ namespace DAO{
 		ITrasformer transf = new Trasformator();
 		public List<Lezione> ListaLezioni(Corso corso){
 			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
-			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param);
+			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param,"GeCorsi");
 		}
 		public void AddCorso(Corso corso) {
 			SqlParameter[] param = {
@@ -60,7 +60,7 @@ namespace DAO{
 				new SqlParameter("@dInizio", corso.Inizio),
 				new SqlParameter("@dFine", corso.Fine)
 			};
-			int RowAffected = DB.ExecNonQProcedure("AddCorso", param);
+			int RowAffected = DB.ExecNonQProcedure("AddCorso", param,"GeCorsi");
 			if(RowAffected == 0){
 				throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
 			}
@@ -72,7 +72,7 @@ namespace DAO{
 				new SqlParameter("@descrizione", lezione.Descrizione),
 				new SqlParameter("@durata", lezione.Durata)
 			};
-			int RowAffected = DB.ExecNonQProcedure("AddLezione", param);
+			int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
 			if(RowAffected == 0){
 				throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
 			}
@@ -99,11 +99,11 @@ namespace DAO{
 			throw new NotImplementedException();
 		}
 		public List<Corso> ListaCorsi() {		   
-			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null);       
+			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null,"GeCorsi");       
 		}
 		public List<Corso> ListaCorsi(string idUtente) {
 			SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
-			return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInListaCorso,param);
+			return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInListaCorso,param,"GeCorsi");
 		}
 		public void ModificaCV(CV a,CV b) {
 			throw new NotImplementedException();
@@ -119,20 +119,20 @@ namespace DAO{
 		}      
 		public Corso SearchCorsi(int idCorso) {
 			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
-			return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param);
+			return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param,"GeCorsi");
 		}		
 		public void Iscriviti(int idCorso,string idStudente) {
 			SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
-			DB.ExecNonQProcedure("Iscrizione",param);
+			DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
 		}
 		public List<Corso> SearchCorsi(string descrizione) {
 			SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
-			return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInListaCorso,param);
+			return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInListaCorso,param, "GeCorsi");
 		}
 		public List<Corso> SearchCorsi(string descrizione,string idUtente)  {
 			SqlParameter [] param = {new SqlParameter("@descrizione", descrizione),
 				new SqlParameter("@idStudente", idUtente)};
-			return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInListaCorso,param);
+			return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInListaCorso,param,"GeCorsi");
 		}
 		public List<CV> SearchEta(int eta) {
 			throw new NotImplementedException();
