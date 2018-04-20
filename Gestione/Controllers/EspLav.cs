@@ -15,7 +15,7 @@ namespace Gestione.Controllers {
             dm.ModEspLav(matricola,espV,esp);
             return View("DettalioCurriculum");
         }
-        public ActionResult ModEspLav(int annoInizio, int annoFine, string qualifica, string descrizione, string matricola){
+        public ActionResult AddEspLav(int annoInizio, int annoFine, string qualifica, string descrizione, string matricola){
             EspLav esp = new EspLav{ AnnoInizio=annoInizio,AnnoFine=annoFine,Qualifica=qualifica,Descrizione=descrizione};
             dm.AddEspLav(matricola,esp);
             return View("DettalioCurriculum");
