@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ModificaLezione";
+}
+<h2>@ViewBag.Message</h2>
+<h2>Modifica lezione.</h2>
+@using(Html.BeginForm("ModificaLezionePost","Home",FormMethod.Post)) {
+    <div class="row">
+        <div class="col-md-3">  
+            <label>Nome</label>
+            <input  name="LezNome" value="@ViewBag.Lezione.Nome" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label>Descrizione</label>
+            <textarea name="LezDescrizione" value="@ViewBag.Lezione.Descrizione" rows="4" cols="50" required>@ViewBag.Lezione.Descrizione</textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label>Durata</label>
+            <input name="LezDurata" value="@ViewBag.Lezione.Durata" type="number" required />
+            <input name="idCorso" type="hidden" value="@ViewBag.Id" />
+            <input name="idLezione" type="hidden" value="@ViewBag.Lezione.Id" />
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Modifica" />
+        </div>
+        <div>
+            <span class="bottone"> @Html.ActionLink("Elenco corsi","ElencoCorsi","Home")</span>
+            <span classs="badge">
+                @Html.ActionLink("Lista Lezioni","Corso",new { id = ViewBag.CorsoId })
+            </span>
+        </div>
+    </div>
+
+}

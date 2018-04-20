@@ -145,6 +145,7 @@
     <Compile Include="Controllers\DTGiorno.cs" />
     <Compile Include="Controllers\GeTimeAddGiorno.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="SQL\DB.cs" />
     <Compile Include="Controllers\VisualizzaCommessa.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -154,11 +155,14 @@
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\GetimeVisualizzaCommessa.cs" />
     <Compile Include="Models\interfaces.cs" />
+    <Compile Include="Models\trasformatori.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="SQL\GeCo.sql" />
+    <Content Include="SQL\stored-procedure.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -182,6 +186,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Content\corso.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SQL\SP_VisualizzaCommessa.sql" />
     <Content Include="SQL\SP_AddHLavoro.sql" />
     <Content Include="Web.config" />
@@ -198,6 +206,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\AddCorso.cshtml" />
+    <Content Include="Views\Home\AddLezione.cshtml" />
+    <Content Include="Views\Home\Corso.cshtml" />
+    <Content Include="Views\Home\ElencoCorsi.cshtml" />
+    <Content Include="Views\Home\ModificaLezione.cshtml" />
     <Content Include="Views\Home\AddGiorno.cshtml" />
     <Content Include="Views\Home\VisualizzaCommessa.cshtml" />
     <Content Include="Views\Home\VisualizzaGiorno.cshtml" />

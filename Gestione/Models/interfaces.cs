@@ -29,21 +29,23 @@ namespace Interfaces{
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
-        void Iscriviti (int idCorso, int idStudente);
-
+        void Iscriviti (int idCorso, string idStudente);
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, int idUtente);
+        List<Corso>SearchCorsi(string descrizione,	string idUtente);
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(int idUtente);
+        List<Corso>ListaCorsi(string idUtente);
+		//Mostra la lista delle lezioni relative a un corso
+		List<Lezione> ListaLezioni(Corso corso);
+		void ModLezione(Lezione lezione);
     }
     public class Studente{ 
-        public int Id{get;set;}
+        public string Id{get;set;}
         public string Nome{get;set;}
         public string Cognome{get;set;}
     }
@@ -55,12 +57,22 @@ namespace Interfaces{
         public DateTime Fine {get;set;}
         public List<Studente> Studenti{get;set;}
         public List<Lezione> Lezioni{get;set;}
-    }
+		public Corso(){}
+		public Corso(int id,string descrizione, List<Lezione> leziones ){
+			this.Id = id;
+			this.Descrizione = descrizione;
+			this.Lezioni = leziones;
+		}
+	}
     public class Lezione{ 
         public int Id{get;set;}
         public string Nome {get;set;}
         public string Descrizione{get;set;}
         public int Durata{get;set;}
+		public Lezione(){}
+		public Lezione(string nome){
+			this.Nome = nome;
+		}
     }
 	public partial class Giorno {
 		private string _id_utente;
@@ -160,6 +172,4 @@ namespace Interfaces{
         public string titolo;
         public int livello;
     }
-
-
 }
