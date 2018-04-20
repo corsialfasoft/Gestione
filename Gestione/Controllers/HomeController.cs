@@ -69,12 +69,12 @@ namespace Gestione.Controllers {
 
         [HttpPost]
         public ActionResult ModificaCv(string nome,string cognome,int eta,string email,string residenza,string telefono){
-            try{
-               // if(Session["profilo"]!=null){ 
-                 //   string matr = (Session["profilo"] as Profilo).Matricola;
-                    dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,"CCCC");   
+            try{//se si vuoe fare il test commentare le righe dove ci sono le // alle fine e assegnare un valore alla matricola
+               if(Session["profilo"]!=null){ //
+                 string matr = (Session["profilo"] as Profilo).Matricola;//
+                    dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
                     ViewBag.Message = "Dati anagrafici modificati modificato";
-                //}
+                }//
             }catch(Exception){ 
                 ViewBag.Message = "SI è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
             }

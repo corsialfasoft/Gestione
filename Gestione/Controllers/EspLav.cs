@@ -9,14 +9,14 @@ using Interfaces;
 namespace Gestione.Controllers {
     public partial class HomeController : Controller {
         [HttpPost]
-        public ActionResult ModEspLav(int annoInizioV,int annoFineV,string qualificaV,string descrizioneV, int annoInizio, int annoFine, string qualifica, string descrizione, string matricola){ 
-            EspLav espV = new EspLav{ AnnoInizio=annoInizioV,AnnoFine=annoFineV,Qualifica=qualificaV,Descrizione=descrizioneV};
-            EspLav esp = new EspLav{ AnnoInizio=annoInizio,AnnoFine=annoFine,Qualifica=qualifica,Descrizione=descrizione};
+        public ActionResult ModEspLav(int annoInizioVEsp,int annoFineVEsp,string qualificaV,string descrizioneVEsp, int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp, string matricola){ 
+            EspLav espV = new EspLav{ AnnoInizio=annoInizioVEsp,AnnoFine=annoFineVEsp,Qualifica=qualificaV,Descrizione=descrizioneVEsp};
+            EspLav esp = new EspLav{ AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp};
             dm.ModEspLav(matricola,espV,esp);
             return View("DettalioCurriculum");
         }
-        public ActionResult AddEspLav(int annoInizio, int annoFine, string qualifica, string descrizione, string matricola){
-            EspLav esp = new EspLav{ AnnoInizio=annoInizio,AnnoFine=annoFine,Qualifica=qualifica,Descrizione=descrizione};
+        public ActionResult AddEspLav(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp, string matricola){
+            EspLav esp = new EspLav{ AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp};
             dm.AddEspLav(matricola,esp);
             return View("DettalioCurriculum");
         }
