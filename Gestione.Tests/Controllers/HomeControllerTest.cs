@@ -127,5 +127,21 @@ namespace Gestione.Tests.Controllers {
 			result.ViewBag.CorsiStudente = corso;
 			Assert.IsInstanceOfType(result.ViewBag.CorsiStudente, typeof(List<Corso>) );
 		}
+		[TestMethod]
+		public void ModificaLezione()
+		{
+			DomainModel dm = new DomainModel();
+			HomeController controller = new HomeController();
+			int idCorso = 1;
+			Lezione a =new Lezione {Nome="javahahahaha",Descrizione="java avanzato",Durata=9 };
+			dm.AddLezione(1,a);
+			Corso corso = dm.SearchCorsi(idCorso);
+			List<Lezione> lezioni = dm.ListaLezioni(corso);
+			var query = from lez in lezioni
+						where lez.Nome == "javahahahaha"
+						select lez;
+			int idLezione= query.First().Id;
+		   ActionResult result= controller.ModificaLezione("Maremma",idLezione,"Mamma",10,1 );
+		}
 	}
 }
