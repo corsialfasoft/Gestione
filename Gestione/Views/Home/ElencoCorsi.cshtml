@@ -21,20 +21,22 @@
     } else if(@ViewBag.Controllo == false) {
         <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
     }
-    <div>
-        <div class=" container">
-            <ul class="list-group">
-                @foreach(var corso in @ViewBag.Corsi) {
-                    <li class="list-group-item">
-                        <span classs="badge">
-                            @Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })
-                        </span>
-                        @corso.Id  -   @corso.Nome  - @corso.Descrizione
-                    </li>
-                }
-            </ul>
+    @if (@ViewBag.Corsi != null) { 
+        <div>
+            <div class=" container">
+                <ul class="list-group">
+                    @foreach(var corso in @ViewBag.Corsi) {
+                        <li class="list-group-item">
+                            <span classs="badge">
+                                @Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })
+                            </span>
+                            @corso.Id  -   @corso.Nome  - @corso.Descrizione
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
-    </div>
+    }
     <span style="padding-left:15px">@Html.ActionLink("Aggiungi Corso","AddCorso")</span>
     <span style="padding-left:15px">@Html.ActionLink("Elenco corsi","ElencoCorsi")</span>
 </body>
