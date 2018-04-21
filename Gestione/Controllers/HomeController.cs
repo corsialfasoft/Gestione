@@ -24,11 +24,11 @@ namespace Gestione.Controllers {
         public Profilo(){ }
     }
     public partial class HomeController : Controller {
-        Profilo P = new Profilo();
+        Profilo P = new Profilo(); //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 		DomainModel dm = new DomainModel();
 		// Profilo P;
         public HomeController() {
-            P = new Profilo{Matricola="BBBB"};
+            P = new Profilo{Matricola="BBBB"}; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 		}
         public ActionResult ListaCurriculum(){
 			return View();
@@ -77,8 +77,8 @@ namespace Gestione.Controllers {
                 dm.EliminaCV(temp);
                 ViewBag.Message = "Curriculum eliminato con successo";
 				Profilo P = new Profilo();
-				P.Ruolo="admin"; // ATTENZIONE SETTATO SUL CONTROLLER!!!!
-                 if(P.Ruolo=="admin"){ 
+				P.Ruolo="admin"; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+                 if(P.Ruolo=="admin"){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
                     prossimo = "RicercaCurriculum";
                 }else{
                     prossimo = "MyPage";  
@@ -93,8 +93,8 @@ namespace Gestione.Controllers {
         [HttpPost]
         public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
             try{
-               if(Session["profile"]!=null){ //
-                 string matr = (Session["profile"] as Profilo).Matricola;//
+               if(Session["profile"]!=null){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+                 string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
                     dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
                     ViewBag.Message = "Dati anagrafici modificati";
                     return View("MyPage");
@@ -123,7 +123,7 @@ namespace Gestione.Controllers {
 			Competenza c = new Competenza();
 			c = InitComp(tipo,livello);
 			Competenza daMod = Session["competenza"] as Competenza;
-			string matr = (Session["profile"] as Profilo).Matricola;//
+			string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			dm.ModComp(daMod,c,matr);
 			ViewBag.Comp = c;
 			return View ("MyPage");
@@ -205,13 +205,6 @@ namespace Gestione.Controllers {
             }
         }
         
-        //Da  cancellare
-        public ActionResult ModificaPercorsoStudi(int idPercorso) {
-            ViewBag.PercorsoStudi = ViewBag.CV.Percorsostudi[idPercorso];
-            ViewBag.Message = "Per salvare clicca salva modifiche";
-            return View();
-        }
-
         [HttpPost]
         public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,

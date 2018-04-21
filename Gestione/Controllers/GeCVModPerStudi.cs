@@ -8,13 +8,11 @@ using Interfaces;
 
 namespace Gestione.Controllers {
     public partial class HomeController : Controller {
-  
-
         [HttpPost]
         public ActionResult ModPerStud(int annoInizio, int annoFine, string titolo, string descrizione) {
             if(annoFine> annoInizio && titolo.Length>0 && descrizione.Length > 0){
 			    DomainModel dm = new DomainModel();
-                Profilo p = Session["profile"] as Profilo;
+                Profilo p = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
                 //PerStud perSV = new PerStud { AnnoInizio = annoInizioV, AnnoFine= annoFineV,Titolo= titoloV,Descrizione= descrizioneV };
                 PerStud perSN = new PerStud { AnnoInizio = annoInizio, AnnoFine= annoFine,Titolo= titolo,Descrizione= descrizione };
                 PerStud perSV = Session["percorso"] as PerStud;
@@ -32,7 +30,7 @@ namespace Gestione.Controllers {
             int annoInizio = int.Parse(annoinizio);
             if (annoFine > annoInizio && titolo.Length > 0 && descrizione.Length > 0) {
                 DomainModel dm = new DomainModel();
-                Profilo p = Session["profile"] as Profilo;
+                Profilo p = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
                 PerStud perS = new PerStud { AnnoInizio = annoInizio, AnnoFine = annoFine, Titolo = titolo, Descrizione = descrizione };
                 dm.AddCvStudi(p.Matricola, perS);
                 ViewBag.Message="Il percorso studi è stato inserito con successo nel tuo Curriculum!";

@@ -11,7 +11,7 @@ namespace Gestione.Controllers{
         [HttpPost]
         public ActionResult AddComp(string tipo,string livello){
 			Competenza comp = new Competenza();
-            Profilo p = Session["profile"] as Profilo;
+            Profilo p = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			comp.Titolo=tipo;
 			comp.Livello=int.Parse(livello);
 			DomainModel dm = new  DomainModel();

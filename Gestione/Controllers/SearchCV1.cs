@@ -10,12 +10,12 @@ namespace Gestione.Controllers {
 	public partial class HomeController : Controller {
 		public ActionResult MyPage()
 		{
-            ViewBag.Profilo = Session["profile"] as Profilo;
+            ViewBag.Profilo = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			return View();
 		}
 		[HttpPost]
 		public ActionResult MyPage(string id){
-			Profilo P = Session["profile"] as Profilo;
+			Profilo P = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			DomainModel dm = new DomainModel();
 			if (id == P.Matricola || id == null) {
 				id = P.Matricola;
@@ -36,8 +36,8 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult RicercaCurriculum(string chiava,string eta,string etaMin,string etaMax,string cognome)
 		{
-            P.Matricola = "BBBB";
-            Session["profile"] = P;
+            P.Matricola = "BBBB"; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+            Session["profile"] = P; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			List<CV> trovati = new List<CV>();
 			if (chiava != "") {
 				trovati = dm.SearchChiava(chiava);
@@ -65,7 +65,6 @@ namespace Gestione.Controllers {
 				}
 				trovati = dm.SearchRange(etaMinima,etaMassima);
 				if (trovati.Count > 0) {
-					
 					ViewBag.ListaCV= trovati;
 					return View("ListaCurriculum");
 				}

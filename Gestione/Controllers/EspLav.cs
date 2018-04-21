@@ -9,8 +9,7 @@ using Interfaces;
 namespace Gestione.Controllers {
     public partial class HomeController : Controller {
         [HttpPost]
-        public ActionResult ModEspLav(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp){ 
-            //EspLav espV = new EspLav{ AnnoInizio=annoInizioVEsp,AnnoFine=annoFineVEsp,Qualifica=qualificaV,Descrizione=descrizioneVEsp};
+        public ActionResult ModEspLav(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp){
             EspLav esp = new EspLav{ AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp};
             Profilo p = Session["profile"] as Profilo;
             EspLav espV = Session["esperienza"] as EspLav;
