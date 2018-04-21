@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.Serialization;
 using Interfaces;
 using LibreriaDB;
-using System.Data.SqlClient;
-using System.Data;
 
-namespace DAO{
+namespace DAO {
 	public interface IDao{
 		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
@@ -152,10 +149,7 @@ namespace DAO{
 			} catch (Exception e) {
 				throw e;
 			}
-		}
-		public void AggiungiCV(CV a) {
-			throw new NotImplementedException();
-		}
+		}		
         public void AddCvStudi(string MatrCv,PerStud studi) {
 			try{
 				SqlParameter[] parameters = {
