@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gestione.Controllers;
 using Gestione.Models;
+using static Gestione.Controllers.HomeController;
 
 namespace Interfaces{ 
 	public interface IGeCV{
@@ -150,7 +151,6 @@ namespace Interfaces{
 			Capienza = capienza;
 		}
 	}
-
     public class CV {
         public string Matricola {get; set;}
         public string Nome {get; set;}
