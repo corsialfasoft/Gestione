@@ -144,9 +144,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GeCo-Controller.cs" />
     <Compile Include="Controllers\GeTime-Controller.cs" />
+    <Compile Include="Controllers\GeCv-Controller.cs" />
+    <Compile Include="Controllers\dt-gecv.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAOFlo.cs" />
     <Compile Include="Models\DataAccessObject.cs" />
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\interfaces.cs" />
@@ -158,6 +161,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="SQL\DDLGeCo.sql" />
     <Content Include="SQL\SP_GeCo.sql" />
+    <Content Include="database gecv\ddl-gecv.sql" />
+    <Content Include="database gecv\SP-GeCv.sql" />
+    <Content Include="database gecv\test.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -185,6 +191,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -207,6 +216,14 @@
     <Content Include="Views\Home\VisualizzaCommessa.cshtml" />
     <Content Include="Views\Home\VisualizzaGiorno.cshtml" />
     <Content Include="Views\Home\GeTimeHome.cshtml" />
+    <Content Include="Views\Home\DettaglioCurriculum.cshtml" />
+    <Content Include="Views\Home\MyPage.cshtml" />
+    <Content Include="Views\Home\RicercaCurriculum.cshtml" />
+    <Content Include="Views\Home\ListaCurriculum.cshtml" />
+    <Content Include="Views\Home\ModAnag.cshtml" />
+    <Content Include="Views\Home\ModEspLav.cshtml" />
+    <Content Include="Views\Home\ModPerStud.cshtml" />
+    <Content Include="Views\Home\ModComp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

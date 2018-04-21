@@ -12,13 +12,34 @@ namespace Gestione.Models{
 			return dao.ListaLezioni(input);
 		}
 		public void AggiungiCV(CV a) {
+	public partial class DomainModel : IGeCo, IGeCV, IGeTime{
+	DataAccesObject dao = new DataAccesObject();	
+        public void AddCompetenze(string MatrCv,Competenza comp) {
+            dao.AddCompetenze(MatrCv,comp);
+        }
+
+        public void AddCorso(Corso corso)
+		{
 			throw new NotImplementedException();
 		}
-		public void CaricaCV(string path) {
+
+        public void AddCvStudi(string MatrCv,PerStud studi) {
+            dao.AddCvStudi(MatrCv, studi);
+        }
+
+        public void AddEspLav(string MatrCv,EspLav esp) {
+            dao.AddEspLav(MatrCv,esp);
+        }
+
+        public void AddLezione(int idCorso,Lezione lezione)
+		{
 			throw new NotImplementedException();
 		}
-		public void EliminaCV(CV curriculum) {
-			throw new NotImplementedException();
+
+		public void AggiungiCV(CV a)
+		{
+			DataAccesObject doo = new DataAccesObject();
+            doo.AggiungiCV(a);
 		}
 		public void Iscriviti(int idCorso,string idStudente) {
 			try{
@@ -96,8 +117,15 @@ namespace Gestione.Models{
 		public List<CV> SearchCognome(string cognome) {
 			throw new NotImplementedException();
 		}
-		public List<CV> SearchEta(int eta) {
-			throw new NotImplementedException();
+
+		public void EliminaCV(CV curriculum)
+		{
+            DataAccesObject db = new DataAccesObject();
+            try{ 
+                db.EliminaCV(curriculum);
+            }catch(Exception e){ 
+                throw e;    
+            }
 		}
 		public List<CV> SearchRange(int etmin,int etmax) {
 			throw new NotImplementedException();
@@ -124,19 +152,42 @@ namespace Gestione.Models{
             }
             return null;
 		}
-		public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente){
-            try {
-                dao.CompilaHLavoro(data, ore, idCommessa, idUtente);
-            } catch (Exception e) {
-                throw e;
-            }
+
+        public void ModEspLav(string MatrCv,EspLav espV,EspLav esp) {
+            dao.ModEspLav(MatrCv,espV,esp);
         }
-		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
-			try {
-                dao.Compila(data, ore, tipoOre,idUtente);
-			} catch (Exception e) {
-				throw e;
-			}
+
+		public void ModComp(Competenza daMod,Competenza Mod,string matricola) {
+			dao.ModComp(matricola,daMod,Mod);
+
+		}
+
+		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr)
+		{
+			DataAccesObject doo = new DataAccesObject();
+            doo.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
+		}
+
+        public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod) {
+            dao.ModPerStudi(matricola,daMod,Mod);
+        }
+
+        public CV Search(string id)
+		{
+			DataAccesObject dao = new DataAccesObject();
+			return dao.Search(id);
+		}
+
+		public List<CV> SearchChiava(string chiava)
+		{
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchChiava(chiava);
+		}
+
+		public List<CV> SearchCognome(string cognome)
+		{
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchCognome(cognome);
 		}
 		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
 			try{ 
@@ -152,7 +203,37 @@ namespace Gestione.Models{
 			}catch(Exception e){
 				throw e;
 			}
+
+		public Corso SearchCorsi(int idCorso)
+		{
+			throw new NotImplementedException();
 		}
+
+		public List<Corso> SearchCorsi(string descrizione)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<Corso> SearchCorsi(string descrizione,int idUtente)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<CV> SearchEta(int eta)
+		{
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchEta(eta);
+		}
+
+		public List<CV> SearchRange(int etmin,int etmax)
+		{
+			DataAccesObject dao = new DataAccesObject();
+			return dao.SearchRange(etmin,etmax);
+		}
+
+		public Giorno VisualizzaGiorno(DateTime data,int idUtente)
+		{
+			throw new NotImplementedException();
 		public DTCommessa CercaCommessa(string nomeCommessa) {
 			try{ 
 				Commessa commessa = dao.CercaCommessa(nomeCommessa);

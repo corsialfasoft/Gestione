@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Modifica Esperienza Lavorativa";
+}
+<h2>@ViewBag.Title</h2>
+<div class="text-warning">
+    <p>@ViewBag.Message</p>
+</div>
+
+@using(Html.BeginForm("ModEspLav","Home",FormMethod.Post)){
+    <div class="row">
+        <div class="col-md-2">
+            Anno Inizio:
+        </div>
+        <div class="col-md-2">
+            <input id="annoInizioEsp"name="annoInizioEsp" type="number" value="@ViewBag.Esperienza.AnnoInizio" />
+        </div>
+        <div class="col-md-2">
+            Anno Fine:
+        </div>
+        <div class="col-md-2">
+            <input id="annoFineEsp" name="annoFineEsp" type="number" value="@ViewBag.Esperienza.AnnoFine" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            Qualifica*:
+        </div>
+        <div class="col-md-2">
+            <input id="qualifica" name="qualifica" type="text" value="@ViewBag.Esperienza.Qualifica" required/>
+        </div>
+        <div class="col-md-2">
+            Descrizione:
+        </div>
+        <div class="col-md-2">
+            <input id="descrizioneEsp" name="descrizioneEsp" type="text" value="@ViewBag.Esperienza.Descrizione" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input class="btn btn-default" type="submit" value="Modifica">
+        </div>
+    </div>
+}

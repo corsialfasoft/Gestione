@@ -5,7 +5,7 @@ using Gestione.Models;
 
 namespace Interfaces{ 
 	public interface IGeCV{
-		void ModificaCV(CV a, CV b); //modifica un curriculum nel db
+		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
 		CV Search(string id); //search di un curriculum per id di un curriculum
@@ -14,7 +14,13 @@ namespace Interfaces{
 		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
 		void EliminaCV(CV curriculum); //Elimina un CV dal db
 		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
-	}
+        void AddCvStudi(string MatrCv,PerStud studi);
+        void AddEspLav(string MatrCv, EspLav esp);
+        void AddCompetenze(string MatrCv, Competenza comp);
+        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );	
+		void ModComp(Competenza daMod , Competenza Mod , string matricola); // Modifica la singola competenza
+        void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+    }
 	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
 		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
@@ -145,31 +151,37 @@ namespace Interfaces{
 		}
 	}
 
-	public class CV {
-        public string matricola;
-        public string nome;
-        public string cognome;
-        public int eta;
-        public string residenza;
-        public string telefono;
-        public List<EspLav> esperienze;
-        public List<PerStud> percorsostudi;
-        public List<Competenza> competenze;
+    public class CV {
+        public string Matricola {get; set;}
+        public string Nome {get; set;}
+        public string Cognome {get; set;}
+        public int Eta {get; set;}
+        public string Email { get; set;}
+        public string Residenza {get; set;}
+        public string Telefono {get; set;}
+        public List<EspLav> Esperienze {get; set;}
+        public List<PerStud> Percorsostudi {get; set;}
+        public List<Competenza> Competenze {get; set;}
+        public CV(){
+            Esperienze = new List<EspLav>();
+            Percorsostudi = new List<PerStud>();
+            Competenze = new List<Competenza>();
+        }
     }
     public class EspLav {
-        public DateTime AnnoInizio;
-        public DateTime AnnoFine;
-        public string qualifica;
-        public string descrizione;
+        public int AnnoInizio {get; set;}
+        public int AnnoFine {get; set;}
+        public string Qualifica {get; set;}
+        public string Descrizione {get; set;}
     }
     public class PerStud {
-        public DateTime AnnoInizio;
-        public DateTime AnnoFine;
-        public string titolo;
-        public string descrizione;
+        public int AnnoInizio {get; set;}
+        public int AnnoFine {get; set;}
+        public string Titolo {get; set;}
+        public string Descrizione {get; set;}
     }
     public class Competenza {
-        public string titolo;
-        public int livello;
+        public string Titolo {get; set;}
+        public int Livello {get; set;}
     }
 }
