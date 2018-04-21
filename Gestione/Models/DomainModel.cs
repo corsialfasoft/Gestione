@@ -144,10 +144,6 @@ namespace Gestione.Models{
 			return dao.SearchEta(eta);
 		}
 
-		public List<Corso> SearchCorsi(string descrizione,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
 
 
         public void CaricaCV(string path) {
