@@ -28,13 +28,24 @@ namespace Gestione.Models{
 			DataAccesObject dao = new DataAccesObject();
             dao.AggiungiCV(a);
 		}
-		public void Iscriviti(int idCorso,string idStudente) {
-			try{
-				dao.Iscriviti(idCorso,idStudente);
-			}catch(Exception e){				
-				throw e ;
+		public delegate void yes<TInputa,TInputb>(TInputa inputa, TInputb inputb);
+		public void Try<TInputa,TInputb>(yes<TInputa,TInputb> prova, TInputa k, TInputb h) {
+			try{				
+				 prova(k,h);
+				//return res;
+			}catch(Exception e){
+				throw e;
 			}
 		}
+		public void Iscriviti(int idCorso,string idStudente) {
+			Try(dao.Iscriviti,idCorso,idStudente);
+		}
+		//	try{
+		//		dao.Iscriviti(idCorso,idStudente);
+		//	}catch(Exception e){				
+		//		throw e ;
+		//	}
+		//}
 		public void AddLezione(int idCorso, Lezione lezione){			
 			try{
 				dao.AddLezione(idCorso,lezione);
@@ -49,16 +60,17 @@ namespace Gestione.Models{
                 throw e; 
             }
 		}
+		public Corso SearchCorsi(int idCorso){	
+			try{
+				return dao.SearchCorsi(idCorso);
+		}catch(Exception e){ 
+                throw e; 
+           }
+		}
+			
 		public List<Corso> ListaCorsi(){
 			try{
 				return dao.ListaCorsi();
-			}catch(Exception e){ 
-                throw e; 
-            }
-		}
-		public Corso SearchCorsi(int idCorso){			
-			try{
-				return dao.SearchCorsi(idCorso);
 			}catch(Exception e){ 
                 throw e; 
             }
