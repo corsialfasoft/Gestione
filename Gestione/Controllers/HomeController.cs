@@ -79,7 +79,7 @@ namespace Gestione.Controllers {
 				Profilo P = new Profilo();
 				P.Ruolo="admin"; // ATTENZIONE SETTATO SUL CONTROLLER!!!!
                  if(P.Ruolo=="admin"){ 
-                    prossimo = "ListaCurriculum";
+                    prossimo = "RicercaCurriculum";
                 }else{
                     prossimo = "MyPage";  
                 }

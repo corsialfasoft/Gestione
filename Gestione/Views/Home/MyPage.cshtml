@@ -5,11 +5,7 @@
 <div class="text-warning">
     <p>@ViewBag.Message</p>
 </div>
-@using(Html.BeginForm("MyPage","Home",FormMethod.Post)) { 
-    <div style="display:none">
-        <input type="text" value="@ViewBag.Profilo.Matricola" />
-    </div>
-    <div>
-        <input type="submit" value="Visualizza" />
-    </div>
-}
+
+<div>
+    @Html.ActionLink("Visualizza Il mio Curriculum","DettCv",new { id = "BBBB" })
+</div>
