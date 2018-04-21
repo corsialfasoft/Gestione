@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gestione.Controllers;
 using Gestione.Models;
+using static Gestione.Controllers.HomeController;
 
 namespace Interfaces{ 
 	public interface IGeCV{

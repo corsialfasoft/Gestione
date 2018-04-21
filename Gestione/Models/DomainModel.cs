@@ -205,6 +205,7 @@ namespace Gestione.Models{
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente)
 		{
 			throw new NotImplementedException();
+			}
 		public DTCommessa CercaCommessa(string nomeCommessa) {
 			try{ 
 				Commessa commessa = dao.CercaCommessa(nomeCommessa);
