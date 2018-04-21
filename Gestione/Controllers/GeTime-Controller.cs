@@ -64,7 +64,7 @@ namespace Gestione.Controllers {
                         ViewBag.Giorno = giorno;
                         ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} eri in ferie";
                         return View("AddGiorno");
-                    } else if (giorno.OreMalattia + giorno.OrePermesso + giorno.TotOreLavorate + (int)ore > 8) {
+                    } else if (giorno.OreMalattia + giorno.OrePermesso + giorno.TotOreLavorate + (tipoOre == "Ore di ferie" && ore==null ? 8 : 0) > 8) {
                         ViewBag.Giorno = giorno;
                         ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} stai superando le 8 ore";
                         return View("AddGiorno");
