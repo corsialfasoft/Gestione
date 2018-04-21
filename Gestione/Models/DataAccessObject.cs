@@ -54,7 +54,11 @@ namespace DAO {
 	
 	public partial class DataAccesObject : IDao {
 		ITrasformer transf = new Trasformator();
-        public void AddCompetenze(string MatrCv,Competenza comp) {
+        public List<Lezione> ListaLezioni(Corso corso){
+			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
+			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param,"GeCorsi");
+		}
+		public void AddCompetenze(string MatrCv,Competenza comp) {
 			try{
 				SqlParameter[] param = {
 					new SqlParameter("@Tipo",comp.Titolo),
