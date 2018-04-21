@@ -3,7 +3,7 @@
 }
 
 <body>
-<h1 style="padding-left:15px">@ViewBag.Title</h1>
+    <h1 style="padding-left:15px">@ViewBag.Title</h1>
     <div class="row">
         <h4 style="padding-left:30px">@ViewBag.Message</h4>
         <div style="float:right; padding-bottom:10px; padding-right:30px; text-align:right" class="col-md-6">
@@ -13,28 +13,29 @@
                 @Html.CheckBox("mieiCorsi",true)
                 <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
                 <input type="submit" value="Cerca">
-             }
+            }
         </div>
     </div>
-    @if(@ViewBag.Controllo==true){
+    @if(@ViewBag.Controllo == true) {
         <div class="alert alert-success" role="alert">@ViewBag.Message</div>
-        }else if(@ViewBag.Controllo==false) {
-             <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
-        }
-        <div>
-            <div class=" container">
-                <ul class="list-group">
-                    @foreach(var corso in @ViewBag.Corsi) {
-                        <li class="list-group-item">
-                            <span classs="badge">
-                                @Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })
-                            </span>
-                            @corso.Id  -   @corso.Nome  - @corso.Descrizione 
-                        </li>
-                    }
-                </ul>
-            </div>
+    } else if(@ViewBag.Controllo == false) {
+        <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
+    }
+    <div>
+        <div class=" container">
+            <ul class="list-group">
+                @foreach(var corso in @ViewBag.Corsi) {
+                    <li class="list-group-item">
+                        <span classs="badge">
+                            @Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })
+                        </span>
+                        @corso.Id  -   @corso.Nome  - @corso.Descrizione
+                    </li>
+                }
+            </ul>
         </div>
-        <span style="padding-left:15px">@Html.ActionLink("Aggiungi Corso","AddCorso")</span>                                                
+    </div>
+    <span style="padding-left:15px">@Html.ActionLink("Aggiungi Corso","AddCorso")</span>
+    <span style="padding-left:15px">@Html.ActionLink("Elenco corsi","ElencoCorsi")</span>
 </body>
 
