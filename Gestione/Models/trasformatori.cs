@@ -1,26 +1,62 @@
 ﻿using Interfaces;
+using LibreriaDB;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 namespace DAO{
 	public interface ITrasformer {
-		List<Lezione> TrasformInLezione(SqlDataReader data);
 		Corso TrasformInCorso(SqlDataReader data);
-		List<Corso> TrasformInListaCorso(SqlDataReader data);
+        List<Corso> TrasformInCorsi(SqlDataReader data);
         Commessa TrasformInCommessa(SqlDataReader data);
-        List<Giorno> TrasformInListGiorno(SqlDataReader data);
+        List<Giorno> TrasformInGiorni(SqlDataReader data);
         Giorno TrasformInGiorno(SqlDataReader reader);
 		CV TRansfInCv0(SqlDataReader data);
 		List<CV> TransfListCV0(SqlDataReader data);
 		CV TransfInCv(SqlDataReader data);
 		Competenza TransfInCompetenza(SqlDataReader data);
-		List<Competenza> TransfInLIstCompetenza (SqlDataReader data);
+		List<Competenza> TransfInCompetenze(SqlDataReader data);
 		PerStud TransfInPerStud(SqlDataReader data);
 		List<PerStud> TransfInListPerstud(SqlDataReader data);
 		EspLav TransEspLav (SqlDataReader data);
 		List<EspLav> TransfInListEspLav(SqlDataReader data);
+		Lezione TrasformInLezione(SqlDataReader data);
+        List<Lezione> TrasformInLezioni(SqlDataReader data);
     }
 	public class Trasformator :ITrasformer{
+        //GeCo
+        public Lezione TrasformInLezione(SqlDataReader data) {
+            Lezione output = null;
+            if (data.Read()) {
+                output = new Lezione {
+                    Id = data.GetInt32(0),
+                    Nome = data.GetString(1),
+                    Durata = int.Parse(data.GetString(2)),
+                    Descrizione = data.GetString(3)
+                };
+            }
+            return output;
+        }
+        public List<Lezione> TrasformInLezioni(SqlDataReader data) {
+            return DB.TrasformInList(data, TrasformInLezione);
+        }
+
+        public Corso TrasformInCorso(SqlDataReader data) {
+            Corso output = null;
+            if (data.Read()) {
+                output = new Corso {
+                    Id = data.GetInt32(0),
+                    Nome = data.GetString(1),
+                    Descrizione = data.GetString(2),
+                    Inizio = data.GetDateTime(3),
+                    Fine = data.GetDateTime(4)
+                };
+            }
+            return output;
+        }
+        public List<Corso> TrasformInCorsi(SqlDataReader data) {
+            return DB.TrasformInList(data, TrasformInCorso);
+        }
+        //GeTime
         public Giorno TrasformInGiorno(SqlDataReader reader) {
             Giorno result = null;
             if (reader.Read()) {
@@ -44,17 +80,21 @@ namespace DAO{
             }
             return result;
         }
-        public List<Giorno> TrasformInListGiorno(SqlDataReader data) {
-            List<Giorno> list = new List<Giorno>();
-            while (data.Read()) {
-				Giorno giorno = new Giorno(data.GetDateTime(1)) {
-					IdGiorno = data.GetInt32(0)
-				};
-				giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3), data.GetInt32(2), data.GetString(4), data.GetString(5)));
-                list.Add(giorno);
-            }
-            return list;
+
+        public List<Giorno> TrasformInGiorni(SqlDataReader data) {
+           return DB.TrasformInList(data,TrasformInGiornoOreLavorative);
         }
+        public Giorno TrasformInGiornoOreLavorative(SqlDataReader data) {
+            Giorno giorno = null;
+            if (data.Read()) {
+                giorno = new Giorno(data.GetDateTime(1)) {
+                    IdGiorno = data.GetInt32(0)
+                };
+                giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3), data.GetInt32(2), data.GetString(4), data.GetString(5)));
+            }
+            return giorno;
+        }
+
         public Commessa TrasformInCommessa(SqlDataReader data) {
             Commessa commessa = null;
             if (data.Read()) {
@@ -62,42 +102,8 @@ namespace DAO{
             }
             return commessa;
         }
-        public List<Lezione> TrasformInLezione(SqlDataReader data){
-			List<Lezione> output = new List<Lezione>();
-			while(data.Read()){
-				Lezione tmp = new Lezione {
-					Id = data.GetInt32(0),
-					Nome = data.GetString(1),
-					Durata = int.Parse(data.GetString(2)),
-					Descrizione = data.GetString(3)
-				};
-				output.Add(tmp);
-			}
-			return output;
-		}
-		public Corso TrasformInCorso(SqlDataReader data){
-			Corso output = null;
-			if(data.Read()){
-				output = new Corso {
-					Id = data.GetInt32(0),
-					Nome = data.GetString(1),
-					Descrizione = data.GetString(2),
-					Inizio = data.GetDateTime(3),
-					Fine = data.GetDateTime(4)
-				};
-			}
-		return output;
-		}	
-		public List<Corso> TrasformInListaCorso(SqlDataReader data){
-			List<Corso> output = new List<Corso>();
-			do{
-				Corso tmp = TrasformInCorso(data);
-				if(tmp==null)
-					break;
-				output.Add(tmp);
-			}while(true);
-			return output;
-		}	
+
+        //GeCV
 		public CV TRansfInCv0(SqlDataReader data){			
 			CV output = null;
 			if(data.Read()){
@@ -108,15 +114,10 @@ namespace DAO{
 			return output;
 		}
 		public List<CV> TransfListCV0(SqlDataReader data){
-			List<CV> output = new List<CV>();
-			do{
-				CV tmp = TRansfInCv0(data);
-				if(tmp==null)
-					break;
-				output.Add(tmp);
-			}while(true);
-			return output;			
+            return DB.TrasformInList(data, TRansfInCv0);			
 		}
+
+
 		public CV TransfInCv(SqlDataReader data){
 			CV output = null;
 			if(data.Read()){
@@ -142,16 +143,10 @@ namespace DAO{
 			}
 			return output;
 		}
-		public List<Competenza> TransfInLIstCompetenza (SqlDataReader data){
-			List<Competenza> output = new List<Competenza>();
-			do{
-				Competenza tmp = TransfInCompetenza(data);
-			if(tmp==null)
-					break;
-				output.Add(tmp);
-			}while(true);
-			return output;			
+		public List<Competenza> TransfInCompetenze (SqlDataReader data){
+			return DB.TrasformInList(data, TransfInCompetenza);		
 		}
+
 		public PerStud TransfInPerStud(SqlDataReader data){
 			PerStud output = null;
 			if(data.Read()){
@@ -165,15 +160,9 @@ namespace DAO{
 			return output;
 		}
 		public List<PerStud> TransfInListPerstud(SqlDataReader data){
-			List<PerStud> output = new List<PerStud>();
-			do{
-				PerStud tmp = TransfInPerStud(data);
-			if(tmp==null)
-					break;
-				output.Add(tmp);
-			}while(true);
-			return output;		
-		}
+            return DB.TrasformInList(data, TransfInPerStud);
+        }
+
 		public EspLav TransEspLav (SqlDataReader data){
 			EspLav output = null;
 			if(data.Read()){
@@ -187,14 +176,7 @@ namespace DAO{
 			return output;
 		}
 		public List<EspLav> TransfInListEspLav(SqlDataReader data){
-			List<EspLav> output = new List<EspLav>();
-			do{
-				EspLav tmp = TransEspLav(data);
-			if(tmp==null)
-					break;
-				output.Add(tmp);
-			}while(true);
-			return output;		
+			return DB.TrasformInList(data, TransEspLav);
 		}
 	}
 }	
