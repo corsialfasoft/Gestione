@@ -1,0 +1,37 @@
+﻿@section Scripts{
+    <link href="~/Content/corso.css" rel="stylesheet" />
+}
+@{
+    ViewBag.Title = "Lista Lezioni";
+}
+
+<body>
+    <h2 class="title">@ViewBag.Title</h2>
+    <!--ho mostrato il titolo-->
+    <div class="text-warning">
+        <h4><b>@ViewBag.Message</b></h4>
+    </div>
+    <!--ho mostrato un errore-->
+        <div class="corso_descrizione">@ViewBag.Corso.Descrizione</div>        
+        <div class="corso_id">Numero corso: @ViewBag.Corso.Id</div>
+    <p class="Elenco_Lezioni">Elenco lezioni:</p>
+    <div class="container">
+        <ol class="list-group tabella" start="1">
+            @foreach(var lezioni in ViewBag.Lezioni) {
+            <li class="list-group-item">
+                <span class="Lezione_Nome">
+                    @lezioni.Descrizione
+                    @lezioni.Durata
+                    @Html.ActionLink("Modifica","ModificaLezione",new {nomeLezione = lezioni.Nome,descrizioneLezione = lezioni.Descrizione,durataLezione=lezioni.Durata ,idLezione =lezioni.Id,idCorso=ViewBag.Corso.Id})
+                </span>
+            </li>
+            }
+        </ol>
+    </div>
+
+    <div>
+        <span class="bottone"> @Html.ActionLink("Iscriviti","Iscrizione",new { idCorso = ViewBag.Corso.Id }, "prova")</span>
+        <span class="bottone"> @Html.ActionLink("+ Lezione","AddLezione",new { idCorso = ViewBag.Corso.Id })</span>
+        <span class="bottone"> @Html.ActionLink("Elenco Corsi","ElencoCorsi","Home")</span>
+    </div>
+</body>

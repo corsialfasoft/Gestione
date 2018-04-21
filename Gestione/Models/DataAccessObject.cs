@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Runtime.Serialization;
 using Interfaces;
+using LibreriaDB;
 using System.Data.SqlClient;
 using System.Data;
 
@@ -33,20 +37,24 @@ namespace DAO{
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
+		void ModLezione(Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
-        void Iscriviti (int idCorso, int idStudente);
+        void Iscriviti (int idCorso, string idStudente);
 
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, int idUtente);
+        List<Corso>SearchCorsi(string descrizione, string idUtente);
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(int idUtente);
+        List<Corso>ListaCorsi(string idUtente);
+		//mostra tutte le lezioni associate a un corso
+		List<Lezione> ListaLezioni(Corso corso);
     }
+	
 	public partial class DataAccesObject : IDao {
         public void AddCompetenze(string MatrCv,Competenza comp) {
          SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
@@ -76,6 +84,60 @@ namespace DAO{
 		} 
 
         public void AddCorso(Corso corso) {
+			try{
+				SqlParameter[] param = {
+					new SqlParameter("@nome", corso.Nome),
+					new SqlParameter("@descrizione", corso.Descrizione),
+					new SqlParameter("@dInizio", corso.Inizio),
+					new SqlParameter("@dFine", corso.Fine)
+				};
+				int RowAffected = DB.ExecNonQProcedure("AddCorso", param,"GeCorsi");
+				if(RowAffected == 0){
+					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public void AddLezione(int idCorso,Lezione lezione) {
+			try{
+				SqlParameter[] param = {
+					new SqlParameter ("@idCorsi", idCorso),
+					new SqlParameter ("@nome", lezione.Nome),
+					new SqlParameter("@descrizione", lezione.Descrizione),
+					new SqlParameter("@durata", lezione.Durata)
+				};
+				int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
+				if(RowAffected == 0){
+					throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public void ModLezione(Lezione lezione){
+			try{
+				SqlParameter[] param = {
+					new SqlParameter("@idLezione",lezione.Id),
+					new SqlParameter("@nome",lezione.Nome),
+					new SqlParameter("@descrizione",lezione.Descrizione),
+					new SqlParameter("@durata",lezione.Durata)
+				};
+				int RowAffected =DB.ExecNonQProcedure("ModLezione",param,"GeCorsi",@"(localdb)\MSSQLLocalDB");
+				if (RowAffected == 0) {
+					throw new LezionNonModificataException("Non hai modificato la lezione");
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public void AggiungiCV(CV a) {
 			throw new NotImplementedException();
 		}
 
@@ -135,23 +197,50 @@ namespace DAO{
         public void AddLezione(int idCorso,Lezione lezione) {
 			throw new NotImplementedException();
 		}
-
-		
-
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
 		}
 
 		public Commessa CercaCommessa(string nomeCommessa) {
-			throw new NotImplementedException();
+			try {
+				SqlParameter[] parameter = {
+					new SqlParameter("@nomeCommessa", nomeCommessa)
+				};			
+				return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, parameter, "GeTime");
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
 
-		public void Compila(DateTime data,int ore,HType tipoOre,int idUtente) {
-			throw new NotImplementedException();
-		}
-
-		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,int idUtente) {
-			throw new NotImplementedException();
+		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
+            try{ 
+                SqlParameter[] parameters = {
+					new SqlParameter("@giorno",data.ToString("yyyy-MM-dd")),
+					new SqlParameter("@idUtente",idUtente),
+					new SqlParameter("@ore", ore),
+					new SqlParameter("@TipoOre", (int)tipoOre)
+					};
+				DB.ExecNonQProcedure("SP_Compila", parameters, "GeTime");
+            } catch (SqlException e) {
+                throw new Exception(e.Message);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
+			try {
+                SqlParameter[] parameters = {
+					new SqlParameter("@data",data.ToString("yyyy-MM-dd")),
+					new SqlParameter("@ore", ore),
+					new SqlParameter("@idCommessa",idCommessa),
+					new SqlParameter("@idUtente", idUtente)
+					};
+                DB.ExecNonQProcedure("SP_AddHLavoro", parameters, "GeTime");
+			} catch (Exception e){
+				throw e;
+			}
 		}
 
 		public void EliminaCV(CV curriculum) {
@@ -178,21 +267,37 @@ namespace DAO{
 				connection.Dispose();
 			}
 		}
-
-		public List<Giorno> GiorniCommessa(int idCommessa,int idUtente) {
-			throw new NotImplementedException();
+		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
+			try{
+				SqlParameter[] parameter = {
+					new SqlParameter("@idC", idCommessa),				
+					new SqlParameter("@idU",idUtente)
+				};
+				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInGiorno,parameter,"GeTime");
+			}catch(SqlException e){
+				throw new Exception(e.Message);
+			}catch(Exception e){
+				throw e;
+			}
 		}
-
-		public void Iscriviti(int idCorso,int idStudente) {
-			throw new NotImplementedException();
-		}
-
 		public List<Corso> ListaCorsi() {
-			throw new NotImplementedException();
+		try{
+			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null,"GeCorsi");       
+		} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
-
-		public List<Corso> ListaCorsi(int idUtente) {
-			throw new NotImplementedException();
+		public List<Corso> ListaCorsi(string idUtente) {
+			try{
+				SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
+				return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInListaCorso,param,"GeCorsi");
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
         private string GetConnectinoCv() {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(){ 
@@ -280,17 +385,46 @@ namespace DAO{
 		}
 
 		public Corso SearchCorsi(int idCorso) {
-			throw new NotImplementedException();
+			try{
+				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
+				return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param,"GeCorsi");
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}		
+		public void Iscriviti(int idCorso,string idStudente) {
+			try{
+				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
+				DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
-
 		public List<Corso> SearchCorsi(string descrizione) {
-			throw new NotImplementedException();
+			try{
+				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
+				return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInListaCorso,param, "GeCorsi");
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
-
-		public List<Corso> SearchCorsi(string descrizione,int idUtente) {
-			throw new NotImplementedException();
+		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
+			try{
+				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione),
+					new SqlParameter("@idStudente", idUtente)};
+				return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInListaCorso,param,"GeCorsi");
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
-
 		public List<CV> SearchEta(int eta) {
 		List<CV> trovati = new List<CV>();
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
@@ -317,7 +451,6 @@ namespace DAO{
 				connection.Dispose();
 			}
 		}
-
 		public List<CV> SearchRange(int etmin,int etmax) {
 			List<CV> trovati = new List<CV>();
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
@@ -346,8 +479,43 @@ namespace DAO{
 			}
 		}
 
-		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
-			throw new NotImplementedException();
+		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
+            try {
+                SqlParameter[] parameter = {
+					new SqlParameter("@Data", data.ToString("yyyy-MM-dd")),               
+					new SqlParameter("@IdUtente", idUtente)
+				};                
+                Giorno result = DB.ExecQProcedureReader("SP_VisualizzaGiorno", transf.TeasformInGiorno, parameter, "GeTime");
+                if(result!=null)
+                    result.Data=data;
+                return result;
+            } catch (Exception e) {
+                throw e;
+            } 
 		}
 	}
-}
+
+	[Serializable]
+	internal class LezionNonModificataException : Exception {
+		public LezionNonModificataException() {}
+		public LezionNonModificataException(string message) : base(message) {}
+		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException) {}
+		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context) {}
+		}
+	[Serializable]
+		internal class LezioneNonAggiuntaException : Exception {
+			public LezioneNonAggiuntaException() {}
+			public LezioneNonAggiuntaException(string message) : base(message) {}
+			public LezioneNonAggiuntaException(string message,Exception innerException) : base(message,innerException){}
+			protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){}
+		}
+		[Serializable]
+		internal class CorsoNonAggiuntaException : Exception {
+			public CorsoNonAggiuntaException() {}
+			public CorsoNonAggiuntaException(string message) : base(message) { }
+			public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
+			protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {
+			}
+		}
+	}
+	
