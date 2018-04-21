@@ -17,7 +17,6 @@ namespace Gestione.Models{
         public void AddCompetenze(string MatrCv,Competenza comp) {
             dao.AddCompetenze(MatrCv,comp);
         }
-
         public void AddCorso(Corso corso)
 		{
 			throw new NotImplementedException();
@@ -26,7 +25,6 @@ namespace Gestione.Models{
         public void AddCvStudi(string MatrCv,PerStud studi) {
             dao.AddCvStudi(MatrCv, studi);
         }
-
         public void AddEspLav(string MatrCv,EspLav esp) {
             dao.AddEspLav(MatrCv,esp);
         }
@@ -38,8 +36,8 @@ namespace Gestione.Models{
 
 		public void AggiungiCV(CV a)
 		{
-			DataAccesObject doo = new DataAccesObject();
-            doo.AggiungiCV(a);
+			DataAccesObject dao = new DataAccesObject();
+            dao.AggiungiCV(a);
 		}
 		public void Iscriviti(int idCorso,string idStudente) {
 			try{

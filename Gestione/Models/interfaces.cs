@@ -150,7 +150,6 @@ namespace Interfaces{
 			Capienza = capienza;
 		}
 	}
-
     public class CV {
         public string Matricola {get; set;}
         public string Nome {get; set;}
