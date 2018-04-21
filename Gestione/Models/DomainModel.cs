@@ -4,6 +4,7 @@ using System.Linq;
 using Interfaces;
 using DAO;
 using Gestione.Controllers;
+using static Gestione.Controllers.HomeController;
 
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime {
@@ -22,7 +23,6 @@ namespace Gestione.Models{
         public void AddEspLav(string MatrCv,EspLav esp) {
             dao.AddEspLav(MatrCv,esp);
         }
-
 
 		public void AggiungiCV(CV a)
 		{
@@ -102,28 +102,6 @@ namespace Gestione.Models{
                 throw e;    
             }
 		}
-		public DTGGiorno VisualizzaGiorno(DateTime data,string idUtente) {
-            Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
-            if (giornoInterface!=null) {
-				DTGGiorno DTgiorno = new DTGGiorno {
-					data = giornoInterface.Data,
-					OrePermesso = giornoInterface.HPermesso,
-					OreMalattia = giornoInterface.HMalattia,
-					OreFerie = giornoInterface.HFerie
-				};
-				foreach(OreLavorative orecommessa in giornoInterface.OreLavorate) {
-					OreLavorate orelavorate = new OreLavorate {
-						nome = orecommessa.Nome,
-						oreGiorno = orecommessa.Ore,
-						descrizione = orecommessa.Descrizione
-					};
-					DTgiorno.OreLavorate.Add(orelavorate);
-                }
-                DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
-                return DTgiorno;
-            }
-            return null;
-		}
 
         public void ModEspLav(string MatrCv,EspLav espV,EspLav esp) {
             dao.ModEspLav(MatrCv,espV,esp);
@@ -161,20 +139,6 @@ namespace Gestione.Models{
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchCognome(cognome);
 		}
-		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
-			try{ 
-				List<Giorno> giorni = dao.GiorniCommessa(idCommessa, idUtente);
-				List<DTGiorno> dTGiorni = new List<DTGiorno>();
-				if (giorni != null && giorni.Count > 0) {
-					foreach (Giorno giorno in giorni) {
-						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
-							dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
-					}
-				}
-				return dTGiorni;
-			}catch(Exception e){
-				throw e;
-			}
 
 		public Corso SearchCorsi(int idCorso)
 		{
@@ -202,10 +166,22 @@ namespace Gestione.Models{
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchRange(etmin,etmax);
 		}
-
-		public Giorno VisualizzaGiorno(DateTime data,int idUtente)
-		{
-			throw new NotImplementedException();
+        //GeTime
+		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
+			try{ 
+				List<Giorno> giorni = dao.GiorniCommessa(idCommessa, idUtente);
+				List<DTGiorno> dTGiorni = new List<DTGiorno>();
+				if (giorni != null && giorni.Count > 0) {
+					foreach (Giorno giorno in giorni) {
+						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
+							dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
+					}
+				}
+				return dTGiorni;
+			}catch(Exception e){
+				throw e;
+			}
+        }
 		public DTCommessa CercaCommessa(string nomeCommessa) {
 			try{ 
 				Commessa commessa = dao.CercaCommessa(nomeCommessa);
@@ -216,7 +192,41 @@ namespace Gestione.Models{
 					throw e;
 			}
 		}
-	}
-}
+        public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente) {
+            try {
+                dao.CompilaHLavoro(data, ore, idCommessa, idUtente);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
+            try {
+                dao.Compila(data, ore, tipoOre, idUtente);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        public DTGGiorno VisualizzaGiorno(DateTime data, string idUtente) {
+            Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
+            if (giornoInterface != null) {
+                DTGGiorno DTgiorno = new DTGGiorno {
+                    data = giornoInterface.Data,
+                    OrePermesso = giornoInterface.HPermesso,
+                    OreMalattia = giornoInterface.HMalattia,
+                    OreFerie = giornoInterface.HFerie
+                };
+                foreach (OreLavorative orecommessa in giornoInterface.OreLavorate) {
+                    OreLavorate orelavorate = new OreLavorate {
+                        nome = orecommessa.Nome,
+                        oreGiorno = orecommessa.Ore,
+                        descrizione = orecommessa.Descrizione
+                    };
+                    DTgiorno.OreLavorate.Add(orelavorate);
+                }
+                DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
+                return DTgiorno;
+            }
+            return null;
+        }
     }
 }
