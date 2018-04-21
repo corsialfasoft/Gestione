@@ -145,7 +145,7 @@
     <Compile Include="Controllers\GeCo-Controller.cs" />
     <Compile Include="Controllers\GeTime-Controller.cs" />
     <Compile Include="Controllers\GeCv-Controller.cs" />
-    <Compile Include="Controllers\dt-gecv.cs" />
+    <Compile Include="Controllers\DT.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -161,13 +161,17 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="SQL\DDLGeCo.sql" />
     <Content Include="SQL\SP_GeCo.sql" />
-    <Content Include="database gecv\ddl-gecv.sql" />
-    <Content Include="database gecv\SP-GeCv.sql" />
-    <Content Include="database gecv\test.sql" />
+    <Content Include="SQL\DDLGeCv.sql" />
+    <Content Include="SQL\SP_GeCv.sql" />
+    <Content Include="SQL\test.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ImgResource\Corso.jpg" />
+    <Content Include="ImgResource\CV.png" />
+    <Content Include="ImgResource\Logo.jpg" />
+    <Content Include="ImgResource\Ore.jpg" />
     <Content Include="SQL\SP_GeTime.sql" />
     <Content Include="SQL\DDLGeTime.sql" />
     <Content Include="Scripts\bootstrap.js" />
