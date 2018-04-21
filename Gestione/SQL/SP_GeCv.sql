@@ -200,7 +200,7 @@ as
 	else
 		begin 
 			declare @idComp int;
-			set @idComp = (select c.IdCs from Competenze c where c.Tipo= @titoloDaMod and c.Livello=@livDaMod and c.IdCv=@idcurr);
+			set @idComp = (select c.IdCs from Competenze c where (c.Tipo= @titoloDaMod) and (c.Livello=@livDaMod) and (c.IdCv=@idcurr));
 			if @idComp is null
 				throw 66666 , 'Competenza Errata!!!!!! RIPROVA' ,2;
 			else 
@@ -226,7 +226,7 @@ CREATE PROCEDURE RecuperaIdCv
 AS
 	SELECT IdCv FROM Curriculum WHERE Matricola=@Matricola;
 GO
-alter PROCEDURE CercaParolaChiava
+create PROCEDURE CercaParolaChiava
 	@parola nvarchar(20)
 AS
 	SELECT C.Matricola 
