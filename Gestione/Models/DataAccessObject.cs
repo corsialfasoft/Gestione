@@ -54,6 +54,7 @@ namespace DAO {
 	
 	public partial class DataAccesObject : IDao {
 		ITrasformer transf = new Trasformator();
+		//GeCv
 		public void ModComp (string matricola , Competenza daMod , Competenza Mod){
 			try{
 				SqlParameter[] parameters = {
@@ -230,42 +231,6 @@ namespace DAO {
 				throw e;
 			}
 		}
-        public void AddCorso(Corso corso) {
-			try{
-				SqlParameter[] param = {
-					new SqlParameter("@nome", corso.Nome),
-					new SqlParameter("@descrizione", corso.Descrizione),
-					new SqlParameter("@dInizio", corso.Inizio),
-					new SqlParameter("@dFine", corso.Fine)
-				};
-				int RowAffected = DB.ExecNonQProcedure("AddCorso", param,"GeCorsi");
-				if(RowAffected == 0){
-					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
-				}
-			} catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
-		}
-		public void AddLezione(int idCorso,Lezione lezione) {
-			try{
-				SqlParameter[] param = {
-					new SqlParameter ("@idCorsi", idCorso),
-					new SqlParameter ("@nome", lezione.Nome),
-					new SqlParameter("@descrizione", lezione.Descrizione),
-					new SqlParameter("@durata", lezione.Durata)
-				};
-				int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
-				if(RowAffected == 0){
-					throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
-				}
-			} catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
-		}
 		public void ModLezione(Lezione lezione){
 			try{
 				SqlParameter[] param = {
@@ -322,9 +287,69 @@ namespace DAO {
 				throw e;
 			}
 		}			
-
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
+		}
+        public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr) {
+			try{	
+				SqlParameter[] parameter = {
+					new SqlParameter("@cognome", cognome),
+					new SqlParameter("@matr", matr),
+					new SqlParameter("@nome", nome),
+					new SqlParameter("@eta", eta),
+					new SqlParameter("@email", email),
+					new SqlParameter("@residenza", residenza),
+					new SqlParameter("@telefono", telefono)
+				};
+				DB.ExecNonQProcedure("ModificaCV",parameter,"GeCv");
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}		
+        public List<CV> SearchChiava(string chiave) {
+			try{
+				SqlParameter[] parameter ={ new SqlParameter("@parola", chiave) };
+				return DB.ExecQProcedureReader ("dbo.CercaParolaChiava", transf.TransfListCV0,parameter,"GeCv");				
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}		
+		public List<CV> SearchCognome(string cognome) {
+			try{
+				SqlParameter[] param ={ new SqlParameter("@cognome",cognome) };
+				return DB.ExecQProcedureReader("dbo.CercaCognome", transf.TransfListCV0,param,"GeCv");				
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}		
+		public List<CV> SearchRange(int etmin,int etmax) {
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@e_min", etmin),
+					new SqlParameter("@e_max", etmax)					
+				};
+				return DB.ExecQProcedureReader("dbo.CercaEtaMinMax", transf.TransfListCV0,parameters, "GeCv");
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public List<CV> SearchEta(int eta) {
+			try{
+				SqlParameter[] param = { new SqlParameter("@eta",eta)};
+				return DB.ExecQProcedureReader("dbo.CercaEta",transf.TransfListCV0,param, "GeCv");
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
         //GeTime 
 		public Commessa CercaCommessa(string nomeCommessa) {
@@ -394,7 +419,6 @@ namespace DAO {
 				throw e;
 			}
 		}
-
 		public void EliminaCV(CV curriculum) {
 			try{
 				SqlParameter[] param ={ new SqlParameter("@idcurr", curriculum.Matricola)};
@@ -407,8 +431,44 @@ namespace DAO {
 			}catch(Exception e){
 				throw e;
 			}
+		}		
+		//GeCo
+		public void AddLezione(int idCorso,Lezione lezione) {
+			try{
+				SqlParameter[] param = {
+					new SqlParameter ("@idCorsi", idCorso),
+					new SqlParameter ("@nome", lezione.Nome),
+					new SqlParameter("@descrizione", lezione.Descrizione),
+					new SqlParameter("@durata", lezione.Durata)
+				};
+				int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
+				if(RowAffected == 0){
+					throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
-		
+        public void AddCorso(Corso corso) {
+			try{
+				SqlParameter[] param = {
+					new SqlParameter("@nome", corso.Nome),
+					new SqlParameter("@descrizione", corso.Descrizione),
+					new SqlParameter("@dInizio", corso.Inizio),
+					new SqlParameter("@dFine", corso.Fine)
+				};
+				int RowAffected = DB.ExecNonQProcedure("AddCorso", param,"GeCorsi");
+				if(RowAffected == 0){
+					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
 		public List<Corso> ListaCorsi() {
 		try{
 			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null,"GeCorsi");       
@@ -427,47 +487,7 @@ namespace DAO {
 			} catch (Exception e) {
 				throw e;
 			}
-		}
-     
-        public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr) {
-			try{	
-				SqlParameter[] parameter = {
-					new SqlParameter("@cognome", cognome),
-					new SqlParameter("@matr", matr),
-					new SqlParameter("@nome", nome),
-					new SqlParameter("@eta", eta),
-					new SqlParameter("@email", email),
-					new SqlParameter("@residenza", residenza),
-					new SqlParameter("@telefono", telefono)
-				};
-				DB.ExecNonQProcedure("ModificaCV",parameter,"GeCv");
-			}catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
-		}		
-        public List<CV> SearchChiava(string chiave) {
-			try{
-				SqlParameter[] parameter ={ new SqlParameter("@parola", chiave) };
-				return DB.ExecQProcedureReader ("dbo.CercaParolaChiava", transf.TransfListCV0,parameter,"GeCv");				
-			}catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
-		}		
-	
-		public List<CV> SearchCognome(string cognome) {
-			try{
-				SqlParameter[] param ={ new SqlParameter("@cognome",cognome) };
-				return DB.ExecQProcedureReader("dbo.CercaCognome", transf.TransfListCV0,param,"GeCv");				
-			}catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
-		}		
+		}     	
 		public Corso SearchCorsi(int idCorso) {
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
@@ -504,29 +524,6 @@ namespace DAO {
 					new SqlParameter("@idStudente", idUtente)};
 				return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInListaCorso,param,"GeCorsi");
 			} catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
-		}
-		public List<CV> SearchEta(int eta) {
-			try{
-				SqlParameter[] param = { new SqlParameter("@eta",eta)};
-				return DB.ExecQProcedureReader("dbo.CercaEta",transf.TransfListCV0,param, "GeCv");
-			}catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
-		}
-		public List<CV> SearchRange(int etmin,int etmax) {
-			try{
-				SqlParameter[] parameters = {
-					new SqlParameter("@e_min", etmin),
-					new SqlParameter("@e_max", etmax)					
-				};
-				return DB.ExecQProcedureReader("dbo.CercaEtaMinMax", transf.TransfListCV0,parameters, "GeCv");
-			}catch (SqlException e) {
 				throw new Exception(e.Message);
 			} catch (Exception e) {
 				throw e;
