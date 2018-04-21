@@ -7,13 +7,11 @@ AS
 	DECLARE @idGiorno int = (
 	SELECT TOP 1 id FROM Giorni
 	WHERE giorno=@giorno AND idUtente=@idUtente);
-
 	IF @idGiorno IS NULL
 		BEGIN
 			INSERT INTO Giorni (giorno, idUtente) VALUES (@giorno, @idUtente);
 			SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'))
 		END
-
 	DECLARE @OreLav int = ISNULL((SELECT top 1 SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno),0)
 	DECLARE @OreNLav int =  ISNULL((SELECT top 1 SUM(ore) FROM OreNonLavorative WHERE idGiorno=@idGiorno),0)
 	IF @OreNLav+ @OreLav +@ore>8 
@@ -30,7 +28,6 @@ AS
 							update OreNonLavorative set ore=@ore+@oreNL where idGiorno=@idGiorno and tipoOre = @TipoOre;
 						end
 				end catch
-		
 		END
 GO
 create procedure SP_AddHLavoro
@@ -45,10 +42,8 @@ as
 			INSERT INTO Giorni (giorno, idUtente) VALUES (@data, @idUtente);
 			SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'));
 		end;
-
 	declare @oreNonLav int =  ISNULL((select sum(ore) from OreNonLavorative where idGiorno = @idGiorno),0);
 	declare @oreLav int = ISNULL((select sum(ore) from OreLavorative where idGiorno = @idGiorno),0);
-
 	if (@ore + @oreLav + @oreNonLav <= 8)
 		begin
 			begin try
