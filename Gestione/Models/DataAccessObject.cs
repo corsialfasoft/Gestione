@@ -54,7 +54,162 @@ namespace DAO {
 	
 	public partial class DataAccesObject : IDao {
 		ITrasformer transf = new Trasformator();
-        public List<Lezione> ListaLezioni(Corso corso){
+		public void ModComp (string matricola , Competenza daMod , Competenza Mod){
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@matricola", matricola),
+					new SqlParameter("@titoloDaMod", daMod.Titolo),
+					new SqlParameter("@livdaMod", daMod.Livello),
+					new SqlParameter("@titoloMod", Mod.Titolo),
+					new SqlParameter("@livMod", Mod.Livello)					
+				};
+				int output = DB.ExecNonQProcedure("ModComp", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessuna modifica fatta!");
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public void ModPerStudi(string matricola , PerStud daMod , PerStud Mod){
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@matricola", matricola),
+					new SqlParameter("@annoIdaMod", daMod.AnnoInizio),
+					new SqlParameter("@annoFdaMod", daMod.AnnoFine),
+					new SqlParameter("@titoloDaMod", daMod.Titolo),
+					new SqlParameter("@descrDaMod", daMod.Descrizione),
+					new SqlParameter("@annoIMod", Mod.AnnoInizio),
+					new SqlParameter("@annoFMod", Mod.AnnoFine),
+					new SqlParameter("@titoloMod", Mod.Titolo),
+					new SqlParameter("@descrMod", Mod.Descrizione),
+				};
+			int output = DB.ExecNonQProcedure("ModPerStud", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessuna modifica fatta!");
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public void ModEspLav(string matricola , EspLav daMod , EspLav Mod){			
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@matricola", matricola),
+					new SqlParameter("@annoIdaMod", daMod.AnnoInizio),
+					new SqlParameter("@annoFdaMod", daMod.AnnoFine),
+					new SqlParameter("@qualificaDaMod", daMod.Qualifica),
+					new SqlParameter("@descrDaMod", daMod.Descrizione),
+					new SqlParameter("@annoIMod", Mod.AnnoInizio),
+					new SqlParameter("@annoFMod", Mod.AnnoFine),
+					new SqlParameter("@qualificaMod", Mod.Qualifica),
+					new SqlParameter("@descrMod", Mod.Descrizione),
+				};
+			int output = DB.ExecNonQProcedure("ModEspLav", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessuna modifica fatta!");
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public void AggiungiCV(CV c) {
+			try{
+				SqlParameter[] parameters = { 
+					new SqlParameter("@Nome",c.Nome),
+					new SqlParameter("@Cognome",c.Cognome),
+					new SqlParameter("@Eta",c.Eta),
+					new SqlParameter("@Matricola",c.Matricola),
+					new SqlParameter("@Residenza",c.Residenza),
+					new SqlParameter("@Telefono",c.Telefono)
+					};
+			int output = DB.ExecNonQProcedure("AddCv", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessun CV aggiunto!");
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		private List<EspLav> GetEspLav(string matricola) {
+		try{
+			SqlParameter[] param = {new SqlParameter("@Matricola",matricola)};
+			List<EspLav> output = DB.ExecQReader(transf.TransfInListEspLav,"GetEspLav", "GeCv");
+				return output;
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		private List<PerStud> GetPerStudi(string matricola) {
+			try{
+				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
+				List<PerStud> output = DB.ExecQReader(transf.TransfInListPerstud,"GetPerStudi", "GeCv");
+				return output;
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		private List<Competenza> GetComp(string matricola) {
+			try{
+				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
+				List<Competenza> output = DB.ExecQReader(transf.TransfInLIstCompetenza,"GetComp", "GeCv");
+				return output;
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public CV Search(string matr) {
+			try{
+				SqlParameter[] param = {new SqlParameter("@Matricola",matr)};
+				CV output = DB.ExecQReader(transf.TransfInCv,"GetCv","GeCv");
+				output.Percorsostudi= GetPerStudi(output.Matricola);
+				output.Esperienze = GetEspLav(output.Matricola);
+				output.Competenze = GetComp(output.Matricola);
+				return output;
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+        public void ModificaCV(CV a,CV b) {
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@matricolaM",a.Matricola),
+					new SqlParameter("@nomeM",b.Nome),
+					new SqlParameter("@cognomeM",b.Cognome),
+					new SqlParameter("@etaM",b.Eta),
+					new SqlParameter("@emailM",b.Email),
+					new SqlParameter("@residenzaM",b.Residenza),				
+					new SqlParameter("@telefonoM",b.Telefono),
+				};
+				int output = DB.ExecNonQProcedure("ModificaCurriculum", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception();
+				}
+				ModEspLav(a.Matricola,a.Esperienze[0],b.Esperienze[0]);
+				ModComp(a.Matricola,a.Competenze[0],b.Competenze[0]);
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public List<Lezione> ListaLezioni(Corso corso){
 			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
 			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param,"GeCorsi");
 		}
