@@ -6,7 +6,7 @@ using System.Data;
 
 namespace DAO{
 	public interface IDao{
-		void ModificaCV(CV a, CV b); //modifica un curriculum nel db
+		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
 		CV Search(string id); //search di un curriculum per id di un curriculum
@@ -18,9 +18,13 @@ namespace DAO{
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp );
         void AddCompetenze(string MatrCv, Competenza comp);
+        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
+		void ModComp( string matricola, Competenza daMod , Competenza Mod ); // Modifica la singola competenza
 	
-	
-		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
+        void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+
+
+        void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
 		Giorno VisualizzaGiorno(DateTime data, int idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
@@ -91,7 +95,7 @@ namespace DAO{
 				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=studi.AnnoFine;
 				command.Parameters.Add("@Titolo",SqlDbType.VarChar).Value=studi.Titolo;
 				command.Parameters.Add("@Descrizione",SqlDbType.VarChar).Value=studi.Descrizione;
-				command.Parameters.Add("@IdCv",SqlDbType.NVarChar).Value=MatrCv;
+				command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
 				 x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 
@@ -114,7 +118,7 @@ namespace DAO{
 				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
 				command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.Qualifica;
 				command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.Descrizione;
-				command.Parameters.Add("@matr",SqlDbType.Int).Value=MatrCv;
+				command.Parameters.Add("@matr",SqlDbType.NVarChar).Value=MatrCv;
                 int x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 
@@ -162,7 +166,7 @@ namespace DAO{
 				SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection) {
 					CommandType = CommandType.StoredProcedure
 				};
-				command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=curriculum.Matricola;
+				command.Parameters.Add("@idcurr",SqlDbType.NVarChar).Value=curriculum.Matricola;
 				 x = command.ExecuteNonQuery();
 				command.Dispose();
 				if (x == 0) { 
@@ -190,7 +194,38 @@ namespace DAO{
 		public List<Corso> ListaCorsi(int idUtente) {
 			throw new NotImplementedException();
 		}
-		public List<CV> SearchChiava(string chiava) {
+        private string GetConnectinoCv() {
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(){ 
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                InitialCatalog = "GECV"
+            };
+            return builder.ToString();
+        }
+        public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr) {
+            SqlConnection con = new SqlConnection (GetConnectinoCv());
+            try{ 
+                con.Open();
+                SqlCommand cmd = new SqlCommand ("ModificaCV",con){ CommandType = CommandType.StoredProcedure};
+                cmd.Parameters.Add("@matr",SqlDbType.NVarChar).Value = matr;
+                cmd.Parameters.Add("@nome",SqlDbType.VarChar).Value = nome;
+                cmd.Parameters.Add("@cognome",SqlDbType.VarChar).Value = cognome;
+                cmd.Parameters.Add("@eta",SqlDbType.Int).Value = eta;
+                cmd.Parameters.Add("@email",SqlDbType.NVarChar).Value = email;
+                cmd.Parameters.Add("@residenza",SqlDbType.VarChar).Value = residenza;
+                cmd.Parameters.Add("@telefono",SqlDbType.NVarChar).Value = telefono;
+                int x = cmd.ExecuteNonQuery();
+                cmd.Dispose();
+                if(x==0){
+                    throw new Exception();      
+                }
+            }catch(Exception e){ 
+                throw e;        
+            }finally{ 
+                con.Dispose();    
+            }
+        }
+
+        public List<CV> SearchChiava(string chiava) {
 			List<CV> trovati = new List<CV>();
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
 				DataSource = @"(localdb)\MSSQLLocalDB",

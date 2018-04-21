@@ -21,6 +21,9 @@ namespace DAO{
 				command.Parameters.Add("@residenzaM", System.Data.SqlDbType.NVarChar).Value=b.Residenza;
 				command.Parameters.Add("@telefonoM", System.Data.SqlDbType.NVarChar).Value=b.Telefono;
 				command.ExecuteNonQuery();
+                ModEspLav(a.Matricola,a.Esperienze[0],b.Esperienze[0]);
+                //ModPerStudi(a.Matricola,a.Percorsostudi[0],ViewBag.PercorsoStudi);
+                ModComp(a.Matricola,a.Competenze[0],b.Competenze[0]);
 				command.Dispose();
 			}catch(Exception e ){
 				throw e;
@@ -37,20 +40,21 @@ namespace DAO{
 				SqlCommand command = new SqlCommand("GetCv",connection) {
 					CommandType = System.Data.CommandType.StoredProcedure
 				};
+			
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matr;
 				SqlDataReader reader = command.ExecuteReader();
 				CV c = new CV();
 				while(reader.Read()){
-					c.Nome =  reader.GetString(0);
-					c.Cognome = reader.GetString(1);
+					c.Nome = reader.GetString(0) ?? "";
+					c.Cognome = reader.GetString(1)?? "";
 					c.Eta = reader.GetInt32(2);
-					c.Matricola = reader.GetString(3);
-					c.Email = reader.GetString(4);
-					c.Residenza = reader.GetString(5);
-					c.Telefono = reader.GetString(6);
+					c.Matricola = reader.GetString(3) ?? "";
+					c.Email = reader.GetValue(4)==DBNull.Value ? "" : reader.GetString(4) ;
+					c.Residenza = reader.GetValue(5)==DBNull.Value ? "" : reader.GetString(5) ;
+					c.Telefono =  reader.GetValue(6)==DBNull.Value ? "" : reader.GetString(6) ;
 				}
-				c.Esperienze = GetEspLav(c.Matricola);
 				c.Percorsostudi= GetPerStudi(c.Matricola);
+				c.Esperienze = GetEspLav(c.Matricola);
 				c.Competenze = GetComp(c.Matricola);
 				reader.Close();
 				command.Dispose();
@@ -72,12 +76,10 @@ namespace DAO{
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<Competenza> res = new List<Competenza>();
 				SqlDataReader reader = command.ExecuteReader();
-				Competenza e = new Competenza();
 				while(reader.Read()){
-					e.Titolo = reader.GetString(1);
-					e.Livello = reader.GetInt32(0);
-				
-					res.Add(e);
+					res.Add(new Competenza{ Livello = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0),
+                        Titolo = reader.GetValue(1) == DBNull.Value ? "" : reader.GetString(1)
+                    });
 				}
 				reader.Close();
 				command.Dispose();
@@ -99,13 +101,12 @@ namespace DAO{
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<PerStud> res = new List<PerStud>();
 				SqlDataReader reader = command.ExecuteReader();
-				PerStud e = new PerStud();
 				while(reader.Read()){
-					e.AnnoInizio = reader.GetInt32(0);
-					e.AnnoFine = reader.GetInt32(1);
-					e.Titolo = reader.GetString(2);
-					e.Descrizione = reader.GetString(3);
-					res.Add(e);
+					res.Add(new PerStud{AnnoInizio = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0),
+                        AnnoFine = reader.GetValue(1) == DBNull.Value ? 0 : reader.GetInt32(1),
+                        Titolo = reader.GetValue(2) == DBNull.Value ? "" : reader.GetString(2),
+                        Descrizione = reader.GetValue(3) == DBNull.Value ? "" : reader.GetString(3)
+                        });
 				}
 				reader.Close();
 				command.Dispose();
@@ -127,13 +128,12 @@ namespace DAO{
 				command.Parameters.Add("@Matricola",System.Data.SqlDbType.NVarChar).Value=matricola;
 				List<EspLav> res = new List<EspLav>();
 				SqlDataReader reader = command.ExecuteReader();
-				EspLav e = new EspLav();
 				while(reader.Read()){
-					e.AnnoInizio = reader.GetInt32(0);
-					e.AnnoFine = reader.GetInt32(1);
-					e.Qualifica = reader.GetString(2);
-					e.Descrizione = reader.GetString(3);
-					res.Add(e);
+					res.Add(new EspLav{ AnnoInizio = reader.GetValue(0) == DBNull.Value ? 0 : reader.GetInt32(0),
+                        AnnoFine = reader.GetValue(1) == DBNull.Value ? 0 : reader.GetInt32(1),
+                        Qualifica = reader.GetValue(2)==DBNull.Value ? "" : reader.GetString(2),
+                        Descrizione = reader.GetValue(3)==DBNull.Value ? "" : reader.GetString(3)
+                    });
 				}
 				reader.Close();
 				command.Dispose();

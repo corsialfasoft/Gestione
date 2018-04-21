@@ -4,13 +4,13 @@ AS
 SELECT IdCv FROM Curriculum WHERE Matricola=@Matricola;
 GO
 
-Alter PROCEDURE CercaParolaChiava
+alter PROCEDURE CercaParolaChiava
 	@parola nvarchar(20)
 AS
 SELECT C.Matricola FROM Curriculum C
-INNER JOIN PercorsoStudi PS ON C.IdCv = PS.IdCv 
-INNER JOIN EspLav EL ON C.IdCv = EL.IdCv 
-INNER JOIN Competenze CS ON C.IdCv = CS.IdCv 
+left JOIN PercorsoStudi PS ON C.IdCv = PS.IdCv 
+left JOIN EspLav EL ON C.IdCv = EL.IdCv 
+left JOIN Competenze CS ON C.IdCv = CS.IdCv 
 WHERE C.Nome like '%'+ @parola +'%'
 OR C.Cognome like '%'+ @parola +'%'
 OR C.email like '%'+ @parola +'%'
