@@ -142,11 +142,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EspLav.cs" />
-    <Compile Include="Controllers\ControllerComp.cs" />
-    <Compile Include="Controllers\GeCVModPerStudi.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SearchCV1.cs" />
+    <Compile Include="Controllers\GeCv-Controller.cs" />
+    <Compile Include="Controllers\dt-gecv.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,12 +157,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="database gecv\ddl-gecv.sql" />
-    <Content Include="database gecv\GECV.sql" />
-    <Content Include="database gecv\ProcedureAdd.sql" />
-    <Content Include="database gecv\ProcedureFlo.sql" />
-    <Content Include="database gecv\SQL_Carmen.sql" />
+    <Content Include="database gecv\SP-GeCv.sql" />
     <Content Include="database gecv\test.sql" />
-    <Content Include="database gecv\ProcedureModifiche.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
