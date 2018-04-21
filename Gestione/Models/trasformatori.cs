@@ -12,6 +12,13 @@ namespace DAO{
         Giorno TrasformInGiorno(SqlDataReader reader);
 		CV TRansfInCv0(SqlDataReader data);
 		List<CV> TransfListCV0(SqlDataReader data);
+		CV TransfInCv(SqlDataReader data);
+		Competenza TransfInCompetenza(SqlDataReader data);
+		List<Competenza> TransfInLIstCompetenza (SqlDataReader data);
+		PerStud TransfInPerStud(SqlDataReader data);
+		List<PerStud> TransfInListPerstud(SqlDataReader data);
+		EspLav TransEspLav (SqlDataReader data);
+		List<EspLav> TransfInListEspLav(SqlDataReader data);
 		Lezione TrasformInLezione(SqlDataReader data);
         List<Lezione> TrasformInLezioni(SqlDataReader data);
     }
@@ -93,7 +100,7 @@ namespace DAO{
 					Matricola = data.GetString(0)
 				};					
 			}
-		return output;
+			return output;
 		}
 		public List<CV> TransfListCV0(SqlDataReader data){
             return DB.TrasformInList(data, TRansfInCv0);			
@@ -107,5 +114,93 @@ namespace DAO{
             return commessa;
         }
 
+			List<CV> output = new List<CV>();
+			do{
+				CV tmp = TRansfInCv0(data);
+				if(tmp==null)
+					break;
+				output.Add(tmp);
+			}while(true);
+			return output;			
+		}
+		public CV TransfInCv(SqlDataReader data){
+			CV output = null;
+			if(data.Read()){
+				output = new CV{
+					Nome = data.GetString(0) ?? "",
+					Cognome = data.GetString(1)?? "",
+					Eta = data.GetInt32(2),
+					Matricola = data.GetString(3) ?? "",
+					Email = data.GetValue(4)==DBNull.Value ? "" : data.GetString(4),
+					Residenza = data.GetValue(5)==DBNull.Value ? "" : data.GetString(5),
+					Telefono =  data.GetValue(6)==DBNull.Value ? "" : data.GetString(6)
+				};
+			}
+			return output;
+		}
+		public Competenza TransfInCompetenza(SqlDataReader data){
+			Competenza output = null;
+			if(data.Read()){
+				output = new Competenza{
+					Livello = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+                    Titolo = data.GetValue(1) == DBNull.Value ? "" : data.GetString(1)
+				};
+			}
+			return output;
+		}
+		public List<Competenza> TransfInLIstCompetenza (SqlDataReader data){
+			List<Competenza> output = new List<Competenza>();
+			do{
+				Competenza tmp = TransfInCompetenza(data);
+			if(tmp==null)
+					break;
+				output.Add(tmp);
+			}while(true);
+			return output;			
+		}
+		public PerStud TransfInPerStud(SqlDataReader data){
+			PerStud output = null;
+			if(data.Read()){
+				output = new PerStud{
+					AnnoInizio = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+                    AnnoFine = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+                    Titolo = data.GetValue(2) == DBNull.Value ? "" : data.GetString(2),
+                    Descrizione = data.GetValue(3) == DBNull.Value ? "" : data.GetString(3)
+				};
+			}
+			return output;
+		}
+		public List<PerStud> TransfInListPerstud(SqlDataReader data){
+			List<PerStud> output = new List<PerStud>();
+			do{
+				PerStud tmp = TransfInPerStud(data);
+			if(tmp==null)
+					break;
+				output.Add(tmp);
+			}while(true);
+			return output;		
+		}
+		public EspLav TransEspLav (SqlDataReader data){
+			EspLav output = null;
+			if(data.Read()){
+				output = new EspLav{
+					AnnoInizio = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+					AnnoFine = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+                    Qualifica = data.GetValue(2)==DBNull.Value ? "" : data.GetString(2),
+                    Descrizione = data.GetValue(3)==DBNull.Value ? "" : data.GetString(3)
+                    };
+			}
+			return output;
+		}
+		public List<EspLav> TransfInListEspLav(SqlDataReader data){
+			List<EspLav> output = new List<EspLav>();
+			do{
+				EspLav tmp = TransEspLav(data);
+			if(tmp==null)
+					break;
+				output.Add(tmp);
+			}while(true);
+			return output;		
+		}
 	}
-}
+}	
