@@ -11,17 +11,9 @@ namespace Gestione.Models{
 		public List<Lezione> ListaLezioni(Corso input){
 			return dao.ListaLezioni(input);
 		}
-		public void AggiungiCV(CV a) {
-	public partial class DomainModel : IGeCo, IGeCV, IGeTime{
-	DataAccesObject dao = new DataAccesObject();	
         public void AddCompetenze(string MatrCv,Competenza comp) {
             dao.AddCompetenze(MatrCv,comp);
         }
-
-        public void AddCorso(Corso corso)
-		{
-			throw new NotImplementedException();
-		}
 
         public void AddCvStudi(string MatrCv,PerStud studi) {
             dao.AddCvStudi(MatrCv, studi);
@@ -31,10 +23,6 @@ namespace Gestione.Models{
             dao.AddEspLav(MatrCv,esp);
         }
 
-        public void AddLezione(int idCorso,Lezione lezione)
-		{
-			throw new NotImplementedException();
-		}
 
 		public void AggiungiCV(CV a)
 		{
@@ -105,19 +93,6 @@ namespace Gestione.Models{
 				throw e;
 			}
 		}
-		public void ModificaCV(CV a,CV b) {
-			throw new NotImplementedException();
-		}
-		public CV Search(string id) {
-			throw new NotImplementedException();
-		}
-		public List<CV> SearchChiava(string chiava) {
-			throw new NotImplementedException();
-		}
-		public List<CV> SearchCognome(string cognome) {
-			throw new NotImplementedException();
-		}
-
 		public void EliminaCV(CV curriculum)
 		{
             DataAccesObject db = new DataAccesObject();
@@ -126,9 +101,6 @@ namespace Gestione.Models{
             }catch(Exception e){ 
                 throw e;    
             }
-		}
-		public List<CV> SearchRange(int etmin,int etmax) {
-			throw new NotImplementedException();
 		}
 		public DTGGiorno VisualizzaGiorno(DateTime data,string idUtente) {
             Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
@@ -245,4 +217,6 @@ namespace Gestione.Models{
 			}
 		}
 	}
+}
+    }
 }
