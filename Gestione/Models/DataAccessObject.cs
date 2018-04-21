@@ -75,31 +75,6 @@ namespace DAO {
 				throw e;
 			}
 		}
-  //       SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-		//		DataSource = @"(localdb)\MSSQLLocalDB",
-		//		InitialCatalog = "GECV"
-		//	};
-		//	SqlConnection connection = new SqlConnection(builder.ToString());
-		//	int x;
-		//	try {
-		//		connection.Open();
-		//		SqlCommand command = new SqlCommand("dbo.AddCompetenze",connection) {
-		//			CommandType = CommandType.StoredProcedure
-		//		};
-		//		command.Parameters.Add("@Tipo",SqlDbType.NVarChar).Value=comp.Titolo;
-		//		command.Parameters.Add("@Livello",SqlDbType.Int).Value=comp.Livello;
-		//		command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
-		//		x = command.ExecuteNonQuery();
-		//		command.Dispose();
-		//		if (x == 0) { 
-		//			throw new Exception("Nessun curriculum eliminato!");
-		//			}				
-		//	}catch(Exception e) {
-		//		throw e;
-		//	}finally {
-		//		connection.Dispose();
-		//	}
-		//} 
         public void AddCorso(Corso corso) {
 			try{
 				SqlParameter[] param = {
@@ -173,33 +148,6 @@ namespace DAO {
 				throw e;
 			}
 		}		
-		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-		//		DataSource = @"(localdb)\MSSQLLocalDB",
-		//		InitialCatalog = "GECV"
-		//	};
-		//	SqlConnection connection = new SqlConnection(builder.ToString());
-		//	int x;
-		//	try {
-		//		connection.Open();
-		//		SqlCommand command = new SqlCommand("dbo.AddCvStudi",connection) {
-		//			CommandType = CommandType.StoredProcedure
-		//		};
-		//		command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=studi.AnnoInizio;
-		//		command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=studi.AnnoFine;
-		//		command.Parameters.Add("@Titolo",SqlDbType.VarChar).Value=studi.Titolo;
-		//		command.Parameters.Add("@Descrizione",SqlDbType.VarChar).Value=studi.Descrizione;
-		//		command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
-		//		 x = command.ExecuteNonQuery();
-		//		command.Dispose();
-		//		if (x == 0) { 
-		//			throw new Exception("Nessun curriculum eliminato!");
-		//			}				
-		//	}catch(Exception e) {
-		//		throw e;
-		//	}finally {
-		//		connection.Dispose();
-		//	}
-		//}
         public void AddEspLav(string MatrCv,EspLav esp) {
 			try{
 				SqlParameter[] param = { 
@@ -219,28 +167,7 @@ namespace DAO {
 				throw e;
 			}
 		}			
-			//SqlConnection con= new SqlConnection(GetStringBuilderCV());
-			//try {
-			//	con.Open();
-			//	SqlCommand command = new SqlCommand("AddEspLav",con);
-			//	command.CommandType=CommandType.StoredProcedure;
-			//	command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=esp.AnnoInizio;
-			//	command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
-			//	command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.Qualifica;
-			//	command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.Descrizione;
-			//	command.Parameters.Add("@matr",SqlDbType.NVarChar).Value=MatrCv;
-   //             int x = command.ExecuteNonQuery();
-			//	command.Dispose();
-			//	if (x == 0) { 
-			//		throw new Exception("Nessuna Esperienza Inserita");
-			//		}
-				
-			//}catch(Exception e) {
-			//	throw e;
-			//}finally {
-			//	con.Dispose();
-			//}
-   //     }
+
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
 		}
@@ -326,29 +253,7 @@ namespace DAO {
 				throw e;
 			}
 		}
-		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-		//		DataSource = @"(localdb)\MSSQLLocalDB",
-		//		InitialCatalog = "GECV"
-		//	};
-		//	SqlConnection connection = new SqlConnection(builder.ToString());
-		//	int x;
-		//	try {
-		//		connection.Open();
-		//		SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection) {
-		//			CommandType = CommandType.StoredProcedure
-		//		};
-		//		command.Parameters.Add("@idcurr",SqlDbType.NVarChar).Value=curriculum.Matricola;
-		//		 x = command.ExecuteNonQuery();
-		//		command.Dispose();
-		//		if (x == 0) { 
-		//			throw new Exception("Nessun curriculum eliminato!");
-		//			}				
-		//	}catch(Exception e) {
-		//		throw e;
-		//	}finally {
-		//		connection.Dispose();
-		//	}
-		//}
+		
 		public List<Corso> ListaCorsi() {
 		try{
 			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null,"GeCorsi");       
@@ -368,13 +273,7 @@ namespace DAO {
 				throw e;
 			}
 		}
-        //private string GetConnectinoCv() {
-        //    SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(){ 
-        //        DataSource = @"(localdb)\MSSQLLocalDB",
-        //        InitialCatalog = "GECV"
-        //    };
-        //    return builder.ToString();
-        //}
+     
         public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr) {
 			try{	
 				SqlParameter[] parameter = {
@@ -393,28 +292,6 @@ namespace DAO {
 				throw e;
 			}
 		}		
-		//SqlConnection con = new SqlConnection (GetConnectinoCv());
-   //         try{ 
-   //             con.Open();
-   //             SqlCommand cmd = new SqlCommand ("ModificaCV",con){ CommandType = CommandType.StoredProcedure};
-   //             cmd.Parameters.Add("@matr",SqlDbType.NVarChar).Value = matr;
-   //             cmd.Parameters.Add("@nome",SqlDbType.VarChar).Value = nome;
-   //             cmd.Parameters.Add("@cognome",SqlDbType.VarChar).Value = cognome;
-   //             cmd.Parameters.Add("@eta",SqlDbType.Int).Value = eta;
-   //             cmd.Parameters.Add("@email",SqlDbType.NVarChar).Value = email;
-   //             cmd.Parameters.Add("@residenza",SqlDbType.VarChar).Value = residenza;
-   //             cmd.Parameters.Add("@telefono",SqlDbType.NVarChar).Value = telefono;
-   //             int x = cmd.ExecuteNonQuery();
-   //             cmd.Dispose();
-   //             if(x==0){
-   //                 throw new Exception();      
-   //             }
-   //         }catch(Exception e){ 
-   //             throw e;        
-   //         }finally{ 
-   //             con.Dispose();    
-   //         }
-   //     }
         public List<CV> SearchChiava(string chiave) {
 			try{
 				SqlParameter[] parameter ={ new SqlParameter("@parola", chiave) };
@@ -425,31 +302,7 @@ namespace DAO {
 				throw e;
 			}
 		}		
-		//	List<CV> trovati = new List<CV>();
-		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-		//		DataSource = @"(localdb)\MSSQLLocalDB",
-		//		InitialCatalog = "GECV"
-		//	};
-		//	SqlConnection connection = new SqlConnection(builder.ToString());
-		//	try {
-		//		connection.Open();
-		//		SqlCommand command = new SqlCommand("dbo.CercaParolaChiava",connection) {
-		//			CommandType = CommandType.StoredProcedure
-		//		};
-		//		command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=chiava;
-		//		SqlDataReader reader = command.ExecuteReader();
-		//		while (reader.Read()){
-		//			trovati.Add(Search(reader.GetString(0)));
-		//		}
-		//		reader.Close();
-		//		command.Dispose();
-		//		return trovati;				
-		//	}catch(Exception e) {
-		//		throw e;
-		//	}finally {
-		//		connection.Dispose();
-		//	}
-		//}
+	
 		public List<CV> SearchCognome(string cognome) {
 			try{
 				SqlParameter[] param ={ new SqlParameter("@cognome",cognome) };
@@ -460,31 +313,6 @@ namespace DAO {
 				throw e;
 			}
 		}		
-		//	List<CV> trovati = new List<CV>();
-		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-		//		DataSource = @"(localdb)\MSSQLLocalDB",
-		//		InitialCatalog = "GECV"
-		//	};
-		//	SqlConnection connection = new SqlConnection(builder.ToString());
-		//	try {
-		//		connection.Open();
-		//		SqlCommand command = new SqlCommand("dbo.CercaCognome",connection) {
-		//			CommandType = CommandType.StoredProcedure
-		//		};
-		//		command.Parameters.Add("@cognome", SqlDbType.NVarChar).Value=cognome;
-		//		SqlDataReader reader = command.ExecuteReader();
-		//		while (reader.Read()){
-		//			trovati.Add(Search(reader.GetString(0)));
-		//		}
-		//		reader.Close();
-		//		command.Dispose();
-		//		return trovati;				
-		//	}catch(Exception e) {
-		//		throw e;
-		//	}finally {
-		//		connection.Dispose();
-		//	}
-		//}
 		public Corso SearchCorsi(int idCorso) {
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
@@ -536,31 +364,6 @@ namespace DAO {
 				throw e;
 			}
 		}
-		//List<CV> trovati = new List<CV>();
-		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-		//		DataSource = @"(localdb)\MSSQLLocalDB",
-		//		InitialCatalog = "GECV"
-		//	};
-		//	SqlConnection connection = new SqlConnection(builder.ToString());
-		//	try {
-		//		connection.Open();
-		//		SqlCommand command = new SqlCommand("dbo.CercaEta",connection) {
-		//			CommandType = CommandType.StoredProcedure
-		//		};
-		//		command.Parameters.Add("@eta",SqlDbType.Int).Value=eta;
-		//		SqlDataReader reader = command.ExecuteReader();
-		//		while (reader.Read()){
-		//			trovati.Add(Search(reader.GetString(0)));
-		//		}
-		//		reader.Close();
-		//		command.Dispose();
-		//		return trovati;				
-		//	}catch(Exception e) {
-		//		throw e;
-		//	}finally {
-		//		connection.Dispose();
-		//	}
-		//}
 		public List<CV> SearchRange(int etmin,int etmax) {
 			try{
 				SqlParameter[] parameters = {
@@ -574,32 +377,6 @@ namespace DAO {
 				throw e;
 			}
 		}
-		//	List<CV> trovati = new List<CV>();
-		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-		//		DataSource = @"(localdb)\MSSQLLocalDB",
-		//		InitialCatalog = "GECV"
-		//	};
-		//	SqlConnection connection = new SqlConnection(builder.ToString());
-		//	try {
-		//		connection.Open();
-		//		SqlCommand command = new SqlCommand("dbo.CercaEtaMinMax",connection) {
-		//			CommandType = CommandType.StoredProcedure
-		//		};
-		//		command.Parameters.Add("@e_min",SqlDbType.Int).Value=etmin;
-		//		command.Parameters.Add("@e_max",SqlDbType.Int).Value=etmax;
-		//		SqlDataReader reader = command.ExecuteReader();
-		//		while (reader.Read()){
-		//			trovati.Add(Search(reader.GetString(0)));
-		//		}
-		//		reader.Close();
-		//		command.Dispose();
-		//		return trovati;				
-		//	}catch(Exception e) {
-		//		throw e;
-		//	}finally {
-		//		connection.Dispose();
-		//	}
-		//}
 	}
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
