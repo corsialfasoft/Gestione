@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.Serialization;
 using Interfaces;
 using LibreriaDB;
-using System.Data.SqlClient;
-using System.Data;
 
-namespace DAO{
+namespace DAO {
 	public interface IDao{
 		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
@@ -56,33 +53,49 @@ namespace DAO{
     }
 	
 	public partial class DataAccesObject : IDao {
+		ITrasformer transf = new Trasformator();
         public void AddCompetenze(string MatrCv,Competenza comp) {
-         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			SqlConnection connection = new SqlConnection(builder.ToString());
-			int x;
-			try {
-				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.AddCompetenze",connection) {
-					CommandType = CommandType.StoredProcedure
+			try{
+				SqlParameter[] param = {
+					new SqlParameter("@Tipo",comp.Titolo),
+					new SqlParameter("@Livello",comp.Livello),
+					new SqlParameter("@MatrCv",MatrCv)					
 				};
-				command.Parameters.Add("@Tipo",SqlDbType.NVarChar).Value=comp.Titolo;
-				command.Parameters.Add("@Livello",SqlDbType.Int).Value=comp.Livello;
-				command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
-				x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
-					throw new Exception("Nessun curriculum eliminato!");
-					}				
-			}catch(Exception e) {
+				int output = DB.ExecNonQProcedure("dbo.AddCompetenze", param,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessuna competenza aggiunta!");
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
 				throw e;
-			}finally {
-				connection.Dispose();
 			}
-		} 
-
+		}
+  //       SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+		//		DataSource = @"(localdb)\MSSQLLocalDB",
+		//		InitialCatalog = "GECV"
+		//	};
+		//	SqlConnection connection = new SqlConnection(builder.ToString());
+		//	int x;
+		//	try {
+		//		connection.Open();
+		//		SqlCommand command = new SqlCommand("dbo.AddCompetenze",connection) {
+		//			CommandType = CommandType.StoredProcedure
+		//		};
+		//		command.Parameters.Add("@Tipo",SqlDbType.NVarChar).Value=comp.Titolo;
+		//		command.Parameters.Add("@Livello",SqlDbType.Int).Value=comp.Livello;
+		//		command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
+		//		x = command.ExecuteNonQuery();
+		//		command.Dispose();
+		//		if (x == 0) { 
+		//			throw new Exception("Nessun curriculum eliminato!");
+		//			}				
+		//	}catch(Exception e) {
+		//		throw e;
+		//	}finally {
+		//		connection.Dispose();
+		//	}
+		//} 
         public void AddCorso(Corso corso) {
 			try{
 				SqlParameter[] param = {
@@ -136,71 +149,97 @@ namespace DAO{
 			} catch (Exception e) {
 				throw e;
 			}
-		}
-		public void AggiungiCV(CV a) {
-			throw new NotImplementedException();
-		}
-
+		}		
         public void AddCvStudi(string MatrCv,PerStud studi) {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			SqlConnection connection = new SqlConnection(builder.ToString());
-			int x;
-			try {
-				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.AddCvStudi",connection) {
-					CommandType = CommandType.StoredProcedure
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@AnnoI",studi.AnnoInizio),
+					new SqlParameter("@AnnoF",studi.AnnoFine),
+					new SqlParameter("@Titolo",studi.Titolo),
+					new SqlParameter("@Descrizione",studi.Descrizione),
+					new SqlParameter("@MatrCv",MatrCv)
 				};
-				command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=studi.AnnoInizio;
-				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=studi.AnnoFine;
-				command.Parameters.Add("@Titolo",SqlDbType.VarChar).Value=studi.Titolo;
-				command.Parameters.Add("@Descrizione",SqlDbType.VarChar).Value=studi.Descrizione;
-				command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
-				 x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
+				int output = DB.ExecNonQProcedure("dbo.AddCvStudi", parameters, "GeCv");
+				if (output == 0) { 
 					throw new Exception("Nessun curriculum eliminato!");
-					}				
-			}catch(Exception e) {
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
 				throw e;
-			}finally {
-				connection.Dispose();
 			}
-		}
-
+		}		
+		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+		//		DataSource = @"(localdb)\MSSQLLocalDB",
+		//		InitialCatalog = "GECV"
+		//	};
+		//	SqlConnection connection = new SqlConnection(builder.ToString());
+		//	int x;
+		//	try {
+		//		connection.Open();
+		//		SqlCommand command = new SqlCommand("dbo.AddCvStudi",connection) {
+		//			CommandType = CommandType.StoredProcedure
+		//		};
+		//		command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=studi.AnnoInizio;
+		//		command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=studi.AnnoFine;
+		//		command.Parameters.Add("@Titolo",SqlDbType.VarChar).Value=studi.Titolo;
+		//		command.Parameters.Add("@Descrizione",SqlDbType.VarChar).Value=studi.Descrizione;
+		//		command.Parameters.Add("@MatrCv",SqlDbType.NVarChar).Value=MatrCv;
+		//		 x = command.ExecuteNonQuery();
+		//		command.Dispose();
+		//		if (x == 0) { 
+		//			throw new Exception("Nessun curriculum eliminato!");
+		//			}				
+		//	}catch(Exception e) {
+		//		throw e;
+		//	}finally {
+		//		connection.Dispose();
+		//	}
+		//}
         public void AddEspLav(string MatrCv,EspLav esp) {
-			SqlConnection con= new SqlConnection(GetStringBuilderCV());
-			try {
-				con.Open();
-				SqlCommand command = new SqlCommand("AddEspLav",con);
-				command.CommandType=CommandType.StoredProcedure;
-				command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=esp.AnnoInizio;
-				command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
-				command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.Qualifica;
-				command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.Descrizione;
-				command.Parameters.Add("@matr",SqlDbType.NVarChar).Value=MatrCv;
-                int x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
+			try{
+				SqlParameter[] param = { 
+					new SqlParameter("@AnnoI",esp.AnnoInizio),
+					new SqlParameter("@AnnoF",esp.AnnoFine),
+					new SqlParameter("@Qualifica",esp.Qualifica),
+					new SqlParameter("@Descrizione",esp.Descrizione),
+					new SqlParameter("@matr",MatrCv)
+				};
+				int output = DB.ExecNonQProcedure("AddEspLav", param, "GeCv");
+				if (output == 0) { 
 					throw new Exception("Nessuna Esperienza Inserita");
-					}
-				
-			}catch(Exception e) {
+				}
+			} catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
 				throw e;
-			}finally {
-				con.Dispose();
 			}
-        }
-
-        public void AddLezione(int idCorso,Lezione lezione) {
-			throw new NotImplementedException();
-		}
+		}			
+			//SqlConnection con= new SqlConnection(GetStringBuilderCV());
+			//try {
+			//	con.Open();
+			//	SqlCommand command = new SqlCommand("AddEspLav",con);
+			//	command.CommandType=CommandType.StoredProcedure;
+			//	command.Parameters.Add("@AnnoI",SqlDbType.Int).Value=esp.AnnoInizio;
+			//	command.Parameters.Add("@AnnoF",SqlDbType.Int).Value=esp.AnnoFine;
+			//	command.Parameters.Add("@Qualifica",SqlDbType.NVarChar).Value=esp.Qualifica;
+			//	command.Parameters.Add("@Descrizione",SqlDbType.NVarChar).Value=esp.Descrizione;
+			//	command.Parameters.Add("@matr",SqlDbType.NVarChar).Value=MatrCv;
+   //             int x = command.ExecuteNonQuery();
+			//	command.Dispose();
+			//	if (x == 0) { 
+			//		throw new Exception("Nessuna Esperienza Inserita");
+			//		}
+				
+			//}catch(Exception e) {
+			//	throw e;
+			//}finally {
+			//	con.Dispose();
+			//}
+   //     }
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
 		}
-
 		public Commessa CercaCommessa(string nomeCommessa) {
 			try {
 				SqlParameter[] parameter = {
@@ -213,7 +252,6 @@ namespace DAO{
 				throw e;
 			}
 		}
-
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
             try{ 
                 SqlParameter[] parameters = {
@@ -242,38 +280,49 @@ namespace DAO{
 				throw e;
 			}
 		}
-
 		public void EliminaCV(CV curriculum) {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			SqlConnection connection = new SqlConnection(builder.ToString());
-			int x;
-			try {
-				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection) {
-					CommandType = CommandType.StoredProcedure
-				};
-				command.Parameters.Add("@idcurr",SqlDbType.NVarChar).Value=curriculum.Matricola;
-				 x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
+			try{
+				SqlParameter[] param ={ new SqlParameter("@idcurr", curriculum.Matricola)};
+				int output = DB.ExecNonQProcedure("dbo.DeleteCurriculum", param, "GeCv");
+				if (output == 0) { 
 					throw new Exception("Nessun curriculum eliminato!");
 					}				
-			}catch(Exception e) {
+			}catch(SqlException e){
+				throw new Exception(e.Message);
+			}catch(Exception e){
 				throw e;
-			}finally {
-				connection.Dispose();
 			}
 		}
+		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+		//		DataSource = @"(localdb)\MSSQLLocalDB",
+		//		InitialCatalog = "GECV"
+		//	};
+		//	SqlConnection connection = new SqlConnection(builder.ToString());
+		//	int x;
+		//	try {
+		//		connection.Open();
+		//		SqlCommand command = new SqlCommand("dbo.DeleteCurriculum",connection) {
+		//			CommandType = CommandType.StoredProcedure
+		//		};
+		//		command.Parameters.Add("@idcurr",SqlDbType.NVarChar).Value=curriculum.Matricola;
+		//		 x = command.ExecuteNonQuery();
+		//		command.Dispose();
+		//		if (x == 0) { 
+		//			throw new Exception("Nessun curriculum eliminato!");
+		//			}				
+		//	}catch(Exception e) {
+		//		throw e;
+		//	}finally {
+		//		connection.Dispose();
+		//	}
+		//}
 		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
 			try{
 				SqlParameter[] parameter = {
 					new SqlParameter("@idC", idCommessa),				
 					new SqlParameter("@idU",idUtente)
 				};
-				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInGiorno,parameter,"GeTime");
+				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInListGiorno,parameter,"GeTime");
 			}catch(SqlException e){
 				throw new Exception(e.Message);
 			}catch(Exception e){
@@ -299,91 +348,123 @@ namespace DAO{
 				throw e;
 			}
 		}
-        private string GetConnectinoCv() {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(){ 
-                DataSource = @"(localdb)\MSSQLLocalDB",
-                InitialCatalog = "GECV"
-            };
-            return builder.ToString();
-        }
+        //private string GetConnectinoCv() {
+        //    SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(){ 
+        //        DataSource = @"(localdb)\MSSQLLocalDB",
+        //        InitialCatalog = "GECV"
+        //    };
+        //    return builder.ToString();
+        //}
         public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr) {
-            SqlConnection con = new SqlConnection (GetConnectinoCv());
-            try{ 
-                con.Open();
-                SqlCommand cmd = new SqlCommand ("ModificaCV",con){ CommandType = CommandType.StoredProcedure};
-                cmd.Parameters.Add("@matr",SqlDbType.NVarChar).Value = matr;
-                cmd.Parameters.Add("@nome",SqlDbType.VarChar).Value = nome;
-                cmd.Parameters.Add("@cognome",SqlDbType.VarChar).Value = cognome;
-                cmd.Parameters.Add("@eta",SqlDbType.Int).Value = eta;
-                cmd.Parameters.Add("@email",SqlDbType.NVarChar).Value = email;
-                cmd.Parameters.Add("@residenza",SqlDbType.VarChar).Value = residenza;
-                cmd.Parameters.Add("@telefono",SqlDbType.NVarChar).Value = telefono;
-                int x = cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                if(x==0){
-                    throw new Exception();      
-                }
-            }catch(Exception e){ 
-                throw e;        
-            }finally{ 
-                con.Dispose();    
-            }
-        }
-
-        public List<CV> SearchChiava(string chiava) {
-			List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			SqlConnection connection = new SqlConnection(builder.ToString());
-			try {
-				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaParolaChiava",connection) {
-					CommandType = CommandType.StoredProcedure
+			try{	
+				SqlParameter[] parameter = {
+					new SqlParameter("@cognome", cognome),
+					new SqlParameter("@matr", matr),
+					new SqlParameter("@nome", nome),
+					new SqlParameter("@eta", eta),
+					new SqlParameter("@email", email),
+					new SqlParameter("@residenza", residenza),
+					new SqlParameter("@telefono", telefono)
 				};
-				command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=chiava;
-				SqlDataReader reader = command.ExecuteReader();
-				while (reader.Read()){
-					trovati.Add(Search(reader.GetString(0)));
-				}
-				reader.Close();
-				command.Dispose();
-				return trovati;				
-			}catch(Exception e) {
+				DB.ExecNonQProcedure("ModificaCV",parameter,"GeCv");
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
 				throw e;
-			}finally {
-				connection.Dispose();
 			}
-		}
-
+		}		
+		//SqlConnection con = new SqlConnection (GetConnectinoCv());
+   //         try{ 
+   //             con.Open();
+   //             SqlCommand cmd = new SqlCommand ("ModificaCV",con){ CommandType = CommandType.StoredProcedure};
+   //             cmd.Parameters.Add("@matr",SqlDbType.NVarChar).Value = matr;
+   //             cmd.Parameters.Add("@nome",SqlDbType.VarChar).Value = nome;
+   //             cmd.Parameters.Add("@cognome",SqlDbType.VarChar).Value = cognome;
+   //             cmd.Parameters.Add("@eta",SqlDbType.Int).Value = eta;
+   //             cmd.Parameters.Add("@email",SqlDbType.NVarChar).Value = email;
+   //             cmd.Parameters.Add("@residenza",SqlDbType.VarChar).Value = residenza;
+   //             cmd.Parameters.Add("@telefono",SqlDbType.NVarChar).Value = telefono;
+   //             int x = cmd.ExecuteNonQuery();
+   //             cmd.Dispose();
+   //             if(x==0){
+   //                 throw new Exception();      
+   //             }
+   //         }catch(Exception e){ 
+   //             throw e;        
+   //         }finally{ 
+   //             con.Dispose();    
+   //         }
+   //     }
+        public List<CV> SearchChiava(string chiave) {
+			try{
+				SqlParameter[] parameter ={ new SqlParameter("@parola", chiave) };
+				return DB.ExecQProcedureReader ("dbo.CercaParolaChiava", transf.TransfListCV0,parameter,"GeCv");				
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
+				throw e;
+			}
+		}		
+		//	List<CV> trovati = new List<CV>();
+		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+		//		DataSource = @"(localdb)\MSSQLLocalDB",
+		//		InitialCatalog = "GECV"
+		//	};
+		//	SqlConnection connection = new SqlConnection(builder.ToString());
+		//	try {
+		//		connection.Open();
+		//		SqlCommand command = new SqlCommand("dbo.CercaParolaChiava",connection) {
+		//			CommandType = CommandType.StoredProcedure
+		//		};
+		//		command.Parameters.Add("@parola",SqlDbType.NVarChar).Value=chiava;
+		//		SqlDataReader reader = command.ExecuteReader();
+		//		while (reader.Read()){
+		//			trovati.Add(Search(reader.GetString(0)));
+		//		}
+		//		reader.Close();
+		//		command.Dispose();
+		//		return trovati;				
+		//	}catch(Exception e) {
+		//		throw e;
+		//	}finally {
+		//		connection.Dispose();
+		//	}
+		//}
 		public List<CV> SearchCognome(string cognome) {
-			List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			SqlConnection connection = new SqlConnection(builder.ToString());
-			try {
-				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaCognome",connection) {
-					CommandType = CommandType.StoredProcedure
-				};
-				command.Parameters.Add("@cognome", SqlDbType.NVarChar).Value=cognome;
-				SqlDataReader reader = command.ExecuteReader();
-				while (reader.Read()){
-					trovati.Add(Search(reader.GetString(0)));
-				}
-				reader.Close();
-				command.Dispose();
-				return trovati;				
-			}catch(Exception e) {
+			try{
+				SqlParameter[] param ={ new SqlParameter("@cognome",cognome) };
+				return DB.ExecQProcedureReader("dbo.CercaCognome", transf.TransfListCV0,param,"GeCv");				
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
 				throw e;
-			}finally {
-				connection.Dispose();
 			}
-		}
-
+		}		
+		//	List<CV> trovati = new List<CV>();
+		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+		//		DataSource = @"(localdb)\MSSQLLocalDB",
+		//		InitialCatalog = "GECV"
+		//	};
+		//	SqlConnection connection = new SqlConnection(builder.ToString());
+		//	try {
+		//		connection.Open();
+		//		SqlCommand command = new SqlCommand("dbo.CercaCognome",connection) {
+		//			CommandType = CommandType.StoredProcedure
+		//		};
+		//		command.Parameters.Add("@cognome", SqlDbType.NVarChar).Value=cognome;
+		//		SqlDataReader reader = command.ExecuteReader();
+		//		while (reader.Read()){
+		//			trovati.Add(Search(reader.GetString(0)));
+		//		}
+		//		reader.Close();
+		//		command.Dispose();
+		//		return trovati;				
+		//	}catch(Exception e) {
+		//		throw e;
+		//	}finally {
+		//		connection.Dispose();
+		//	}
+		//}
 		public Corso SearchCorsi(int idCorso) {
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
@@ -426,66 +507,86 @@ namespace DAO{
 			}
 		}
 		public List<CV> SearchEta(int eta) {
-		List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			SqlConnection connection = new SqlConnection(builder.ToString());
-			try {
-				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaEta",connection) {
-					CommandType = CommandType.StoredProcedure
-				};
-				command.Parameters.Add("@eta",SqlDbType.Int).Value=eta;
-				SqlDataReader reader = command.ExecuteReader();
-				while (reader.Read()){
-					trovati.Add(Search(reader.GetString(0)));
-				}
-				reader.Close();
-				command.Dispose();
-				return trovati;				
-			}catch(Exception e) {
+			try{
+				SqlParameter[] param = { new SqlParameter("@eta",eta)};
+				return DB.ExecQProcedureReader("dbo.CercaEta",transf.TransfListCV0,param, "GeCv");
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
 				throw e;
-			}finally {
-				connection.Dispose();
 			}
 		}
+		//List<CV> trovati = new List<CV>();
+		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+		//		DataSource = @"(localdb)\MSSQLLocalDB",
+		//		InitialCatalog = "GECV"
+		//	};
+		//	SqlConnection connection = new SqlConnection(builder.ToString());
+		//	try {
+		//		connection.Open();
+		//		SqlCommand command = new SqlCommand("dbo.CercaEta",connection) {
+		//			CommandType = CommandType.StoredProcedure
+		//		};
+		//		command.Parameters.Add("@eta",SqlDbType.Int).Value=eta;
+		//		SqlDataReader reader = command.ExecuteReader();
+		//		while (reader.Read()){
+		//			trovati.Add(Search(reader.GetString(0)));
+		//		}
+		//		reader.Close();
+		//		command.Dispose();
+		//		return trovati;				
+		//	}catch(Exception e) {
+		//		throw e;
+		//	}finally {
+		//		connection.Dispose();
+		//	}
+		//}
 		public List<CV> SearchRange(int etmin,int etmax) {
-			List<CV> trovati = new List<CV>();
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			SqlConnection connection = new SqlConnection(builder.ToString());
-			try {
-				connection.Open();
-				SqlCommand command = new SqlCommand("dbo.CercaEtaMinMax",connection) {
-					CommandType = CommandType.StoredProcedure
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@e_min", etmin),
+					new SqlParameter("@e_max", etmax)					
 				};
-				command.Parameters.Add("@e_min",SqlDbType.Int).Value=etmin;
-				command.Parameters.Add("@e_max",SqlDbType.Int).Value=etmax;
-				SqlDataReader reader = command.ExecuteReader();
-				while (reader.Read()){
-					trovati.Add(Search(reader.GetString(0)));
-				}
-				reader.Close();
-				command.Dispose();
-				return trovati;				
-			}catch(Exception e) {
+				return DB.ExecQProcedureReader("dbo.CercaEtaMinMax", transf.TransfListCV0,parameters, "GeCv");
+			}catch (SqlException e) {
+				throw new Exception(e.Message);
+			} catch (Exception e) {
 				throw e;
-			}finally {
-				connection.Dispose();
 			}
 		}
-
+		//	List<CV> trovati = new List<CV>();
+		//	SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+		//		DataSource = @"(localdb)\MSSQLLocalDB",
+		//		InitialCatalog = "GECV"
+		//	};
+		//	SqlConnection connection = new SqlConnection(builder.ToString());
+		//	try {
+		//		connection.Open();
+		//		SqlCommand command = new SqlCommand("dbo.CercaEtaMinMax",connection) {
+		//			CommandType = CommandType.StoredProcedure
+		//		};
+		//		command.Parameters.Add("@e_min",SqlDbType.Int).Value=etmin;
+		//		command.Parameters.Add("@e_max",SqlDbType.Int).Value=etmax;
+		//		SqlDataReader reader = command.ExecuteReader();
+		//		while (reader.Read()){
+		//			trovati.Add(Search(reader.GetString(0)));
+		//		}
+		//		reader.Close();
+		//		command.Dispose();
+		//		return trovati;				
+		//	}catch(Exception e) {
+		//		throw e;
+		//	}finally {
+		//		connection.Dispose();
+		//	}
+		//}
 		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
             try {
                 SqlParameter[] parameter = {
 					new SqlParameter("@Data", data.ToString("yyyy-MM-dd")),               
 					new SqlParameter("@IdUtente", idUtente)
 				};                
-                Giorno result = DB.ExecQProcedureReader("SP_VisualizzaGiorno", transf.TeasformInGiorno, parameter, "GeTime");
+                Giorno result = DB.ExecQProcedureReader("SP_VisualizzaGiorno", transf.TrasformInGiorno, parameter, "GeTime");
                 if(result!=null)
                     result.Data=data;
                 return result;
@@ -494,28 +595,25 @@ namespace DAO{
             } 
 		}
 	}
-
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
 		public LezionNonModificataException() {}
 		public LezionNonModificataException(string message) : base(message) {}
 		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException) {}
 		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context) {}
-		}
-	[Serializable]
-		internal class LezioneNonAggiuntaException : Exception {
-			public LezioneNonAggiuntaException() {}
-			public LezioneNonAggiuntaException(string message) : base(message) {}
-			public LezioneNonAggiuntaException(string message,Exception innerException) : base(message,innerException){}
-			protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){}
-		}
-		[Serializable]
-		internal class CorsoNonAggiuntaException : Exception {
-			public CorsoNonAggiuntaException() {}
-			public CorsoNonAggiuntaException(string message) : base(message) { }
-			public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
-			protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {
-			}
-		}
 	}
-	
+	[Serializable]
+	internal class LezioneNonAggiuntaException : Exception {
+		public LezioneNonAggiuntaException() {}
+		public LezioneNonAggiuntaException(string message) : base(message) {}
+		public LezioneNonAggiuntaException(string message,Exception innerException) : base(message,innerException){}
+		protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){}
+	}
+	[Serializable]
+	internal class CorsoNonAggiuntaException : Exception {
+		public CorsoNonAggiuntaException() {}
+		public CorsoNonAggiuntaException(string message) : base(message) { }
+		public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
+		protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {}
+	}
+	}

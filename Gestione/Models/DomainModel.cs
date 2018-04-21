@@ -19,15 +19,14 @@ namespace Gestione.Models{
         public void AddCvStudi(string MatrCv,PerStud studi) {
             dao.AddCvStudi(MatrCv, studi);
         }
-
         public void AddEspLav(string MatrCv,EspLav esp) {
             dao.AddEspLav(MatrCv,esp);
         }
 
 		public void AggiungiCV(CV a)
 		{
-			DataAccesObject doo = new DataAccesObject();
-            doo.AggiungiCV(a);
+			DataAccesObject dao = new DataAccesObject();
+            dao.AggiungiCV(a);
 		}
 		public void Iscriviti(int idCorso,string idStudente) {
 			try{

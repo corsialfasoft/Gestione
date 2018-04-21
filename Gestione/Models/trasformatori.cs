@@ -8,11 +8,13 @@ namespace DAO{
 		Corso TrasformInCorso(SqlDataReader data);
 		List<Corso> TrasformInListaCorso(SqlDataReader data);
         Commessa TrasformInCommessa(SqlDataReader data);
-        List<Giorno> TrasformInGiorno(SqlDataReader data);
-        Giorno TeasformInGiorno(SqlDataReader reader);
+        List<Giorno> TrasformInListGiorno(SqlDataReader data);
+        Giorno TrasformInGiorno(SqlDataReader reader);
+		CV TRansfInCv0(SqlDataReader data);
+		List<CV> TransfListCV0(SqlDataReader data);
     }
 	public class Trasformator :ITrasformer{
-        public Giorno TeasformInGiorno(SqlDataReader reader) {
+        public Giorno TrasformInGiorno(SqlDataReader reader) {
             Giorno result = null;
             if (reader.Read()) {
                 result = new Giorno(DateTime.Today);
@@ -35,12 +37,13 @@ namespace DAO{
             }
             return result;
         }
-        public List<Giorno> TrasformInGiorno(SqlDataReader data) {
+        public List<Giorno> TrasformInListGiorno(SqlDataReader data) {
             List<Giorno> list = new List<Giorno>();
             while (data.Read()) {
-                Giorno giorno = new Giorno(data.GetDateTime(1));
-                giorno.IdGiorno = data.GetInt32(0);
-                giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3), data.GetInt32(2), data.GetString(4), data.GetString(5)));
+				Giorno giorno = new Giorno(data.GetDateTime(1)) {
+					IdGiorno = data.GetInt32(0)
+				};
+				giorno.AddOreLavorative(new OreLavorative(data.GetInt32(3), data.GetInt32(2), data.GetString(4), data.GetString(5)));
                 list.Add(giorno);
             }
             return list;
@@ -88,5 +91,24 @@ namespace DAO{
 			}while(true);
 			return output;
 		}	
+		public CV TRansfInCv0(SqlDataReader data){			
+			CV output = null;
+			if(data.Read()){
+				output = new CV{
+					Matricola = data.GetString(0)
+				};					
+			}
+		return output;
+		}
+		public List<CV> TransfListCV0(SqlDataReader data){
+			List<CV> output = new List<CV>();
+			do{
+				CV tmp = TRansfInCv0(data);
+				if(tmp==null)
+					break;
+				output.Add(tmp);
+			}while(true);
+			return output;			
+		}
 	}
 }
