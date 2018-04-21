@@ -56,7 +56,7 @@ namespace DAO {
 		ITrasformer transf = new Trasformator();
         public List<Lezione> ListaLezioni(Corso corso){
 			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
-			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezione,param,"GeCorsi");
+			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezioni, param,"GeCorsi");
 		}
 		public void AddCompetenze(string MatrCv,Competenza comp) {
 			try{
@@ -232,7 +232,7 @@ namespace DAO {
 					new SqlParameter("@idC", idCommessa),				
 					new SqlParameter("@idU",idUtente)
 				};
-				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInListGiorno,parameter,"GeTime");
+				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInGiorni,parameter,"GeTime");
 			}catch(SqlException e){
 				throw new Exception(e.Message);
 			}catch(Exception e){
@@ -256,7 +256,7 @@ namespace DAO {
 		
 		public List<Corso> ListaCorsi() {
 		try{
-			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null,"GeCorsi");       
+			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInCorsi, null,"GeCorsi");       
 		} catch (SqlException e) {
 				throw new Exception(e.Message);
 			} catch (Exception e) {
@@ -266,7 +266,7 @@ namespace DAO {
 		public List<Corso> ListaCorsi(string idUtente) {
 			try{
 				SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
-				return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInListaCorso,param,"GeCorsi");
+				return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInCorsi,param,"GeCorsi");
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
 			} catch (Exception e) {
@@ -336,7 +336,7 @@ namespace DAO {
 		public List<Corso> SearchCorsi(string descrizione) {
 			try{
 				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
-				return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInListaCorso,param, "GeCorsi");
+				return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInCorsi,param, "GeCorsi");
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
 			} catch (Exception e) {
@@ -347,7 +347,7 @@ namespace DAO {
 			try{
 				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione),
 					new SqlParameter("@idStudente", idUtente)};
-				return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInListaCorso,param,"GeCorsi");
+				return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInCorsi,param,"GeCorsi");
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
 			} catch (Exception e) {
