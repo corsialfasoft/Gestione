@@ -275,26 +275,17 @@ namespace DAO{
 
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
-		public LezionNonModificataException() {
+		public LezionNonModificataException() {}
+		public LezionNonModificataException(string message) : base(message) {}
+		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException) {}
+		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context) {}
 		}
-
-		public LezionNonModificataException(string message) : base(message) {
-		}
-
-		public LezionNonModificataException(string message,Exception innerException) : base(message,innerException) {
-		}
-
-		protected LezionNonModificataException(SerializationInfo info,StreamingContext context) : base(info,context) {
-		}
-	}
-
 	[Serializable]
 		internal class LezioneNonAggiuntaException : Exception {
 			public LezioneNonAggiuntaException() {}
 			public LezioneNonAggiuntaException(string message) : base(message) {}
 			public LezioneNonAggiuntaException(string message,Exception innerException) : base(message,innerException){}
-			protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){
-			}
+			protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){}
 		}
 		[Serializable]
 		internal class CorsoNonAggiuntaException : Exception {
