@@ -25,10 +25,10 @@ namespace DAO {
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
 
 
-        void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
-		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
-		Giorno VisualizzaGiorno(DateTime data, int idUtente);
-		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
+        void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
+		Giorno VisualizzaGiorno(DateTime data, string idUtente);
+		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		Commessa CercaCommessa(string nomeCommessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
@@ -240,6 +240,7 @@ namespace DAO {
 		public void CaricaCV(string path) {
 			throw new NotImplementedException();
 		}
+        //GeTime 
 		public Commessa CercaCommessa(string nomeCommessa) {
 			try {
 				SqlParameter[] parameter = {
@@ -280,6 +281,34 @@ namespace DAO {
 				throw e;
 			}
 		}
+		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
+            try {
+                SqlParameter[] parameter = {
+					new SqlParameter("@Data", data.ToString("yyyy-MM-dd")),               
+					new SqlParameter("@IdUtente", idUtente)
+				};                
+                Giorno result = DB.ExecQProcedureReader("SP_VisualizzaGiorno", transf.TrasformInGiorno, parameter, "GeTime");
+                if(result!=null)
+                    result.Data=data;
+                return result;
+            } catch (Exception e) {
+                throw e;
+            } 
+		}
+		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
+			try{
+				SqlParameter[] parameter = {
+					new SqlParameter("@idC", idCommessa),				
+					new SqlParameter("@idU",idUtente)
+				};
+				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInListGiorno,parameter,"GeTime");
+			}catch(SqlException e){
+				throw new Exception(e.Message);
+			}catch(Exception e){
+				throw e;
+			}
+		}
+
 		public void EliminaCV(CV curriculum) {
 			try{
 				SqlParameter[] param ={ new SqlParameter("@idcurr", curriculum.Matricola)};
@@ -316,19 +345,6 @@ namespace DAO {
 		//		connection.Dispose();
 		//	}
 		//}
-		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
-			try{
-				SqlParameter[] parameter = {
-					new SqlParameter("@idC", idCommessa),				
-					new SqlParameter("@idU",idUtente)
-				};
-				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInListGiorno,parameter,"GeTime");
-			}catch(SqlException e){
-				throw new Exception(e.Message);
-			}catch(Exception e){
-				throw e;
-			}
-		}
 		public List<Corso> ListaCorsi() {
 		try{
 			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInListaCorso, null,"GeCorsi");       
@@ -580,20 +596,6 @@ namespace DAO {
 		//		connection.Dispose();
 		//	}
 		//}
-		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
-            try {
-                SqlParameter[] parameter = {
-					new SqlParameter("@Data", data.ToString("yyyy-MM-dd")),               
-					new SqlParameter("@IdUtente", idUtente)
-				};                
-                Giorno result = DB.ExecQProcedureReader("SP_VisualizzaGiorno", transf.TrasformInGiorno, parameter, "GeTime");
-                if(result!=null)
-                    result.Data=data;
-                return result;
-            } catch (Exception e) {
-                throw e;
-            } 
-		}
 	}
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
