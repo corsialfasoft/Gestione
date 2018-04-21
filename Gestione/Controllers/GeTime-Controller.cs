@@ -8,12 +8,13 @@ using System.Web.Mvc;
 
 namespace Gestione.Controllers {
 	public partial class HomeController{
-		 public ActionResult VisualizzaGiorno() {
+        DomainModel dm = new DomainModel();
+ 
+		public ActionResult VisualizzaGiorno() {
             return View();
         }
         [HttpPost]
         public ActionResult VisualizzaGiorno(DateTime data) {
-            DomainModel dm = new DomainModel();
             DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
             if (giorno!=null) {
                 ViewBag.giorno = giorno;
@@ -27,14 +28,13 @@ namespace Gestione.Controllers {
 		}
 		[HttpPost]
 		public ActionResult VisualizzaCommessa(string commessa) {
-			DomainModel model = new DomainModel();
 			if(commessa.Length==0)
 				ViewBag.Message = "Inserire un nome di commessa";
 			else{ 
 				try{ 
-					DTCommessa dTCommessa = model.CercaCommessa(commessa);
+					DTCommessa dTCommessa = dm.CercaCommessa(commessa);
 					if(dTCommessa != null){ 
-						List<DTGiorno> giorni = model.GiorniCommessa(dTCommessa.Id, P.Matricola);
+						List<DTGiorno> giorni = dm.GiorniCommessa(dTCommessa.Id, P.Matricola);
 						if(giorni!=null && giorni.Count>0){
 							ViewBag.NomeCommessa= dTCommessa.Nome;
 							ViewBag.Giorni = giorni;
@@ -42,7 +42,7 @@ namespace Gestione.Controllers {
 							ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
 				
 					}
-				}catch(Exception e){
+				}catch(Exception){
 					ViewBag.Message = "Errore del server";
 				}
 			}
@@ -57,7 +57,6 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult AddGiorno(DateTime dateTime, string tipoOre, int ?ore, string Commessa) {
 			ViewBag.GeCoDataTime = dateTime;
-			DomainModel dm = new DomainModel();
             DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, P.Matricola);
 			try{
                 if (giorno != null) {
@@ -65,7 +64,7 @@ namespace Gestione.Controllers {
                         ViewBag.Giorno = giorno;
                         ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} eri in ferie";
                         return View("AddGiorno");
-                    } else if (giorno.OreMalattia + giorno.OrePermesso + giorno.TotOreLavorate + (int)ore > 8) {
+                    } else if (giorno.OreMalattia + giorno.OrePermesso + giorno.TotOreLavorate + (tipoOre == "Ore di ferie" && ore==null ? 8 : 0) > 8) {
                         ViewBag.Giorno = giorno;
                         ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} stai superando le 8 ore";
                         return View("AddGiorno");
@@ -101,7 +100,7 @@ namespace Gestione.Controllers {
                     dm.Compila(dateTime, 8, tOre, P.Matricola);
 				}
 				ViewBag.EsitoAddGiorno = ore + " " + tipoOre + " aggiunte!";
-			}catch(Exception e){
+			}catch(Exception){
                 ViewBag.Message = "Ci sono gia presenti altri tipi di ore";
             }
 			return View("AddGiorno");

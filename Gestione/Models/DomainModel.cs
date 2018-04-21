@@ -138,29 +138,18 @@ namespace Gestione.Models{
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchCognome(cognome);
 		}
-
-		public Corso SearchCorsi(int idCorso)
-		{
-			throw new NotImplementedException();
-		}
-
-		public List<Corso> SearchCorsi(string descrizione)
-		{
-			throw new NotImplementedException();
-		}
-
-		public List<Corso> SearchCorsi(string descrizione,int idUtente)
-		{
-			throw new NotImplementedException();
-		}
-
 		public List<CV> SearchEta(int eta)
 		{
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchEta(eta);
 		}
 
-		public List<CV> SearchRange(int etmin,int etmax)
+
+
+        public void CaricaCV(string path) {
+            throw new NotImplementedException();
+        }
+        public List<CV> SearchRange(int etmin,int etmax)
 		{
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchRange(etmin,etmax);
@@ -227,5 +216,6 @@ namespace Gestione.Models{
             }
             return null;
         }
+
     }
 }
