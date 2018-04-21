@@ -7,32 +7,9 @@ using Gestione.Models;
 using Interfaces;
 
 namespace Gestione.Controllers {
-	public class Profilo {
-        public string Matricola { get; set; }
-        public string Ruolo { get; set; }
-        public List<String> Funzioni { get; set; }
-        public string Nome { get; set; }
-        public string Cognome { get; set; }
-        public Profilo(string matricola, string ruolo, List<String> funzioni, string nome, string cognome) {
-            Matricola = matricola;
-            Ruolo = ruolo;
-            Funzioni = funzioni;
-            Nome = nome;
-            Cognome = cognome;
-        }
-        public Profilo(){ }
-    }
     public partial class HomeController : Controller {
-		Profilo P = new Profilo(); //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-		DomainModel dm = new DomainModel();
-		 public HomeController() {
-            P = new Profilo{Matricola="BBBB"}; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-		}
         public ActionResult ListaCurriculum(){
 			return View();
-        }
-		public ActionResult Index() {
-            return View ();
         }
         public ActionResult DettaglioCurriculum(){
             return View();
