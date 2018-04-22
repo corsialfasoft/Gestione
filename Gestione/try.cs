@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 namespace tre{
     public class doh{
         public delegate TOutput DaoCall<TInput, TOutput>(TInput input );
@@ -66,6 +67,24 @@ namespace tre{
             } catch (Exception e) {
                 throw e;
             }
+        }
+    }
+    public static class Command { 
+        public static object Excecute(Object obj, string methodName, object[] parameters) {
+            Type classType = obj.GetType();
+            Type[] types = new Type[parameters.Length];
+            for(int i=0;i<parameters.Length;i++) {
+                types[i] = parameters[i].GetType();
+            }
+            MethodInfo method = classType.GetMethod(methodName,types);
+            if (method != null) {
+                try { 
+                    return method.Invoke(obj,parameters);
+                }catch(Exception e) { 
+                    throw e;
+                }
+            }
+            throw new Exception("Metodo non trovato");
         }
     }
 }
