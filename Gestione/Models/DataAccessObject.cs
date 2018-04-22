@@ -141,9 +141,9 @@ namespace DAO {
 			}
 		}
 		private List<EspLav> GetEspLav(string matricola) {
-		try{
+		try{			
 			SqlParameter[] param = {new SqlParameter("@Matricola",matricola)};
-			List<EspLav> output = DB.ExecQReader(transf.TransfInListEspLav,"GetEspLav", "GeCv");
+			List<EspLav> output = DB.ExecQProcedureReader("GetEspLav",transf.TransfInListEspLav,param, "GeCv");
 				return output;
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
@@ -154,7 +154,7 @@ namespace DAO {
 		private List<PerStud> GetPerStudi(string matricola) {
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
-				List<PerStud> output = DB.ExecQReader(transf.TransfInListPerstud,"GetPerStudi", "GeCv");
+				List<PerStud> output = DB.ExecQProcedureReader("GetPerStudi",transf.TransfInListPerstud,param, "GeCv");
 				return output;
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
@@ -165,7 +165,7 @@ namespace DAO {
 		private List<Competenza> GetComp(string matricola) {
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
-				List<Competenza> output = DB.ExecQReader(transf.TransfInCompetenze,"GetComp", "GeCv");
+				List<Competenza> output = DB.ExecQProcedureReader("GetComp",transf.TransfInCompetenze,param, "GeCv");
 				return output;
 			} catch (SqlException e) {
 				throw new Exception(e.Message);
@@ -176,7 +176,7 @@ namespace DAO {
 		public CV Search(string matr) {
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola",matr)};
-				CV output = DB.ExecQReader(transf.TransfInCv,"GetCv","GeCv");
+				CV output = DB.ExecQProcedureReader("GetCv",transf.TransfInCv,param,"GeCv");
 				output.Percorsostudi= GetPerStudi(output.Matricola);
 				output.Esperienze = GetEspLav(output.Matricola);
 				output.Competenze = GetComp(output.Matricola);
@@ -426,7 +426,7 @@ namespace DAO {
 					new SqlParameter("@descrizione",lezione.Descrizione),
 					new SqlParameter("@durata",lezione.Durata)
 				};
-				int RowAffected =DB.ExecNonQProcedure("ModLezione",param,"GeCorsi",@"(localdb)\MSSQLLocalDB");
+				int RowAffected =DB.ExecNonQProcedure("ModLezione",param,"GeCorsi");
 				if (RowAffected == 0) {
 					throw new LezionNonModificataException("Non hai modificato la lezione");
 				}
