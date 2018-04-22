@@ -14,6 +14,7 @@
 using System;
 namespace tre{
 public class doh{
+public delegate void DaoCall<TInput>(TInput input);
 public delegate TOutput DaoCall<TInputa,TInputb, TOutput>(TInputa inputa, TInputb inputb);
 public delegate TOutput DaoCall<TInput, TOutput>(TInput input );
 		public TOutput Try<TInputa,TInputb, TOutput>(DaoCall<TInputa,TInputb, TOutput> prova, TInputa k, TInputb h) {
