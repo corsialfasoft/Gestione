@@ -112,6 +112,7 @@ namespace Gestione.Controllers {
 
         [HttpPost]
         public ActionResult PassaEspLav(int annoInizioEsp,int annoFineEsp,string qualifica,string descrizioneEsp) {
+            ViewBag.Matricola = P.Matricola;
             ViewBag.Esperienza = InitEspLav(annoInizioEsp,annoFineEsp,qualifica,descrizioneEsp);
             Session["esperienza"] = ViewBag.Esperienza;
             return View("ModEspLav");
@@ -119,6 +120,7 @@ namespace Gestione.Controllers {
 
 		[HttpPost]
 		public ActionResult PassaComp(string tipo, int livello){
+            ViewBag.Matricola = P.Matricola;
 			ViewBag.Comp = InitComp(tipo, livello);
             Session["competenza"] = ViewBag.Comp;
 			return View("ModComp");
@@ -151,6 +153,7 @@ namespace Gestione.Controllers {
         }
         [HttpPost]
         public ActionResult PassaPerStud(int annoInizio,int annoFine,string titolo,string descrizione) {
+            ViewBag.Matricola = P.Matricola;
             ViewBag.Percorso = InitPercorso(annoInizio,annoFine,titolo,descrizione);
             Session["percorso"] = ViewBag.Percorso;
             return View("ModPerStud");
@@ -168,6 +171,7 @@ namespace Gestione.Controllers {
         [HttpPost]
         public ActionResult PassaCV(string nome,string cognome,int eta,string email,string residenza,string telefono){
             ViewBag.CV = InitForseCV(nome,cognome,eta,email,residenza,telefono);
+            ViewBag.CV.Matricola = P.Matricola;
             return View("ModAnag");
         }
 
