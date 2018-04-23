@@ -168,6 +168,7 @@ namespace Gestione.Controllers {
                 ViewBag.Message = "Si è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
             }
             return View("ModAnag");
+		}
 		// [HttpPost] Commentato per risolvere bug su elimina da lista
         public ActionResult EliminaCV(string id){ 
             CV temp = dm.Search(id); 

@@ -28,6 +28,9 @@ namespace DAO {
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
+		void DelEspLav(EspLav espLav , string matricola);
+		void DelCompetenza(Competenza comp , string matricola);
+		void DelPerStud(PerStud ps , string matricola);
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
         //Modifica la singola competenza
 		void ModComp(string matricola, Competenza daMod , Competenza Mod );
@@ -548,6 +551,18 @@ namespace DAO {
 			} catch(Exception e){
 				throw e;
 			}
+		}
+
+		public void DelEspLav(EspLav espLav,string matricola) {
+			throw new NotImplementedException();
+		}
+
+		public void DelCompetenza(Competenza comp,string matricola) {
+			throw new NotImplementedException();
+		}
+
+		public void DelPerStud(PerStud ps,string matricola) {
+			throw new NotImplementedException();
 		}
 	}
 	[Serializable]

@@ -332,5 +332,17 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-    }
+
+		public void DelEspLav(EspLav espLav,string matricola) {
+			dao.DelEspLav(espLav,matricola);
+		}
+
+		public void DelCompetenza(Competenza comp,string matricola) {
+			dao.DelCompetenza(comp , matricola);
+		}
+
+		public void DelPerStud(PerStud ps,string matricola) {
+			dao.DelPerStud(ps,matricola);
+		}
+	}
 }
