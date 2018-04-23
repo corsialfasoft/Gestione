@@ -23,9 +23,6 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
-
-    input {
-    }
 </style>
 
 <h2>@ViewBag.Title</h2>
@@ -39,11 +36,12 @@
 <div>
     <form action="/Home/VisualizzaMese" method="post">
         <select name="anno" required>
-            @for(int a =2000;a<=DateTime.Now.Year; a++){
-                <option value="@a">
+            @for(int a = 2000;a<=DateTime.Now.Year; a++){
+                <option value="@a" @(a==DateTime.Now.Year ? "selected=\"selected\"": "")>
                     @a
                 </option>
             }
+
         </select>
         <select name="mese" required>
             @for(int a =1;a<=12; a++){
@@ -104,8 +102,8 @@
                     }
                 }
             </tr>
-                <tr>
-                    <td>Ore Permesso</td>
+            <tr>
+                <td>Ore Permesso</td>
                 @{ 
                     dateTime = new DateTime(ViewBag.Year, ViewBag.Month,1);
                     for(int i =0; i< Nday;i++) {
@@ -151,16 +149,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                TotOre
+                OL <label style="border:1px solid black; padding:1px 5px 1px 5px">@ViewBag.TOreL</label>
             </div>
             <div class="col-md-3">
-
+                OP <label style="border:1px solid black; padding:1px 5px 1px 5px">@ViewBag.TOreP</label>
             </div>
             <div class="col-md-3">
-
+                OF <label style="border:1px solid black; padding:1px 5px 1px 5px">@ViewBag.TOreF</label>
             </div>
             <div class="col-md-3">
-
+                OM <label style="border:1px solid black; padding:1px 5px 1px 5px">@ViewBag.TOreM</label>
             </div>
         </div>
     </div>
