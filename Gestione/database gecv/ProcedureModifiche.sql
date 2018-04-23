@@ -92,3 +92,31 @@ as
 	update Curriculum  set Nome=@nome,Cognome=@cognome,Eta=@eta,Email=@email,Residenza=@residenza,Telefono=@telefono
 		where Matricola=@matr;
 go
+
+Create procedure DelEspLav
+	@matricola nvarchar(10),
+	@annoIdaDel int, @annoFdaDel int,
+	@qualificaDaDel nvarchar(50),
+	@descrDaDel nvarchar(200)
+as
+	declare @idcurr int;
+	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
+	if @idcurr is null
+		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
+	else
+			begin
+			declare @idEsp int;
+			set @idEsp = (select e.IdEl from EspLav e where e.IdCv= @idcurr and e.AnnoF=@annoFdaDel and
+							e.AnnoI= @annoIdaDel and e.Qualifica= @qualificaDaDel and e.Descrizione= @descrDaDel );
+			if @idEsp is null 
+				throw 66666 , 'Id ESP LAV NON TROVATO Errata!!!!!! RIPROVA' ,2;
+			else
+				begin
+				Delete EspLav where idEl =@idEsp
+				end
+			end
+go
+
+Select * from EspLav where idCV=10
+
+Insert EspLav (AnnoI,AnnoF,Qualifica,Descrizione,IdCv) values (2012,2045,'Pani','Paninar',10)

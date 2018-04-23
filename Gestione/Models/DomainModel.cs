@@ -152,5 +152,10 @@ namespace Gestione.Models{
 		{
 			throw new NotImplementedException();
 		}
+
+		public void ModificaCV(CV cv)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
