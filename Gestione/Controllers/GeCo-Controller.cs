@@ -48,37 +48,94 @@ namespace Gestione.Controllers
 			return View();
 		}
 		[HttpPost]
-		public ActionResult ElencoCorsi(bool mieiCorsi,string descrizione)
+		public ActionResult ElencoCorsi(bool mieiCorsi,string descrizione, string id)
 		{
-			if(int.TryParse(descrizione,out int id) && !mieiCorsi) {    // Cerca Per iD corso
-				Corso c = dm.SearchCorsi(id);
-				ViewBag.Corso = c;
-				ViewBag.Lezioni = c.Lezioni;
-				return View("Corso");
-			} else if(descrizione != "" && mieiCorsi) {
-				ViewBag.Controllo = true;
-				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi = dm.SearchCorsi(descrizione,P.Matricola);
-				return View("ElencoCorsi");
-			} else if(descrizione == "" && mieiCorsi) {
-				ViewBag.Controllo = true;
-				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi = dm.ListaCorsi(P.Matricola);
-				return View("ElencoCorsi");
-			} else if(descrizione != "" && !mieiCorsi) {
-				ViewBag.Controllo = true;
-				ViewBag.Message = "Ecco i tuoi risultati della ricerca";
-				ViewBag.Corsi = dm.SearchCorsi(descrizione);
-				return View("ElencoCorsi");
-			} else if(descrizione == "" && !mieiCorsi) {
-				ViewBag.Controllo = false;
-				ViewBag.Message = "input errato, riprova!";
-				ViewBag.Corsi = dm.ListaCorsi();
-				return View("ElencoCorsi");
-			} else {
-				ViewBag.Messagge = "Errore non gestito!";
-				return View();
+			if(mieiCorsi){
+				if(int.TryParse(id, out int output)){
+					Corso c = dm.SearchCorsi(output);
+					if(c != null){
+						ViewBag.Controllo = true;
+                        ViewBag.Corso = c;
+                        return View("Corso");
+					}else{
+						ViewBag.Controllo = false;
+						ViewBag.Message="Corso non trovato!";
+						return View("ElencoCorsi");
+					}
+				}else if (descrizione.Length >0){
+					List<Corso> corsos = dm.SearchCorsi(descrizione, P.Matricola);
+					if(corsos.Count >0 ){
+						ViewBag.Controllo = true;
+                        ViewBag.Corsi = corsos;
+						return View("ElencoCorsi");
+					}else{
+						ViewBag.Controllo = false;
+						ViewBag.Message="Corsi non trovati!";
+						return View("ElencoCorsi");
+					}
+				}else{
+					ViewBag.Controllo = false;
+					ViewBag.Message="Input errato!!";
+					return View("ElencoCorsi");
+				}
+			}else{
+			if(int.TryParse(id, out int output)){
+					Corso c = dm.SearchCorsi(output);
+					if(c != null){
+						ViewBag.Controllo = true;
+                        ViewBag.Corso = c;
+						return View("Corso");
+					}else{
+						ViewBag.Controllo = false;
+						ViewBag.Message="Corso non trovato!";
+						return View("ElencoCorsi");
+					}
+				}else if (descrizione.Length >0){
+					List<Corso> corsos = dm.SearchCorsi(descrizione);
+					if(corsos.Count >0 ){
+						ViewBag.Controllo = true;
+                        ViewBag.Corsi = corsos;
+						return View("ElencoCorsi");
+					}else{
+						ViewBag.Controllo = false;
+						ViewBag.Message="Corsi non trovati!";
+						return View("ElencoCorsi");
+					}
+				}else{
+					ViewBag.Controllo = false;
+					ViewBag.Message="Input errato!!";
+					return View("ElencoCorsi");
+				}
 			}
+			//if(int.TryParse(descrizione,out int id) && !mieiCorsi) {    // Cerca Per iD corso
+			//	Corso c = dm.SearchCorsi(id);
+			//	ViewBag.Corso = c;
+			//	ViewBag.Lezioni = c.Lezioni;
+			//	return View("Corso");
+			//} else if(descrizione != "" && mieiCorsi) {
+			//	ViewBag.Controllo = true;
+			//	ViewBag.Message = "Ecco i tuoi risultati della ricerca";
+			//	ViewBag.Corsi = dm.SearchCorsi(descrizione,P.Matricola);
+			//	return View("ElencoCorsi");
+			//} else if(descrizione == "" && mieiCorsi) {
+			//	ViewBag.Controllo = true;
+			//	ViewBag.Message = "Ecco i tuoi risultati della ricerca";
+			//	ViewBag.Corsi = dm.ListaCorsi(P.Matricola);
+			//	return View("ElencoCorsi");
+			//} else if(descrizione != "" && !mieiCorsi) {
+			//	ViewBag.Controllo = true;
+			//	ViewBag.Message = "Ecco i tuoi risultati della ricerca";
+			//	ViewBag.Corsi = dm.SearchCorsi(descrizione);
+			//	return View("ElencoCorsi");
+			//} else if(descrizione == "" && !mieiCorsi) {
+			//	ViewBag.Controllo = false;
+			//	ViewBag.Message = "input errato, riprova!";
+			//	ViewBag.Corsi = dm.ListaCorsi();
+			//	return View("ElencoCorsi");
+			//} else {
+			//	ViewBag.Messagge = "Errore non gestito!";
+			//	return View();
+			//}
 		}
 		public ActionResult ElencoCorso(int id)
 		{
