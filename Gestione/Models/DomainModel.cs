@@ -174,11 +174,16 @@ namespace Gestione.Models{
 			}
         }
 
-		public DTCommessa CercaCommessa(string nomeCommessa){
+		public List<DTCommessa> CercaCommessa(string nomeCommessa){
+            List<DTCommessa> dtcomm = new List<DTCommessa>();
 			try{ 
-				Commessa commessa = dao.CercaCommessa(nomeCommessa);
-				if(commessa!=null)
-					return new  DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate);
+				List<Commessa> commesse = dao.CercaCommessa(nomeCommessa);
+				if(commesse!=null) {
+                    foreach (Commessa commessa in commesse) {
+                        dtcomm.Add(new DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate));
+                    }
+                    return dtcomm;
+                }
 				return null;
 			}catch(Exception e){
 					throw e;

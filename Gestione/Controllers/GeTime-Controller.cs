@@ -29,25 +29,34 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult VisualizzaCommessa(string commessa) {
 			if(commessa.Length==0)
-				ViewBag.Message = "Inserire un nome di commessa";
+				ViewBag.Message = "Inserire il nome della commessa!";
 			else{ 
-				try{ 
-					DTCommessa dTCommessa = dm.CercaCommessa(commessa);
-					if(dTCommessa != null){ 
-						List<DTGiorno> giorni = dm.GiorniCommessa(dTCommessa.Id, P.Matricola);
-						if(giorni!=null && giorni.Count>0){
-							ViewBag.NomeCommessa= dTCommessa.Nome;
+				try{
+					List<DTCommessa> dTCommesse = dm.CercaCommessa(commessa);
+                    List<DTGiorno> giorni = new List<DTGiorno>();
+					if(dTCommesse.Count>0) {
+                        if (dTCommesse.Count==1) {
+                            giorni = dm.GiorniCommessa(dTCommesse[0].Id, P.Matricola);
+						    ViewBag.NomeCommessa= dTCommesse[0].Nome;
+                            ViewBag.Commesse = dTCommesse;
 							ViewBag.Giorni = giorni;
-						}else
-							ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
-				
-					}
-				}catch(Exception){
+                        } else {
+                            ViewBag.Commesse = dTCommesse;
+                        }
+                    } else {
+						ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
+                    }
+				} catch(Exception) {
 					ViewBag.Message = "Errore del server";
 				}
 			}
 			return View("VisualizzaCommessa");
 		}
+        [HttpGet]
+        public ActionResult DettaglioCommessa(string nome) {
+            ViewBag.Commesse = VisualizzaCommessa(nome);
+            return View("VisualizzaCommessa");
+        }
         public ActionResult GeTimeHome() {
             return View();
         }
@@ -75,12 +84,12 @@ namespace Gestione.Controllers {
                         ViewBag.Message = "Inserire le ore";
                         return View();
                     }
-					DTCommessa commessa =dm.CercaCommessa(Commessa);
-					if (commessa == null){
+					List<DTCommessa> commesse = dm.CercaCommessa(Commessa);
+					if (commesse == null){
 						ViewBag.Message ="Commessa non trovata";
 						return View("AddGiorno");
 					}
-					dm.CompilaHLavoro(dateTime,(int) ore, commessa.Id, P.Matricola);
+					dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, P.Matricola);
 				} else if (tipoOre == "Ore di permesso"){
                     if (ore == null) {
                         ViewBag.Message = "Inserire le ore";
