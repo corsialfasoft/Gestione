@@ -84,8 +84,16 @@
         <table>
             <tr>
                 <td></td>
-                @for(int i =1; i<= Nday;i++) {
-                    <td>@i</td>
+                @for(int index = 1; index <= Nday; index++) {
+                    <td>
+                         <form action="/Home/VisualizzaGiorno" method="post">
+                                @{
+                                    string dataString= new DateTime(ViewBag.Year, ViewBag.Month, index).ToString("yyyy-MM-dd");
+                                }
+                                <input type="hidden" name="data" value="@dataString" />
+                                <input type="submit" value="@index" style="background-color: #2196F3; background: #0b7dda;" />
+                          </form>
+                    </td>
                 }
             </tr>
             <tr>
