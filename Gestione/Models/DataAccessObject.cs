@@ -513,7 +513,7 @@ namespace DAO {
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
 				DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
 			} catch(SqlException e){
-				throw new Exception(e.Message);
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}

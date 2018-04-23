@@ -55,25 +55,27 @@ namespace Gestione.Controllers
 					Corso c = dm.SearchCorsi(output);
 					if(c != null){
 						ViewBag.Controllo = true;
-						return View("Corso");
+                        ViewBag.Corso = c;
+                        return View("Corso");
 					}else{
 						ViewBag.Controllo = false;
-						ViewBag.Message("Corso non trovato!");
+						ViewBag.Message="Corso non trovato!";
 						return View("ElencoCorsi");
 					}
 				}else if (descrizione.Length >0){
 					List<Corso> corsos = dm.SearchCorsi(descrizione, P.Matricola);
 					if(corsos.Count >0 ){
 						ViewBag.Controllo = true;
-						return View("Corso");
+                        ViewBag.Corsi = corsos;
+						return View("ElencoCorsi");
 					}else{
 						ViewBag.Controllo = false;
-						ViewBag.Message("Corsi non trovati!");
+						ViewBag.Message="Corsi non trovati!";
 						return View("ElencoCorsi");
 					}
 				}else{
 					ViewBag.Controllo = false;
-					ViewBag.Message("Input errato!!");
+					ViewBag.Message="Input errato!!";
 					return View("ElencoCorsi");
 				}
 			}else{
@@ -81,25 +83,27 @@ namespace Gestione.Controllers
 					Corso c = dm.SearchCorsi(output);
 					if(c != null){
 						ViewBag.Controllo = true;
+                        ViewBag.Corso = c;
 						return View("Corso");
 					}else{
 						ViewBag.Controllo = false;
-						ViewBag.Message("Corso non trovato!");
+						ViewBag.Message="Corso non trovato!";
 						return View("ElencoCorsi");
 					}
 				}else if (descrizione.Length >0){
 					List<Corso> corsos = dm.SearchCorsi(descrizione);
 					if(corsos.Count >0 ){
 						ViewBag.Controllo = true;
-						return View("Corso");
+                        ViewBag.Corsi = corsos;
+						return View("ElencoCorsi");
 					}else{
 						ViewBag.Controllo = false;
-						ViewBag.Message("Corsi non trovati!");
+						ViewBag.Message="Corsi non trovati!";
 						return View("ElencoCorsi");
 					}
 				}else{
 					ViewBag.Controllo = false;
-					ViewBag.Message("Input errato!!");
+					ViewBag.Message="Input errato!!";
 					return View("ElencoCorsi");
 				}
 			}

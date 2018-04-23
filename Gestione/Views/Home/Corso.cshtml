@@ -17,14 +17,16 @@
     <p class="Elenco_Lezioni">Elenco lezioni:</p>
     <div class="container">
         <ol class="list-group tabella" start="0">
-            @foreach(var lezioni in ViewBag.Lezioni) {
-            <li class="list-group-item">
-                <span class="Lezione_Nome">
-                    @lezioni.Descrizione
-                    @lezioni.Durata
-                    @Html.ActionLink("Modifica","ModificaLezione",new {nomeLezione = lezioni.Nome,descrizioneLezione = lezioni.Descrizione,durataLezione=lezioni.Durata ,idLezione =lezioni.Id,idCorso=ViewBag.Corso.Id})
-                </span>
-            </li>
+            @if(ViewBag.Lezioni != null){
+                foreach(var lezioni in ViewBag.Lezioni) {
+                <li class="list-group-item">
+                    <span class="Lezione_Nome">
+                        @lezioni.Descrizione
+                        @lezioni.Durata
+                        @Html.ActionLink("Modifica","ModificaLezione",new {nomeLezione = lezioni.Nome,descrizioneLezione = lezioni.Descrizione,durataLezione=lezioni.Durata ,idLezione =lezioni.Id,idCorso=ViewBag.Corso.Id})
+                    </span>
+                </li>
+                }
             }
         </ol>
     </div>

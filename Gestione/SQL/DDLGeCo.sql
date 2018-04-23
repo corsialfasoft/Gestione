@@ -28,3 +28,4 @@ create table StudentiCorsi(
 	idStudenti nvarchar(10) foreign key references Studenti,
 	primary key(idCorsi,idStudenti)
 );
+
