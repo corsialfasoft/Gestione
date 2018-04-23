@@ -106,36 +106,7 @@ namespace Gestione.Controllers
 					ViewBag.Message="Input errato!!";
 					return View("ElencoCorsi");
 				}
-			}
-			//if(int.TryParse(descrizione,out int id) && !mieiCorsi) {    // Cerca Per iD corso
-			//	Corso c = dm.SearchCorsi(id);
-			//	ViewBag.Corso = c;
-			//	ViewBag.Lezioni = c.Lezioni;
-			//	return View("Corso");
-			//} else if(descrizione != "" && mieiCorsi) {
-			//	ViewBag.Controllo = true;
-			//	ViewBag.Message = "Ecco i tuoi risultati della ricerca";
-			//	ViewBag.Corsi = dm.SearchCorsi(descrizione,P.Matricola);
-			//	return View("ElencoCorsi");
-			//} else if(descrizione == "" && mieiCorsi) {
-			//	ViewBag.Controllo = true;
-			//	ViewBag.Message = "Ecco i tuoi risultati della ricerca";
-			//	ViewBag.Corsi = dm.ListaCorsi(P.Matricola);
-			//	return View("ElencoCorsi");
-			//} else if(descrizione != "" && !mieiCorsi) {
-			//	ViewBag.Controllo = true;
-			//	ViewBag.Message = "Ecco i tuoi risultati della ricerca";
-			//	ViewBag.Corsi = dm.SearchCorsi(descrizione);
-			//	return View("ElencoCorsi");
-			//} else if(descrizione == "" && !mieiCorsi) {
-			//	ViewBag.Controllo = false;
-			//	ViewBag.Message = "input errato, riprova!";
-			//	ViewBag.Corsi = dm.ListaCorsi();
-			//	return View("ElencoCorsi");
-			//} else {
-			//	ViewBag.Messagge = "Errore non gestito!";
-			//	return View();
-			//}
+			}			
 		}
 		public ActionResult ElencoCorso(int id)
 		{
@@ -202,9 +173,9 @@ namespace Gestione.Controllers
 			ViewBag.CorsiStudente = corso;
 			return View();
 		}
-		public ActionResult Corso(int id)
+		public ActionResult Corso(int idCorso)
 		{
-			Corso scelto = dm.SearchCorsi(id);
+			Corso scelto = dm.SearchCorsi(idCorso);
 			List<Lezione> lezions = dm.ListaLezioni(scelto);
 			ViewBag.Corso = scelto;
 			ViewBag.Lezioni = lezions;
@@ -233,7 +204,7 @@ namespace Gestione.Controllers
 			return View();
 		}
 		[HttpPost]
-		public void ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int idCorso)
+		public ActionResult ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int idCorso)
 		{
 			Lezione lezione = new Lezione {
 				Id = idLezione,
@@ -247,7 +218,10 @@ namespace Gestione.Controllers
 				ViewBag.Message = "Qualcosa è andato storto.";
 				throw;
 			}
-			Response.Redirect($"Corso/{idCorso}");
+			Corso s = dm.SearchCorsi(idCorso);
+			ViewBag.Corso=s;
+			ViewBag.Lezioni = dm.ListaLezioni(s);
+			return View("Corso");
 		}       
     }
 }

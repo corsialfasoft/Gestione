@@ -82,7 +82,8 @@
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Descrizione</th>
-                        <th scope="col" style="text-align:center;">Modifica</th>
+                        <th scope="col">Durata</th>
+                        <th scope="col">Modifica</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,6 +91,7 @@
                     @foreach(var lezioni in ViewBag.Lezioni) {
                     <tr>
                         <th scope="row">  @lezioni.Id</th>
+                        <td>@lezioni.Nome</td>
                         <td>@lezioni.Descrizione</td>
                         <td>@lezioni.Durata</td>
                         <td> <button class="btn btn-secondary">  @Html.ActionLink("Modifica","ModificaLezione",new { nomeLezione = lezioni.Nome,descrizioneLezione = lezioni.Descrizione,durataLezione = lezioni.Durata,idLezione = lezioni.Id,idCorso = ViewBag.Corso.Id }) </button></td>
