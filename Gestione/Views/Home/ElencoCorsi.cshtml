@@ -2,19 +2,38 @@
     ViewBag.Title = "Elenco Corsi";
 }
 
+<style>
+
+    #myElencoCorsi{
+        display: none;
+        position: fixed;
+        bottom: 15px;
+        left: 25px;
+        z-index: 99;
+        border: none;
+        background-color: #2e2125;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 13px;
+        
+    }
+</style>
+
 <body>
     <h1 style="padding-left:15px">@ViewBag.Title</h1>
     <div class="row">
         <h4 style="padding-left:30px">@ViewBag.Message</h4>
         <div style="float:right; padding-bottom:10px; padding-right:30px; text-align:right" class="col-md-6">
             @using(Html.BeginForm("ElencoCorsi","Home",FormMethod.Post)) {
-        <label>Cerca Tra I Miei Corsi</label>
-        <!-- input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />-->
-        @Html.CheckBox("mieiCorsi",true)
-        <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
-        <input type="text" name="id" id="id" placeholder="Inserisci id" />
-        <input type="submit" value="Cerca">
-}
+                <label>Cerca Tra I Miei Corsi</label>
+                <!-- input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />-->
+                @Html.CheckBox("mieiCorsi",true)
+                <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
+                <input type="text" name="id" id="id" placeholder="Inserisci id" />
+                <input type="submit" value="Cerca">
+            }
         </div>
     </div>
     @if(@ViewBag.Controllo == true) {
@@ -22,7 +41,7 @@
     } else if(@ViewBag.Controllo == false) {
         <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
     }
-    @if (@ViewBag.Corsi != null) { 
+    @if(@ViewBag.Corsi != null) {
         <div>
             <div class=" container">
                 <ul class="list-group">
@@ -40,5 +59,23 @@
     }
     <span style="padding-left:15px">@Html.ActionLink("Aggiungi Corso","AddCorso")</span>
     <span style="padding-left:15px">@Html.ActionLink("Elenco corsi","ElencoCorsi")</span>
+
+
+
+    <button id="myElencoCorsi" style="position: fixed;"><span class="glyphicon glyphicon-list"></span></button>
+    <script>
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                    document.getElementById("myElencoCorsi").style.display = "block";
+                } else {
+                    document.getElementById("myElencoCorsi").style.display = "none";
+                }
+            }
+
+            
+
+    </script>
 </body>
 
