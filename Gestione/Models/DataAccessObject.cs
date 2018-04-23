@@ -274,7 +274,7 @@ namespace DAO {
             }
         }
         public void ModificaCV(string nome, string cognome, int eta, string email, string residenza, string telefono, string matr){
-            try {
+            try{
                 SqlParameter[] parameter = {
                     new SqlParameter("@cognome", cognome),
                     new SqlParameter("@matr", matr),
