@@ -278,3 +278,63 @@ as
 	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
 	select e.AnnoI,e.AnnoF,e.Qualifica,e.Descrizione from EspLav e where e.IdCv=@idc;
 go
+Create procedure DelComp
+	@matricola nvarchar(10),
+	@titolo nvarchar(50),
+	@livello int
+as
+	declare @idcurr int;
+	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
+	if @idcurr is null
+		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
+	else
+		begin 
+			declare @idComp int;
+			set @idComp = (select c.IdCs from Competenze c where c.Tipo= @titolo and c.Livello=@livello and c.IdCv=@idcurr);
+			if @idComp is null
+				throw 66666 , 'Competenza Errata!!!!!! RIPROVA' ,2;
+			else 
+				begin
+					Delete Competenze where idCs=@idComp
+				end
+			end
+go
+
+Create procedure DelEspLav
+	@matricola nvarchar(10),
+	@annoIdaDel int, @annoFdaDel int,
+	@qualificaDaDel nvarchar(50),
+	@descrDaDel nvarchar(200)
+as
+	declare @idcurr int;
+	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
+	if @idcurr is null
+		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
+	else
+			begin
+			declare @idEsp int;
+			set @idEsp = (select e.IdEl from EspLav e where e.IdCv= @idcurr and e.AnnoF=@annoFdaDel and
+							e.AnnoI= @annoIdaDel and e.Qualifica= @qualificaDaDel and e.Descrizione= @descrDaDel );
+			if @idEsp is null 
+				throw 66666 , 'Id ESP LAV NON TROVATO Errata!!!!!! RIPROVA' ,2;
+			else
+				begin
+				Delete EspLav where idEl =@idEsp
+				end
+			end
+go
+
+create procedure DelPerStud
+	@matricola nvarchar(10),
+	@AnnoIniz int,
+	@AnnoFine int,
+	@Titolo nvarchar(50),
+	@Descr nvarchar(200)
+as
+	declare @idcurr int;
+	set @idcurr = (select top 1  c.IdCv from Curriculum c where c.Matricola = @matricola);
+	declare @idPs int ;
+	set @idPs = (select top 1 p.IdPs from  PercorsoStudi p where p.AnnoI=@AnnoIniz and p.AnnoF= @AnnoFine and
+				p.Titolo = @Titolo and p.Descrizione=@Descr and p.IdCv = @idcurr);
+	delete PercorsoStudi from PercorsoStudi where IdPs = @idPs;
+go

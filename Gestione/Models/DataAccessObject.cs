@@ -584,8 +584,8 @@ namespace DAO {
 				con.Open();
 				SqlCommand command = new SqlCommand("DelComp",con);
 				command.CommandType=CommandType.StoredProcedure;
-				command.Parameters.Add("@titolo",SqlDbType.NVarChar).Value=competenza.Titolo;
-				command.Parameters.Add("@livello",SqlDbType.Int).Value=competenza.Livello;
+				command.Parameters.Add("@titolo",SqlDbType.NVarChar).Value=comp.Titolo;
+				command.Parameters.Add("@livello",SqlDbType.Int).Value=comp.Livello;
 				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
                 int x = command.ExecuteNonQuery();
 				command.Dispose();
