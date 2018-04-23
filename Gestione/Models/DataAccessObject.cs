@@ -6,7 +6,7 @@ using System.Data;
 
 namespace DAO{
 	public interface IDao{
-		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
+		void ModificaCV(CV c); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
 		CV Search(string id); //search di un curriculum per id di un curriculum
@@ -202,18 +202,18 @@ namespace DAO{
             };
             return builder.ToString();
         }
-        public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr) {
+        public void ModificaCV(CV c) {
             SqlConnection con = new SqlConnection (GetConnectinoCv());
             try{ 
                 con.Open();
-                SqlCommand cmd = new SqlCommand ("ModificaCV",con){ CommandType = CommandType.StoredProcedure};
-                cmd.Parameters.Add("@matr",SqlDbType.NVarChar).Value = matr;
-                cmd.Parameters.Add("@nome",SqlDbType.VarChar).Value = nome;
-                cmd.Parameters.Add("@cognome",SqlDbType.VarChar).Value = cognome;
-                cmd.Parameters.Add("@eta",SqlDbType.Int).Value = eta;
-                cmd.Parameters.Add("@email",SqlDbType.NVarChar).Value = email;
-                cmd.Parameters.Add("@residenza",SqlDbType.VarChar).Value = residenza;
-                cmd.Parameters.Add("@telefono",SqlDbType.NVarChar).Value = telefono;
+                SqlCommand cmd = new SqlCommand ("ModificaCurriculum",con){ CommandType = CommandType.StoredProcedure};
+                cmd.Parameters.Add("@matricolaM",SqlDbType.NVarChar).Value = c.Matricola;
+                cmd.Parameters.Add("@nomeM",SqlDbType.NVarChar).Value = c.Nome;
+                cmd.Parameters.Add("@cognomeM",SqlDbType.NVarChar).Value = c.Cognome;
+                cmd.Parameters.Add("@etaM",SqlDbType.Int).Value = c.Eta;
+                cmd.Parameters.Add("@emailM",SqlDbType.NVarChar).Value = c.Email;
+                cmd.Parameters.Add("@residenzaM",SqlDbType.NVarChar).Value = c.Residenza;
+                cmd.Parameters.Add("@telefonoM",SqlDbType.NVarChar).Value = c.Telefono;
                 int x = cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 if(x==0){

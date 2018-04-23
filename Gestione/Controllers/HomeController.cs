@@ -61,6 +61,7 @@ namespace Gestione.Controllers {
             cv.Residenza = residenza;
             cv.Telefono = telefono;
             return cv;
+			// Potremo aggiungere la matricola da qui
         }
 
         [HttpGet]
@@ -95,9 +96,12 @@ namespace Gestione.Controllers {
         public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
             try{
                if(Session["profile"]!=null){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-                 string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-                    dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
+                 //string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+					CV c = InitForseCV(nome,cognome,eta,email,residenza,telefono);
+					c.Matricola=(Session["profile"] as Profilo).Matricola;
+                    dm.ModificaCV(c);   
                     ViewBag.Message = "Dati anagrafici modificati";
+					ViewBag.CV = c;
                     return View("MyPage");
                 }
             }catch(Exception){ 
