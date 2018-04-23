@@ -12,21 +12,34 @@
         <h4><b>@ViewBag.Message</b></h4>
     </div>
     <!--ho mostrato un errore-->
-        <div class="corso_descrizione">@ViewBag.Corso.Descrizione</div>        
+        <div class="corso_descrizione"> Nome Corso: @ViewBag.Corso.Descrizione</div>        
         <div class="corso_id">Numero corso: @ViewBag.Corso.Id</div>
     <p class="Elenco_Lezioni">Elenco lezioni:</p>
-    <div class="container">
-        <ol class="list-group tabella" start="1">
-            @foreach(var lezioni in ViewBag.Lezioni) {
-            <li class="list-group-item">
-                <span class="Lezione_Nome">
-                    @lezioni.Descrizione
-                    @lezioni.Durata
-                    @Html.ActionLink("Modifica","ModificaLezione",new {nomeLezione = lezioni.Nome,descrizioneLezione = lezioni.Descrizione,durataLezione=lezioni.Durata ,idLezione =lezioni.Id,idCorso=ViewBag.Corso.Id})
-                </span>
-            </li>
-            }
-        </ol>
+    <div class="container"> 
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Modifica</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var lezioni in ViewBag.Lezioni) {
+            <tr>
+                <th scope="row">  @lezioni.Id</th>
+                <td>@lezioni.Descrizione</td>
+                <td>@lezioni.Durata</td>
+                <td> <button class="btn btn-secondary" >  @Html.ActionLink("Modifica", "ModificaLezione", new { nomeLezione = lezioni.Nome, descrizioneLezione = lezioni.Descrizione, durataLezione = lezioni.Durata, idLezione = lezioni.Id, idCorso = ViewBag.Corso.Id }) </button></td>
+            </tr>
+}
+            </tbody>
+        </table>
+       
+
+        
     </div>
 
     <div>

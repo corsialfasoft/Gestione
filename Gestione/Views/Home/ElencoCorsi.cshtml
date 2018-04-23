@@ -23,16 +23,28 @@
         }
         <div>
             <div class=" container">
-                <ul class="list-group">
-                    @foreach(var corso in @ViewBag.Corsi) {
-                        <li class="list-group-item">
-                            <span classs="badge">
-                                @Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })
-                            </span>
-                            @corso.Id  -   @corso.Nome  - @corso.Descrizione 
-                        </li>
-                    }
-                </ul>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Descrizione</th>
+                            <th scope="col">Dettaglio </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         
+                        @foreach (var corso in @ViewBag.Corsi) {
+                <tr>
+                    <th scope="row">  @corso.Id</th>
+                    <td>  @corso.Nome</td>
+                    <td>@corso.Descrizione </td>
+                    <td><button class="btn" style="border-radius:7px; ">  @Html.ActionLink("DETTAGLI", "Corso", new { id = corso.Id })</button></td>
+                </tr>
+}
+                    </tbody>
+                </table>
+
             </div>
         </div>
         <span style="padding-left:15px">@Html.ActionLink("Aggiungi Corso","AddCorso")</span>                                                
