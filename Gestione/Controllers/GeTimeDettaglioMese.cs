@@ -7,11 +7,14 @@ using System.Web.Mvc;
 namespace Gestione.Controllers {
     public partial class HomeController{
         [HttpPost]
-        public ViewResult DetaglioMese(int anno,int mese) { 
-            if(anno > 0 && mese >0) {
-               ViewBag.Mese = dm.DettaglioMese(anno,mese);
+        public ViewResult VisualizzaMese(string anno,string mese) { 
+            if(anno !="" && mese !="") {
+               ViewBag.Mese = dm.DettaglioMese(int.Parse(anno),int.Parse(mese), P.Matricola);
             } else
                 ViewBag.Message ="Inserire anno e mese";
+            return View();
+        }
+        public ViewResult VisualizzaMese() { 
             return View();
         }
     }
