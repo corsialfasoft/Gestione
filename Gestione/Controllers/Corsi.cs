@@ -4,21 +4,25 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Interfaces;
+using Gestione.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace Gestione.Controllers {
     public class CorsiController : ApiController {
-        // GET api/<controller>
-        public IEnumerable<string> Get() {
-            return new string[] { "value1", "value2" };
+        DomainModel dm = new DomainModel();
+        public IEnumerable<Corso> Get() {
+            
+            return dm.ListaCorsi().ToArray();
         }
-
         // GET api/<controller>/5
-        public string Get(int id) {
-            return "value";
+        public Corso Get(int id) {
+            return dm.SearchCorsi(id);
         }
 
         // POST api/<controller>
         public void Post([FromBody]string value) {
+
         }
 
         // PUT api/<controller>/5
