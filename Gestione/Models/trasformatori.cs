@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Gestione.Controllers;
+using Interfaces;
 using LibreriaDB;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace DAO{
 		List<EspLav> TransfInListEspLav(SqlDataReader data);
 		Lezione TrasformInLezione(SqlDataReader data);
         List<Lezione> TrasformInLezioni(SqlDataReader data);
+        List<Giorno> TransfInGiorni(SqlDataReader data);
+        DTGiornoDMese ConvertGiornoInDTGDMese(Giorno giorno);
     }
 	public class Trasformator :ITrasformer{
         //GeCo
@@ -178,5 +181,40 @@ namespace DAO{
 		public List<EspLav> TransfInListEspLav(SqlDataReader data){
 			return DB.TrasformInList(data, TransEspLav);
 		}
-	}
+
+        public List<Giorno> TransfInGiorni(SqlDataReader reader) {
+            List<Giorno> giorni = new List<Giorno>();
+            DateTime oldData = default(DateTime);
+            Giorno result =null;
+            while (reader.Read()) {
+                DateTime data= reader.GetDateTime(2);//data indice
+                if (data != oldData) {
+                    result = new Giorno(data);
+                    oldData= data;
+                    giorni.Add(result);
+                }
+                switch (reader.GetInt32(0)) {
+                    case 1:
+                        result.HMalattia = reader.GetInt32(1);
+                        break;
+                    case 2:
+                        result.HPermesso = reader.GetInt32(1);
+                        break;
+                    case 3:
+                        result.HFerie = reader.GetInt32(1);
+                        break;
+                    case 4:
+                        result.TotOreLavorate = reader.GetInt32(1);
+                        break;
+                }
+            }
+            return giorni;
+        }
+        public DTGiornoDMese ConvertGiornoInDTGDMese(Giorno giorno) {
+            return new DTGiornoDMese {
+                data = giorno.Data, OreFerie = giorno.HFerie, OreMalattia = giorno.HMalattia,
+                OrePermesso = giorno.HPermesso, TotOreLavorate = giorno.TotOreLavorate
+            };
+        }
+    }
 }	
