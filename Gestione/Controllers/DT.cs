@@ -119,4 +119,11 @@ namespace Gestione.Controllers {
         public int oreGiorno { get; set; }
         public string descrizione { get; set; }
     }
+    public class DTGiornoDMese {
+        public DateTime data { get; set; }
+        public int TotOreLavorate { get; set; }
+        public int OrePermesso { get; set; }
+        public int OreMalattia { get; set; }
+        public int OreFerie { get; set; }
+    }
 }
