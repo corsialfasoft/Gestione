@@ -164,8 +164,9 @@ namespace Gestione.Models{
 				List<DTGiorno> dTGiorni = new List<DTGiorno>();
 				if (giorni != null && giorni.Count > 0) {
 					foreach (Giorno giorno in giorni) {
-						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
+						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) {
 							dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
+                        }
 					}
 				}
 				return dTGiorni;

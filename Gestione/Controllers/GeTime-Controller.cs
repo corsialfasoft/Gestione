@@ -33,10 +33,9 @@ namespace Gestione.Controllers {
 			else{ 
 				try{
 					List<DTCommessa> dTCommesse = dm.CercaCommessa(commessa);
-                    List<DTGiorno> giorni = new List<DTGiorno>();
 					if(dTCommesse.Count>0) {
                         if (dTCommesse.Count==1) {
-                            giorni = dm.GiorniCommessa(dTCommesse[0].Id, P.Matricola);
+                            List<DTGiorno> giorni = dm.GiorniCommessa(dTCommesse[0].Id, P.Matricola);
 						    ViewBag.NomeCommessa= dTCommesse[0].Nome;
                             ViewBag.Commesse = dTCommesse;
 							ViewBag.Giorni = giorni;
