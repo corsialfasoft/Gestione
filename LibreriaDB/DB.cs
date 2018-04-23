@@ -214,7 +214,7 @@ namespace LibreriaDB{
 				return ris;
 			} catch (Exception e) {
 				throw e;
-			} finally {
+			} finally{
 				connection.Dispose();
 			}
 		}

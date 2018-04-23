@@ -74,8 +74,8 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessuna modifica fatta!");
 				}
-			} catch (SqlException e) {
-				throw new Exception(e.Message);
+			} catch (SqlException) {
+				throw new Exception("Errore server!");
 			} catch (Exception e) {
 				throw e;
 			}
@@ -97,8 +97,8 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessuna modifica fatta!");
 				}
-			} catch (SqlException e) {
-				throw new Exception(e.Message);
+			} catch (SqlException) {
+				throw new Exception("Errore server!");
 			} catch (Exception e) {
 				throw e;
 			}
@@ -120,8 +120,8 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessuna modifica fatta!");
 				}
-			} catch (SqlException e){
-				throw new Exception(e.Message);
+			} catch (SqlException){
+				throw new Exception("Errore server!");
 			} catch (Exception e){
 				throw e;
 			}
@@ -140,8 +140,8 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessun CV aggiunto!");
 				}
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -151,8 +151,8 @@ namespace DAO {
 			SqlParameter[] param = {new SqlParameter("@Matricola",matricola)};
 			List<EspLav> output = DB.ExecQProcedureReader("GetEspLav",transf.TransfInListEspLav,param, "GeCv");
 				return output;
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e) {
 				throw e;
 			}
@@ -162,8 +162,8 @@ namespace DAO {
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
 				List<PerStud> output = DB.ExecQProcedureReader("GetPerStudi",transf.TransfInListPerstud,param, "GeCv");
 				return output;
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -173,8 +173,8 @@ namespace DAO {
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
 				List<Competenza> output = DB.ExecQProcedureReader("GetComp",transf.TransfInCompetenze,param, "GeCv");
 				return output;
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -187,8 +187,8 @@ namespace DAO {
 				output.Esperienze = GetEspLav(output.Matricola);
 				output.Competenze = GetComp(output.Matricola);
 				return output;
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -212,8 +212,8 @@ namespace DAO {
 				}
 				ModEspLav(a.Matricola,a.Esperienze[0],b.Esperienze[0]);
 				ModComp(a.Matricola,a.Competenze[0],b.Competenze[0]);
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -229,8 +229,8 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessuna competenza aggiunta!");
 				}
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -248,8 +248,8 @@ namespace DAO {
                 if (output == 0) {
                     throw new Exception("Nessun curriculum eliminato!");
                 }
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             }
@@ -267,8 +267,8 @@ namespace DAO {
                 if (output == 0) {
                     throw new Exception("Nessuna Esperienza Inserita");
                 }
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch (Exception e){
                 throw e;
             }
@@ -285,8 +285,8 @@ namespace DAO {
                     new SqlParameter("@telefono", telefono)
                 };
                 DB.ExecNonQProcedure("ModificaCV", parameter, "GeCv");
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             }
@@ -295,8 +295,8 @@ namespace DAO {
             try {
                 SqlParameter[] parameter = { new SqlParameter("@parola", chiave) };
                 return DB.ExecQProcedureReader("dbo.CercaParolaChiava", transf.TransfListCV0, parameter, "GeCv");
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             }
@@ -305,8 +305,8 @@ namespace DAO {
             try {
                 SqlParameter[] param = { new SqlParameter("@cognome", cognome) };
                 return DB.ExecQProcedureReader("dbo.CercaCognome", transf.TransfListCV0, param, "GeCv");
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             }
@@ -318,8 +318,8 @@ namespace DAO {
                     new SqlParameter("@e_max", etmax)
                 };
                 return DB.ExecQProcedureReader("dbo.CercaEtaMinMax", transf.TransfListCV0, parameters, "GeCv");
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             }
@@ -328,8 +328,8 @@ namespace DAO {
             try {
                 SqlParameter[] param = { new SqlParameter("@eta", eta) };
                 return DB.ExecQProcedureReader("dbo.CercaEta", transf.TransfListCV0, param, "GeCv");
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             }
@@ -341,8 +341,8 @@ namespace DAO {
 				if (output == 0) { 
 					throw new Exception("Nessun curriculum eliminato!");
 					}				
-			}catch(SqlException e){
-				throw new Exception(e.Message);
+			}catch(SqlException){
+				throw new Exception("Errore server!");
 			}catch(Exception e){
 				throw e;
 			}
@@ -358,8 +358,8 @@ namespace DAO {
 					new SqlParameter("@nomeCommessa", nomeCommessa)
 				};			
 				return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, parameter, "GeTime");
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -373,8 +373,8 @@ namespace DAO {
 					new SqlParameter("@TipoOre", (int)tipoOre)
 					};
 				DB.ExecNonQProcedure("SP_Compila", parameters, "GeTime");
-            } catch(SqlException e){
-                throw new Exception(e.Message);
+            } catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             }
@@ -388,6 +388,8 @@ namespace DAO {
 					new SqlParameter("@idUtente", idUtente)
 					};
                 DB.ExecNonQProcedure("SP_AddHLavoro", parameters, "GeTime");
+			} catch(SqlException){
+                throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -402,6 +404,8 @@ namespace DAO {
                 if(result!=null)
                     result.Data=data;
                 return result;
+			} catch(SqlException){
+                throw new Exception("Errore server!");
             } catch(Exception e){
                 throw e;
             } 
@@ -413,8 +417,8 @@ namespace DAO {
 					new SqlParameter("@idU",idUtente)
 				};
 				return DB.ExecQProcedureReader("SP_VisualizzaCommessa", transf.TrasformInGiorni,parameter,"GeTime");
-			}catch(SqlException e){
-				throw new Exception(e.Message);
+			}catch(SqlException){
+				throw new Exception("Errore server!");
 			}catch(Exception e){
 				throw e;
 			}
@@ -422,8 +426,14 @@ namespace DAO {
 
 		//GeCo
         public List<Lezione> ListaLezioni(Corso corso){
-			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
-			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezioni,param,"GeCorsi");
+			try{
+				SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
+				return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezioni,param,"GeCorsi");
+			}catch(SqlException){
+				throw new Exception("Errore server!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 		public void ModLezione(Lezione lezione){
 			try{
@@ -437,8 +447,8 @@ namespace DAO {
 				if (RowAffected == 0) {
 					throw new LezionNonModificataException("Non hai modificato la lezione");
 				}
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -455,8 +465,8 @@ namespace DAO {
 				if(RowAffected == 0){
 					throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
 				}
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -473,8 +483,8 @@ namespace DAO {
 				if(RowAffected == 0){
 					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
 				}
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -482,8 +492,8 @@ namespace DAO {
 		public List<Corso> ListaCorsi(){
 		    try{
 			    return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInCorsi, null,"GeCorsi");       
-		    } catch(SqlException e){
-				throw new Exception(e.Message);
+		    } catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -492,8 +502,8 @@ namespace DAO {
 			try{
 				SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
 				return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInCorsi,param,"GeCorsi");
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -502,8 +512,8 @@ namespace DAO {
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
 				return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param,"GeCorsi");
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -512,7 +522,7 @@ namespace DAO {
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
 				DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
-			} catch(SqlException e){
+			} catch(SqlException){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
@@ -522,8 +532,8 @@ namespace DAO {
 			try{
 				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
 				return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInCorsi,param, "GeCorsi");
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -533,8 +543,8 @@ namespace DAO {
 				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione),
 					new SqlParameter("@idStudente", idUtente)};
 				return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInCorsi,param,"GeCorsi");
-			} catch(SqlException e){
-				throw new Exception(e.Message);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
@@ -561,4 +571,4 @@ namespace DAO {
 		public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
 		protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {}
 	}
-	}
+}

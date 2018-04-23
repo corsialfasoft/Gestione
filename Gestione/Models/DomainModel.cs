@@ -9,7 +9,7 @@ using static Gestione.Controllers.HomeController;
 namespace Gestione.Models{
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime{
 		DataAccesObject dao = new DataAccesObject();
-		public List<Lezione> ListaLezioni(Corso input){
+		public List<Lezione> ListaLezioni(Corso input){		
 			return dao.ListaLezioni(input);
 		}
 
