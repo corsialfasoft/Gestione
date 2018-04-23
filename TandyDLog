@@ -1,0 +1,507 @@
+commit ac2ad8051d56a6c0424934300effc704f2f022a1
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 20 10:18:56 2018 +0200
+
+    tutto fatto
+
+ Gestione/Controllers/EspLav.cs         | 10 +++++-----
+ Gestione/Controllers/HomeController.cs | 10 +++++-----
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+commit db3a0380e3c9908a9083c7f25aef43d04dd524e1
+Merge: 93a343e 170301c
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 20 10:13:11 2018 +0200
+
+    Merge branch 'GeCvFlo' of https://github.com/corsialfasoft/Gestione into GeCvFlo
+
+commit 93a343e314f3f67d05ae6f666dd9be6518b8a402
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 20 10:13:01 2018 +0200
+
+    ModificaCV
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs |  7 ++++
+ Gestione/Controllers/HomeController.cs           | 53 +++++++-----------------
+ Gestione/Models/DataAccessObject.cs              | 36 +++++++++++++++-
+ Gestione/Models/DomainModel.cs                   |  4 +-
+ Gestione/Models/interfaces.cs                    |  2 +-
+ Gestione/database gecv/ProcedureModifiche.sql    | 15 ++++++-
+ Gestione/database gecv/SQL_Carmen.sql            |  2 +-
+ 7 files changed, 73 insertions(+), 46 deletions(-)
+
+commit 6f3d55769279843d57ea479652398fe8a86dc29e
+Merge: 211d2f4 a530f75
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 19 17:24:57 2018 +0200
+
+    Merge branch 'GeCvFlo' of https://github.com/corsialfasoft/Gestione into GeCvFlo
+
+commit 211d2f49a24bc3297cd9311567bb91890cbb6e00
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 19 17:24:47 2018 +0200
+
+    procedure Add e modifica fungono
+
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 4 ++--
+ Gestione/database gecv/ProcedureModifiche.sql  | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+commit af02b84ee3b9ee4b7dac703060ad06011cbb8b96 (refs/remotes/origin/GeCvFloDrago)
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 19 16:36:04 2018 +0200
+
+    test db aggionrnato
+
+ Gestione/database gecv/test.sql | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+commit 4211c21ad04abb4a67bc07e633ad446afbe5ff56
+Merge: 9c8af01 d61e1ea
+Author: TandyD <37894829+TandyD@users.noreply.github.com>
+Date:   Thu Apr 19 16:19:36 2018 +0200
+
+    Merge pull request #63 from corsialfasoft/GeCvFloDrago
+    
+    AddEspLav & ModEspLav fatti in tutto
+
+commit d61e1ea1a932d52f20b46f4aa823cc9817a4df6e
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 19 16:17:31 2018 +0200
+
+    AddEspLav & ModEspLav fatti in tutto
+
+ Gestione/Controllers/EspLav.cs      | 53 +++++++++++++++++++++++++++++++++++++
+ Gestione/Gestione.csproj            |  1 +
+ Gestione/Models/DataAccessObject.cs |  1 +
+ Gestione/Models/DomainModel.cs      |  6 ++++-
+ Gestione/Models/interfaces.cs       |  9 ++++---
+ 5 files changed, 65 insertions(+), 5 deletions(-)
+
+commit c80e3d0463f864d9f8e4dbc4ccf8ab4673b730ba
+Merge: c8a8ab9 22de451
+Author: TandyD <37894829+TandyD@users.noreply.github.com>
+Date:   Mon Apr 16 16:52:04 2018 +0200
+
+    Merge pull request #54 from corsialfasoft/alex
+    
+    funziona
+
+commit f91a5f716e2700b70b7b4c9b2fe68e85295c14b3
+Merge: 8464dc7 8918f02
+Author: TandyD <37894829+TandyD@users.noreply.github.com>
+Date:   Mon Apr 16 15:54:57 2018 +0200
+
+    Merge pull request #51 from corsialfasoft/GeCvDragos
+    
+    Ge cv dragos
+
+commit 8918f029a7c598c37b14cbf83731a59b5a736e02 (refs/remotes/origin/GeCvDragos)
+Merge: 5aea2a8 8464dc7
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 15:54:20 2018 +0200
+
+    ok
+
+commit 5aea2a8ef1151f0f374693c4a86b633750ae3f2e
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 15:51:10 2018 +0200
+
+    dao AddEspLav
+
+ Gestione/Models/DataAccessObject.cs | 40 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 33 insertions(+), 7 deletions(-)
+
+commit 7df563a9685d01420bee5c73a15f38f67de4b1c2
+Merge: 372f189 2ac2223
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 15:14:22 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit 372f189f24a0332832ade5b9811ab59c4e511224
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 15:14:14 2018 +0200
+
+    db
+
+ Gestione/Models/DataAccessObject.cs     |  2 +-
+ Gestione/database gecv/ProcedureAdd.sql | 11 ++++-------
+ Gestione/database gecv/ddl-gecv.sql     |  8 ++++----
+ 3 files changed, 9 insertions(+), 12 deletions(-)
+
+commit 1e649a4e8787935f6ff082ef6d5afaa6abbec85d
+Merge: 199208d 2a7ff8d
+Author: TandyD <37894829+TandyD@users.noreply.github.com>
+Date:   Mon Apr 16 14:52:02 2018 +0200
+
+    Merge pull request #45 from corsialfasoft/GeCvDragos
+    
+    Ge cv dragos
+
+commit 2a7ff8d4c7c46198a6307029a0278622fb0088ef
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 14:51:03 2018 +0200
+
+    dfsf
+
+ Gestione/Models/DataAccessObject.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c8a8ab9aa0ce95822230f0b5206338fe9888d7db
+Merge: baca103 e1bb4a3
+Author: TandyD <37894829+TandyD@users.noreply.github.com>
+Date:   Mon Apr 16 14:49:35 2018 +0200
+
+    Merge pull request #44 from corsialfasoft/GeCoDrago
+    
+    c
+
+commit 70bc737bfe40c470da857b3c78047075e122b72f (HEAD -> refs/heads/master, refs/remotes/origin/master, refs/remotes/origin/HEAD)
+Merge: 80ca50a b608bc8
+Author: TandyD <37894829+TandyD@users.noreply.github.com>
+Date:   Mon Apr 16 14:44:20 2018 +0200
+
+    Merge pull request #43 from corsialfasoft/GeCvDragos
+    
+    Ge cv dragos
+
+commit b608bc87e4864f72e7d0ccba4ac2aad4ff88ba89
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 14:42:46 2018 +0200
+
+    interfaace modificata
+
+ Gestione/Models/DataAccessObject.cs | 20 +++++++++++++++++---
+ Gestione/Models/DomainModel.cs      | 16 ++++++++++++++--
+ Gestione/Models/interfaces.cs       |  4 ++++
+ 3 files changed, 35 insertions(+), 5 deletions(-)
+
+commit e1bb4a30f6aa0c0d581d23df5661fe3d216ace9d (refs/remotes/origin/GeCoDrago)
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 14:35:04 2018 +0200
+
+ Gestione/Models/DataAccessObject.cs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 7fa78d2c7c2499b7946f7c7396906c43d3904478
+Merge: d7cac23 cdd66a6
+Author: TandyD <37894829+TandyD@users.noreply.github.com>
+Date:   Mon Apr 16 11:58:36 2018 +0200
+
+    Merge pull request #40 from corsialfasoft/GeCoDrago
+    
+    Ge co drago
+
+commit cdd66a66ffd210fdc6c1c3c0c2b77e4a03db39ce
+Merge: bf6726a d7cac23
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 11:57:24 2018 +0200
+
+    ok tutto
+
+commit d7cac2353c544a98f9b588fecfe40df85d817427
+Merge: 5305ad8 51f1c11
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 11:55:58 2018 +0200
+
+    ok
+
+commit bf6726aab467d34a8ca9babad99cc0062eff1aad
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 11:53:01 2018 +0200
+
+    Metodi delle procedure fatti
+
+ Gestione/Models/DataAccessObject.cs | 79 +++++++++++++++++++++++++++++--------
+ 1 file changed, 63 insertions(+), 16 deletions(-)
+
+commit 5305ad87c4e9402cdb0b5e7d746de3d5b06fe65a
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 11:19:35 2018 +0200
+
+    procedure drago fatte
+
+ Gestione/DataBase/dragos.sql        | 39 ++++++++++++++++++++++++++++++++++++-
+ Gestione/Models/DataAccessObject.cs | 22 +++++++++------------
+ Gestione/Sql/GeCo.sql               |  9 +++++----
+ 3 files changed, 52 insertions(+), 18 deletions(-)
+
+commit 46b6c4bbb4518a3c11d6892fd8641a27025f3596
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 09:52:35 2018 +0200
+
+    ora ce veramnte
+
+ Gestione/DataBase/GeCo.sql | 27 +++++++++++++++++++++++++++
+ Gestione/Gestione.csproj   |  1 +
+ 2 files changed, 28 insertions(+)
+
+commit 453a7f23b7970e81441812fd35040710c84155ff
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 09:50:02 2018 +0200
+
+    sql geco
+
+ Gestione/Sql/GeCo.sql | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+commit d04c9019472d75a3517c8fd80e31bf8676128775
+Merge: 437e55e 3ffe8e3
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 09:34:34 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit 437e55e46fb82307dabb1a084fdc41c5ae57136a
+Author: TandyD <brinzila30@gmail.com>
+Date:   Mon Apr 16 09:34:24 2018 +0200
+
+    x
+
+ Gestione/Views/Home/MyPage.cshtml | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit e2eed8fc56cf30fc93d0572c60ddd035f6c74d4e
+Merge: 166703e 5c9715b
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 16:09:31 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit 166703eb3917373b7fa50836cd5240dca4a4d773
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 16:09:26 2018 +0200
+
+    httpodt
+
+ Gestione/Controllers/HomeController.cs | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 560b6f30b34bf523a4f1274bd03865468085dec2
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 13:45:05 2018 +0200
+
+    qualcosa in piu
+
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 2 +-
+ Gestione/Views/Home/MyPage.cshtml              | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+commit 727f9da37314239adc71f26785301843dc93d4dd (refs/remotes/origin/LIstaCV)
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 12:16:52 2018 +0200
+
+    elimina cv fatto
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs |  7 +++++++
+ Gestione/Controllers/HomeController.cs           | 18 +++++++++++++++++-
+ Gestione/Models/DataAccessObject.cs              |  1 +
+ Gestione/Models/DomainModel.cs                   |  7 ++++++-
+ 4 files changed, 31 insertions(+), 2 deletions(-)
+
+commit cefe1eec7c79141383340f8c036b894c479f4ef3 (refs/remotes/origin/DragoBranch)
+Merge: cb17571 481e9f5
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 11:26:07 2018 +0200
+
+    ok va bene per il pull request
+
+commit 481e9f54fd44e91e2617910c6f42dbd4d68b7bbf
+Merge: 3ef55c2 9e6e113
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 11:23:42 2018 +0200
+
+    Merge branch 'GeCo' of https://github.com/corsialfasoft/Gestione into GeCo
+
+commit cb17571b7a1ac65ddf6e4aa106458cbe86b265f7
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 11:21:16 2018 +0200
+
+    tututp pl
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs |  8 ++++----
+ Gestione/Controllers/GeCoAddCorso.cs             | 12 ++++++++++--
+ Gestione/Models/GeCoAddCorso.cs                  | 13 +++++++------
+ Gestione/Views/Home/AddCorso.cshtml              |  4 ++--
+ 4 files changed, 23 insertions(+), 14 deletions(-)
+
+commit 78f71fd0aa3a7c28d7c08cb2478f74b039aad447
+Merge: 68a2838 3ef55c2
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 11:21:04 2018 +0200
+
+    Funziona tutto(in teoria)
+
+commit 68a2838de3c6944072bdbaf03facbf1a65bf8d05
+Author: TandyD <brinzila30@gmail.com>
+Date:   Fri Apr 13 09:15:59 2018 +0200
+
+    inizio di dao
+
+ Gestione/Models/GeCoAddCorso.cs | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+commit 68ae8e977f82f5739e27b2264315ec3670815a88
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 17:28:18 2018 +0200
+
+    Funziona
+
+ Gestione/Controllers/HomeController.cs |  2 +-
+ Gestione/Models/DomainModel.cs         |  4 ----
+ Gestione/Views/Home/AddCorso.cshtml    | 10 ++++++----
+ 3 files changed, 7 insertions(+), 9 deletions(-)
+
+commit ffe81c1f9a229974fb360d6aa1a6db88710645d6
+Merge: acd526b a25088e
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 16:07:31 2018 +0200
+
+    ok
+
+commit acd526b5e380e11a58f25ba23523b5de8dd401f4
+Merge: 383c3d6 bbd5bef
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 16:02:32 2018 +0200
+
+    ok
+
+commit 383c3d6827af9ca00d82b6ae27a89a5af42cd639
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 15:53:58 2018 +0200
+
+    Controller e View Di addCorso fatti
+
+ Gestione/Controllers/GeCoAddCorso.cs   | 18 ++++++++++++++++
+ Gestione/Controllers/HomeController.cs |  2 +-
+ Gestione/Gestione.csproj               |  6 +++++-
+ Gestione/Models/DomainModel.cs         |  4 ++--
+ Gestione/Models/GeCoAddCorso.cs        |  5 +----
+ Gestione/Models/interfaces.cs          |  1 +
+ Gestione/Views/Home/AddCorso.cshtml    | 38 ++++++++++++++++++++++++++++++++++
+ 7 files changed, 66 insertions(+), 8 deletions(-)
+
+commit 89ddc49ac03829504559c1cd9bfe200687ede683
+Merge: c9f4fa4 50dfaac
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 14:58:37 2018 +0200
+
+    Merge branch 'GeCo' into DragoBranch
+
+commit 50dfaac170673088615b07c33761effc2f0d244c
+Merge: 91882ab 4363a95
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 14:57:35 2018 +0200
+
+    Merge branch 'Evolutive' of https://github.com/corsialfasoft/Gestione into Evolutive
+
+commit 91882ab0d6d709bd2f65b3e3e47f5746171ed77f
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 14:57:27 2018 +0200
+
+    Oggettti per GeCo
+
+ Gestione/Models/interfaces.cs | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+commit c9f4fa4e3714336a66a1d9a33e25c8e1aa0f4e1b
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 14:51:18 2018 +0200
+
+ Gestione/Gestione.csproj        |  1 +
+ Gestione/Models/GeCoAddCorso.cs | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
+
+commit ea7016bc5bcaa29095cdef4ecd70bc361a8061a4
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 14:32:41 2018 +0200
+
+    ok
+
+ Gestione/Models/interfaces.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit bb269cacad59c01a8cd5bf2c95f56928c291adfa
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 14:31:04 2018 +0200
+
+    interface IGeTIme
+
+ Gestione/Models/interfaces.cs | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+commit 750d2c4df6075002616f880036c4b85984ec960d
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 13:56:15 2018 +0200
+
+    t
+
+ Gestione/Controllers/HomeController.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 08add6d76533bb516492c3c63b0b0baadf7eaace
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 13:53:59 2018 +0200
+
+    Aggiungere i file di progetto.
+
+ Gestione.Tests/App.config                          |   14 +
+ Gestione.Tests/Controllers/HomeControllerTest.cs   |   49 +
+ Gestione.Tests/Gestione.Tests.csproj               |  123 +
+ Gestione.Tests/Properties/AssemblyInfo.cs          |   35 +
+ Gestione.Tests/packages.config                     |   13 +
+ Gestione.sln                                       |   31 +
+ Gestione/App_Start/BundleConfig.cs                 |   28 +
+ Gestione/App_Start/FilterConfig.cs                 |   10 +
+ Gestione/App_Start/RouteConfig.cs                  |   20 +
+ Gestione/ApplicationInsights.config                |   79 +
+ Gestione/Content/Site.css                          |   24 +
+ Gestione/Content/bootstrap.css                     | 6816 ++++++++++++++
+ Gestione/Content/bootstrap.min.css                 |   20 +
+ Gestione/Controllers/HomeController.cs             |   25 +
+ Gestione/Gestione.csproj                           |  247 +
+ Gestione/Global.asax                               |    1 +
+ Gestione/Global.asax.cs                            |   18 +
+ Gestione/Properties/AssemblyInfo.cs                |   35 +
+ Gestione/Scripts/bootstrap.js                      | 2014 ++++
+ Gestione/Scripts/bootstrap.min.js                  |   21 +
+ Gestione/Scripts/jquery-1.10.2.intellisense.js     | 2671 ++++++
+ Gestione/Scripts/jquery-1.10.2.js                  | 9803 ++++++++++++++++++++
+ Gestione/Scripts/jquery-1.10.2.min.js              |   23 +
+ Gestione/Scripts/jquery-1.10.2.min.map             |    1 +
+ Gestione/Scripts/jquery.validate-vsdoc.js          | 1302 +++
+ Gestione/Scripts/jquery.validate.js                | 1245 +++
+ Gestione/Scripts/jquery.validate.min.js            |   16 +
+ Gestione/Scripts/jquery.validate.unobtrusive.js    |  429 +
+ .../Scripts/jquery.validate.unobtrusive.min.js     |   19 +
+ Gestione/Scripts/modernizr-2.6.2.js                | 1416 +++
+ Gestione/Scripts/respond.js                        |  340 +
+ Gestione/Scripts/respond.min.js                    |   20 +
+ Gestione/Views/Home/About.cshtml                   |    7 +
+ Gestione/Views/Home/Contact.cshtml                 |   17 +
+ Gestione/Views/Home/Index.cshtml                   |   31 +
+ Gestione/Views/Shared/Error.cshtml                 |   14 +
+ Gestione/Views/Shared/_Layout.cshtml               |   43 +
+ Gestione/Views/Web.config                          |   43 +
+ Gestione/Views/_ViewStart.cshtml                   |    3 +
+ Gestione/Web.Debug.config                          |   30 +
+ Gestione/Web.Release.config                        |   31 +
+ Gestione/Web.config                                |   61 +
+ Gestione/favicon.ico                               |  Bin 0 -> 32038 bytes
+ Gestione/fonts/glyphicons-halflings-regular.eot    |  Bin 0 -> 14079 bytes
+ Gestione/fonts/glyphicons-halflings-regular.svg    |  228 +
+ Gestione/fonts/glyphicons-halflings-regular.ttf    |  Bin 0 -> 29512 bytes
+ Gestione/fonts/glyphicons-halflings-regular.woff   |  Bin 0 -> 16448 bytes
+ Gestione/packages.config                           |   30 +
+ 48 files changed, 27446 insertions(+)
+
+commit 226fb7f138b045330f8ef2dcfbe68f304774cdbc
+Author: TandyD <brinzila30@gmail.com>
+Date:   Thu Apr 12 13:53:51 2018 +0200
+
+    Aggiungere i file con estensione gitignore e gitattributes.
+
+ .gitattributes |  63 ++++++++++++++
+ .gitignore     | 261 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 324 insertions(+)

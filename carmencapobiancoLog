@@ -1,0 +1,138 @@
+commit 5915e1e54ee2d644b82d8f98b434aacac1ed714c (refs/remotes/origin/AddCarmen)
+Merge: 518ea16 0f9e0dc
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Tue Apr 17 09:06:55 2018 +0200
+
+    Modifiche Luca
+
+commit 216cf3c82642750893c9e4a6ebfdcecc992dd7a0
+Merge: 50b45b7 518ea16
+Author: carmencapobianco <37894897+carmencapobianco@users.noreply.github.com>
+Date:   Mon Apr 16 15:51:40 2018 +0200
+
+    Merge pull request #49 from corsialfasoft/AddCarmen
+    
+    Add carmen
+
+commit 518ea1695512cea407a547efa89e1393915e213e
+Merge: 6c2ba57 50b45b7
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Mon Apr 16 15:50:13 2018 +0200
+
+    es merge
+
+commit 6c2ba574f59b793a5ec8b591a013c9c110307fe1
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Mon Apr 16 15:20:16 2018 +0200
+
+    SP_Compila
+
+ Gestione/Gestione.csproj            |  1 +
+ Gestione/Models/DataAccessObject.cs | 23 +++++++++++++++++++++--
+ Gestione/Models/interfaces.cs       |  2 +-
+ Gestione/SQL/DDLGeTime.sql          |  2 +-
+ Gestione/SQL/SP_Compila.sql         | 32 ++++++++++++++++++++++++++++++++
+ 5 files changed, 56 insertions(+), 4 deletions(-)
+
+commit 606e70a2308e8e444add9e5a0835a4f54365b147
+Merge: 21b1ef0 95e1570
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Mon Apr 16 10:08:52 2018 +0200
+
+    Merge branch 'GeTime' of https://github.com/corsialfasoft/Gestione into GeTime
+
+commit 3ffe8e330d43f68681fd98a732c8e16da7d4bf06
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Fri Apr 13 17:00:14 2018 +0200
+
+    GeCV ok
+
+ Gestione/Controllers/HomeController.cs     |  7 +++++++
+ Gestione/Controllers/SearchCV1.cs          |  8 ++++----
+ Gestione/Models/DataAccessObject.cs        | 20 ++++++++++----------
+ Gestione/Views/Home/ListaCurriculum.cshtml |  9 +++++----
+ 4 files changed, 26 insertions(+), 18 deletions(-)
+
+commit 0d91ac4ca2dd9439dc4afedce467e0ccd39f16b5
+Merge: ee2621f e2eed8f
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Fri Apr 13 16:10:03 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit ee2621ff830a03d6ac1cca665592759908ce3307
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Fri Apr 13 16:09:44 2018 +0200
+
+    risolto bug
+
+ Gestione/Views/Home/ListaCurriculum.cshtml | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+commit c594d26b0be641f7961bd4c00fb3d9528198bf9c
+Merge: f4ec437 a114d28
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Fri Apr 13 15:56:39 2018 +0200
+
+    Merge GeCv
+
+commit f4ec43724d621e6c878df55174ff6937f53cca60
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Fri Apr 13 15:48:21 2018 +0200
+
+    ListaCV
+
+ Gestione/Controllers/GeCvListaCurriculum.cs | 15 +++++++++++++++
+ Gestione/Gestione.csproj                    |  2 ++
+ Gestione/Models/DataAccessObject.cs         | 10 +++++++++-
+ Gestione/Views/Home/ListaCurriculum.cshtml  | 22 ++++++++++++++++++++++
+ 4 files changed, 48 insertions(+), 1 deletion(-)
+
+commit 9e6e113a4eed89d78a54ace2bff910cd6ff95022
+Merge: a25088e 0075a68
+Author: carmencapobianco <37894897+carmencapobianco@users.noreply.github.com>
+Date:   Fri Apr 13 11:21:33 2018 +0200
+
+    Merge pull request #13 from corsialfasoft/Carmen
+    
+    Carmen
+
+commit 0075a68573ba2128e8781aaae96d10d6014b1967 (refs/remotes/origin/Carmen)
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Fri Apr 13 10:10:16 2018 +0200
+
+    Tuttecose
+
+ Gestione/Controllers/HomeController.cs |  4 ++++
+ Gestione/Views/Home/AddLezione.cshtml  | 21 +++++++++++++--------
+ 2 files changed, 17 insertions(+), 8 deletions(-)
+
+commit 9ab7d22edd4c764bc0202835f6895f65f708863f
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Thu Apr 12 17:29:47 2018 +0200
+
+    AddLezione
+
+ Gestione/Controllers/GeCoAddLezione.cs | 23 +++++++++++++++++++++++
+ Gestione/Controllers/HomeController.cs |  3 ++-
+ Gestione/Gestione.csproj               |  3 +++
+ Gestione/Models/DomainModel.cs         |  5 -----
+ Gestione/Models/GeCoAddLezione.cs      | 12 ++++++++++++
+ Gestione/Views/Home/AddLezione.cshtml  | 25 +++++++++++++++++++++++++
+ 6 files changed, 65 insertions(+), 6 deletions(-)
+
+commit a25088ec4afafe1aa0defdb1df7d81b32c0decad
+Merge: 6d2a03d bbd5bef
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Thu Apr 12 15:55:40 2018 +0200
+
+    Merge branch 'Evolutive' of https://github.com/corsialfasoft/Gestione into Evolutive
+
+commit 6d2a03d98be206eefd035db29f1edbca3f7a9729
+Author: carmencapobianco <carmen.capobianco@gmail.com>
+Date:   Thu Apr 12 15:52:13 2018 +0200
+
+    Classe Profilo
+
+ Gestione/Controllers/HomeController.cs | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
