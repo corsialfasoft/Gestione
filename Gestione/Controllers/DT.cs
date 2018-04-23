@@ -125,5 +125,8 @@ namespace Gestione.Controllers {
         public int OrePermesso { get; set; }
         public int OreMalattia { get; set; }
         public int OreFerie { get; set; }
+        public override bool Equals(object obj) {
+            return data.Equals(((DTGiornoDMese)obj).data);
+        }
     }
 }
