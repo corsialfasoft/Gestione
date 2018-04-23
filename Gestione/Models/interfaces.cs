@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Interfaces{ 
 	public interface IGeCV{
-		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
+		void ModificaCV(CV cv); //modifica un curriculum nel db
 		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
 		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
 		CV Search(string id); //search di un curriculum per id di un curriculum

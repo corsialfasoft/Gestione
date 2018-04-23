@@ -167,6 +167,7 @@ namespace Gestione.Controllers {
             return View("ModAnag");
         }
 
+        //Da eliminare
         private CV InitCV(string nome,string cognome,string eta,
             string email,string residenza,string telefono,string annoinizio,string annofine,
             string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
