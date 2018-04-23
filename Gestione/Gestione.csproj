@@ -149,8 +149,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\WebApiRegister.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Corsi.cs" />
     <Compile Include="Controllers\GeCo-Controller.cs" />
     <Compile Include="Controllers\GeTime-Controller.cs" />
     <Compile Include="Controllers\GeCv-Controller.cs" />
@@ -163,7 +165,6 @@
     <Compile Include="Models\interfaces.cs" />
     <Compile Include="Models\trasformatori.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebApiController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -188,6 +189,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="README_WebAPI_Angular.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

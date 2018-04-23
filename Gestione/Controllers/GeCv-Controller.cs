@@ -53,6 +53,7 @@ namespace Gestione.Controllers {
                 ViewBag.Message = "Formato inserito non corretto";
                 return View("MyPage");
             }
+            
             return View($"MyPage");
         }
 		 [HttpPost]

@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Gestione {
-    public class WebApiController : ApiController {
+namespace Gestione.Controllers {
+    public class CorsiController : ApiController {
         // GET api/<controller>
         public IEnumerable<string> Get() {
             return new string[] { "value1", "value2" };
