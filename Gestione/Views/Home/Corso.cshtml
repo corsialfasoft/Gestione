@@ -52,7 +52,24 @@
         <h1 class="display-3" style="text-align:center;">Lista Lezioni</h1>
         <!--ho mostrato il titolo-->
         <div class="text-warning">
-            <h4><b>@ViewBag.Message</b></h4>
+            <h4><b>@ViewBag.Message</b></h4> <!--ho mostrato un errore-->
+        </div>
+
+        <div class="container">
+            <table class="table table-striped" style="width:auto;">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Corso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">@ViewBag.Corso.Id</th>
+                        <td>@ViewBag.Corso.Descrizione</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <!--ho mostrato un errore-->
         <div class="corso_descrizione">@ViewBag.Corso.Descrizione</div>
