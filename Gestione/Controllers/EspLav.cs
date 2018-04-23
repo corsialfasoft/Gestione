@@ -27,9 +27,9 @@ namespace Gestione.Controllers {
             ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
             return View($"MyPage");
         }
-		public ActionResult EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
+		public ActionResult EliminaEsperienza(string annoInizioEsp, string annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
 		{
-			dm.DelEspLav(new EspLav{AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
+			dm.DelEspLav(new EspLav{AnnoInizio=int.Parse(annoInizioEsp),AnnoFine=int.Parse(annoFineEsp),Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
 			return View();
 		}
 

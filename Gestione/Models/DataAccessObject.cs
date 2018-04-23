@@ -356,7 +356,7 @@ namespace DAO{
 			SqlConnection con= new SqlConnection(GetStringBuilderCV());
 			try {
 				con.Open();
-				SqlCommand command = new SqlCommand("AddEspLav",con);
+				SqlCommand command = new SqlCommand("DelEspLav",con);
 				command.CommandType=CommandType.StoredProcedure;
 				command.Parameters.Add("@annoIdaDel",SqlDbType.Int).Value=espLav.AnnoInizio;
 				command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
