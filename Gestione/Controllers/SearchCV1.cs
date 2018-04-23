@@ -10,19 +10,20 @@ namespace Gestione.Controllers {
 	public partial class HomeController : Controller {
 		public ActionResult MyPage()
 		{
-			return View();
+            ViewBag.Profilo = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+			return View(); 
 		}
 		[HttpPost]
 		public ActionResult MyPage(string id){
-			Profilo P = new Profilo();
+			Profilo P = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			DomainModel dm = new DomainModel();
 			if (id == P.Matricola || id == null) {
 				id = P.Matricola;
 			}
 			CV trovato = dm.Search(id);
 			if (trovato == null) {
-				ViewBag.Message=$"Non è stato trovato alcun Curriculum con questo codice";
-				return View("");
+				ViewBag.Message = $"Non è stato trovato alcun Curriculum con questo codice";
+				return View();
 			}
 			ViewBag.CV = trovato;
 			return View("DettaglioCurriculum");
@@ -35,6 +36,8 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult RicercaCurriculum(string chiava,string eta,string etaMin,string etaMax,string cognome)
 		{
+            P.Matricola = "BBBB"; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+            Session["profile"] = P; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			List<CV> trovati = new List<CV>();
 			if (chiava != "") {
 				trovati = dm.SearchChiava(chiava);
