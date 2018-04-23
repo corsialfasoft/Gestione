@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Aggiungi Nuovo Corso";
+}
+<div class="text-warning">
+    @ViewBag.Message
+</div>
+<style>
+    #myElencoCorsi {
+        position: fixed;
+        bottom: 310px;
+        left: 10px;
+        z-index: 99;
+        border: none;
+        background-color: white;
+        color: Black;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    .button {
+        background-color: Black;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 15px;
+    }
+</style>
+
+<div class="jumbotron">
+    <p class="lead">Compila il corso</p>
+    @using(Html.BeginForm("AddCorso","Home",FormMethod.Post)) {
+    <div class="row">
+        <div class="col-md-4">
+            <input type="text" name="_nome" placeholder="Nome" required />
+
+        </div>
+        <input type="submit" class="button" value="Inserisci corso" style="font-size:14px;float:right;" />
+    </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <textarea name="_descrizione" rows="3" cols="50" maxlength="140" required placeholder="Inserisci qui la descrizione..."></textarea>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <input type="date" name="_inizio" placeholder="Inizio" required />
+            </div>
+            <div class="col-md-4">
+                <input type="date" name="_fine" placeholder="Fine" required />
+            </div>
+        </div>
+        <hr />      
+    }
+    <a href="/Home/ElencoCorsi"> <button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi"><span class="glyphicon glyphicon-list"></span></button> </a>
+
+</div>
+

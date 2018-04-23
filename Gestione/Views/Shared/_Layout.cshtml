@@ -1,43 +1,141 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        .row {
+            padding: 2px;
+            some padding text-align: left;
+            center the text background: #1abc9c;
+            green background color: white;
+            border-bottom: 2px solid black;
+           
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .button {
+            background-color: Black;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 15px;
+        }
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+        .button:hover span {
+            padding-right: 25px;
+        }
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            right: 25px;
+            z-index: 99;
+            border: none;
+            background-color: #2e2125;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            opacity:0.5;
+        }
+        #myBtn:hover {
+            background-color: #555;           
+        }
+    </style>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    <title>@ViewBag.Title - Applicazione Gestione</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nome applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Chi siamo", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contatti", "Contact", "Home")</li>
-                </ul>
-            </div>
+    <div class="row">
+        <div class="col-md-3" style="text-align:left;">
+            <a href="/Home/Index" class="login-form"> <img src="~/ImgResource/Logo.jpg" height="150" width="150"></a>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        <div class="col-xs-2" style="text-align:left;left:74px;top:6px;">
+            <a href="/Home/ElencoCorsi" class="login-form"><img class="zoom" src="~/ImgResource/IconCorsi.jpg" height="75" width="75" style=""></a>
+
+        </div>
+
+        <div class="col-xs-2" style="text-align:right;">
+            <a href="/Home/GeTimeHome" class="login-form"><img class="zoom" src="~/ImgResource/Ore.jpg" height="120" width="120" style="padding: 15px 32px;"></a>
+        </div>
+
+
+        <div class="col-xs-2" style="text-align:left;">
+            <a href="/Home/MyPage" class="login-form"><img class="zoom" src="~/ImgResource/CV.png" height="120" width="120" style="padding: 15px 32px;"></a>
+
+        </div>
+
+
+        <div class="col-xs-3" style="text-align:left;">
+            <a href="/Home/Login" class="login-form"><button type="submit" class="button" style="float: right; "><span>Login</span></button></a>
+        </div>
+
+    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+        </div>
+
+        <footer style="border-top:2px solid black;">
+
+            <p style="text-align:center;">ALFA SOFT S.R.L - Corso Svizzera , 185 , 10149 Torino</p>
+
+            <p style="text-align:center;">P.IVA - C.F:06925410018 , C.C.I.A:823541</p>
+            <p style="text-align:center;">&copy; @DateTime.Now. </p>
+        </footer>
+
+        <button onclick="topFunction()" id="myBtn"><span class="glyphicon glyphicon-chevron-up"></span></button>
+        <script>
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("myBtn").style.display = "block";
+                } else {
+                    document.getElementById("myBtn").style.display = "none";
+                }
+            }
+
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts",required: false)
 </body>
 </html>

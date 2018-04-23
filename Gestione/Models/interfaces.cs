@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gestione.Controllers;
+using Gestione.Models;
+using static Gestione.Controllers.HomeController;
 
 namespace Interfaces{ 
 	public interface IGeCV{
@@ -15,6 +18,7 @@ namespace Interfaces{
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
+        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );	
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
 		void DelEspLav(EspLav espLav,string matricola);
 		void DelCompetenza(Competenza competenza,string matricola);
@@ -25,11 +29,11 @@ namespace Interfaces{
     }
 	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
-		void CompilaHLavoro(DateTime data, int ore, int idCommessa, int idUtente);
-		void Compila(DateTime data, int ore, HType tipoOre, int idUtente);
-		Giorno VisualizzaGiorno(DateTime data, int idUtente);
-		List<Giorno> GiorniCommessa(int idCommessa, int idUtente);
-		Commessa CercaCommessa(string nomeCommessa);
+		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
+		DTGGiorno VisualizzaGiorno(DateTime data, string idUtente);
+		List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente);
+		DTCommessa CercaCommessa(string nomeCommessa);
 	}
     public interface IGeCo {
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
@@ -37,21 +41,23 @@ namespace Interfaces{
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
         void AddLezione(int idCorso, Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
-        void Iscriviti (int idCorso, int idStudente);
-
+        void Iscriviti (int idCorso, string idStudente);
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, int idUtente);
+        List<Corso>SearchCorsi(string descrizione,	string idUtente);
         //Mostra tutti i corsi presenti nel db
         List<Corso>ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(int idUtente);
+        List<Corso>ListaCorsi(string idUtente);
+		//Mostra la lista delle lezioni relative a un corso
+		List<Lezione> ListaLezioni(Corso corso);
+		void ModLezione(Lezione lezione);
     }
     public class Studente{ 
-        public int Id{get;set;}
+        public string Id{get;set;}
         public string Nome{get;set;}
         public string Cognome{get;set;}
     }
@@ -63,48 +69,53 @@ namespace Interfaces{
         public DateTime Fine {get;set;}
         public List<Studente> Studenti{get;set;}
         public List<Lezione> Lezioni{get;set;}
-    }
+		public Corso(){}
+		public Corso(int id,string descrizione, List<Lezione> leziones ){
+			this.Id = id;
+			this.Descrizione = descrizione;
+			this.Lezioni = leziones;
+		}
+	}
     public class Lezione{ 
         public int Id{get;set;}
         public string Nome {get;set;}
         public string Descrizione{get;set;}
         public int Durata{get;set;}
+		public Lezione(){}
+		public Lezione(string nome){
+			this.Nome = nome;
+		}
     }
 	public partial class Giorno {
-		private List<int> _id;
-		private int _id_utente;
-		private int[] ore = new int[3];
+		private string _id_utente;
 		private DateTime data;
-
-		public DateTime Data { get { return data; } }
-		private List<Commessa> commesse;
-
-		public int ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
-		public List<int> ID { get { return _id; } set { _id = value; } }
-		public int HL { get { return TotCom(); } }
-		public int[] Ore { get => ore; set => ore = value; }
-		public List<Commessa> Commesse { get => commesse; }
-
+		private int idG;
+		public DateTime Data { get { return data; } set{ data=value;} }
+		private List<OreLavorative> oreLavorative = new List<OreLavorative>();
+		public string ID_UTENTE { get { return _id_utente; } set { _id_utente = value; } }
+		public int HPermesso{ get;set;}
+		public int HMalattia{ get;set;}
+		public int HFerie{ get;set;}
+		public List<OreLavorative> OreLavorate { get => oreLavorative; }
+		public int IdGiorno{ get;set;}
 
 		public Giorno(DateTime data) { this.data = data; }
-		public Giorno(DateTime data, int HP, int HM, int HF, List<int> id, int id_utente) {
+		public Giorno(DateTime data, int idG, int HP, int HM, int HF, string id_utente) {
 			this.data = data;
-			Ore[(int)HType.HPermesso] = HP;
-			Ore[(int)HType.HMalattia] = HM;
-			Ore[(int)HType.HFerie] = HF;
-			_id = id;
+			HPermesso = HP;
+			HMalattia = HM;
+			HFerie = HF;
 			_id_utente = id_utente;
+			this.idG=idG;
 		}
 
-		public void AddCommessa(Commessa com) {
-			if (commesse == null)
-				commesse = new List<Commessa>();
-			commesse.Add(com);
+		public void AddOreLavorative(OreLavorative com) {
+			oreLavorative.Add(com);
 		}
-		private int TotCom() {
+		public int TotOreLavorate() {
 			int tot = 0;
-			foreach (Commessa com in Commesse) {
-				tot += com.OreLavorate;
+			foreach (OreLavorative com in OreLavorate) {
+				tot += com.Ore;
 			}
 			return tot;
 		}
@@ -115,29 +126,36 @@ namespace Interfaces{
 			return base.GetHashCode();
 		}
 	}
-	public partial class Commessa {
-
-		public int Capacita { get => _capacita; set => _capacita = value; }
+	public partial class OreLavorative {
+		public int IdC{ get;set;}
 		public string Descrizione { get => _descrizione; set => _descrizione = value; }
 		public string Nome { get => _nome; set => _nome = value; }
-		public int OreLavorate { get => oreLavorate; set => oreLavorate = value; }
-
-
-		private int _id; public int Id { get; set; }
-		private int oreLavorate;
+		public int Ore{ get; set; }
 		private string _nome;
-		private int _capacita;
 		private string _descrizione;
 
-		public Commessa(int id, int oreLavorate, string nome, int capacita, string descrizione) {
-			_id = id;
-			this.oreLavorate = oreLavorate;
+		public OreLavorative(int idC, int oreLavorate, string nome, string descrizione) {
+			this.IdC = idC;
+			Ore = oreLavorate;
 			_nome = nome;
-			_capacita = capacita;
 			_descrizione = descrizione;
 		}
     }
+	public class Commessa {
+		public int Id { get; set; }
+		public string Descrizione { get; set; }
+		public string Nome { get; set; }
+		public int Capienza { get; set; }
+		public int OreLavorate { get; set; }
 
+		public Commessa(int id, string nome, string descrizione, int capienza, int oreLavorate) {
+			Id = id;
+			OreLavorate = oreLavorate;
+			Nome = nome;
+			Descrizione = descrizione;
+			Capienza = capienza;
+		}
+	}
     public class CV {
         public string Matricola {get; set;}
         public string Nome {get; set;}
@@ -171,6 +189,4 @@ namespace Interfaces{
         public string Titolo {get; set;}
         public int Livello {get; set;}
     }
-
-
 }

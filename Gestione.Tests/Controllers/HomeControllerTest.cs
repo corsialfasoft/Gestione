@@ -7,10 +7,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gestione;
 using Gestione.Controllers;
 using Gestione.Models;
+using Interfaces;
 
 namespace Gestione.Tests.Controllers {
     [TestClass]
-    public class HomeControllerTest {
+    public partial class HomeControllerTest {
         [TestMethod]
         public void Index() {
             // Arrange
@@ -22,81 +23,128 @@ namespace Gestione.Tests.Controllers {
             // Assert
             Assert.IsNotNull(result);
         }
-		  [TestMethod]
-		public void MyPage()
-		{
-			HomeController controller = new HomeController();
-			ViewResult result = controller.MyPage() as ViewResult;
-			controller.MyPage("801130");
-			Assert.IsTrue(result.ViewBag.CV != null);
-			Assert.IsTrue(result.ViewBag.CV.nome == "Massimo");
-			Assert.IsTrue(result.ViewBag.CV.cognome == "franzoso");
-			Assert.IsTrue(result.ViewBag.CV.telefono == "3391627441");
-			Assert.IsTrue(result.ViewBag.CV.eta == 33);
-		}
-		  [TestMethod]
-		public void RicercaCurriculum()
-		{
-			HomeController controller = new HomeController();
-			ViewResult result = controller.RicercaCurriculum() as ViewResult;
-			controller.RicercaCurriculum("truzzotunztunz","","","","");
-			Assert.IsTrue(result.ViewBag.CV != null);
-			Assert.IsTrue(result.ViewBag.CV.Count == 3);
-			controller.RicercaCurriculum("","22","","","");
-			Assert.IsTrue(result.ViewBag.CV.Count==3);
-			controller.RicercaCurriculum("","","18","24","");
-			Assert.IsTrue(result.ViewBag.CV.Count==3);
-			controller.RicercaCurriculum("","","","","Franzoso");
-			Assert.IsTrue(result.ViewBag.CV.Count==1);
-		}
+
         [TestMethod]
-		public void ModificaCv()
-		{
-			HomeController controller = new HomeController();
-			//ViewResult result = controller.ModificaCv("Sotto","Caga",66,"iCazzi@mia.fuck","Via leMani dal Naso","9999") as ViewResult;
-			//Assert.IsTrue(result.ViewBag.Message == "Dati anagrafici modificati modificato");
-		}
+        public void About() {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.About() as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Your application description page.",result.ViewBag.Message);
+        }
+
         [TestMethod]
-		public void EliminaCVTest()
-		{
-			HomeController controller = new HomeController();
-			ViewResult result = controller.EliminaCV("ciao") as ViewResult;
-			Assert.IsTrue(result.ViewBag.Message == "Non siamo riusciti a eliminare il curriculum selezionato");
+        public void AddCorso() {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.AddCorso("ciao","corso inerente al test", new DateTime(2015,02,15),new DateTime(2015,02,16)) as ViewResult;
+            
+            // Assert
+            Assert.IsTrue(result.ViewBag.Message=="Corso inserito correttamente");
+        }
+		[TestMethod]
+        public void Corso() {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.Corso(1) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+			Assert.IsNotNull(result.ViewBag.Lezioni);
+        }
+		[TestMethod]
+		public void ElencoCorsi(){
+			 HomeController controller = new HomeController();			 
+			 ViewResult result = controller.ElencoCorsi() as ViewResult;			 
+			 Assert.IsNotNull( result.ViewBag.Corsi);
 		}
-		 [TestMethod]
-		public void AddCompTest(){
-			HomeController controller = new HomeController();
-			//controller.AddComp("Inglese","10","GGGGG");
+        	[TestMethod]
+		public void ElencoCorsiStudenti(){
+			 HomeController controller = new HomeController();
+			 ViewResult result = controller.ElencoCorsiStudente("prova") as ViewResult;
+			 Assert.IsNotNull( result.ViewBag.CorsiStudente);
 		}
-		 [TestMethod]
-		 public void ModificaComp(){
+		[TestMethod]
+		public void ElencoCorsiParam(){
+			 HomeController controller = new HomeController();
+			 ViewResult result = controller.ElencoCorsi(true,"Pasticcione") as ViewResult;
+			 Assert.IsNotNull( result.ViewBag.Corsi);
+		}
+		[TestMethod]
+		public void AddLezione(){
 			HomeController controller = new HomeController();
-			//controller.AddComp("Maiale","4","GGGGG");
-			//controller.ModComp("Maiale","4","Mucca","5","GGGGG");
-		 }
-		 [TestMethod]
-		 public void AddPersStud(){
+			ViewResult result = controller.AddLezione("test","test",1,1) as ViewResult;
+			Assert.IsTrue( result.ViewBag.Message=="Lezione aggiunta correttamente");
+		}
+		[TestMethod]
+		public void AddLezione1(){
+			int idCorso=1;
 			HomeController controller = new HomeController();
+			ViewResult	result = controller.AddLezione(idCorso) as ViewResult;
+			Assert.IsTrue(result.ViewBag.Message==idCorso);
+			Assert.IsTrue(result.ViewBag.CorsoId==idCorso);
+		}
+		[TestMethod]
+		public void ElencoCorsi1(){
+			string descrizione = "a";
+			bool mieiCorsi =true;
+			HomeController controller = new HomeController();
+            ViewResult result = controller.AddCorso("ciao","corso inerente al test", new DateTime(2015,02,15),new DateTime(2015,02,16)) as ViewResult;
+			result = controller.ElencoCorsi(mieiCorsi,descrizione) as ViewResult;			
+			if((descrizione == "a" && mieiCorsi==true)||(descrizione == "" && mieiCorsi==true)
+				||(descrizione != "" && mieiCorsi==false)){
+				Assert.IsTrue(result.ViewBag.Controllo == true);
+				Assert.IsTrue(result.ViewBag.Message == "Ecco i tuoi risultati della ricerca");
+			}else if(descrizione == "a" && mieiCorsi==true){
+				Assert.IsTrue(result.ViewBag.Controllo == false);
+				Assert.IsTrue(result.ViewBag.Message == "input errato, riprova!");
+			}else{
+				Assert.IsTrue(result.ViewBag.Messagge == "Errore non gestito!");
+			}
+		}
+		[TestMethod]
+		public void ElencoCorso(){
 			DomainModel dm = new DomainModel();
-			ViewResult vr = controller.DettaglioCurriculum() as ViewResult;
-			//controller.AddPerStudi(3,4,"Licenza Media","Ho imparato a parlare","GGGGG");
-		 }
-		 [TestMethod]
-		 public void ModPerStudi(){
-			HomeController controller = new HomeController();
-			//controller.AddPerStudi(5,6,"Elementare","Inizio","GGGGG");
-			//controller.ModPerStudi(5,6,"Elementare","Inizio",9,20,"Medie","Fine","GGGGG" );
-		 }
-		 [TestMethod]
-		 public void AddEspLav(){
-			HomeController controller = new HomeController();
-			//controller.AddEspLav(5,6,"Muratore","Fatto I muri","GGGGG" );
-		 }
-		 [TestMethod]
-		 public void ModEspLav(){
-			HomeController controller= new HomeController();
-			//controller.AddEspLav(9,10,"Mangia","Mangio Panini","GGGGG");
-			//controller.ModEspLav(9,10,"Mangia","Mangio Panini",12 ,15,"Carrucola" ,"DelP","GGGGG");
-		 }
-    }
+			HomeController controller = new HomeController();			
+			List<Corso> res = new List<Corso> { dm.SearchCorsi(1) };
+			ViewResult result = controller.ElencoCorso(1) as ViewResult;
+			result.ViewBag.Corsi = res;
+			Assert.IsInstanceOfType(result.ViewBag.Corsi , typeof(List<Corso>));
+		}
+		[TestMethod]
+		public void ElencoCorsiStud(){
+			DomainModel dm = new DomainModel();
+			HomeController controller = new HomeController();			
+			List<Corso> corso = dm.ListaCorsi("prova");
+			ViewResult result = controller.ElencoCorsiStudente("prova") as ViewResult;            
+			result.ViewBag.CorsiStudente = corso;
+			Assert.IsInstanceOfType(result.ViewBag.CorsiStudente, typeof(List<Corso>) );
+		}
+		//[TestMethod]
+		//public void ModificaLezione()
+		//{ TO DO, BISOGNA CREARE UN CONTESTO
+		//	DomainModel dm = new DomainModel();
+		//	HomeController controller = new HomeController();
+		//	int idCorso = 1;
+		//	Lezione a =new Lezione {Nome="Omnes",Descrizione="java avanzato",Durata=9 };
+		//	dm.AddLezione(1,a);
+		//	Corso corso = dm.SearchCorsi(idCorso);
+		//	List<Lezione> lezioni = dm.ListaLezioni(corso);
+		//	var query = from lez in lezioni
+		//				where lez.Nome == "Omnes"
+		//				select lez;
+		//	int idLezione= query.Last().Id;
+		//	ViewResult result = controller.ModificaLezione(a.Nome,idLezione,a.Descrizione,a.Durata,1) as ViewResult;
+		//	controller.ModificaLezionePost("Servabit","ille",8,idLezione,1);
+		//	List<Lezione> lezioniModificata = dm.ListaLezioni(corso);
+		//	Assert.IsTrue(lezioniModificata.Last() != a);
+		//}
+	}
 }
