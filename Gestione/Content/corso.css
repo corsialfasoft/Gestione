@@ -57,3 +57,8 @@ li:nth-child(odd) {
     font-size: 20px;
     padding-right: 15px;
 }
+#fixedButton {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
