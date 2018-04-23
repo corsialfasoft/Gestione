@@ -29,10 +29,10 @@ namespace Gestione.Controllers {
 			ViewBag.CV = dm.Search(P.Matricola);
 			return View("DettaglioCurriculum");
         }
-		public ActionResult EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
+		public void EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
 		{
 			dm.DelEspLav(new EspLav{AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
-			return View();
+			Response.Redirect($"/Home/DettCv/{matricola}");
 		}
 
         

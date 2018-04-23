@@ -158,6 +158,10 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
+		public void DelCompetenza(Competenza competenza,string matricola)
+		{
+			dao.DelCompetenza(competenza,matricola);
+		}
 		public void DelPerStud(PerStud ps,string matricola) {
 			DataAccesObject dao = new DataAccesObject();
 			dao.DelPerStud(ps,matricola);
