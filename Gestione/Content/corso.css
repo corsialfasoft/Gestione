@@ -5,8 +5,7 @@
     font-weight: 900;
     text-decoration: none;
     letter-spacing: 5px;
-    color: forestgreen;
-    text-shadow: 3px 2px darkmagenta;
+    color: black;
 }
 .corso_descrizione,.corso_id {
    font-weight: 500;
@@ -57,8 +56,4 @@ li:nth-child(odd) {
     font-size: 20px;
     padding-right: 15px;
 }
-#fixedButton {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-}
+
