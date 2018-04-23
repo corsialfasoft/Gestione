@@ -20,6 +20,7 @@ namespace DAO{
         void AddCompetenze(string MatrCv, Competenza comp);
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
 		void ModComp( string matricola, Competenza daMod , Competenza Mod ); // Modifica la singola competenza
+		void DelEspLav(EspLav espLav,string matricola);
 	
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
 
@@ -348,6 +349,31 @@ namespace DAO{
 
 		public Giorno VisualizzaGiorno(DateTime data,int idUtente) {
 			throw new NotImplementedException();
+		}
+
+		public void DelEspLav(EspLav espLav,string matricola)
+		{
+			SqlConnection con= new SqlConnection(GetStringBuilderCV());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("AddEspLav",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@annoIdaDel",SqlDbType.Int).Value=espLav.AnnoInizio;
+				command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
+				command.Parameters.Add("@qualificaDaDel",SqlDbType.NVarChar).Value=espLav.Qualifica;
+				command.Parameters.Add("@descrDaDel",SqlDbType.NVarChar).Value=espLav.Descrizione;
+				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza eliminata");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
 		}
 	}
 }

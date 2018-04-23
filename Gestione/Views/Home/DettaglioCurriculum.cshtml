@@ -282,6 +282,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <input id="salva" class="btn btn-default" type="submit" value="Modifica">
+                        <input id="modifica" class="btn btn-default" type="submit" value="Elimina" />
                     </div>
                 </div>
                 <br />
@@ -369,6 +370,13 @@
                     <div class="row">
                         <div class="col-md-2">
                             <input class="btn btn-default" type="submit" value="Modifica">
+                            <button href="/Home/EliminaEsperienza?@ViewBag.CV.Esperienze[i].AnnoInizio&&
+                                                                  @ViewBag.CV.Esperienze[i].AnnoFine&&
+                                                                  @ViewBag.CV.Esperienze[i].Qualifica&&
+                                                                  @ViewBag.CV.Esperienze[i].Descrizione&&
+                                                                  @ViewBag.CV.Matricola
+                                                                  
+                                    " class="btn btn-default" type="submit" value="Elimina" />
                         </div>
                     </div>
             }
@@ -420,7 +428,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                           <input class="btn btn-default" type="submit" value="Modifica">
+                            <input class="btn btn-default" type="submit" value="Modifica">
                         </div>
                     </div>
                 </div>

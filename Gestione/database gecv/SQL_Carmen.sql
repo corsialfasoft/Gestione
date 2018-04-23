@@ -4,7 +4,7 @@ AS
 SELECT IdCv FROM Curriculum WHERE Matricola=@Matricola;
 GO
 
-alter PROCEDURE CercaParolaChiava
+Create PROCEDURE CercaParolaChiava
 	@parola nvarchar(20)
 AS
 SELECT C.Matricola FROM Curriculum C
@@ -30,14 +30,14 @@ INNER JOIN Competenze CS ON C.IdCv = CS.IdCv
 WHERE CS.Tipo like '%'+ @competenza +'%'
 GO
 
-Create Procedure GetCV
+Alter Procedure GetCV
 	@Matricola nvarchar(10)
 as
 select top 1 c.nome,c.cognome,c.eta,c.matricola,c.email,c.residenza,c.telefono
 	from Curriculum c where c.Matricola=@Matricola;
 go
 
-Create Procedure GetComp
+Alter Procedure GetComp
 	@Matricola nvarchar(10)
 as
 	declare @idc int  ;
@@ -45,7 +45,7 @@ as
 	select c.Livello,c.Tipo from Competenze c where c.IdCv=@idc;
 go
 
-Create procedure GetPerStudi
+Alter procedure GetPerStudi
 	@Matricola nvarchar(10)
 as
 	declare @idc int  ;
@@ -53,7 +53,7 @@ as
 	select p.AnnoI,p.AnnoF,p.Titolo,p.Descrizione from PercorsoStudi p where p.IdCv=@idc;
 go
 
-Create procedure GetEspLav
+Alter procedure GetEspLav
 	@Matricola nvarchar(10)
 as
 	declare @idc int  ;
