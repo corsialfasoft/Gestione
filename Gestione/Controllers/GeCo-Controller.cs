@@ -30,13 +30,14 @@ namespace Gestione.Controllers
 	public partial class HomeController : Controller
 	{
 		Profilo P;
-		public HomeController()
-		{
+        public HomeController(Profilo p) {
+            P = p;
+        }
+        public HomeController(){
 			P = new Profilo("prova","admin",null,"ciao","mazzo");
 		}
 		public ActionResult ElencoCorsi()
 		{
-			DomainModel dm = new DomainModel();
 			ViewBag.Controllo = null;
 			List<Corso> ris = dm.ListaCorsi();
 			if(ris != null) {
@@ -49,7 +50,6 @@ namespace Gestione.Controllers
 		[HttpPost]
 		public ActionResult ElencoCorsi(bool mieiCorsi,string descrizione)
 		{
-			DomainModel dm = new DomainModel();
 			if(int.TryParse(descrizione,out int id) && !mieiCorsi) {    // Cerca Per iD corso
 				Corso c = dm.SearchCorsi(id);
 				ViewBag.Corso = c;
@@ -82,7 +82,6 @@ namespace Gestione.Controllers
 		}
 		public ActionResult ElencoCorso(int id)
 		{
-			DomainModel dm = new DomainModel();
 			Corso c = dm.SearchCorsi(id);
 			List<Corso> res = new List<Corso> { c };
 			ViewBag.Corsi = res;
@@ -91,11 +90,10 @@ namespace Gestione.Controllers
 		[HttpPost]
 		public ActionResult AddCorso(string _nome,string _descrizione,DateTime _inizio,DateTime _fine)
 		{
-			DomainModel db = new DomainModel();
 			string prossimo;
 			Corso temp = new Corso { Nome = _nome,Descrizione = _descrizione,Inizio = _inizio,Fine = _fine };
 			try {
-				db.AddCorso(temp);
+				dm.AddCorso(temp);
 				ViewBag.Message = "Corso inserito correttamente";
 				prossimo = "AddCorso";
 			} catch(Exception) {
@@ -111,13 +109,12 @@ namespace Gestione.Controllers
 		[HttpPost]
 		public ActionResult AddLezione(string LezNome,string LezDescrizione,int LezDurata,int idCorso)
 		{
-			DomainModel Dm = new DomainModel();
 			Lezione lez = new Lezione {
 				Nome = LezNome,
 				Descrizione = LezDescrizione,
 				Durata = LezDurata
 			};
-			Dm.AddLezione(idCorso,lez);
+			dm.AddLezione(idCorso,lez);
 			ViewBag.CorsoId = idCorso;
 			ViewBag.Message = "Lezione aggiunta correttamente";
 			return View();
@@ -144,23 +141,19 @@ namespace Gestione.Controllers
 		}
 		public ActionResult ElencoCorsiStudente(string matricola)
 		{
-			DomainModel dm = new DomainModel();
 			List<Corso> corso = dm.ListaCorsi(matricola);
 			ViewBag.CorsiStudente = corso;
 			return View();
 		}
 		public ActionResult Corso(int id)
 		{
-			DomainModel dm = new DomainModel();
 			Corso scelto = dm.SearchCorsi(id);
 			List<Lezione> lezions = dm.ListaLezioni(scelto);
 			ViewBag.Corso = scelto;
 			ViewBag.Lezioni = lezions;
 			return View();
 		}
-		public ActionResult Iscrizione(int idCorso)
-		{
-			DomainModel dm = new DomainModel();
+		public ActionResult Iscrizione(int idCorso){
 			try {
 				dm.Iscriviti(idCorso,P.Matricola);
 				ViewBag.Message = "Iscrizione andata a buon fine";
@@ -185,7 +178,6 @@ namespace Gestione.Controllers
 		[HttpPost]
 		public void ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int idCorso)
 		{
-			DomainModel dm = new DomainModel();
 			Lezione lezione = new Lezione {
 				Id = idLezione,
 				Nome = LezNome,
@@ -199,6 +191,6 @@ namespace Gestione.Controllers
 				throw;
 			}
 			Response.Redirect($"Corso/{idCorso}");
-		}
-	}
+		}       
+    }
 }
