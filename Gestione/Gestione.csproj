@@ -146,7 +146,7 @@
     <Compile Include="Controllers\GeTime-Controller.cs" />
     <Compile Include="Controllers\GeCv-Controller.cs" />
     <Compile Include="Controllers\DT.cs" />
-    <Compile Include="Controllers\GeTimeDetaglioMese.cs" />
+    <Compile Include="Controllers\GeTimeDettaglioMese.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

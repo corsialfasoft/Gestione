@@ -79,7 +79,7 @@ as
 go
 create procedure SP_VisualizzaGiorno
 	@Data date,
-	@IdUtente nvarchar(20)
+	@IdUtente nvarchar(10)
 as
 	select 4, ol.ore, c.nome, c.descrizione, c.id
 		from Commesse c inner join OreLavorative ol on c.id = ol.idCommessa
@@ -93,7 +93,7 @@ go
 create procedure SP_VisualizzaMese
 	@Anno int,
 	@Mese int,
-	@IdUtente nvarchar(20)
+	@IdUtente nvarchar(10)
 as
 	select 4 as tipoOre, sum(ol.ore) ore, g.giorno
 		from OreLavorative ol

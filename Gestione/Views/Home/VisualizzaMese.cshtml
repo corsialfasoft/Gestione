@@ -4,7 +4,7 @@
 @using Gestione.Controllers;
 
 @{
-    ViewBag.Title = "Dettagli del Mese";
+    ViewBag.Title = "Dettaglio del Mese";
 }
 
 <style>
@@ -34,94 +34,87 @@
     @if(ViewBag.Message != null) {
         <h3 class="alert alert-warning">@ViewBag.Message</h3>
     }
-    <h4>Selezionare il mese di cui si vogliono visualizzare i dettagli</h4>
+    <h4>Inserire l'anno di cui si vogliono visualizzare i dettagli</h4>
 </div>
 <div>
     <form action="/Home/VisualizzaMese" method="post">
-        <input type="month" name="Anno" id="Anno" required />
+        <select name="anno" required>
+            @for(int a =2000;a<=DateTime.Now.Year; a++){
+                <option value="@a">
+                    @a
+                </option>
+            }
+        </select>
+        <select name="mese" required>
+            @for(int a =1;a<=12; a++){
+                <option value="@a">
+                    @a
+                </option>
+            }
+        </select>
         <input type="submit" value="Visualizza" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
     </form>
 </div>
+@if (ViewBag.Mese!=null && ViewBag.Mese.Count>0){
 <br>
-<div class="panel panel-default">
-    <table>
-        <tr>
-            <td>@Anno</td>
-            @if(Mese = 1) {
-                <td>
-                    <input type="submit" value="Gennaio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                </td>
-            } else {
-                <td>Gennaio</td>
-            }
-            <td>Febbraio</td>
-            <td>Marzo</td>
-            <td>Aprile</td>
-            <td>Maggio</td>
-            <td>Giugno</td>
-            <td>Luglio</td>
-            <td>Agosto</td>
-            <td>Settembre</td>
-            <td>Ottobre</td>
-            <td>Novembre</td>
-            <td>Dicembre</td>
-        </tr>
-    </table>
-</div>
-@if(ViewBag.giorni != null) {
     <div class="panel panel-default">
-        <div class="panel-heading">Dettagli del mese di:</div>
         <table>
             <tr>
-                @{
-                  String dataCurrent = "";
-                }
-                @foreach(Giorno giornoLav in ViewBag.giorni.OreLavorate) {
-                    @dataCurrent= @giornoLav.data;
-                    @if(@giornoLav.data == dataCurrent) {
-                         <td>Totale ore lavoro</td>
-            <td>@ViewBag.giorni.TotOreLavorate</td>
-                count++;
+                <td>@ViewBag.Mese[0].data.Year</td>
+                @if(ViewBag.Mese[0].data.Month = 1) {
+                    <td>
+                        <input type="submit" value="Gennaio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
                 } else {
-            <td></td>
-            <td></td>
-}
-            <td>@giornoLav.nome</td>
-            <td>@giornoLav.oreGiorno</td>
-            <td>@giornoLav.descrizione</td>
-            </tr>
-        }
-                </tr>
-                @{
-            int count = 0;
+                    <td>Gennaio</td>
                 }
-                @foreach(Giorno giornoLav in ViewBag.giorni.OreLavorate) {
-            <tr>
-                @if(count == 0) {
-            <td>Totale ore lavoro</td>
-            <td>@ViewBag.giorni.TotOreLavorate</td>
-    count++;
-} else {
-        <td></td>
-        <td></td>
-}
-                <td>@giornoLav.nome</td>
-                <td>@giornoLav.oreGiorno</td>
-                <td>@giornoLav.descrizione</td>
+                <td>Febbraio</td>
+                <td>Marzo</td>
+                <td>Aprile</td>
+                <td>Maggio</td>
+                <td>Giugno</td>
+                <td>Luglio</td>
+                <td>Agosto</td>
+                <td>Settembre</td>
+                <td>Ottobre</td>
+                <td>Novembre</td>
+                <td>Dicembre</td>
             </tr>
-}
+        </table>
+    </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Dettagli del mese di:</div>
+            <table>
                 <tr>
-                    <td>Totale ore permesso</td>
-                    <td>@ViewBag.giorno.OrePermesso</td>
+                    <td></td>
+                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
+                        <td>@giornoLav.data.Date</td>
+                    }
                 </tr>
                 <tr>
-                    <td>Totale ore malattia</td>
-                    <td>@ViewBag.giorno.OreMalattia</td>
+                    <td>Ore Lavoro</td>
+                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
+                        <td>@giornoLav.TotOreLavorate</td>
+                    }
                 </tr>
                 <tr>
-                    <td>Totale ore ferie</td>
-                    <td>@ViewBag.giorno.OreFerie</td>
+                    <td>Ore Permesso</td>
+                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
+                        <td>@giornoLav.OrePermesso</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Ore Ferie</td>
+                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
+                        <td>@giornoLav.OreFerie</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Ore Malattia</td>
+                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
+                        <td>@giornoLav.OreMalattia</td>
+                    }
                 </tr>
             </table>
-    </div>
-}
+        </div>
+    }
