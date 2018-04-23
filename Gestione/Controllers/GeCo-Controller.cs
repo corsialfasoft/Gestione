@@ -56,6 +56,7 @@ namespace Gestione.Controllers
 					if(c != null){
 						ViewBag.Controllo = true;
                         ViewBag.Corso = c;
+						ViewBag.Lezioni = dm.ListaLezioni(c);
                         return View("Corso");
 					}else{
 						ViewBag.Controllo = false;
@@ -84,6 +85,7 @@ namespace Gestione.Controllers
 					if(c != null){
 						ViewBag.Controllo = true;
                         ViewBag.Corso = c;
+						ViewBag.Lezioni = dm.ListaLezioni(c);
 						return View("Corso");
 					}else{
 						ViewBag.Controllo = false;
@@ -233,7 +235,7 @@ namespace Gestione.Controllers
 			return View();
 		}
 		[HttpPost]
-		public void ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int id)
+		public ActionResult ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int id)
 		{
 			Lezione lezione = new Lezione {
 				Id = idLezione,
@@ -247,7 +249,10 @@ namespace Gestione.Controllers
 				ViewBag.Message = "Qualcosa è andato storto.";
 				throw;
 			}
-			Response.Redirect($"Corso?{id}");
-		}       
+			Corso s = dm.SearchCorsi(id);
+			ViewBag.Corso=s;
+			ViewBag.Lezioni = dm.ListaLezioni(s);
+			return View("Corso");
+		} 
     }
 }
