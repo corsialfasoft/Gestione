@@ -8,12 +8,13 @@
         <h4 style="padding-left:30px">@ViewBag.Message</h4>
         <div style="float:right; padding-bottom:10px; padding-right:30px; text-align:right" class="col-md-6">
             @using(Html.BeginForm("ElencoCorsi","Home",FormMethod.Post)) {
-                <label>Cerca Tra I Miei Corsi</label>
-                <!-- input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />-->
-                @Html.CheckBox("mieiCorsi",true)
-                <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
-                <input type="submit" value="Cerca">
-            }
+        <label>Cerca Tra I Miei Corsi</label>
+        <!-- input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />-->
+        @Html.CheckBox("mieiCorsi",true)
+        <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
+        <input type="text" name="id" id="id" placeholder="Inserisci id" />
+        <input type="submit" value="Cerca">
+}
         </div>
     </div>
     @if(@ViewBag.Controllo == true) {
