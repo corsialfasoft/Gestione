@@ -26,11 +26,11 @@ namespace DAO {
         //Ricerca solo per cognome
 		List<CV> SearchCognome(string cognome);
         void AddCvStudi(string MatrCv,PerStud studi);
-        void AddEspLav(string MatrCv, EspLav esp );
+        void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
         //Modifica la singola competenza
-		void ModComp( string matricola, Competenza daMod , Competenza Mod );
+		void ModComp(string matricola, Competenza daMod , Competenza Mod );
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
         void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
@@ -43,17 +43,17 @@ namespace DAO {
         void AddLezione(int idCorso, Lezione lezione);
 		void ModLezione(Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
-        void Iscriviti (int idCorso, string idStudente);
+        void Iscriviti(int idCorso, string idStudente);
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, string idUtente);
+        List<Corso> SearchCorsi(string descrizione, string idUtente);
         //Mostra tutti i corsi presenti nel db
-        List<Corso>ListaCorsi();
+        List<Corso> ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(string idUtente);
+        List<Corso> ListaCorsi(string idUtente);
 		//mostra tutte le lezioni associate a un corso
 		List<Lezione> ListaLezioni(Corso corso);
     }
@@ -218,7 +218,6 @@ namespace DAO {
 				throw e;
 			}
 		}
-
 		public void AddCompetenze(string MatrCv,Competenza comp){
 			try{
 				SqlParameter[] param = {
@@ -421,7 +420,6 @@ namespace DAO {
 			}
 		}
 
- 
 		//GeCo
         public List<Lezione> ListaLezioni(Corso corso){
 			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
