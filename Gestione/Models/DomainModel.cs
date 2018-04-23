@@ -12,14 +12,15 @@ namespace Gestione.Models{
 		public List<Lezione> ListaLezioni(Corso input){
 			return dao.ListaLezioni(input);
 		}
-        public void AddCompetenze(string MatrCv,Competenza comp) {
+        public void AddCompetenze(string MatrCv,Competenza comp){
             dao.AddCompetenze(MatrCv,comp);
         }
 
-        public void AddCvStudi(string MatrCv,PerStud studi) {
+        public void AddCvStudi(string MatrCv,PerStud studi){
             dao.AddCvStudi(MatrCv, studi);
         }
-        public void AddEspLav(string MatrCv,EspLav esp) {
+
+        public void AddEspLav(string MatrCv,EspLav esp){
             dao.AddEspLav(MatrCv,esp);
         }
 
@@ -28,13 +29,15 @@ namespace Gestione.Models{
 			DataAccesObject dao = new DataAccesObject();
             dao.AggiungiCV(a);
 		}
-		public void Iscriviti(int idCorso,string idStudente) {
+
+		public void Iscriviti(int idCorso,string idStudente){
 			try{
 				dao.Iscriviti(idCorso,idStudente);
 			}catch(Exception e){				
 				throw e ;
 			}
 		}
+
 		public void AddLezione(int idCorso, Lezione lezione){			
 			try{
 				dao.AddLezione(idCorso,lezione);
@@ -42,6 +45,7 @@ namespace Gestione.Models{
 				throw e;
 			}
 		}
+
 		public List<Corso> ListaCorsi(string idUtente){
 			try{
 				return dao.ListaCorsi(idUtente);
@@ -49,6 +53,7 @@ namespace Gestione.Models{
                 throw e; 
             }
 		}
+
 		public List<Corso> ListaCorsi(){
 			try{
 				return dao.ListaCorsi();
@@ -56,27 +61,31 @@ namespace Gestione.Models{
                 throw e; 
             }
 		}
-		public Corso SearchCorsi(int idCorso){			
+
+		public Corso SearchCorsi(int idCorso){
 			try{
 				return dao.SearchCorsi(idCorso);
 			}catch(Exception e){ 
                 throw e; 
             }
 		}
-		public List<Corso> SearchCorsi (string descrizione){
+
+		public List<Corso> SearchCorsi(string descrizione){
 			try{
 				return  dao.SearchCorsi(descrizione);
 			}catch(Exception e){ 
                 throw e; 
             }
 		}
-		public List<Corso> SearchCorsi (string descrizione,string idUtente){
+
+		public List<Corso> SearchCorsi(string descrizione,string idUtente){
 			try{
 				return dao.SearchCorsi(descrizione,idUtente);
 			}catch(Exception e){ 
                 throw e; 
             }
         }
+
 		public void AddCorso(Corso corso){
             try{ 
                dao.AddCorso(corso);
@@ -84,16 +93,16 @@ namespace Gestione.Models{
                 throw e; 
             }
         }
-		public void ModLezione(Lezione lezione)
-		{
-			try {
+
+		public void ModLezione(Lezione lezione){
+			try{
 				dao.ModLezione(lezione);
-			}catch( Exception e) {
+			}catch(Exception e){
 				throw e;
 			}
 		}
-		public void EliminaCV(CV curriculum)
-		{
+
+		public void EliminaCV(CV curriculum){
             DataAccesObject db = new DataAccesObject();
             try{ 
                 db.EliminaCV(curriculum);
@@ -102,58 +111,52 @@ namespace Gestione.Models{
             }
 		}
 
-        public void ModEspLav(string MatrCv,EspLav espV,EspLav esp) {
+        public void ModEspLav(string MatrCv,EspLav espV,EspLav esp){
             dao.ModEspLav(MatrCv,espV,esp);
         }
 
-		public void ModComp(Competenza daMod,Competenza Mod,string matricola) {
+		public void ModComp(Competenza daMod,Competenza Mod,string matricola){
 			dao.ModComp(matricola,daMod,Mod);
-
 		}
 
-		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr)
-		{
+		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr){
 			DataAccesObject doo = new DataAccesObject();
             doo.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
 		}
 
-        public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod) {
+        public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod){
             dao.ModPerStudi(matricola,daMod,Mod);
         }
 
-        public CV Search(string id)
-		{
+        public CV Search(string id){
 			DataAccesObject dao = new DataAccesObject();
 			return dao.Search(id);
 		}
 
-		public List<CV> SearchChiava(string chiava)
-		{
+		public List<CV> SearchChiava(string chiava){
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchChiava(chiava);
 		}
 
-		public List<CV> SearchCognome(string cognome)
-		{
+		public List<CV> SearchCognome(string cognome){
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchCognome(cognome);
 		}
-		public List<CV> SearchEta(int eta)
-		{
+
+		public List<CV> SearchEta(int eta){
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchEta(eta);
 		}
 
-
-
-        public void CaricaCV(string path) {
+        public void CaricaCV(string path){
             throw new NotImplementedException();
         }
-        public List<CV> SearchRange(int etmin,int etmax)
-		{
+
+        public List<CV> SearchRange(int etmin,int etmax){
 			DataAccesObject dao = new DataAccesObject();
 			return dao.SearchRange(etmin,etmax);
 		}
+
         //GeTime
 		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
 			try{ 
@@ -170,7 +173,8 @@ namespace Gestione.Models{
 				throw e;
 			}
         }
-		public DTCommessa CercaCommessa(string nomeCommessa) {
+
+		public DTCommessa CercaCommessa(string nomeCommessa){
 			try{ 
 				Commessa commessa = dao.CercaCommessa(nomeCommessa);
 				if(commessa!=null)
@@ -180,30 +184,33 @@ namespace Gestione.Models{
 					throw e;
 			}
 		}
-        public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente) {
-            try {
+
+        public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente){
+            try{
                 dao.CompilaHLavoro(data, ore, idCommessa, idUtente);
-            } catch (Exception e) {
+            }catch(Exception e){
                 throw e;
             }
         }
-        public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
-            try {
+
+        public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
+            try{
                 dao.Compila(data, ore, tipoOre, idUtente);
-            } catch (Exception e) {
+            }catch(Exception e){
                 throw e;
             }
         }
-        public DTGGiorno VisualizzaGiorno(DateTime data, string idUtente) {
+
+        public DTGGiorno VisualizzaGiorno(DateTime data, string idUtente){
             Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
-            if (giornoInterface != null) {
-                DTGGiorno DTgiorno = new DTGGiorno {
+            if (giornoInterface != null){
+                DTGGiorno DTgiorno = new DTGGiorno{
                     data = giornoInterface.Data,
                     OrePermesso = giornoInterface.HPermesso,
                     OreMalattia = giornoInterface.HMalattia,
                     OreFerie = giornoInterface.HFerie
                 };
-                foreach (OreLavorative orecommessa in giornoInterface.OreLavorate) {
+                foreach (OreLavorative orecommessa in giornoInterface.OreLavorate){
                     OreLavorate orelavorate = new OreLavorate {
                         nome = orecommessa.Nome,
                         oreGiorno = orecommessa.Ore,
@@ -216,6 +223,5 @@ namespace Gestione.Models{
             }
             return null;
         }
-
     }
 }
