@@ -4,15 +4,58 @@
 @{
     ViewBag.Title = "Lista Lezioni";
 }
+    <style>
+        #myIscriviti {
+            position: fixed;
+            bottom: 260px;
+            left: 10px;
+            z-index: 99;
+            border: none;
+            background-color: white;
+            color: Black;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
 
-<body>
-    <h2 class="title">@ViewBag.Title</h2>
-    <!--ho mostrato il titolo-->
-    <div class="text-warning">
-        <h4><b>@ViewBag.Message</b></h4>
-    </div>
-    <!--ho mostrato un errore-->
-        <div class="corso_descrizione">@ViewBag.Corso.Descrizione</div>        
+        #myLezione {
+            position: fixed;
+            bottom: 210px;
+            left: 10px;
+            z-index: 99;
+            border: none;
+            background-color: white;
+            color: Black;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        #myElencoCorsi {
+            position: fixed;
+            bottom: 310px;
+            left: 10px;
+            z-index: 99;
+            border: none;
+            background-color: white;
+            color: Black;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+    </style>
+
+
+    <body>
+        <h2 class="title">@ViewBag.Title</h2>
+        <!--ho mostrato il titolo-->
+        <div class="text-warning">
+            <h4><b>@ViewBag.Message</b></h4>
+        </div>
+        <!--ho mostrato un errore-->
+        <div class="corso_descrizione">@ViewBag.Corso.Descrizione</div>
         <div class="corso_id">Numero corso: @ViewBag.Corso.Id</div>
     <p class="Elenco_Lezioni">Elenco lezioni:</p>
     <div class="container">
@@ -31,9 +74,40 @@
         </ol>
     </div>
 
-    <div>
-        <span class="bottone"> @Html.ActionLink("Iscriviti","Iscrizione",new { idCorso = ViewBag.Corso.Id }, "prova")</span>
-        <span class="bottone"> @Html.ActionLink("+ Lezione","AddLezione",new { idCorso = ViewBag.Corso.Id })</span>
-        <span class="bottone"> @Html.ActionLink("Elenco Corsi","ElencoCorsi","Home")</span>
-    </div>
-</body>
+        <a href='@Url.Action("Iscriviti","Iscrizione",new { idCorso = ViewBag.Corso.Id },"prova")'><button id="myIscriviti" style="position: fixed;" title="Iscriviti"><span class="glyphicon glyphicon-ok-circle"></span></button></a>
+        <a href='@Url.Action("+ Lezione","AddLezione",new { idCorso = ViewBag.Corso.Id })'><button id="myLezione" style="position: fixed;" title="Aggiungi Lezione"><span class="glyphicon glyphicon-plus"></span></button></a>
+        <a href="/Home/ElencoCorsi"> <button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi"><span class="glyphicon glyphicon-list"></span></button> </a>
+
+
+
+        <script>
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                    document.getElementById("myElencoCorsi").style.display = "block";
+                } else {
+                    document.getElementById("myElencoCorsi").style.display = "none";
+                }
+            }
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                    document.getElementById("myAddLezione").style.display = "block";
+                } else {
+                    document.getElementById("myAddLezione").style.display = "none";
+                }
+            }
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                    document.getElementById("myIscriviti").style.display = "block";
+                } else {
+                    document.getElementById("myIscriviti").style.display = "none";
+                }
+            }
+
+
+
+        </script>
+    </body>

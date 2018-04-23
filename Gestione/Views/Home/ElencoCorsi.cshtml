@@ -2,19 +2,50 @@
     ViewBag.Title = "Elenco Corsi";
 }
 
+<style>
+
+    #myElencoCorsi {
+        position: fixed;
+        bottom: 259px;
+        left: 20px;
+        z-index: 99;
+        border: none;
+        background-color: white;
+        color: Black;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 13px;
+    }
+
+    #myAddCorsi {
+        position: fixed;
+        bottom: 210px;
+        left: 20px;
+        z-index: 99;
+        border: none;
+        background-color:white;
+        color: Black;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 13px;
+    }
+</style>
+
 <body>
     <h1 style="padding-left:15px">@ViewBag.Title</h1>
     <div class="row">
         <h4 style="padding-left:30px">@ViewBag.Message</h4>
-        <div style="float:right; padding-bottom:10px; padding-right:30px; text-align:right" class="col-md-6">
+        <div style="float:right; padding-bottom:10px; padding-right:30px; text-align:right" class="col-lg-6">
             @using(Html.BeginForm("ElencoCorsi","Home",FormMethod.Post)) {
-        <label>Cerca Tra I Miei Corsi</label>
-        <!-- input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />-->
-        @Html.CheckBox("mieiCorsi",true)
-        <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" />
-        <input type="text" name="id" id="id" placeholder="Inserisci id" />
-        <input type="submit" value="Cerca">
-}
+                <label>Cerca Tra I Miei Corsi</label>
+                <!-- input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />-->
+                @Html.CheckBox("mieiCorsi",true)
+                <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" style="border-radius:4px;" />
+                <input type="text" name="id" id="id" placeholder="Inserisci id" style="border-radius:4px;" />
+                <input type="submit" value="Cerca">
+            }
         </div>
     </div>
     @if(@ViewBag.Controllo == true) {
@@ -22,7 +53,7 @@
     } else if(@ViewBag.Controllo == false) {
         <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
     }
-    @if (@ViewBag.Corsi != null) { 
+    @if(@ViewBag.Corsi != null) {
         <div>
             <div class=" container">
                 <ul class="list-group">
@@ -38,7 +69,31 @@
             </div>
         </div>
     }
-    <span style="padding-left:15px">@Html.ActionLink("Aggiungi Corso","AddCorso")</span>
-    <span style="padding-left:15px">@Html.ActionLink("Elenco corsi","ElencoCorsi")</span>
+
+
+    <a href="/Home/ElencoCorsi"> <button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi"><span class="glyphicon glyphicon-list"></span></button> </a>
+    <a href="/Home/AddCorso"> <button id="myAddCorsi" style="position: fixed;" title="Aggiungi corso"><span class="glyphicon glyphicon-plus"></span></button> </a>
+        <script>
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                    document.getElementById("myElencoCorsi").style.display = "block";
+                } else {
+                    document.getElementById("myElencoCorsi").style.display = "none";
+                }
+            }
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                    document.getElementById("myAddCorsi").style.display = "block";
+                } else {
+                    document.getElementById("myAddCorsi").style.display = "none";
+                }
+            }
+
+
+
+        </script>
 </body>
 
