@@ -76,7 +76,7 @@
                                 <th scope="row">  @corso.Id</th>
                                 <td>  @corso.Nome</td>
                                 <td>@corso.Descrizione </td>
-                                <td><button class="btn" style="border-radius:7px; ">  @Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })</button></td>
+                                <td><button class="btn" style="border-radius:7px; ">  @Html.ActionLink("DETTAGLI","Corso",new { idCorso = corso.Id })</button></td>
                             </tr>
                         }
                     </tbody>
