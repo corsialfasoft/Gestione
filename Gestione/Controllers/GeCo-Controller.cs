@@ -56,6 +56,7 @@ namespace Gestione.Controllers
 					if(c != null){
 						ViewBag.Controllo = true;
                         ViewBag.Corso = c;
+						ViewBag.Lezioni = dm.ListaLezioni(c);
                         return View("Corso");
 					}else{
 						ViewBag.Controllo = false;
@@ -84,6 +85,7 @@ namespace Gestione.Controllers
 					if(c != null){
 						ViewBag.Controllo = true;
                         ViewBag.Corso = c;
+						ViewBag.Lezioni = dm.ListaLezioni(c);
 						return View("Corso");
 					}else{
 						ViewBag.Controllo = false;
@@ -135,15 +137,15 @@ namespace Gestione.Controllers
 			return View();
 		}
 		[HttpPost]
-		public ActionResult AddLezione(string LezNome,string LezDescrizione,int LezDurata,int idCorso)
+		public ActionResult AddLezione(string LezNome,string LezDescrizione,int LezDurata,int id)
 		{
 			Lezione lez = new Lezione {
 				Nome = LezNome,
 				Descrizione = LezDescrizione,
 				Durata = LezDurata
 			};
-			dm.AddLezione(idCorso,lez);
-			ViewBag.CorsoId = idCorso;
+			dm.AddLezione(id,lez);
+			ViewBag.CorsoId = id;
 			ViewBag.Message = "Lezione aggiunta correttamente";
 			return View();
 		}
@@ -151,10 +153,10 @@ namespace Gestione.Controllers
 		{
 			return View();
 		}
-		public ActionResult AddLezione(int idCorso)
+		public ActionResult AddLezione(int id)
 		{
-			ViewBag.Message = idCorso;
-			ViewBag.CorsoId = idCorso;
+			ViewBag.Message = id;
+			ViewBag.CorsoId = id;
 			return View();
 		}
 		public ActionResult About()
@@ -173,17 +175,17 @@ namespace Gestione.Controllers
 			ViewBag.CorsiStudente = corso;
 			return View();
 		}
-		public ActionResult Corso(int idCorso)
+		public ActionResult Corso(int id)
 		{
-			Corso scelto = dm.SearchCorsi(idCorso);
+			Corso scelto = dm.SearchCorsi(id);
 			List<Lezione> lezions = dm.ListaLezioni(scelto);
 			ViewBag.Corso = scelto;
 			ViewBag.Lezioni = lezions;
 			return View();
 		}
-		public ActionResult Iscrizione(int idCorso){
+		public ActionResult Iscrizione(int id){
 			try {
-				dm.Iscriviti(idCorso,P.Matricola);
+				dm.Iscriviti(id,P.Matricola);
 				ViewBag.Message = "Iscrizione andata a buon fine";
 				ViewBag.Corsi = dm.ListaCorsi();
 			} catch(Exception e) {
@@ -191,7 +193,7 @@ namespace Gestione.Controllers
 			}
 			return View("ElencoCorsi");
 		}
-		public ActionResult ModificaLezione(string nomeLezione,int idLezione,string descrizioneLezione,int durataLezione,int idCorso)
+		public ActionResult ModificaLezione(string nomeLezione,int idLezione,string descrizioneLezione,int durataLezione,int id)
 		{
 			Lezione a = new Lezione {
 				Nome = nomeLezione,
@@ -200,11 +202,13 @@ namespace Gestione.Controllers
 				Durata = durataLezione
 			};
 			ViewBag.Lezione = a;
-			ViewBag.Id = idCorso;
+			Corso c =dm.SearchCorsi(id);
+			ViewBag.Corso =c;
+			ViewBag.Corso.Id = c.Id;
 			return View();
 		}
 		[HttpPost]
-		public ActionResult ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int idCorso)
+		public ActionResult ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int id)
 		{
 			Lezione lezione = new Lezione {
 				Id = idLezione,
@@ -218,10 +222,10 @@ namespace Gestione.Controllers
 				ViewBag.Message = "Qualcosa è andato storto.";
 				throw;
 			}
-			Corso s = dm.SearchCorsi(idCorso);
+			Corso s = dm.SearchCorsi(id);			
 			ViewBag.Corso=s;
 			ViewBag.Lezioni = dm.ListaLezioni(s);
 			return View("Corso");
-		}       
+		} 
     }
 }
