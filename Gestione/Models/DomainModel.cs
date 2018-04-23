@@ -93,10 +93,10 @@ namespace Gestione.Models{
 
 		}
 
-		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr)
+		public void ModificaCV(CV c)
 		{
 			DataAccesObject doo = new DataAccesObject();
-            doo.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
+            doo.ModificaCV(c);
 		}
 
         public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod) {
@@ -152,5 +152,7 @@ namespace Gestione.Models{
 		{
 			throw new NotImplementedException();
 		}
+
+		
 	}
 }
