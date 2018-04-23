@@ -9,7 +9,7 @@ namespace DAO {
 	public interface IDao{
         //modifica un curriculum nel db
 		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr);
-        //quando sei loggato, puoi aggiungere un curriculum nel db
+        //quando sei loggato, puoi aggiungere un curriculum nel db.
 		void AggiungiCV(CV a);
         //quando non sei loggato, puoi spedire un curriuculum
 		void CaricaCV(string path);
