@@ -55,167 +55,113 @@
         <input type="submit" value="Visualizza" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
     </form>
 </div>
-@if (ViewBag.Mese!=null && ViewBag.Mese.Count>0){
-<br>
+@if(@ViewBag.Year != null){
+    string[] lisMesi = { "Gennaio", "Febbraio","Marzo","Aprile","Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" };
+    <br>
     <div class="panel panel-default">
         <table>
             <tr>
-                <td>@ViewBag.Mese[0].data.Year</td>
-                @if(ViewBag.Mese[0].data.Month == 1) {
-                    <td>Gennaio</td>                   
-                } else {
-                    <td>
-                        <input type="submit" value="Gennaio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 2) {
-                     <td>Febbraio</td>
-                } else {
-                     <td>
-                         <input type="submit" value="Febbraio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                     </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 3) {
-                    <td>Marzo</td>
-                } else {
-                    <td style="background-color: #e6e6e6">
-                        <a href="~/Home/VisualizzaMese">Marzo</a>
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 4) {
-                    <td>Aprile</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Aprile" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 5) {
-                    <td>Maggio</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Maggio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 6) {
-                    <td>Giugno</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Giugno" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 7) {
-                    <td>Luglio</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Luglio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 8) {
-                    <td>Agosto</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Agosto" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 9) {
-                    <td>Settembre</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Settembre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 10) {
-                    <td>Ottobre</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Ottobre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 11) {
-                    <td>Novembre</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Novembre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
-                }
-                @if(ViewBag.Mese[0].data.Month == 12) {
-                    <td>Dicembre</td>
-                } else {
-                    <td>
-                        <input type="submit" value="Dicembre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
-                    </td>
+                <td>@ViewBag.Year</td>
+                @for(int index=0; index < lisMesi.Length; index++) { 
+                    if(ViewBag.Month == index+1) {
+                        <td>@lisMesi[index]</td>                   
+                    } else {
+                        <td>
+                            <form action="/Home/VisualizzaMese" method="post">
+                                <input type="hidden" name="anno" value="@ViewBag.Year" />
+                                <input type="hidden" name="mese" value="@(index+1)" />
+                                <input type="submit" value="@lisMesi[index]" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                            </form>
+                        </td>
+                    }
                 }
             </tr>
         </table>
     </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Dettagli del mese di:</div>
-            @{ 
-                int Nday = DateTime.DaysInMonth(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month);
-            }
-            <table>
+    <div class="panel panel-default">
+        <div class="panel-heading">Dettagli del mese di:</div>
+        @{ 
+            int Nday = DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month);
+        }
+        <table>
+            <tr>
+                <td></td>
+                @for(int i =1; i<= Nday;i++) {
+                    <td>@i</td>
+                }
+            </tr>
+            <tr>
+                <td>Ore Lavoro</td>
+                @{ 
+                    DateTime dateTime = new DateTime(ViewBag.Year, ViewBag.Month,1);
+                    for(int i =0; i< Nday;i++) {
+                        if(ViewBag.Mese.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                            int index = ViewBag.Mese.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                            <td>@ViewBag.Mese[index].TotOreLavorate</td>
+                        } else { 
+                            <td/>
+                        }
+                    }
+                }
+            </tr>
                 <tr>
-                    <td></td>
-                    @for(int i =1; i<= Nday;i++) {
-                        <td>@i</td>
+                    <td>Ore Permesso</td>
+                @{ 
+                    dateTime = new DateTime(ViewBag.Year, ViewBag.Month,1);
+                    for(int i =0; i< Nday;i++) {
+                        if(ViewBag.Mese.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                            int index = ViewBag.Mese.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                            <td>@ViewBag.Mese[index].OrePermesso</td>
+                        } else { 
+                            <td/>
+                        }
                     }
-                </tr>
+                }
+            </tr>
+            <tr>
+                <td>Ore Ferie</td>
+                @{ 
+                    dateTime = new DateTime(ViewBag.Year, ViewBag.Month, 1);
+                    for(int i =0; i< Nday;i++) {
+                        if(ViewBag.Mese.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                            int index = ViewBag.Mese.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                            <td>@ViewBag.Mese[index].OreFerie</td>
+                        } else { 
+                            <td/>
+                        }
+                    }
+                }
+            </tr>
                 <tr>
-                    <td>Ore Lavoro</td>
-                    @{ 
-                        DateTime dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
-                        for(int i =0; i<= Nday;i++) {
-                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
-                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
-                                <td>@ViewBag.Mesi[index].TotOreLavorate</td>
-                            } else { 
-                                <td/>
-                            }
+                    <td>Ore Malattia</td>
+                @{ 
+                    dateTime = new DateTime(ViewBag.Year, ViewBag.Month,1);
+                    for(int i =0; i< Nday;i++) {
+                        if(ViewBag.Mese.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                            int index = ViewBag.Mese.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                            <td>@ViewBag.Mese[index].OreMalattia</td>
+                        } else { 
+                            <td/>
                         }
                     }
-                </tr>
-                 <tr>
-                     <td>Ore Permesso</td>
-                    @{ 
-                        dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
-                        for(int i =0; i<= Nday;i++) {
-                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
-                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
-                                <td>@ViewBag.Mesi[index].OrePermesso</td>
-                            } else { 
-                                <td/>
-                            }
-                        }
-                    }
-                </tr>
-                <tr>
-                    <td>Ore Ferie</td>
-                    @{ 
-                        dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
-                        for(int i =0; i<= Nday;i++) {
-                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
-                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
-                                <td>@ViewBag.Mesi[index].OreFerie</td>
-                            } else { 
-                                <td/>
-                            }
-                        }
-                    }
-                </tr>
-                 <tr>
-                     <td>Ore Malattia</td>
-                    @{ 
-                        dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
-                        for(int i =0; i<= Nday;i++) {
-                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
-                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
-                                <td>@ViewBag.Mesi[index].OreMalattia</td>
-                            } else { 
-                                <td/>
-                            }
-                        }
-                    }
-                </tr>
-            </table>
+                }
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                TotOre
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
         </div>
-    }
+    </div>
+}
