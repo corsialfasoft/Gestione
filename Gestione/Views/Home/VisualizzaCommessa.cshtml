@@ -38,31 +38,31 @@
                 }
             </tbody>
         </table>
-    } else if(ViewBag.Commesse > 1) {
-        <div class="container h2">
-            @ViewBag.NomeCommessa
-        </div>
-        <hr />
-        <table class="table table-striped">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome Commessa</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{int i = 0;}
-                @foreach (DTCommessa dtc in ViewBag.Commesse) {
-                    <tr>
-                        <th scope="col">@i</th>
-                        <th scope="col">
-                            <span class="badge">
-                                @Html.ActionLink("Dettagli", "DettaglioCommessa", new { nome = dtc.Nome})
-                            </span>
-                            @dtc.Nome
-                        </th>
-                    </tr>
-                 }
-        </table>
     }
+ } else if(ViewBag.Commesse > 1) {
+    <div class="container h2">
+        @ViewBag.NomeCommessa
+    </div>
+    <hr />
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome Commessa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 0;}
+            @foreach (DTCommessa dtc in ViewBag.Commesse) {
+                <tr>
+                    <th scope="col">@i</th>
+                    <th scope="col">
+                        <span class="badge">
+                            @Html.ActionLink("Dettagli", "DettaglioCommessa", new { nome = dtc.Nome})
+                        </span>
+                        @dtc.Nome
+                    </th>
+                </tr>
+            }
+    </table>
 }
