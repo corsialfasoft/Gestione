@@ -23,7 +23,7 @@
                     <span class="Lezione_Nome">
                         @lezioni.Descrizione
                         @lezioni.Durata
-                        @Html.ActionLink("Modifica","ModificaLezione",new {nomeLezione = lezioni.Nome,descrizioneLezione = lezioni.Descrizione,durataLezione=lezioni.Durata ,idLezione =lezioni.Id,idCorso=ViewBag.Corso.Id})
+                        @Html.ActionLink("Modifica","ModificaLezione",new {nomeLezione = lezioni.Nome,descrizioneLezione = lezioni.Descrizione,durataLezione=lezioni.Durata ,idLezione =lezioni.Id,id=ViewBag.Corso.Id})
                     </span>
                 </li>
                 }
@@ -32,8 +32,8 @@
     </div>
 
     <div>
-        <span class="bottone"> @Html.ActionLink("Iscriviti","Iscrizione",new { idCorso = ViewBag.Corso.Id }, "prova")</span>
-        <span class="bottone"> @Html.ActionLink("+ Lezione","AddLezione",new { idCorso = ViewBag.Corso.Id })</span>
+        <span class="bottone"> @Html.ActionLink("Iscriviti","Iscrizione",new { id = ViewBag.Corso.Id }, "prova")</span>
+        <span class="bottone"> @Html.ActionLink("+ Lezione","AddLezione",new { id = ViewBag.Corso.Id })</span>
         <span class="bottone"> @Html.ActionLink("Elenco Corsi","ElencoCorsi","Home")</span>
     </div>
 </body>
