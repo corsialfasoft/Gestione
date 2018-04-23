@@ -162,7 +162,7 @@
     <Content Include="SQL\SP_GeCo.sql" />
     <Content Include="SQL\DDLGeCv.sql" />
     <Content Include="SQL\SP_GeCv.sql" />
-    <Content Include="SQL\test.sql" />
+    <Content Include="SQL\DML-GeCv.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -7,24 +7,31 @@ using LibreriaDB;
 
 namespace DAO {
 	public interface IDao{
-		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr); //modifica un curriculum nel db
-		void AggiungiCV(CV a); //quando sei loggato, puoi aggiungere un curriculum nel db
-		void CaricaCV(string path); //quando non sei loggato, puoi spedire un curriuculum
-		CV Search(string id); //search di un curriculum per id di un curriculum
-		List<CV> SearchChiava(string chiava); //search generale per parole chiava 
-		List<CV> SearchEta(int eta); //search solo per quella precisa età
-		List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
-		void EliminaCV(CV curriculum); //Elimina un CV dal db
-		List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
+        //modifica un curriculum nel db
+		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr);
+        //quando sei loggato, puoi aggiungere un curriculum nel db
+		void AggiungiCV(CV a);
+        //quando non sei loggato, puoi spedire un curriuculum
+		void CaricaCV(string path);
+        //search di un curriculum per id di un curriculum
+		CV Search(string id);
+        //search generale per parole chiava
+		List<CV> SearchChiava(string chiava);
+        //search solo per quella precisa età
+		List<CV> SearchEta(int eta);
+        //search per un range di età minimo e massimo
+		List<CV> SearchRange(int etmin, int etmax);
+        //Elimina un CV dal db
+		void EliminaCV(CV curriculum);
+        //Ricerca solo per cognome
+		List<CV> SearchCognome(string cognome);
         void AddCvStudi(string MatrCv,PerStud studi);
-        void AddEspLav(string MatrCv, EspLav esp );
+        void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
-		void ModComp( string matricola, Competenza daMod , Competenza Mod ); // Modifica la singola competenza
-	
+        //Modifica la singola competenza
+		void ModComp(string matricola, Competenza daMod , Competenza Mod );
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
-
-
         void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
@@ -36,18 +43,17 @@ namespace DAO {
         void AddLezione(int idCorso, Lezione lezione);
 		void ModLezione(Lezione lezione);
         //Iscrizione di uno studente a un determinato corso. Lo puo fare solo lo studente specifico
-        void Iscriviti (int idCorso, string idStudente);
-
+        void Iscriviti(int idCorso, string idStudente);
         //Cerca un determinato corso 
         Corso SearchCorsi(int idCorso);
         //Cerca tutti i corsi che contine la "descrizione" nei suoi attributi(nome,descrizione)
         List<Corso> SearchCorsi(string descrizione);
         //Cerca tutti i corsi che contiene la "descrizione" di un determinato studente(idStudente)
-        List<Corso>SearchCorsi(string descrizione, string idUtente);
+        List<Corso> SearchCorsi(string descrizione, string idUtente);
         //Mostra tutti i corsi presenti nel db
-        List<Corso>ListaCorsi();
+        List<Corso> ListaCorsi();
         //Mostra tutti i corsi a cui è iscritto un determinato studente(idStudente)
-        List<Corso>ListaCorsi(string idUtente);
+        List<Corso> ListaCorsi(string idUtente);
 		//mostra tutte le lezioni associate a un corso
 		List<Lezione> ListaLezioni(Corso corso);
     }
@@ -55,7 +61,7 @@ namespace DAO {
 	public partial class DataAccesObject : IDao {
 		ITrasformer transf = new Trasformator();
 		//GeCv
-		public void ModComp (string matricola , Competenza daMod , Competenza Mod){
+		public void ModComp(string matricola , Competenza daMod , Competenza Mod){
 			try{
 				SqlParameter[] parameters = {
 					new SqlParameter("@matricola", matricola),
@@ -114,13 +120,13 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessuna modifica fatta!");
 				}
-			} catch (SqlException e) {
+			} catch (SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch (Exception e){
 				throw e;
 			}
 		}
-		public void AggiungiCV(CV c) {
+		public void AggiungiCV(CV c){
 			try{
 				SqlParameter[] parameters = { 
 					new SqlParameter("@Nome",c.Nome),
@@ -134,46 +140,46 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessun CV aggiunto!");
 				}
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		private List<EspLav> GetEspLav(string matricola) {
+		private List<EspLav> GetEspLav(string matricola){
 		try{			
 			SqlParameter[] param = {new SqlParameter("@Matricola",matricola)};
 			List<EspLav> output = DB.ExecQProcedureReader("GetEspLav",transf.TransfInListEspLav,param, "GeCv");
 				return output;
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e) {
 				throw e;
 			}
 		}
-		private List<PerStud> GetPerStudi(string matricola) {
+		private List<PerStud> GetPerStudi(string matricola){
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
 				List<PerStud> output = DB.ExecQProcedureReader("GetPerStudi",transf.TransfInListPerstud,param, "GeCv");
 				return output;
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		private List<Competenza> GetComp(string matricola) {
+		private List<Competenza> GetComp(string matricola){
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
 				List<Competenza> output = DB.ExecQProcedureReader("GetComp",transf.TransfInCompetenze,param, "GeCv");
 				return output;
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public CV Search(string matr) {
+		public CV Search(string matr){
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola",matr)};
 				CV output = DB.ExecQProcedureReader("GetCv",transf.TransfInCv,param,"GeCv");
@@ -181,13 +187,15 @@ namespace DAO {
 				output.Esperienze = GetEspLav(output.Matricola);
 				output.Competenze = GetComp(output.Matricola);
 				return output;
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-        public void ModificaCV(CV a,CV b) {
+
+        //Da controllare
+        public void ModificaCV(CV a,CV b){
 			try{
 				SqlParameter[] parameters = {
 					new SqlParameter("@matricolaM",a.Matricola),
@@ -204,13 +212,13 @@ namespace DAO {
 				}
 				ModEspLav(a.Matricola,a.Esperienze[0],b.Esperienze[0]);
 				ModComp(a.Matricola,a.Competenze[0],b.Competenze[0]);
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public void AddCompetenze(string MatrCv,Competenza comp) {
+		public void AddCompetenze(string MatrCv,Competenza comp){
 			try{
 				SqlParameter[] param = {
 					new SqlParameter("@Tipo",comp.Titolo),
@@ -221,13 +229,13 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessuna competenza aggiunta!");
 				}
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-        public void AddCvStudi(string MatrCv, PerStud studi) {
+        public void AddCvStudi(string MatrCv, PerStud studi){
             try {
                 SqlParameter[] parameters = {
                     new SqlParameter("@AnnoI",studi.AnnoInizio),
@@ -240,14 +248,14 @@ namespace DAO {
                 if (output == 0) {
                     throw new Exception("Nessun curriculum eliminato!");
                 }
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             }
         }
-        public void AddEspLav(string MatrCv, EspLav esp) {
-            try {
+        public void AddEspLav(string MatrCv, EspLav esp){
+            try{
                 SqlParameter[] param = {
                     new SqlParameter("@AnnoI",esp.AnnoInizio),
                     new SqlParameter("@AnnoF",esp.AnnoFine),
@@ -259,14 +267,14 @@ namespace DAO {
                 if (output == 0) {
                     throw new Exception("Nessuna Esperienza Inserita");
                 }
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch (Exception e){
                 throw e;
             }
         }
-        public void ModificaCV(string nome, string cognome, int eta, string email, string residenza, string telefono, string matr) {
-            try {
+        public void ModificaCV(string nome, string cognome, int eta, string email, string residenza, string telefono, string matr){
+            try{
                 SqlParameter[] parameter = {
                     new SqlParameter("@cognome", cognome),
                     new SqlParameter("@matr", matr),
@@ -277,56 +285,56 @@ namespace DAO {
                     new SqlParameter("@telefono", telefono)
                 };
                 DB.ExecNonQProcedure("ModificaCV", parameter, "GeCv");
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             }
         }
-        public List<CV> SearchChiava(string chiave) {
+        public List<CV> SearchChiava(string chiave){
             try {
                 SqlParameter[] parameter = { new SqlParameter("@parola", chiave) };
                 return DB.ExecQProcedureReader("dbo.CercaParolaChiava", transf.TransfListCV0, parameter, "GeCv");
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             }
         }
-        public List<CV> SearchCognome(string cognome) {
+        public List<CV> SearchCognome(string cognome){
             try {
                 SqlParameter[] param = { new SqlParameter("@cognome", cognome) };
                 return DB.ExecQProcedureReader("dbo.CercaCognome", transf.TransfListCV0, param, "GeCv");
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             }
         }
-        public List<CV> SearchRange(int etmin, int etmax) {
+        public List<CV> SearchRange(int etmin, int etmax){
             try {
                 SqlParameter[] parameters = {
                     new SqlParameter("@e_min", etmin),
                     new SqlParameter("@e_max", etmax)
                 };
                 return DB.ExecQProcedureReader("dbo.CercaEtaMinMax", transf.TransfListCV0, parameters, "GeCv");
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             }
         }
-        public List<CV> SearchEta(int eta) {
+        public List<CV> SearchEta(int eta){
             try {
                 SqlParameter[] param = { new SqlParameter("@eta", eta) };
                 return DB.ExecQProcedureReader("dbo.CercaEta", transf.TransfListCV0, param, "GeCv");
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             }
         }
-		public void EliminaCV(CV curriculum) {
+		public void EliminaCV(CV curriculum){
 			try{
 				SqlParameter[] param ={ new SqlParameter("@idcurr", curriculum.Matricola)};
 				int output = DB.ExecNonQProcedure("dbo.DeleteCurriculum", param, "GeCv");
@@ -339,24 +347,24 @@ namespace DAO {
 				throw e;
 			}
 		}		
-        public void CaricaCV(string path) {
+        public void CaricaCV(string path){
             throw new NotImplementedException();
         }
 
         //GeTime 
-		public Commessa CercaCommessa(string nomeCommessa) {
+		public Commessa CercaCommessa(string nomeCommessa){
 			try {
 				SqlParameter[] parameter = {
 					new SqlParameter("@nomeCommessa", nomeCommessa)
 				};			
 				return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, parameter, "GeTime");
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
+		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
             try{ 
                 SqlParameter[] parameters = {
 					new SqlParameter("@giorno",data.ToString("yyyy-MM-dd")),
@@ -365,14 +373,14 @@ namespace DAO {
 					new SqlParameter("@TipoOre", (int)tipoOre)
 					};
 				DB.ExecNonQProcedure("SP_Compila", parameters, "GeTime");
-            } catch (SqlException e) {
+            } catch(SqlException e){
                 throw new Exception(e.Message);
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             }
         }
-		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
-			try {
+		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente){
+			try{
                 SqlParameter[] parameters = {
 					new SqlParameter("@data",data.ToString("yyyy-MM-dd")),
 					new SqlParameter("@ore", ore),
@@ -380,12 +388,12 @@ namespace DAO {
 					new SqlParameter("@idUtente", idUtente)
 					};
                 DB.ExecNonQProcedure("SP_AddHLavoro", parameters, "GeTime");
-			} catch (Exception e){
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
-            try {
+		public Giorno VisualizzaGiorno(DateTime data, string idUtente){
+            try{
                 SqlParameter[] parameter = {
 					new SqlParameter("@Data", data.ToString("yyyy-MM-dd")),               
 					new SqlParameter("@IdUtente", idUtente)
@@ -394,11 +402,11 @@ namespace DAO {
                 if(result!=null)
                     result.Data=data;
                 return result;
-            } catch (Exception e) {
+            } catch(Exception e){
                 throw e;
             } 
 		}
-		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente) {
+		public List<Giorno> GiorniCommessa(int idCommessa,string idUtente){
 			try{
 				SqlParameter[] parameter = {
 					new SqlParameter("@idC", idCommessa),				
@@ -412,7 +420,6 @@ namespace DAO {
 			}
 		}
 
- 
 		//GeCo
         public List<Lezione> ListaLezioni(Corso corso){
 			SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
@@ -430,13 +437,13 @@ namespace DAO {
 				if (RowAffected == 0) {
 					throw new LezionNonModificataException("Non hai modificato la lezione");
 				}
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}		
-		public void AddLezione(int idCorso,Lezione lezione) {
+		public void AddLezione(int idCorso,Lezione lezione){
 			try{
 				SqlParameter[] param = {
 					new SqlParameter ("@idCorsi", idCorso),
@@ -448,13 +455,13 @@ namespace DAO {
 				if(RowAffected == 0){
 					throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
 				}
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-        public void AddCorso(Corso corso) {
+        public void AddCorso(Corso corso){
 			try{
 				SqlParameter[] param = {
 					new SqlParameter("@nome", corso.Nome),
@@ -466,69 +473,69 @@ namespace DAO {
 				if(RowAffected == 0){
 					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
 				}
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public List<Corso> ListaCorsi() {
-		try{
-			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInCorsi, null,"GeCorsi");       
-		} catch (SqlException e) {
+		public List<Corso> ListaCorsi(){
+		    try{
+			    return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInCorsi, null,"GeCorsi");       
+		    } catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public List<Corso> ListaCorsi(string idUtente) {
+		public List<Corso> ListaCorsi(string idUtente){
 			try{
 				SqlParameter[] param = { new SqlParameter ("@idStudente", idUtente) };
 				return DB.ExecQProcedureReader("ListaCorsiStudenti",transf.TrasformInCorsi,param,"GeCorsi");
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}     	
-		public Corso SearchCorsi(int idCorso) {
+		public Corso SearchCorsi(int idCorso){
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso)};
 				return DB.ExecQProcedureReader("SearchCorso", transf.TrasformInCorso,param,"GeCorsi");
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}		
-		public void Iscriviti(int idCorso,string idStudente) {
+		public void Iscriviti(int idCorso,string idStudente){
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
 				DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public List<Corso> SearchCorsi(string descrizione) {
+		public List<Corso> SearchCorsi(string descrizione){
 			try{
 				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione)};
 				return DB.ExecQProcedureReader("SearchCorsi", transf.TrasformInCorsi,param, "GeCorsi");
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
-		public List<Corso> SearchCorsi(string descrizione,string idUtente) {
+		public List<Corso> SearchCorsi(string descrizione,string idUtente){
 			try{
 				SqlParameter [] param = {new SqlParameter("@descrizione", descrizione),
 					new SqlParameter("@idStudente", idUtente)};
 				return DB.ExecQProcedureReader("SearchCorsiStud", transf.TrasformInCorsi,param,"GeCorsi");
-			} catch (SqlException e) {
+			} catch(SqlException e){
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e){
 				throw e;
 			}
 		}
