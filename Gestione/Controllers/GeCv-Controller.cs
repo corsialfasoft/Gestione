@@ -49,7 +49,7 @@ namespace Gestione.Controllers {
                 PerStud perS = new PerStud { AnnoInizio = annoInizio, AnnoFine = annoFine, Titolo = titolo, Descrizione = descrizione };
                 dm.AddCvStudi(p.Matricola, perS);
                 ViewBag.Message="Il percorso studi è stato inserito con successo nel tuo Curriculum!";
-				ViewBag.CV = dm.Search(P.Matricola);
+				ViewBag.CV = dm.Search(p.Matricola);
 				ModelState.Clear();
 				return View("DettaglioCurriculum");
 			} else{
@@ -71,7 +71,7 @@ namespace Gestione.Controllers {
             Profilo p = Session["profile"] as Profilo;
             dm.AddEspLav(p.Matricola,esp);
             ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
-			ViewBag.CV = dm.Search(P.Matricola);
+			ViewBag.CV = dm.Search(p.Matricola);
 			ModelState.Clear();
 			return View("DettaglioCurriculum");
         }
@@ -82,7 +82,7 @@ namespace Gestione.Controllers {
 			comp.Titolo=tipo;
 			comp.Livello=int.Parse(livello);			
 			dm.AddCompetenze(p.Matricola,comp);
-            ViewBag.CV = dm.Search(P.Matricola);
+            ViewBag.CV = dm.Search(p.Matricola);
 			ModelState.Clear();
 			return View("DettaglioCurriculum");
         }
@@ -94,11 +94,13 @@ namespace Gestione.Controllers {
 		[HttpPost]
         public ActionResult PassaEspLav(int annoInizioEsp,int annoFineEsp,string qualifica,string descrizioneEsp) {
             ViewBag.Esperienza = InitEspLav(annoInizioEsp,annoFineEsp,qualifica,descrizioneEsp);
-            Session["esperienza"] = ViewBag.Esperienza;
+            ViewBag.Matricola = P.Matricola;
+			Session["esperienza"] = ViewBag.Esperienza;
             return View("ModEspLav");
         }
 		[HttpPost]
 		public ActionResult PassaComp(string tipo, int livello){
+			ViewBag.Matricola = P.Matricola;
 			ViewBag.Comp = InitComp(tipo, livello);
             Session["competenza"] = ViewBag.Comp;
 			return View("ModComp");
@@ -116,12 +118,14 @@ namespace Gestione.Controllers {
 		 [HttpPost]
         public ActionResult PassaPerStud(int annoInizio,int annoFine,string titolo,string descrizione) {
             ViewBag.Percorso = InitPercorso(annoInizio,annoFine,titolo,descrizione);
+			ViewBag.Matricola = P.Matricola;
             Session["percorso"] = ViewBag.Percorso;
             return View("ModPerStud");
         }
 		[HttpPost]
         public ActionResult PassaCV(string nome,string cognome,int eta,string email,string residenza,string telefono){
             ViewBag.CV = InitForseCV(nome,cognome,eta,email,residenza,telefono);
+			ViewBag.CV.Matricola = P.Matricola;
             return View("ModAnag");
         }
 		[HttpPost]
@@ -262,6 +266,7 @@ namespace Gestione.Controllers {
 		}
 		public void EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola){
 			dm.DelEspLav(new EspLav{AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
+			 Profilo p = Session["profile"] as Profilo;
 			Response.Redirect($"/Home/DettCv/{matricola}");
 		}
 		public void EliminaCompetenza(string titolo,int livello,string matricola){
@@ -274,8 +279,9 @@ namespace Gestione.Controllers {
 			ps.AnnoFine=AF;
 			ps.Titolo=Ti;
 			ps.Descrizione=Des;
-			dm.DelPerStud(ps,P.Matricola);
-			ViewBag.CV = dm.Search(P.Matricola);
+			 Profilo p = Session["profile"] as Profilo;
+			dm.DelPerStud(ps,p.Matricola);
+			ViewBag.CV = dm.Search(p.Matricola);
 			return View("DettaglioCurriculum");
 		}
     }

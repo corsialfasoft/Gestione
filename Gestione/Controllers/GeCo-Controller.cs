@@ -34,7 +34,7 @@ namespace Gestione.Controllers
             P = p;
         }
         public HomeController(){
-			P = new Profilo("prova","admin",null,"ciao","mazzo");
+			P = new Profilo("BBBB","admin",null,"ciao","mazzo");
 		}
 		public ActionResult ElencoCorsi()
 		{
