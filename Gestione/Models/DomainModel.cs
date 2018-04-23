@@ -7,11 +7,12 @@ using Gestione.Controllers;
 using static Gestione.Controllers.HomeController;
 
 namespace Gestione.Models{
-	public partial class DomainModel : IGeCo, IGeCV, IGeTime {
+	public partial class DomainModel : IGeCo, IGeCV, IGeTime{
 		DataAccesObject dao = new DataAccesObject();
 		public List<Lezione> ListaLezioni(Corso input){
 			return dao.ListaLezioni(input);
 		}
+
         public void AddCompetenze(string MatrCv,Competenza comp){
             dao.AddCompetenze(MatrCv,comp);
         }
@@ -24,8 +25,7 @@ namespace Gestione.Models{
             dao.AddEspLav(MatrCv,esp);
         }
 
-		public void AggiungiCV(CV a)
-		{
+		public void AggiungiCV(CV a){
 			DataAccesObject dao = new DataAccesObject();
             dao.AggiungiCV(a);
 		}
