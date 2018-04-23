@@ -117,6 +117,27 @@ as
 			end
 go
 
-Select * from EspLav where idCV=10
+Create procedure DelComp
+	@matricola nvarchar(10),
+	@titolo nvarchar(50),
+	@livello int
+as
+	declare @idcurr int;
+	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
+	if @idcurr is null
+		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
+	else
+		begin 
+			declare @idComp int;
+			set @idComp = (select c.IdCs from Competenze c where c.Tipo= @titolo and c.Livello=@livello and c.IdCv=@idcurr);
+			if @idComp is null
+				throw 66666 , 'Competenza Errata!!!!!! RIPROVA' ,2;
+			else 
+				begin
+					Delete Competenze where idCs=@idComp
+				end
+			end
+go
 
-Insert EspLav (AnnoI,AnnoF,Qualifica,Descrizione,IdCv) values (2012,2045,'Pani','Paninar',10)
+Select * from Competenze
+Insert Competenze (tipo,livello,IdCv) values ('ABCD',22,11)

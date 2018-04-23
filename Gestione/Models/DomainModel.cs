@@ -158,6 +158,9 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
-		
+		public void DelCompetenza(Competenza competenza,string matricola)
+		{
+			dao.DelCompetenza(competenza,matricola);
+		}
 	}
 }
