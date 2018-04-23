@@ -177,9 +177,9 @@ namespace Gestione.Models {
 			}
 		}
 
-		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr){
+		public void ModificaCV(CV c ){
 			try{
-				dao.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
+				dao.ModificaCV(c);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){

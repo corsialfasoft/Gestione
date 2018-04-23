@@ -49,11 +49,13 @@ namespace Gestione.Controllers {
                 PerStud perS = new PerStud { AnnoInizio = annoInizio, AnnoFine = annoFine, Titolo = titolo, Descrizione = descrizione };
                 dm.AddCvStudi(p.Matricola, perS);
                 ViewBag.Message="Il percorso studi è stato inserito con successo nel tuo Curriculum!";
-            } else{
+				ViewBag.CV = dm.Search(P.Matricola);
+				ModelState.Clear();
+				return View("DettaglioCurriculum");
+			} else{
                 ViewBag.Message = "Formato inserito non corretto";
                 return View("MyPage");
             }
-            return View($"MyPage");
         }
 		 [HttpPost]
         public ActionResult ModEspLav(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp){
@@ -69,7 +71,9 @@ namespace Gestione.Controllers {
             Profilo p = Session["profile"] as Profilo;
             dm.AddEspLav(p.Matricola,esp);
             ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
-            return View($"MyPage");
+			ViewBag.CV = dm.Search(P.Matricola);
+			ModelState.Clear();
+			return View("DettaglioCurriculum");
         }
 		 [HttpPost]
         public ActionResult AddComp(string tipo,string livello){
@@ -78,7 +82,9 @@ namespace Gestione.Controllers {
 			comp.Titolo=tipo;
 			comp.Livello=int.Parse(livello);			
 			dm.AddCompetenze(p.Matricola,comp);
-            return View($"MyPage");
+            ViewBag.CV = dm.Search(P.Matricola);
+			ModelState.Clear();
+			return View("DettaglioCurriculum");
         }
 		[HttpGet]
         public ActionResult DettCv(string id){           
@@ -147,19 +153,21 @@ namespace Gestione.Controllers {
             }
         }
 		[HttpPost]
-        public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
+       public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
             try{
                if(Session["profile"]!=null){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-                 string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-                    dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
+                 //string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+					CV c = InitForseCV(nome,cognome,eta,email,residenza,telefono);
+					c.Matricola=(Session["profile"] as Profilo).Matricola;
+                    dm.ModificaCV(c);   
                     ViewBag.Message = "Dati anagrafici modificati";
+					ViewBag.CV = c;
                     return View("MyPage");
                 }
             }catch(Exception){ 
                 ViewBag.Message = "Si è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
             }
             return View("ModAnag");
-        }
 		// [HttpPost] Commentato per risolvere bug su elimina da lista
         public ActionResult EliminaCV(string id){ 
             CV temp = dm.Search(id); 

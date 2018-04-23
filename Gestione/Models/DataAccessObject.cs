@@ -8,7 +8,7 @@ using LibreriaDB;
 namespace DAO {
 	public interface IDao{
         //modifica un curriculum nel db
-		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr);
+		void ModificaCV(CV c);
         //quando sei loggato, puoi aggiungere un curriculum nel db
 		void AggiungiCV(CV a);
         //quando non sei loggato, puoi spedire un curriuculum
@@ -273,16 +273,16 @@ namespace DAO {
                 throw e;
             }
         }
-        public void ModificaCV(string nome, string cognome, int eta, string email, string residenza, string telefono, string matr){
+        public void ModificaCV(CV c){
             try{
                 SqlParameter[] parameter = {
-                    new SqlParameter("@cognome", cognome),
-                    new SqlParameter("@matr", matr),
-                    new SqlParameter("@nome", nome),
-                    new SqlParameter("@eta", eta),
-                    new SqlParameter("@email", email),
-                    new SqlParameter("@residenza", residenza),
-                    new SqlParameter("@telefono", telefono)
+                    new SqlParameter("@cognomeM", c.Cognome),
+                    new SqlParameter("@matricolaM", c.Matricola),
+                    new SqlParameter("@nomeM", c.Nome),
+                    new SqlParameter("@etaM", c.Eta),
+                    new SqlParameter("@emailM", c.Email),
+                    new SqlParameter("@residenzaM", c.Residenza),
+                    new SqlParameter("@telefonoM", c.Telefono)
                 };
                 DB.ExecNonQProcedure("ModificaCV", parameter, "GeCv");
             } catch(SqlException){
