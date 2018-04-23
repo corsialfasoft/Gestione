@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Aggiungi Giorno";
+    
+}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    input {
+    }
+</style>
+<script type="text/javascript">
+        function changeHTyp(value) {
+        if (value == 'Ore di permesso' || value == 'Ore di malattia') {
+            // document.getElementById('commesse').hidden = true;
+            document.getElementById('commesse').disabled = true;
+            document.getElementById('ore').value = "";
+            document.getElementById('ore').disabled = false;
+        }
+        if (value == 'Ore di ferie') {
+            document.getElementById('ore').value = 8;
+            document.getElementById('ore').disabled = true;
+            document.getElementById('commesse').disabled = true;
+        }
+        if (value == 'Ore di lavoro') {
+            document.getElementById('commesse').disabled = false;
+            document.getElementById('ore').value = "";
+            document.getElementById('ore').disabled = false;
+        }
+    }</script>
+<h2>@ViewBag.Title</h2>
+<div class="text-danger container">
+    <h4>@ViewBag.Message</h4>
+</div>
+<br>
+<div class="row">
+    <div class=" col-md-6">
+        @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
+            <div class="Conteiner">
+                Data (*)          <input type="date" name="dateTime" required/>
+                <br><br>
+                <form method="get">
+                    Tipologia Ore (*)
+                    @*<input list="HType" name="tipoOre">*@
+                    <select id="HType" name="tipoOre" onChange = "javascript:changeHTyp(this.value);">
+                        <option value="Seleziona tipo Ore" />Seleziona tipo Ore
+                        <option value="Ore di lavoro" />Ore di lavoro
+                        <option value="Ore di permesso" />Ore di permesso
+                        <option value="Ore di ferie" />Ore di ferie
+                        <option value="Ore di malattia" />Ore di malattia
+                    </select>
+                </form>
+                <br><br>
+                Nome Commessa <input type="text" id="commesse" name="Commessa" placeholder=" - - - " /> (Solo per ore di lavoro)
+                <br><br>
+                Numero Ore:  (*)  <input type="number" id="ore"  name="ore" min=1 max=8>
+                <br><br>
+                <input type="submit" name="caricaOre" value="Carica Ore" />
+                <br><br>
+            </div>
+        }
+        <p>(*) Campi obligatori</p>
+        <br><br>
+        @if (ViewBag.GeCoDataTime != null) {
+            <p>@ViewBag.GeCoDataTime.ToString("yyyy-MM-dd")</p>}
+        <p>@ViewBag.EsitoAddGiorno</p>
+        <br><br>
+    </div>
+    <div class=" col-md-6">
+        @if(ViewBag.Giorno!=null){
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Dettagli del @ViewBag.Giorno.data.ToString("dd-MM-yyyy")
+                </div>
+                <table>
+                    <tr>
+                        <td>Tipo</td>
+                        <td>Totale ore</td>
+                        <td>Commessa</td>
+                        <td>Ore lavoro commessa</td>
+                        <td>Note</td>
+                    </tr>
+                    @{
+                        int count = 0;
+                    }
+                    @foreach(Gestione.Controllers.OreLavorate orelavorate in ViewBag.Giorno.OreLavorate) {
+                        <tr>
+                            @if (count == 0) {
+                                <td>Totale ore lavoro</td>
+                                <td>@ViewBag.Giorno.TotOreLavorate</td>
+                                count++;
+                            } else {
+                                <td></td>
+                                <td></td>
+                            }
+                            <td>@orelavorate.nome</td>
+                            <td>@orelavorate.oreGiorno</td>
+                            <td>@orelavorate.descrizione</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>Totale ore permesso</td>
+                        <td>@ViewBag.Giorno.OrePermesso</td>
+                    </tr>
+                    <tr>
+                        <td>Totale ore malattia</td>
+                        <td>@ViewBag.Giorno.OreMalattia</td>
+                    </tr>
+                    <tr>
+                        <td>Totale ore ferie</td>
+                        <td>@ViewBag.Giorno.OreFerie</td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+</div>
