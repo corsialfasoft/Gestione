@@ -1,31 +1,87 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home Page - Gestione";
 }
+<style>
+    .btn {
+        background-color: #5F9EA0;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+    .navbarpoint {
+        text-align: center;
+        padding: 15px 32px;
+    }
+    .searcher {
+        text-align: center;
+    }
+    .prova {
+        border: 0;
+        position: relative;
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1);
+        transition: all 200ms ease-in;
+        -ms-transform: scale(1);
+        -moz-transition: all 200ms ease-in;
+        -moz-transform: scale(1);
+        transition: all 200ms ease-in;
+        transform: scale(1);
+    }
+    .zoom:hover {
+        box-shadow: 0px 0px 0px #000000;
+        z-index: 2;
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1.2);
+        transition: all 200ms ease-in;
+        -ms-transform: scale(1.2);
+        -moz-transition: all 200ms ease-in;
+        -moz-transform: scale(1.2);
+        transition: all 200ms ease-in;
+        transform: scale(1.1);
+    }
+</style>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="container">
+    <div class="jumbotron" style=" 
+        background-image: url('../../ImgResource/Corso.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    ">
+        <h1 style="color: #f7ca43;"> Corsi</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+        <p><a href="/Home/ElencoCorsi" class="btn btn-primary btn-lg" name="button">Vai a corsi &raquo;</a></p>
+
+    </div>
+
+    <div class="row" style="border-bottom:2px solid black;padding:10px;">
+        <a href="/Home/MyPage" class="login-form"><img class="zoom" src="~/ImgResource/CV.png" height="200" width="200" style="float:right;padding: 15px 32px 10px 10px;"></a>
+        <p style="text-align:justify;vertical-align:middle;padding-left:200px;padding-right:10px;">
+            <i>
+                <br /> <br /> <br />
+                GeCv si occupa della gestione dei curriculum. A seconda dell'utenza con cui si è
+                loggati è possibile accedere al proprio curriculum e aggiornarlo oppure  alla ricerca,lista dei curriculum altrui.
+            </i>
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+    <div class="row" style="padding:10px;">
+        <a href="/Home/GeTimeHome" class="login-form"><img class="zoom" src="~/ImgResource/Ore.jpg" height="200" width="200" style="float:left;padding: 15px 32px 10px 10px;"></a>
+        <p style="text-align:justify;vertical-align:middle;padding-left:10px;padding-right:200px;">
+            <i>
+                <br /> <br /> <br />
+                GeTime si occupa della gestione dei giorni.
+                In questa pagina si ha la possibilità di tenere
+                traccia
+                delle ore lavorate dal personale,in modo
+                da poter rielaborare facilmente i dati.
+            </i>
+        </p>
     </div>
 </div>
+
+
+
