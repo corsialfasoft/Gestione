@@ -99,7 +99,7 @@ namespace DAO{
         public Commessa TrasformInCommessa(SqlDataReader data) {
             Commessa commessa = null;
             if (data.Read()) {
-                commessa = new Commessa(data.GetInt32(0), data.GetString(1), data.GetString(2), data.GetInt32(3), data.GetInt32(4));
+                commessa = new Commessa(data.GetInt32(0), data.GetString(1), data.GetString(2), data.GetValue(3)==DBNull.Value?0:data.GetInt32(3), data.GetInt32(4));
             }
             return commessa;
         }

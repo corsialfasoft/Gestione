@@ -15,7 +15,7 @@
     </h3>
 </div>
 @if(ViewBag.Giorni != null) {
-    if(ViewBag.Commesse == 1) {
+    if(ViewBag.Commesse.Count == 1) {
         <div class="container h2">
             @ViewBag.NomeCommessa
         </div>
@@ -55,7 +55,7 @@
                 @foreach (DTCommessa dtc in ViewBag.Commesse) {
                     <tr>
                         <th scope="col">@i</th>
-                        <th scope="colgroup">
+                        <th scope="col">
                             <span class="badge">
                                 @Html.ActionLink("Dettagli", "DettaglioCommessa", new { nome = dtc.Nome})
                             </span>
