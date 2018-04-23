@@ -36,3 +36,40 @@ sELECT * FROM Curriculum c inner join EspLav el on c.IdCv=el.IdCv
 							inner join Competenze co on c.IdCv =co.IdCv
 							inner join PercorsoStudi ps on c.IdCv=ps.IdCv
 							where c.Matricola = 'BBBB'
+							go;
+Create procedure SearchByID
+	@id int
+as
+	select * from ProdottiSet where ID=@id;
+	go
+
+
+exec dbo.SearchbyId 1;
+
+Alter Procedure CreaRichiesta
+@date date
+as
+Insert into RichiesteSet (data) values (@date)
+declare @Richiesta int
+Select IDENT_CURRENT('RichiesteSet')
+
+exec dbo.CreaRichiesta '2014/04/05'
+
+Create Procedure CreaOrdini
+@idRichiesta int,
+@idProdotti int,
+@quantita int
+as
+declare @ControlloRichiesta int
+set @ControlloRichiesta = (Select top 1 id from RichiesteSet where id=@idRichiesta)
+begin
+if @ControlloRichiesta is null
+rollback transaction
+end
+declare @ControlloProdotti int
+set @ControlloProdotti = (Select top 1 id from ProdottiSet where id=@idProdotti)
+begin
+if @ControlloProdotti is null
+rollback transaction
+end
+Insert into RichiesteProdotti(Richieste_Id,Prodotti_Id,quantita) values (@idRichiesta,@idProdotti,@quantita)
