@@ -150,35 +150,70 @@
     </div>
         <div class="panel panel-default">
             <div class="panel-heading">Dettagli del mese di:</div>
+            @{ 
+                int Nday = DateTime.DaysInMonth(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month);
+            }
             <table>
                 <tr>
                     <td></td>
-                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
-                        <td>@giornoLav.data.Date</td>
+                    @for(int i =1; i<= Nday;i++) {
+                        <td>@i</td>
                     }
                 </tr>
                 <tr>
                     <td>Ore Lavoro</td>
-                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
-                        <td>@giornoLav.TotOreLavorate</td>
+                    @{ 
+                        DateTime dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
+                        for(int i =0; i<= Nday;i++) {
+                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                                <td>@ViewBag.Mesi[index].TotOreLavorate</td>
+                            } else { 
+                                <td/>
+                            }
+                        }
                     }
                 </tr>
-                <tr>
-                    <td>Ore Permesso</td>
-                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
-                        <td>@giornoLav.OrePermesso</td>
+                 <tr>
+                     <td>Ore Permesso</td>
+                    @{ 
+                        dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
+                        for(int i =0; i<= Nday;i++) {
+                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                                <td>@ViewBag.Mesi[index].OrePermesso</td>
+                            } else { 
+                                <td/>
+                            }
+                        }
                     }
                 </tr>
                 <tr>
                     <td>Ore Ferie</td>
-                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
-                        <td>@giornoLav.OreFerie</td>
+                    @{ 
+                        dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
+                        for(int i =0; i<= Nday;i++) {
+                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                                <td>@ViewBag.Mesi[index].OreFerie</td>
+                            } else { 
+                                <td/>
+                            }
+                        }
                     }
                 </tr>
-                <tr>
-                    <td>Ore Malattia</td>
-                    @foreach(DTGiornoDMese giornoLav in ViewBag.Mese) {
-                        <td>@giornoLav.OreMalattia</td>
+                 <tr>
+                     <td>Ore Malattia</td>
+                    @{ 
+                        dateTime = new DateTime(ViewBag.Mese[0].data.Year, ViewBag.Mese[0].data.Month,1);
+                        for(int i =0; i<= Nday;i++) {
+                            if(ViewBag.Mesi.Contains(new DTGiornoDMese{data = dateTime.AddDays(i) })) {
+                             int index = ViewBag.Mesi.IndexOf(new DTGiornoDMese { data = dateTime.AddDays(i) });
+                                <td>@ViewBag.Mesi[index].OreMalattia</td>
+                            } else { 
+                                <td/>
+                            }
+                        }
                     }
                 </tr>
             </table>
