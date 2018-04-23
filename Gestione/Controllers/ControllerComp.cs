@@ -17,6 +17,7 @@ namespace Gestione.Controllers{
 			DomainModel dm = new  DomainModel();
 			dm.AddCompetenze(p.Matricola,comp);
             ViewBag.CV = dm.Search(P.Matricola);
+			ModelState.Clear();
 			return View("DettaglioCurriculum");
         }
 	 }
