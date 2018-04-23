@@ -243,6 +243,11 @@ namespace Gestione.Controllers {
                 return View("DettaglioCurriculum");
             }
         }
+		public void EliminaCompetenza(string titolo,int livello,string matricola)
+		{
+			dm.DelCompetenza(new Competenza {Titolo=titolo,Livello=livello },matricola);
+			Response.Redirect($"/Home/DettCV/{matricola}");
+		}
 
     }
 }

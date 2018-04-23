@@ -21,7 +21,7 @@ namespace DAO{
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
 		void ModComp( string matricola, Competenza daMod , Competenza Mod ); // Modifica la singola competenza
 		void DelEspLav(EspLav espLav,string matricola);
-	
+		void DelCompetenza(Competenza competenza,string matricola);
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
 
 
@@ -109,7 +109,8 @@ namespace DAO{
 			}
 		}
 
-        public void AddEspLav(string MatrCv,EspLav esp) {
+
+		public void AddEspLav(string MatrCv,EspLav esp) {
 			SqlConnection con= new SqlConnection(GetStringBuilderCV());
 			try {
 				con.Open();
@@ -362,6 +363,29 @@ namespace DAO{
 				command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
 				command.Parameters.Add("@qualificaDaDel",SqlDbType.NVarChar).Value=espLav.Qualifica;
 				command.Parameters.Add("@descrDaDel",SqlDbType.NVarChar).Value=espLav.Descrizione;
+				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza eliminata");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
+		}
+
+		public void DelCompetenza(Competenza competenza,string matricola)
+		{
+			SqlConnection con= new SqlConnection(GetStringBuilderCV());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("DelComp",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@titolo",SqlDbType.NVarChar).Value=competenza.Titolo;
+				command.Parameters.Add("@livello",SqlDbType.Int).Value=competenza.Livello;
 				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
                 int x = command.ExecuteNonQuery();
 				command.Dispose();
