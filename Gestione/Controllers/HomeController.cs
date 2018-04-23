@@ -239,6 +239,16 @@ namespace Gestione.Controllers {
                 return View("DettaglioCurriculum");
             }
         }
+		public ActionResult EliminaPerStud(int AI ,int AF , string Ti , string Des){	
+			PerStud ps = new PerStud();
+			ps.AnnoInizio=AI;
+			ps.AnnoFine=AF;
+			ps.Titolo=Ti;
+			ps.Descrizione=Des;
+			dm.DelPerStud(ps,P.Matricola);
+			ViewBag.CV = dm.Search(P.Matricola);
+			return View("DettaglioCurriculum");
+		}
 
     }
 }

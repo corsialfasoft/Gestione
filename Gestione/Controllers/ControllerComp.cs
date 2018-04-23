@@ -16,7 +16,8 @@ namespace Gestione.Controllers{
 			comp.Livello=int.Parse(livello);
 			DomainModel dm = new  DomainModel();
 			dm.AddCompetenze(p.Matricola,comp);
-            return View($"MyPage");
+            ViewBag.CV = dm.Search(P.Matricola);
+			return View("DettaglioCurriculum");
         }
 	 }
 }

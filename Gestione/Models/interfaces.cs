@@ -16,7 +16,7 @@ namespace Interfaces{
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
-	
+		void DelPerStud(PerStud ps , string matricola);
 		void ModComp(Competenza daMod , Competenza Mod , string matricola); // Modifica la singola competenza
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
     }

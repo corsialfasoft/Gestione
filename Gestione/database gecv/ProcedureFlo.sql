@@ -78,3 +78,18 @@ create procedure CercaMatricola
 as
 	select c.IdCv From Curriculum c where c.matricola=@matri;
 go
+
+create procedure DelPerStud
+	@matricola nvarchar(10),
+	@AnnoIniz int,
+	@AnnoFine int,
+	@Titolo nvarchar(50),
+	@Descr nvarchar(200)
+as
+	declare @idcurr int;
+	set @idcurr = (select top 1  c.IdCv from Curriculum c where c.Matricola = @matricola);
+	declare @idPs int ;
+	set @idPs = (select top 1 p.IdPs from  PercorsoStudi p where p.AnnoI=@AnnoIniz and p.AnnoF= @AnnoFine and
+				p.Titolo = @Titolo and p.Descrizione=@Descr and p.IdCv = @idcurr);
+	delete PercorsoStudi from PercorsoStudi where IdPs = @idPs;
+go

@@ -21,7 +21,7 @@ namespace DAO{
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
 		void ModComp( string matricola, Competenza daMod , Competenza Mod ); // Modifica la singola competenza
 		void DelEspLav(EspLav espLav,string matricola);
-	
+		void DelPerStud(PerStud ps , string matricola);
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
 
 
