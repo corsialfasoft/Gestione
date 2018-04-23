@@ -1,0 +1,127 @@
+﻿@using System;
+@using Interfaces;
+@using DAO;
+@using Gestione.Controllers;
+
+@{
+    ViewBag.Title = "Dettagli del Mese";
+}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    input {
+    }
+</style>
+
+<h2>@ViewBag.Title</h2>
+<br />
+<div>
+    @if(ViewBag.Message != null) {
+        <h3 class="alert alert-warning">@ViewBag.Message</h3>
+    }
+    <h4>Selezionare il mese di cui si vogliono visualizzare i dettagli</h4>
+</div>
+<div>
+    <form action="/Home/VisualizzaMese" method="post">
+        <input type="month" name="Anno" id="Anno" required />
+        <input type="submit" value="Visualizza" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+    </form>
+</div>
+<br>
+<div class="panel panel-default">
+    <table>
+        <tr>
+            <td>@Anno</td>
+            @if(Mese = 1) {
+                <td>
+                    <input type="submit" value="Gennaio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                </td>
+            } else {
+                <td>Gennaio</td>
+            }
+            <td>Febbraio</td>
+            <td>Marzo</td>
+            <td>Aprile</td>
+            <td>Maggio</td>
+            <td>Giugno</td>
+            <td>Luglio</td>
+            <td>Agosto</td>
+            <td>Settembre</td>
+            <td>Ottobre</td>
+            <td>Novembre</td>
+            <td>Dicembre</td>
+        </tr>
+    </table>
+</div>
+@if(ViewBag.giorni != null) {
+    <div class="panel panel-default">
+        <div class="panel-heading">Dettagli del mese di:</div>
+        <table>
+            <tr>
+                @{
+                  String dataCurrent = "";
+                }
+                @foreach(Giorno giornoLav in ViewBag.giorni.OreLavorate) {
+                    @dataCurrent= @giornoLav.data;
+                    @if(@giornoLav.data == dataCurrent) {
+                         <td>Totale ore lavoro</td>
+            <td>@ViewBag.giorni.TotOreLavorate</td>
+                count++;
+                } else {
+            <td></td>
+            <td></td>
+}
+            <td>@giornoLav.nome</td>
+            <td>@giornoLav.oreGiorno</td>
+            <td>@giornoLav.descrizione</td>
+            </tr>
+        }
+                </tr>
+                @{
+            int count = 0;
+                }
+                @foreach(Giorno giornoLav in ViewBag.giorni.OreLavorate) {
+            <tr>
+                @if(count == 0) {
+            <td>Totale ore lavoro</td>
+            <td>@ViewBag.giorni.TotOreLavorate</td>
+    count++;
+} else {
+        <td></td>
+        <td></td>
+}
+                <td>@giornoLav.nome</td>
+                <td>@giornoLav.oreGiorno</td>
+                <td>@giornoLav.descrizione</td>
+            </tr>
+}
+                <tr>
+                    <td>Totale ore permesso</td>
+                    <td>@ViewBag.giorno.OrePermesso</td>
+                </tr>
+                <tr>
+                    <td>Totale ore malattia</td>
+                    <td>@ViewBag.giorno.OreMalattia</td>
+                </tr>
+                <tr>
+                    <td>Totale ore ferie</td>
+                    <td>@ViewBag.giorno.OreFerie</td>
+                </tr>
+            </table>
+    </div>
+}

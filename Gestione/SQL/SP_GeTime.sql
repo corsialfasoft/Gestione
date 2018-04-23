@@ -90,3 +90,19 @@ as
 		from OreNonLavorative onl inner join Giorni g on onl.idGiorno = g.id
 		where g.giorno = @Data and g.idUtente = @IdUtente;
 go
+create procedure SP_VisualizzaMese
+	@Anno int,
+	@Mese int,
+	@IdUtente nvarchar(20)
+as
+	select 4 as tipoOre, sum(ol.ore) ore, g.giorno
+		from OreLavorative ol
+		inner join Giorni g on ol.idGiorno = g.id
+		where (year(g.giorno) = @Anno and month(g.giorno) = @Mese) and g.idUtente = @IdUtente
+		group by g.giorno
+	union all
+	select onl.tipoOre, onl.ore, g.giorno
+		from OreNonLavorative onl inner join Giorni g on onl.idGiorno = g.id
+		where (year(g.giorno) = @Anno and month(g.giorno) = @Mese) and g.idUtente = @IdUtente
+		order by g.giorno
+go
