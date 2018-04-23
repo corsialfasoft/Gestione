@@ -370,9 +370,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <input class="btn btn-default" type="submit" value="Modifica">
-                            <a class="btn btn-default" href="/Home/EliminaEsperienza?annoinizioesp=@ViewBag.CV.Esperienze[i].AnnoInizio?annofineesp=@ViewBag.CV.Esperienze[i].AnnoFine?qualifica=@ViewBag.CV.Esperienze[i].Qualifica?descrizione=@ViewBag.CV.Esperienze[i].Descrizione?matricola=@ViewBag.CV.Matricola"
-                                                                  
-                                    >Elimina</a>
+                            <a href="/Home/EliminaEsperienza/?annoInizioEsp=@ViewBag.CV.Esperienze[i].AnnoInizio&annoFineEsp=@ViewBag.CV.Esperienze[i].AnnoFine&qualifica=@ViewBag.CV.Esperienze[i].Qualifica&descrizioneEsp=@ViewBag.CV.Esperienze[i].Descrizione&matricola=@ViewBag.CV.Matricola" class="btn btn-default">Elimina</a>
                         </div>
                     </div>
             }
