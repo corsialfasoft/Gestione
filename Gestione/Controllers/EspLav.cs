@@ -20,12 +20,18 @@ namespace Gestione.Controllers {
         }
 
         public ActionResult AddEspLav(int annoinizioesp, int annofinesp, string qualifica, string descrizionesp){
+			
             EspLav esp = new EspLav{ AnnoInizio=annoinizioesp,AnnoFine= annofinesp,Qualifica=qualifica,Descrizione=descrizionesp};
             Profilo p = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
             dm.AddEspLav(p.Matricola,esp);
             ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
             return View($"MyPage");
         }
+		public ActionResult EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
+		{
+			dm.DelEspLav(new EspLav{AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
+			return View();
+		}
 
         
     }

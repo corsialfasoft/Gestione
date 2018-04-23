@@ -69,6 +69,11 @@ namespace Gestione.Models{
 			throw new NotImplementedException();
 		}
 
+		public void DelEspLav(EspLav espLav,string matricola)
+		{
+			dao.DelEspLav(espLav,matricola);
+		}
+
 		public void Iscriviti(int idCorso,int idStudente)
 		{
 			throw new NotImplementedException();
