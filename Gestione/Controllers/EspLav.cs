@@ -27,10 +27,10 @@ namespace Gestione.Controllers {
             ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
             return View($"MyPage");
         }
-		public ActionResult EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
+		public void EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
 		{
 			dm.DelEspLav(new EspLav{AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
-			return View();
+			Response.Redirect($"/Home/DettCv/{matricola}");
 		}
 
         
