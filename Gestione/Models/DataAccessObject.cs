@@ -562,8 +562,31 @@ namespace DAO {
 		}
 
 		public void DelPerStud(PerStud ps,string matricola) {
-			throw new NotImplementedException();
+			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
+			try{
+				connection.Open();
+				SqlCommand command = new SqlCommand("DelPerStud",connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@matricola", System.Data.SqlDbType.NVarChar).Value= matricola;
+				command.Parameters.Add("@AnnoIniz", System.Data.SqlDbType.Int).Value= ps.AnnoInizio;
+				command.Parameters.Add("@AnnoFine", System.Data.SqlDbType.Int).Value= ps.AnnoFine;
+				command.Parameters.Add("@Titolo", System.Data.SqlDbType.NVarChar).Value= ps.Titolo;
+				command.Parameters.Add("@Descr", System.Data.SqlDbType.NVarChar).Value= ps.Descrizione;
+				command.ExecuteNonQuery();
+				command.Dispose();
+			}catch(Exception e ){
+				throw e ;
+			}finally{
+				connection.Dispose();
+			}
 		}
+		private string GetStringBuilderCV() {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			return builder.ToString();
+        }
 	}
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
