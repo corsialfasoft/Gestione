@@ -61,24 +61,90 @@
         <table>
             <tr>
                 <td>@ViewBag.Mese[0].data.Year</td>
-                @if(ViewBag.Mese[0].data.Month = 1) {
+                @if(ViewBag.Mese[0].data.Month == 1) {
+                    <td>Gennaio</td>                   
+                } else {
                     <td>
                         <input type="submit" value="Gennaio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
                     </td>
-                } else {
-                    <td>Gennaio</td>
                 }
-                <td>Febbraio</td>
-                <td>Marzo</td>
-                <td>Aprile</td>
-                <td>Maggio</td>
-                <td>Giugno</td>
-                <td>Luglio</td>
-                <td>Agosto</td>
-                <td>Settembre</td>
-                <td>Ottobre</td>
-                <td>Novembre</td>
-                <td>Dicembre</td>
+                @if(ViewBag.Mese[0].data.Month == 2) {
+                     <td>Febbraio</td>
+                } else {
+                     <td>
+                         <input type="submit" value="Febbraio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                     </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 3) {
+                    <td>Marzo</td>
+                } else {
+                    <td style="background-color: #e6e6e6">
+                        <a href="~/Home/VisualizzaMese">Marzo</a>
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 4) {
+                    <td>Aprile</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Aprile" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 5) {
+                    <td>Maggio</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Maggio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 6) {
+                    <td>Giugno</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Giugno" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 7) {
+                    <td>Luglio</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Luglio" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 8) {
+                    <td>Agosto</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Agosto" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 9) {
+                    <td>Settembre</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Settembre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 10) {
+                    <td>Ottobre</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Ottobre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 11) {
+                    <td>Novembre</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Novembre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
+                @if(ViewBag.Mese[0].data.Month == 12) {
+                    <td>Dicembre</td>
+                } else {
+                    <td>
+                        <input type="submit" value="Dicembre" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                    </td>
+                }
             </tr>
         </table>
     </div>
