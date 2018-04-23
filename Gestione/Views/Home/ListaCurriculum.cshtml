@@ -1,0 +1,24 @@
+﻿@using Interfaces;
+@{
+    ViewBag.Title = "Elenco curriculum";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="containter">
+    @using(Html.BeginForm("EliminaCV","Home",FormMethod.Post)) {
+        <div class="row">
+            @if(ViewBag.ListaCV != null) {
+                foreach(CV cv in ViewBag.ListaCV) {
+            <div class="col-md-3">
+                <a class="btn btn-default" href="/Home/DettCv/@cv.Matricola">Dettaglio</a>
+                <a class="btn btn-default" href="/Home/EliminaCV/@cv.Matricola">ELIMINA</a>
+                @*<input class="btn btn-default" type="submit" value="Elimina" />*@
+                <input id="nome" name="nome" type="text" placeholder="@cv.Nome" />
+                <input id="cognome" name="cognome" type="text" placeholder="@cv.Cognome" />
+            </div>
+                }
+            }
+        </div>
+    }
+</div>
