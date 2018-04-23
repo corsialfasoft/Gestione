@@ -285,7 +285,8 @@
                 <div class="row">
                     <div class="col-md-2">
                         <input id="salva" class="btn btn-default" type="submit" value="Modifica">
-                        <input id="modifica" class="btn btn-default" type="submit" value="Elimina" />
+                        @*<input id="modifica" class="btn btn-default" type="submit" value="Elimina" />*@
+                        <a  href="/Home/EliminaPerStud?AI=@ViewBag.CV.Percorsostudi[i].AnnoInizio&AF=@ViewBag.CV.Percorsostudi[i].AnnoFine&Ti=@ViewBag.CV.Percorsostudi[i].Titolo&Des=@ViewBag.CV.Percorsostudi[i].Descrizione" type="submit" class="btn  btn-default">Elimina</a>
                     </div>
                 </div>
                 <br />
@@ -427,6 +428,7 @@
                         <div class="col-md-2">
                             <input class="btn btn-default" type="submit" value="Modifica">
                             <a href="/Home/EliminaCompetenza/?titolo=@ViewBag.CV.Competenze[i].Titolo&livello=@ViewBag.CV.Competenze[i].Livello&matricola=@ViewBag.CV.Matricola" class="btn btn-default">Elimina</a>
+
                         </div>
                     </div>
                 </div>

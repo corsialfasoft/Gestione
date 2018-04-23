@@ -162,5 +162,9 @@ namespace Gestione.Models{
 		{
 			dao.DelCompetenza(competenza,matricola);
 		}
+		public void DelPerStud(PerStud ps,string matricola) {
+			DataAccesObject dao = new DataAccesObject();
+			dao.DelPerStud(ps,matricola);
+		}
 	}
 }

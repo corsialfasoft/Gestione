@@ -33,11 +33,14 @@ namespace Gestione.Controllers {
                 PerStud perS = new PerStud { AnnoInizio = annoInizio, AnnoFine = annoFine, Titolo = titolo, Descrizione = descrizione };
                 dm.AddCvStudi(p.Matricola, perS);
                 ViewBag.Message="Il percorso studi è stato inserito con successo nel tuo Curriculum!";
+				ViewBag.CV = dm.Search(P.Matricola);
+				ModelState.Clear();
+				return View("DettaglioCurriculum");
             } else{
                 ViewBag.Message = "Formato inserito non corretto";
                 return View("MyPage");
             }
-            return View($"MyPage");
+            //return View($"MyPage");
         }
     }
 }

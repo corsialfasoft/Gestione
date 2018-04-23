@@ -24,8 +24,10 @@ namespace Gestione.Controllers {
             EspLav esp = new EspLav{ AnnoInizio=annoinizioesp,AnnoFine= annofinesp,Qualifica=qualifica,Descrizione=descrizionesp};
             Profilo p = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
             dm.AddEspLav(p.Matricola,esp);
+			ViewBag.CV = dm.Search(P.Matricola);
             ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
-            return View($"MyPage");
+			ModelState.Clear();
+			return View("DettaglioCurriculum");
         }
 		public void EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola)
 		{
