@@ -1,4 +1,8 @@
-﻿@{
+﻿@section Scripts{
+    <link href="~/Content/corso.css" rel="stylesheet" />
+}
+
+@{
     ViewBag.Title = "Elenco Corsi";
 }
 
@@ -24,7 +28,7 @@
         left: 20px;
         z-index: 99;
         border: none;
-        background-color:white;
+        background-color: white;
         color: Black;
         cursor: pointer;
         padding: 15px;
@@ -66,15 +70,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                         
-                        @foreach (var corso in @ViewBag.Corsi) {
-                <tr>
-                    <th scope="row">  @corso.Id</th>
-                    <td>  @corso.Nome</td>
-                    <td>@corso.Descrizione </td>
-                    <td><button class="btn btn-default" >  @Html.ActionLink("DETTAGLI", "Corso", new { idCorso = corso.Id })</button></td>
-                </tr>
-}
+
+                        @foreach(var corso in @ViewBag.Corsi) {
+                            <tr>
+                                <th scope="row">  @corso.Id</th>
+                                <td>  @corso.Nome</td>
+                                <td>@corso.Descrizione </td>
+                                <td><button class="btn" style="border-radius:7px; ">  @Html.ActionLink("DETTAGLI","Corso",new { id = corso.Id })</button></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
 
@@ -85,27 +89,27 @@
 
     <a href="/Home/ElencoCorsi"> <button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi"><span class="glyphicon glyphicon-list"></span></button> </a>
     <a href="/Home/AddCorso"> <button id="myAddCorsi" style="position: fixed;" title="Aggiungi corso"><span class="glyphicon glyphicon-plus"></span></button> </a>
-        <script>
-            window.onscroll = function () { scrollFunction() };
+    <script>
+        window.onscroll = function () { scrollFunction() };
 
-            function scrollFunction() {
-                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-                    document.getElementById("myElencoCorsi").style.display = "block";
-                } else {
-                    document.getElementById("myElencoCorsi").style.display = "none";
-                }
+        function scrollFunction() {
+            if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                document.getElementById("myElencoCorsi").style.display = "block";
+            } else {
+                document.getElementById("myElencoCorsi").style.display = "none";
             }
+        }
 
-            function scrollFunction() {
-                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-                    document.getElementById("myAddCorsi").style.display = "block";
-                } else {
-                    document.getElementById("myAddCorsi").style.display = "none";
-                }
+        function scrollFunction() {
+            if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                document.getElementById("myAddCorsi").style.display = "block";
+            } else {
+                document.getElementById("myAddCorsi").style.display = "none";
             }
+        }
 
 
 
-        </script>
+    </script>
 </body>
 
