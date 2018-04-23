@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Ricerca Curriculum";
+}
+<div class="text-warning">
+    <p>@ViewBag.Message</p>
+</div>
+<h2>RicercaCurriculum</h2>
+<hr />
+@using(Html.BeginForm("RicercaCurriculum","Home",FormMethod.Post)) {
+    <h4 class="text-success">Ricerca per parola chiave</h4>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <label>Parola chiave:</label>
+            <input type="text" placeholder="Inserisci parola chiava" name="chiava" />
+        </div>
+    </div>
+    <br />
+    <h4 class="text-success">Ricerca per un range di Età</h4>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <label>Età Minima:</label>
+            <input type="number" placeholder="Inserisci l'età minima" name="etaMin" />
+        </div>
+        <div class="col-md-2">
+            <label>Età Massima:</label>
+            <input type="number" placeholder="Inserisci l'età massima" name="etaMax" />
+        </div>
+    </div>
+    <br />
+    <h4 class="text-success">Ricerca per Età precisa</h4>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <label>Età Precisa:</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" placeholder="Inserisci l'età precisa" name="eta" />
+        </div>
+    </div>
+    <br />
+    <h4 class="text-success">Ricerca per cognome</h4>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <label>Cerca Per cognome:</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" placeholder="Inserisci un cognome" name="cognome" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <input class="btn btn-default" type="submit" value="Cerca" />
+        </div>
+    </div>
+}
+
+

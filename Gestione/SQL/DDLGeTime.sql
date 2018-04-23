@@ -31,5 +31,41 @@ create table OreLavorative(
 	primary key(idGiorno,idCommessa)
 );
 
+--TestVisualizzaGiorno
+set implicit_transactions on
+begin try 
+insert into Giorni(giorno,idUtente) values ('2000-01-01','GTVGiorno');
+declare @idG int = IDENT_CURRENT('Giorni');
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaGiorno','questa commessa viene utilizzata per il test',5);
+declare @idC int = IDENT_CURRENT('Commesse');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG,@idC,4);
+insert into OreNonLavorative(tipoOre,ore,idGiorno) values (1,4,@idG)
+commit tran
+end try
+begin catch
+	rollback tran
+end catch
 
-drop database GeTime;
+--TestVisualizzaCommessa 
+set implicit_transactions on
+begin try 
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaCommessa','questa commessa viene utilizzata per il test',5)
+
+declare @idC1 int = IDENT_CURRENT('Commesse');
+insert into Giorni(giorno,idUtente) values ('2000-01-01','GTCommessa')
+declare @idG1 int = IDENT_CURRENT('Giorni');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG1,@idC1,4)
+
+insert into Giorni(giorno,idUtente) values ('2000-01-02','GTCommessa')
+declare @idG2 int = IDENT_CURRENT('Giorni');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG2,@idC1,4)
+commit tran
+end try
+begin catch
+	rollback tran
+end catch
+--TestCompilaOreLavorative
+
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestCompilaOreL','questa commessa viene utilizzata per il test',5)
+
+

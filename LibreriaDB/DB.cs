@@ -240,6 +240,16 @@ namespace LibreriaDB{
 			}
 			return NExec;
 		}
-	}
+        public static List<T> TrasformInList<T>(SqlDataReader reader, Trasform<T> trasform) {
+            List<T> output = new List<T>();
+            do {
+                T tmp = trasform(reader);
+                if (tmp == null)
+                    break;
+                output.Add(tmp);
+            } while (true);
+            return output;
+        }
+    }
 
 }

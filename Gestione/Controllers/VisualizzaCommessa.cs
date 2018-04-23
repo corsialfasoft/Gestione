@@ -25,8 +25,7 @@ namespace Gestione.Controllers {
 							ViewBag.NomeCommessa= dTCommessa.Nome;
 							ViewBag.Giorni = giorni;
 						}else
-							ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
-				
+							ViewBag.Message = "Non hai mai lavorato su questa commessa!";
 					}
 				}catch(Exception e){
 					ViewBag.Message = "Errore del server";
@@ -34,7 +33,10 @@ namespace Gestione.Controllers {
 			}
 			return View("VisualizzaCommessa");
 		}
+        public ActionResult GeTimeHome() {
+            return View();
+        }
 
-	}
+    }
 	
 }
