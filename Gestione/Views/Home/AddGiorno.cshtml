@@ -18,9 +18,6 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
-
-    input {
-    }
 </style>
 <script type="text/javascript">
    function changeHTyp(value) {
@@ -53,17 +50,14 @@
                 <div class="Conteiner">
                     Data (*)          <input type="date" name="dateTime" min="@DateTime.Today.AddDays(-180).ToString("yyyy-MM-dd")" max="@DateTime.Today.ToString("yyyy-MM-dd")" required />
                     <br><br>
-                    <form method="get">
-                        Tipologia Ore (*)
-                        @*<input list="HType" name="tipoOre">*@
-                        <select id="HType" name="tipoOre"  onChange ="javascript:changeHTyp(this.value);">
-                            <option value="" selected="selected" />Seleziona tipo ore
-                            <option value="Ore di lavoro" />Ore di lavoro
-                            <option value="Ore di permesso" />Ore di permesso
-                            <option value="Ore di ferie" />Ore di ferie
-                            <option value="Ore di malattia" />Ore di malattia
-                        </select>
-                    </form>
+                    Tipologia Ore (*)
+                    <select id="HType" name="tipoOre"  onChange ="javascript:changeHTyp(this.value);">
+                        <option value="" selected="selected" />Seleziona tipo ore
+                        <option value="Ore di lavoro" />Ore di lavoro
+                        <option value="Ore di permesso" />Ore di permesso
+                        <option value="Ore di ferie" />Ore di ferie
+                        <option value="Ore di malattia" />Ore di malattia
+                    </select>
                     <br><br>
                     Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commesse"/> (Solo per ore di lavoro)
                      <br><br>
