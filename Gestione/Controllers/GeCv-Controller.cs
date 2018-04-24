@@ -8,7 +8,10 @@ using Interfaces;
 
 namespace Gestione.Controllers {
     public partial class HomeController : Controller {
-        public ActionResult ListaCurriculum(){
+		private Profilo profile;
+		private const string FunctionRicercaCurriculum = "RicercaCurriculum";
+
+		public ActionResult ListaCurriculum(){
 			return View();
         }
         public ActionResult DettaglioCurriculum(){
@@ -29,10 +32,10 @@ namespace Gestione.Controllers {
         [HttpPost]
         public ActionResult ModPerStud(int annoInizio, int annoFine, string titolo, string descrizione) {
             if(annoFine> annoInizio && titolo.Length>0 && descrizione.Length > 0){			    
-                Profilo p = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA                
+                //Profilo p = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA                
                 PerStud perSN = new PerStud { AnnoInizio = annoInizio, AnnoFine= annoFine,Titolo= titolo,Descrizione= descrizione };
                 PerStud perSV = Session["percorso"] as PerStud;
-                dm.ModPerStudi(p.Matricola, perSV, perSN);
+                dm.ModPerStudi(profile.Matricola, perSV, perSN);
                 ViewBag.Message = "Il percorso studi è stato modificato con successo, corri a controllare!";
             }else{
                 ViewBag.Message ="Formato inserito non corretto";
@@ -118,34 +121,34 @@ namespace Gestione.Controllers {
             ViewBag.CV = InitForseCV(nome,cognome,eta,email,residenza,telefono);
             return View("ModAnag");
         }
-		[HttpPost]
-        public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
-            string email,string residenza,string telefono,string annoinizio,string annofine,
-            string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
-            string descrizionesp,string tipo,string livello
-            ) {
-            try{
-                if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
-                    && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
-                    && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
-                    if(int.TryParse(eta, out int Eta)){
-                        dm.AggiungiCV(InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,
-                            annofine,titolo,descrizione,annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
-                        ViewBag.Message = "Curriculum Aggiunto";
-                        return View("MyPage");
-                    } else {
-                        ViewBag.Message = "Eta' non valida";
-                        return View("DettaglioCurriculum");
-                    }
-                } else{
-                    ViewBag.Message = "Campi obbligatori da inserire...";
-                    return View("DettaglioCurriculum");
-                }
-            } catch(Exception) {
-                ViewBag.Message = "Qualcosa è andato storto";
-                return View("DettaglioCurriculum");
-            }
-        }
+		//[HttpPost]
+  //      public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
+  //          string email,string residenza,string telefono,string annoinizio,string annofine,
+  //          string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
+  //          string descrizionesp,string tipo,string livello
+  //          ) {
+  //          try{
+  //              if (!String.IsNullOrEmpty(nome) && !String.IsNullOrEmpty(cognome)
+  //                  && !String.IsNullOrEmpty(eta) && !String.IsNullOrEmpty(email)
+  //                  && !String.IsNullOrEmpty(telefono) && !String.IsNullOrEmpty(residenza)){
+  //                  if(int.TryParse(eta, out int Eta)){
+  //                      dm.AggiungiCV(InitCV(nome,cognome,eta,email,residenza,telefono,annoinizio,
+  //                          annofine,titolo,descrizione,annoinizioesp,annofinesp,qualifica,descrizionesp,tipo,livello));
+  //                      ViewBag.Message = "Curriculum Aggiunto";
+  //                      return View("MyPage");
+  //                  } else {
+  //                      ViewBag.Message = "Eta' non valida";
+  //                      return View("DettaglioCurriculum");
+  //                  }
+  //              } else{
+  //                  ViewBag.Message = "Campi obbligatori da inserire...";
+  //                  return View("DettaglioCurriculum");
+  //              }
+  //          } catch(Exception) {
+  //              ViewBag.Message = "Qualcosa è andato storto";
+  //              return View("DettaglioCurriculum");
+  //          }
+  //      }
 		[HttpPost]
         public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
             try{
@@ -167,11 +170,9 @@ namespace Gestione.Controllers {
             try{ 
                 dm.EliminaCV(temp);
                 ViewBag.Message = "Curriculum eliminato con successo";
-				Profilo P = new Profilo {
-					Ruolo = "admin" //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-				};
-				if(P.Ruolo=="admin"){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-                    prossimo = "RicercaCurriculum";
+
+				if(profile.CheckFunction(FunctionRicercaCurriculum)){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+                    prossimo = FunctionRicercaCurriculum;
                 }else{
                     prossimo = "MyPage";  
                 }
@@ -204,8 +205,6 @@ namespace Gestione.Controllers {
 		}
 		[HttpPost]
 		public ActionResult RicercaCurriculum(string chiava,string eta,string etaMin,string etaMax,string cognome){
-            P.Matricola = "BBBB"; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-            Session["profile"] = P; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			List<CV> trovati = new List<CV>();
 			if (chiava != "") {
 				trovati = dm.SearchChiava(chiava);

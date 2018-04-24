@@ -8,33 +8,17 @@ using Gestione.Models;
 
 namespace Gestione.Controllers
 {
-	public class Profilo
-	{
-		public string Matricola { get; set; }
-		public string Ruolo { get; set; }
-		public List<String> Funzioni { get; set; }
-		public string Nome { get; set; }
-		public string Cognome { get; set; }
 
-		public Profilo() { }
-
-		public Profilo(string matricola,string ruolo,List<String> funzioni,string nome,string cognome)
-		{
-			Matricola = matricola;
-			Ruolo = ruolo;
-			Funzioni = funzioni;
-			Nome = nome;
-			Cognome = cognome;
-		}
-	}
+	
 	public partial class HomeController : Controller
 	{
-		Profilo P;
-        public HomeController(Profilo p) {
-            P = p;
-        }
+		//Profilo P;
+		//TODO Remove
+        //public HomeController(Profilo p) {
+        //    P = p;
+        //}
         public HomeController(){
-			P = new Profilo("prova","admin",null,"ciao","mazzo");
+			profile = ProfileMock.Instance(Session).GetProfile();
 		}
 		public ActionResult ElencoCorsi()
 		{
@@ -64,7 +48,7 @@ namespace Gestione.Controllers
 						return View("ElencoCorsi");
 					}
 				}else if (descrizione.Length >0){
-					List<Corso> corsos = dm.SearchCorsi(descrizione, P.Matricola);
+					List<Corso> corsos = dm.SearchCorsi(descrizione, profile.Matricola);
 					if(corsos.Count >0 ){
 						ViewBag.Controllo = true;
                         ViewBag.Corsi = corsos;
@@ -185,7 +169,7 @@ namespace Gestione.Controllers
 		}
 		public ActionResult Iscrizione(int id){
 			try {
-				dm.Iscriviti(id,P.Matricola);
+				dm.Iscriviti(id,profile.Matricola);
 				ViewBag.Message = "Iscrizione andata a buon fine";
 				ViewBag.Corsi = dm.ListaCorsi();
 			} catch(Exception e) {
