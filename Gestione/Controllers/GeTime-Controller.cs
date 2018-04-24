@@ -101,7 +101,7 @@ namespace Gestione.Controllers {
 				}
 				ViewBag.EsitoAddGiorno = ore + " " + tipoOre + " aggiunte!";
 			}catch(Exception){
-                ViewBag.Message = "Ci sono gia presenti altri tipi di ore";
+                ViewBag.Message = "Errore server";
             }
 			return View("AddGiorno");
 		}
