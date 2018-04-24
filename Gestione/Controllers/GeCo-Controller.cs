@@ -35,6 +35,7 @@ namespace Gestione.Controllers
         }
         public HomeController(){
 			P = new Profilo("BBBB","admin",null,"ciao","mazzo");
+			//Session["profile"] = P ;
 		}
 		public ActionResult ElencoCorsi()
 		{

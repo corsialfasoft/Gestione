@@ -127,6 +127,7 @@ namespace Gestione.Controllers {
             ViewBag.CV = InitForseCV(nome,cognome,eta,email,residenza,telefono);
 			ViewBag.CV.Matricola = P.Matricola;
             return View("ModAnag");
+
         }
 		[HttpPost]
         public ActionResult AggiungiCurriculum(string nome,string cognome,string eta,
@@ -158,8 +159,9 @@ namespace Gestione.Controllers {
         }
 		[HttpPost]
        public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
-            try{
-               if(Session["profile"]!=null){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+             //Session["profile"] = dm.Search(P.Matricola);
+			try{
+              if(Session["profile"]!=null){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
                  //string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 					CV c = InitForseCV(nome,cognome,eta,email,residenza,telefono);
 					c.Matricola=(Session["profile"] as Profilo).Matricola;
@@ -195,7 +197,8 @@ namespace Gestione.Controllers {
             return View(prossimo);
         }
 		public ActionResult MyPage(){
-            ViewBag.Profilo = Session["profile"] as Profilo; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+            ViewBag.Profilo = P;
+			Session["profile"] = P; //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
 			return View();
 		}
 		[HttpPost]
