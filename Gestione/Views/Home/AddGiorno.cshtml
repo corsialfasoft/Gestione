@@ -1,6 +1,7 @@
-﻿@{
+﻿@using Gestione.Controllers;
+@{
     ViewBag.Title = "Aggiungi Giorno";
-    
+
 }
 <style>
     table {
@@ -31,7 +32,7 @@
     <div class=" col-md-6">
         @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
             <div class="Conteiner">
-                Data (*)          <input type="date" name="dateTime" max="@DateTime.Today.ToString("yyyy-MM-dd")" required/>
+                Data (*)          <input type="date" name="dateTime" max="@DateTime.Today.ToString("yyyy-MM-dd")" required />
                 <br><br>
                 <form method="get">
                     Tipologia Ore (*)
@@ -46,6 +47,34 @@
                 </form>
                 <br><br>
                 Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " /> (Solo per ore di lavoro)
+                @*@if (ViewBag.ListaComesse != null && ViewBag.ListaCommesse > 1) {
+                    <div class="container h2">
+                        @ViewBag.NomeCommessa
+                    </div>
+                    <hr />
+                    <table class="table table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome Commessa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (DTCommessa dtc in ViewBag.Commesse) {
+                                <tr>
+                                    <th scope="col">@i</th>
+                                    <th scope="col">
+                                        @dtc.Nome
+                                        <span class="badge" style="float:right; color:black; background-color:lightgray">
+                                            @Html.ActionLink("Seleziona", "DettaglioCommessa", new { nome = dtc.Nome })
+                                        </span>
+                                    </th>
+                                </tr>
+                                i++;
+                            }
+                    </table>
+                }*@
                 <br><br>
                 Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8>
                 <br><br>
@@ -61,7 +90,7 @@
         <br><br>
     </div>
     <div class=" col-md-6">
-        @if(ViewBag.Giorno!=null){
+        @if (ViewBag.Giorno != null) {
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Dettagli del @ViewBag.Giorno.data.ToString("dd-MM-yyyy")
@@ -77,7 +106,7 @@
                     @{
                         int count = 0;
                     }
-                    @foreach(Gestione.Controllers.OreLavorate orelavorate in ViewBag.Giorno.OreLavorate) {
+                    @foreach (Gestione.Controllers.OreLavorate orelavorate in ViewBag.Giorno.OreLavorate) {
                         <tr>
                             @if (count == 0) {
                                 <td>Totale ore lavoro</td>

@@ -85,11 +85,15 @@ namespace Gestione.Controllers {
                         return View();
                     }
 					List<DTCommessa> commesse = dm.CercaCommessa(Commessa);
-					if (commesse == null){
+					if (commesse.Count == 0){
 						ViewBag.Message ="Commessa non trovata";
 						return View("AddGiorno");
+					} else if(commesse.Count == 1){
+						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, P.Matricola);						
+					} else if(commesse.Count > 1) {
+						ViewBag.ListaCommesse = commesse;
+						//return View("AddGiorno");
 					}
-					dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, P.Matricola);
 				} else if (tipoOre == "Ore di permesso"){
                     if (ore == null) {
                         ViewBag.Message = "Inserire le ore";
