@@ -66,7 +66,8 @@ create procedure SP_VisualizzaCommessa
 as 
 	select G.id,G.giorno,OL.ore,C.id,C.nome,C.descrizione
 	from Giorni G inner join OreLavorative OL on G.id=OL.idGiorno inner join Commesse C on OL.idCommessa=C.id
-	where G.idUtente=@idU and C.id=@idC;
+	where G.idUtente=@idU and C.id=@idC
+	order by G.giorno;
 go
 create procedure SP_CercaCommessa
 	@nomeCommessa nvarchar(50)
