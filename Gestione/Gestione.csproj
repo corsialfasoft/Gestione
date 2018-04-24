@@ -161,6 +161,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
+    <Content Include="Scripts\GeTime.js" />
     <Content Include="SQL\DDLGeCo.sql" />
     <Content Include="SQL\SP_GeCo.sql" />
     <Content Include="SQL\DDLGeCv.sql" />
@@ -230,6 +231,7 @@
     <Content Include="Views\Home\ModEspLav.cshtml" />
     <Content Include="Views\Home\ModPerStud.cshtml" />
     <Content Include="Views\Home\ModComp.cshtml" />
+    <Content Include="Views\Home\VisualizzaMese.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
