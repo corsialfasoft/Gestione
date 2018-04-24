@@ -25,12 +25,16 @@ namespace Gestione.Controllers {
         public ViewResult VisualizzaMese() { 
             return View();
         }
-        public ViewResult AddGiorno(string commessa) {
-            if (stateGiorno != null && commessa!="") {
-                List<DTCommessa> commesse= dm.CercaCommessa(commessa);
+        [HttpGet]
+        public ViewResult AddGiornoSelectCommessa(string nome) {
+             StateGiorno stateGiorno = Session["stateGiorno"] as StateGiorno;
+            if (stateGiorno != null && nome!="") {
+                List<DTCommessa> commesse= dm.CercaCommessa(nome);
                 if(commesse.Count == 1) {
                     dm.CompilaHLavoro(stateGiorno.Data, stateGiorno.Ore, commesse[0].Id, P.Matricola);
-                    stateGiorno = null;
+                    ViewBag.GeCoDataTime = stateGiorno.Data.ToString("yyyy-MM-dd");
+                    ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
+                    Session["stateGiorno"] = null;
                 } else {
                     ViewBag.Message = "Operazione non consentita";
                 }
@@ -42,6 +46,5 @@ namespace Gestione.Controllers {
             public DateTime Data { get; set; }
             public int Ore { get; set; }
         }
-        private StateGiorno stateGiorno = null;
     }
 }

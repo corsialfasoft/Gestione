@@ -27,18 +27,18 @@
     <h4>@ViewBag.Message</h4>
 </div>
 <br>
-@if (ViewBag.ListaComesse == null) {
+@if (ViewBag.ListaCommesse == null) {
     <div class="row">
         <div class=" col-md-6">
             @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
                 <div class="Conteiner">
-                    Data (*)          <input type="date" name="dateTime" max="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+                    Data (*)          <input type="date" name="dateTime" min="@DateTime.Today.AddDays(-180).ToString("yyyy-MM-dd")" max="@DateTime.Today.ToString("yyyy-MM-dd")" required />
                     <br><br>
                     <form method="get">
                         Tipologia Ore (*)
                         @*<input list="HType" name="tipoOre">*@
                         <select id="HType" name="tipoOre">
-                            <option value="Seleziona tipo Ore" />Seleziona tipo Ore
+                            <option value="" selected="selected" />Seleziona tipo ore
                             <option value="Ore di lavoro" />Ore di lavoro
                             <option value="Ore di permesso" />Ore di permesso
                             <option value="Ore di ferie" />Ore di ferie
@@ -47,11 +47,7 @@
                     </form>
                     <br><br>
                     Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " /> (Solo per ore di lavoro)
-                        <div class="container h2">
-                            @ViewBag.NomeCommessa
-                        </div>
-                        <hr />
-                    <br><br>
+                     <br><br>
                     Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8>
                     <br><br>
                     <input type="submit" name="caricaOre" value="Carica Ore" />
@@ -114,7 +110,7 @@
             }
         </div>
     </div>
-} else if(ViewBag.ListaCommesse >1) {
+} else if(ViewBag.ListaCommesse.Count > 1) {
     <table class="table table-striped">
         <thead class="thead-light">
             <tr>
@@ -124,13 +120,13 @@
         </thead>
         <tbody>
             @{int i = 1;}
-            @foreach (DTCommessa dtc in ViewBag.Commesse) {
+            @foreach (DTCommessa dtc in ViewBag.ListaCommesse) {
                 <tr>
                     <th scope="col">@i</th>
                     <th scope="col">
                         @dtc.Nome
                         <span class="badge" style="float:right; color:black; background-color:lightgray">
-                            @Html.ActionLink("Seleziona", "AddGiorno", new { nome = dtc.Nome })
+                            @Html.ActionLink("Seleziona","AddGiornoSelectCommessa", new { nome = dtc.Nome })
                         </span>
                     </th>
                 </tr>
