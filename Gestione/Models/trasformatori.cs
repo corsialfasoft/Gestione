@@ -9,6 +9,7 @@ namespace DAO{
 		Corso TrasformInCorso(SqlDataReader data);
         List<Corso> TrasformInCorsi(SqlDataReader data);
         Commessa TrasformInCommessa(SqlDataReader data);
+        List<Commessa> TrasformInListaCommesse(SqlDataReader data);
         List<Giorno> TrasformInGiorni(SqlDataReader data);
         Giorno TrasformInGiorno(SqlDataReader reader);
 		CV TRansfInCv0(SqlDataReader data);
@@ -101,9 +102,13 @@ namespace DAO{
         public Commessa TrasformInCommessa(SqlDataReader data) {
             Commessa commessa = null;
             if (data.Read()) {
-                commessa = new Commessa(data.GetInt32(0), data.GetString(1), data.GetString(2), data.GetInt32(3), data.GetInt32(4));
+                commessa = new Commessa(data.GetInt32(0), data.GetString(1), data.GetString(2), data.GetValue(3)==DBNull.Value?0:data.GetInt32(3), data.GetInt32(4));
             }
             return commessa;
+        }
+
+        public List<Commessa> TrasformInListaCommesse(SqlDataReader data) {
+            return DB.TrasformInList(data, TrasformInCommessa);
         }
 
         //GeCV
