@@ -53,7 +53,15 @@ namespace Gestione.Controllers {
 		}
         [HttpGet]
         public ActionResult DettaglioCommessa(string nome) {
-            ViewBag.Commesse = VisualizzaCommessa(nome);
+            DTCommessa commessa = dm.CercaCommessa(nome);
+            if (commessa != null) {
+                List<DTGiorno> giorni = dm.GiorniCommessa(commessa.Id, profile.Matricola);
+                ViewBag.NomeCommessa = commessa.Nome;
+                ViewBag.Commesse = commessa;
+                ViewBag.Giorni = giorni;
+            } else {
+                ViewBag.Message = "Operazione non consentita";
+            }
             return View("VisualizzaCommessa");
         }
         public ActionResult GeTimeHome() {
