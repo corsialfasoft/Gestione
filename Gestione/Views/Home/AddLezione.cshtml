@@ -3,35 +3,41 @@
 }
 <h2>@ViewBag.Title</h2>
 <div class="text">
-    @ViewBag.Message
+    <h4>  ID Corso:   @ViewBag.Message  </h4> 
 </div>
-@using(Html.BeginForm("AddLezione","Home",FormMethod.Post)) {
-    <div class="row">
-        <div class="col-md-3">
-            <label>Nome</label>
-            <input name="LezNome" type="text" required/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label>Descrizione</label>
-            <textarea name="LezDescrizione" rows="4" cols="50" required></textarea>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label>Durata</label>
-            <input name="LezDurata" type="number"  required/>
-            <input name="id" type="hidden" value="@ViewBag.CorsoId" />
-        </div>
-        <div class="col-md-3">
-            <input type="submit" value="Aggiungi" />
-        </div>
+@using (Html.BeginForm("AddLezione", "Home", FormMethod.Post)) {
+<div class="jumbotron">
+
+
+    <table style="width:100% ;">
+        <thead>
+            <tr class="row">
+                <th scope="col">Nome</th>
+                <th>    <input name="LezNome" type="text" required /></th>
+            </tr>
+            <tr class="row">
+                <th scope="col">Descrizione</th>
+                <th>   <textarea name="LezDescrizione" rows="4" cols="50" required></textarea></th>
+            </tr>
+            <tr class="row">
+                <th scope="col">Durata</th>
+                <th>
+                    <input name="LezDurata" type="number" required />
+                    <input name="id" type="hidden" value="@ViewBag.CorsoId" />
+                </th>
+            </tr>
+            <tr>
+                <th align="right">    <input type="submit" value="Aggiungi" /></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+   
         <div>
-            <span class="bottone"> @Html.ActionLink("Elenco corsi","ElencoCorsi","Home")</span>
+            <span class="bottone"> @Html.ActionLink("Elenco corsi", "ElencoCorsi", "Home")</span>
             <span classs="badge">
-                @Html.ActionLink("Lista Lezioni","Corso",new { id = ViewBag.CorsoId })
+                @Html.ActionLink("Lista Lezioni", "Corso", new { id = ViewBag.CorsoId })
             </span>
         </div>
-    </div>
+    
 }

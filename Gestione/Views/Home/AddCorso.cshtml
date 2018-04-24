@@ -26,38 +26,40 @@
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
+        font-weight: bold;
+        font-weight:700;   
         display: inline-block;
         border-radius: 15px;
     }
 </style>
 
 <div class="jumbotron">
-    <p class="lead">Compila il corso</p>
+    <p class="lead"><b>Compila il corso</b></p>
     @using(Html.BeginForm("AddCorso","Home",FormMethod.Post)) {
     <div class="row">
-        <div class="col-md-4">
-            <input type="text" name="_nome" placeholder="Nome" required />
+        <div class="col-md-6">
+         Nome:   <input type="text" name="_nome" placeholder="Nome" required  />
         </div>
-        <input type="submit" class="button" value="Inserisci corso" style="font-size:14px;float:right;" />
+        <input type="submit" class="button" value="Inserisci corso" style="font-size:14px;float:right; padding-bottom:5px" />
     </div>
         <br />
         <div class="row">
             <div class="col-md-12">
-                <textarea name="_descrizione" rows="3" cols="50" maxlength="140" required placeholder="Inserisci qui la descrizione..."></textarea>
+              Descrizione:   <textarea name="_descrizione" rows="3" cols="50" maxlength="140" required placeholder="Inserisci qui la descrizione..."></textarea>
             </div>
         </div>
         <br />
         <div class="row">
-            <div class="col-md-4">
-                <input type="date" name="_inizio" placeholder="Inizio" required />
+            <div class="col-md-6">
+                Inizio: <input type="date" name="_inizio" placeholder="Inizio" required />
             </div>
-            <div class="col-md-4">
-                <input type="date" name="_fine" placeholder="Fine" required />
+            <div class="col-md-6">
+                Fine: <input type="date" name="_fine" placeholder="Fine" required />
             </div>
         </div>
         <hr />      
     }
-     <button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi"  href="/Home/ElencoCorsi"><span class="glyphicon glyphicon-list"></span></button>
+        <a href="/Home/ElencoCorsi"><button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi"><span class="glyphicon glyphicon-list"></span></button></a>
 
 </div>
 

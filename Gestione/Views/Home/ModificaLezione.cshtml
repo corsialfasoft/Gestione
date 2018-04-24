@@ -1,34 +1,32 @@
-﻿
-@{
-    ViewBag.Title = "ModificaLezione";
-}
+﻿@{    ViewBag.Title = "ModificaLezione";}
 <h2>@ViewBag.Message</h2>
 <h2>Modifica lezione</h2>
 @using(Html.BeginForm("ModificaLezionePost","Home",FormMethod.Post)) {
-
-<table style="width:100% ;  background-color:lightgray">
-    <thead>
-        <tr class="row">
-            <th scope="col">Nome</th>
-            <th>  <input name="LezNome" value="@ViewBag.Lezione.Nome" /></th>
-        </tr >
-        <tr class="row">
-            <th scope="col">Descrizione</th>
-            <th>  <textarea name="LezDescrizione" value="@ViewBag.Lezione.Descrizione" rows="4" cols="50" required>@ViewBag.Lezione.Descrizione</textarea></th>
-        </tr>
-        <tr class="row">
-            <th scope="col">Durata</th>
-            <th>
-                <input name="LezDurata" value="@ViewBag.Lezione.Durata" type="number" required />
-                <input name="id" type="hidden" value="@ViewBag.Corso.Id" />
-                <input name="idLezione" type="hidden" value="@ViewBag.Lezione.Id" />
-            </th>
-        </tr>
-        <tr  >
-            <th  align="right">   <input type="submit" value="Modifica" /></th>
-        </tr>
-    </thead>
-</table>
+<div class="jumbotron">
+    <table style="width:100% ;">
+        <thead>
+            <tr class="row">
+                <th scope="col">Nome</th>
+                <th>  <input name="LezNome" value="@ViewBag.Lezione.Nome" /></th>
+            </tr>
+            <tr class="row">
+                <th scope="col">Descrizione</th>
+                <th>  <textarea name="LezDescrizione" value="@ViewBag.Lezione.Descrizione" rows="4" cols="50" required>@ViewBag.Lezione.Descrizione</textarea></th>
+            </tr>
+            <tr class="row">
+                <th scope="col">Durata</th>
+                <th>
+                    <input name="LezDurata" value="@ViewBag.Lezione.Durata" type="number" required />
+                    <input name="id" type="hidden" value="@ViewBag.Corso.Id" />
+                    <input name="idLezione" type="hidden" value="@ViewBag.Lezione.Id" />
+                </th>
+            </tr>
+            <tr>
+                <th align="right">   <input type="submit" value="Modifica" /></th>
+            </tr>
+        </thead>
+    </table>
+</div>
  
         <div>
             <span class="bottone"> @Html.ActionLink("Elenco corsi","ElencoCorsi","Home")</span>
