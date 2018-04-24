@@ -1,7 +1,7 @@
 ﻿@using Gestione.Controllers;
 @{
     ViewBag.Title = "Aggiungi Giorno";
-
+    
 }
 <style>
     table {
@@ -31,23 +31,23 @@
 <div class="row">
     <div class=" col-md-6">
         @using (Html.BeginForm("AddGiorno", "Home", FormMethod.Post)) {
-            <div class="Conteiner">
-                Data (*)          <input type="date" name="dateTime" max="@DateTime.Today.ToString("yyyy-MM-dd")" required />
-                <br><br>
-                <form method="get">
-                    Tipologia Ore (*)
-                    @*<input list="HType" name="tipoOre">*@
-                    <select id="HType" name="tipoOre">
-                        <option value="Seleziona tipo Ore" />Seleziona tipo Ore
-                        <option value="Ore di lavoro" />Ore di lavoro
-                        <option value="Ore di permesso" />Ore di permesso
-                        <option value="Ore di ferie" />Ore di ferie
-                        <option value="Ore di malattia" />Ore di malattia
-                    </select>
-                </form>
-                <br><br>
-                Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " /> (Solo per ore di lavoro)
-                @*@if (ViewBag.ListaComesse != null && ViewBag.ListaCommesse > 1) {
+        <div class="Conteiner">
+            Data (*)          <input type="date" name="dateTime" min="@DateTime.Now.AddDays(-180).ToString("yyyy-MM-dd")"  max="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+            <br><br>
+            <form method="get">
+                Tipologia Ore (*)
+                @*<input list="HType" name="tipoOre">*@
+                <select id="HType" name="tipoOre">
+                    <option value="Seleziona tipo Ore" />Seleziona tipo Ore
+                    <option value="Ore di lavoro" />Ore di lavoro
+                    <option value="Ore di permesso" />Ore di permesso
+                    <option value="Ore di ferie" />Ore di ferie
+                    <option value="Ore di malattia" />Ore di malattia
+                </select>
+            </form>
+            <br><br>
+            Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " /> (Solo per ore di lavoro)
+            @if (ViewBag.ListaComesse != null && ViewBag.ListaCommesse > 1) {
                     <div class="container h2">
                         @ViewBag.NomeCommessa
                     </div>
@@ -62,25 +62,25 @@
                         <tbody>
                             @{int i = 1;}
                             @foreach (DTCommessa dtc in ViewBag.Commesse) {
-                                <tr>
-                                    <th scope="col">@i</th>
-                                    <th scope="col">
-                                        @dtc.Nome
-                                        <span class="badge" style="float:right; color:black; background-color:lightgray">
-                                            @Html.ActionLink("Seleziona", "DettaglioCommessa", new { nome = dtc.Nome })
-                                        </span>
-                                    </th>
-                                </tr>
-                                i++;
-                            }
+                        <tr>
+                            <th scope="col">@i</th>
+                            <th scope="col">
+                                @dtc.Nome
+                                <span class="badge" style="float:right; color:black; background-color:lightgray">
+                                    @Html.ActionLink("Seleziona", "DettaglioCommessa", new { nome = dtc.Nome })
+                                </span>
+                            </th>
+                        </tr>
+                i++;
+            }
                     </table>
-                }*@
-                <br><br>
-                Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8>
-                <br><br>
-                <input type="submit" name="caricaOre" value="Carica Ore" />
-                <br><br>
-            </div>
+            }
+            <br><br>
+            Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8>
+            <br><br>
+            <input type="submit" name="caricaOre" value="Carica Ore" />
+            <br><br>
+        </div>
         }
         <p>(*) Campi obligatori</p>
         <br><br>
@@ -90,7 +90,7 @@
         <br><br>
     </div>
     <div class=" col-md-6">
-        @if (ViewBag.Giorno != null) {
+        @if(ViewBag.Giorno!=null){
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Dettagli del @ViewBag.Giorno.data.ToString("dd-MM-yyyy")
@@ -106,7 +106,7 @@
                     @{
                         int count = 0;
                     }
-                    @foreach (Gestione.Controllers.OreLavorate orelavorate in ViewBag.Giorno.OreLavorate) {
+                    @foreach(Gestione.Controllers.OreLavorate orelavorate in ViewBag.Giorno.OreLavorate) {
                         <tr>
                             @if (count == 0) {
                                 <td>Totale ore lavoro</td>
