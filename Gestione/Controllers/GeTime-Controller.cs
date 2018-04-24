@@ -65,10 +65,14 @@ namespace Gestione.Controllers {
 
 		[HttpPost]
 		public ActionResult AddGiorno(DateTime dateTime, string tipoOre, int ?ore, string Commessa) {
+            if(tipoOre==""){
+                ViewBag.Message="Scegliere la tipologia delle ore";
+                return View("AddGiorno");
+            }
 			ViewBag.GeCoDataTime = dateTime;
             DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, P.Matricola);
 			try{
-                if (giorno != null && giorno.data.CompareTo(DateTime.Today) <= 0 || giorno.data.Month >= (DateTime.Now.Month - 6)) {
+                if (giorno != null && (giorno.data.CompareTo(DateTime.Today) <= 0 || giorno.data.Month >= (DateTime.Now.Month - 6))) {
                     if (giorno.OreFerie > 0) {
                         ViewBag.Giorno = giorno;
                         ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} eri in ferie";
@@ -83,6 +87,9 @@ namespace Gestione.Controllers {
                     if (ore == null) {
                         ViewBag.Message = "Inserire le ore";
                         return View();
+                    }else if(Commessa == ""){
+                        ViewBag.Message="inserire la commessa";
+                        return View("AddGiorno");
                     }
 					List<DTCommessa> commesse = dm.CercaCommessa(Commessa);
 					if (commesse.Count == 0){
@@ -91,8 +98,9 @@ namespace Gestione.Controllers {
 					} else if(commesse.Count == 1){
 						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, P.Matricola);						
 					} else if(commesse.Count > 1) {
-                        stateGiorno= new StateGiorno { Data= dateTime, Ore=(int)ore };
+                        Session["stateGiorno"] = new StateGiorno { Data= dateTime, Ore=(int)ore };
                         ViewBag.ListaCommesse = commesse;
+                        return View("AddGiorno");
 					}
 				} else if (tipoOre == "Ore di permesso"){
                     if (ore == null) {
@@ -113,7 +121,7 @@ namespace Gestione.Controllers {
                     dm.Compila(dateTime, 8, tOre, P.Matricola);
 				}
 				ViewBag.EsitoAddGiorno = ore + " " + tipoOre + " aggiunte!";
-			}catch(Exception){
+			}catch(Exception e){
                 ViewBag.Message = "Errore server";
             }
 			return View("AddGiorno");
