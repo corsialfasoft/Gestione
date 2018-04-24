@@ -13,7 +13,7 @@ CREATE TABLE ruoli(
 )
 go
 CREATE TABLE utenti(
-    matricola INT IDENTITY(1,1) primary key NOT NULL,
+    matricola nvarchar(50) primary key not null,
     nome VARCHAR(50),
     cognome VARCHAR(50),
     username VARCHAR(50),

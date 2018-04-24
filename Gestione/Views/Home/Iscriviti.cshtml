@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box
+    }
+
+
+    input[type=text], input[type=password] {
+        width: 20%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: #fff;
+    }
+
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #FAFAFA;
+            outline: none;
+        }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 50px 0;
+        border: none;
+        cursor: pointer;
+        opacity: 0.9;
+    }
+
+        button:hover {
+            opacity: 1;
+        }
+
+    .cancelbtn {
+        padding: 14px 20px;
+        background-color: #f44336;
+        width: 20%;
+    }
+
+    .cancelbtn, .signupbtn {
+        float: left;
+        width: 20%;
+    }
+
+    .containerss {
+        padding: 16px;
+        text-align: center;
+        background-color: #E6E6E6;
+    }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: #474e5d;
+        padding-top: 50px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, depending on screen size */
+    }
+
+    hr {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 25px;
+    }
+
+    .close {
+        position: absolute;
+        right: 35px;
+        top: 15px;
+        font-size: 40px;
+        font-weight: bold;
+        color: #f1f1f1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #f44336;
+            cursor: pointer;
+        }
+
+    .clearfix {
+        margin-left: 420px;
+    }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+</style>
+
+<div class="text-warning">
+    <h4>@ViewBag.Message</h4>
+</div>
+
+<div class="container">
+    <div id="id01">
+        <h3>@ViewBag.Message</h3>
+        @using(Html.BeginForm("Iscriviti","Home",FormMethod.Post)) {
+            <div class="containerss">
+                <h1>Iscriviti</h1>
+                <p>La prego di compilare il form per l'iscrizione al portale</p>
+                <hr>
+
+                <label><b>Nome:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></label>
+                <input type="text" placeholder="Inserisci il nome" name="nome" required><br>
+
+                <label><b>Cognome:&nbsp&nbsp&nbsp&nbsp</b></label>
+                <input type="text" placeholder="Inserisci il cognome" name="cognome" required><br>
+
+                <label><b>Username:&nbsp&nbsp&nbsp&nbsp</b></label>
+                <input type="text" placeholder="Inserisci l'username" name="usr" required><br>
+
+                <label><b>Password:&nbsp&nbsp&nbsp&nbsp</b></label>
+                <input type="password" placeholder="Inserisci la password" name="psw" required><br>
+                <div class="clearfix">
+                    <button type="button" class="cancelbtn">Annulla</button>
+                    <button type="submit" class="signupbtn">Iscriviti</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
