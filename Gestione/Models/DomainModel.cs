@@ -224,7 +224,7 @@ namespace Gestione.Models{
                     };
                     DTgiorno.OreLavorate.Add(orelavorate);
                 }
-                DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
+                DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate;
                 return DTgiorno;
             }
             return null;
