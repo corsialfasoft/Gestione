@@ -54,6 +54,7 @@ namespace Gestione.Controllers {
 		public ActionResult AddGiorno() {
 			return View("AddGiorno");
 		}
+
 		[HttpPost]
 		public ActionResult AddGiorno(DateTime dateTime, string tipoOre, int ?ore, string Commessa) {
 			ViewBag.GeCoDataTime = dateTime;
@@ -75,12 +76,13 @@ namespace Gestione.Controllers {
                         ViewBag.Message = "Inserire le ore";
                         return View();
                     }
-					DTCommessa commessa =dm.CercaCommessa(Commessa);
-					if (commessa == null){
+					DTCommessa dtc = dm.CercaCommessa(Commessa);
+					List<DTCommessa> commesse = new List<DTCommessa>();
+					if (commesse.Count == 0){
 						ViewBag.Message ="Commessa non trovata";
 						return View("AddGiorno");
 					}
-					dm.CompilaHLavoro(dateTime,(int) ore, commessa.Id, P.Matricola);
+					dm.CompilaHLavoro(dateTime,(int) ore, dtc.Id, P.Matricola);
 				} else if (tipoOre == "Ore di permesso"){
                     if (ore == null) {
                         ViewBag.Message = "Inserire le ore";
