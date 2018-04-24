@@ -88,7 +88,7 @@ namespace Gestione.Controllers {
                         ViewBag.Message = "Inserire le ore";
                         return View();
                     }else if(Commessa == ""){
-                        ViewBag.Message="inserire la commessa";
+                        ViewBag.Message="Inserire la commessa";
                         return View("AddGiorno");
                     }
 					List<DTCommessa> commesse = dm.CercaCommessa(Commessa);
