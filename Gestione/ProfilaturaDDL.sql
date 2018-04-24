@@ -3,6 +3,33 @@ go
 
 use Profilatura
 go
+CREATE TABLE sistemi (
+    codice INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    nome VARCHAR (20) NOT NULL,
+);
+CREATE TABLE funzioni (
+    codice INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    sistema INT NULL FOREIGN KEY REFERENCES sistemi,
+    nome VARCHAR (20) NOT NULL,
+	descrizione nvarchar(100) not null
+);
+CREATE TABLE ruoli (
+    codice INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    nome VARCHAR (20) NOT NULL
+);
+CREATE TABLE funzioniAssociate(
+    codiceRuolo INT NOT NULL  FOREIGN KEY REFERENCES ruoli,
+    codiceFunzione INT NOT NULL FOREIGN KEY REFERENCES funzioni,
+	PRIMARY KEY(codiceRuolo,codiceFunzione)
+);
+CREATE TABLE utenti (
+    matricola INT IDENTITY (1, 1) NOT NULL PRIMARY KEY ,
+    nome VARCHAR (50) NULL,
+    cognome VARCHAR (50) NULL,
+    username VARCHAR (20) NULL,
+    passwd VARCHAR (20) NULL,
+    ruolo INT NULL FOREIGN KEY REFERENCES ruoli,
+);
 
 create table TipoUtente(
 	Id int identity(1,1) not null primary key,
@@ -27,17 +54,44 @@ create table TipoUtenteFunzioni(
 	idtipoUtente int foreign key references TipoUtente not null,
 	idFunzione int foreign key references Funzioni not null
 );
-INSERT INTO TipoUtente(tipo) VALUES('admin');
-INSERT INTO TipoUtente(tipo) VALUES('professore');
-INSERT INTO TipoUtente(tipo) VALUES('dipendente');
-INSERT INTO TipoUtente(tipo) VALUES('studente');
-INSERT INTO TipoUtente(tipo) VALUES('sconosciuto');
-INSERT INTO Utente(Matricola,Nome,Cognome,Users,Passwd,fkTipo) VALUES('admin','admin','admin','admin','admin',1);
-INSERT INTO Utente(Matricola,Nome,Cognome,Users,Passwd,fkTipo) VALUES('default','default','default','default','default',5);
-INSERT INTO Funzioni(sistema,descrizione) VALUES ('GeTime','compila il giorno'),('GeTime','visualizza commessa'),('GeTime','visualizza giorno'),('GeTime','visualizza main page getime'),('GeCo','aggiugi corso'),('GeCo','aggiugi lezione'),('GeCo','modifica lezione'),('GeCo','visualizza elenco corsi'),('GeCo','visualizza i tuoi corsi'),('GeCo','iscriviti ad un corso'),('GeCo','ricerca corso'),('GeCv','visualizza main page gecv'),('GeCv','aggiungi cv'),('GeCv','modifica cv'),('GeCv','elimina cv'),('GeCv','ricerca cv'),('GeCv','carica cv');
-INSERT INTO TipoUtenteFunzioni(idtipoUtente,idFunzione) values(1,,(1,),(1,),(1,),(1,),(1,),(1,),(1,)
-INSERT INTO TipoUtenteFunzioni(idtipoUtente,idFunzione) values(2,1),(2,2),(2,3),(2,4),(2,6),(2,7),(2,8),(2,9),(2,11),(2,12),(2,14),(2,16);
-INSERT INTO TipoUtenteFunzioni(idtipoUtente,idFunzione) values(3,1),(3,2),(3,3),(3,4),(3,8),(3,9),(3,10),(3,11),(3,12),(3,14),(3,16);
-insert into TipoUtenteFunzioni(idtipoUtente,idFunzione) values (4,8),(4,9),(4,10),(4,11),(4,12),(4,13),(4,15),(4,17);
-insert into TipoUtenteFunzioni(idtipoUtente,idFunzione) values (5,4),(5,8),(5,11),(5,12),(5,17);
 
+set implicit_transactions on
+begin try
+	INSERT INTO ruoli(nome) VALUES('admin');
+	declare @idR int = (select IDENT_CURRENT('ruoli'))
+	INSERT INTO ruoli(nome) VALUES('professore');
+	INSERT INTO ruoli(nome) VALUES('dipendente');
+	INSERT INTO ruoli(nome) VALUES('studente');
+	INSERT INTO ruoli(nome) VALUES('sconosciuto');
+	INSERT INTO utenti(Matricola,nome,cognome,username,passwd,ruolo) VALUES('admin','admin','admin','admin','admin',@idR);
+	INSERT INTO utenti(Matricola,nome,cognome,username,passwd,ruolo) VALUES('default','default','default','default','default',@idR+5);
+	INSERT INTO sistemi(nome) Values ('GeTime');
+	declare @idS int = (select IDENT_CURRENT('sistemi'));
+	INSERT INTO sistemi(nome) Values ('GeCo');
+	INSERT INTO sistemi(nome) Values ('GeCv');
+	INSERT INTO funzioni(sistema,nome,descrizione) VALUES (@idS,'AddGiorno','compila il giorno');
+	declare @idFGeTime int = (select IDENT_CURRENT('funzioni'));
+	INSERT INTO funzioni(sistema,nome,descrizione) VALUES (@idS,'VisualizzaCommessa','visualizza commessa'),(@idS,'VisualizzaMese','visualizza tutto il mese'),(@idS,'VisualizzaGiorno','visualizza giorno'),(@idS,'GTMainPage','visualizza main page getime');
+
+	INSERT INTO funzioni(sistema,nome,descrizione) VALUES (@idS+1,'AddCorso','aggiugi corso');
+	declare @idFGeCorso int = (select IDENT_CURRENT('funzioni'));
+	INSERT INTO funzioni(sistema,nome,descrizione) VALUES (@idS+1,'AddLezione','aggiugi lezione'),(@idS+1,'ModLezione','modifica lezione'),(@idS+1,'VisualizzaCorsi','visualizza elenco corsi'),(@idS+1,'VisualizzaTuoiCorsi','visualizza i tuoi corsi'),(@idS+1,'IscrizioneCorso','iscriviti ad un corso'),(@idS+1,'RecercaCorso','ricerca corso'),(@idS+1,'GCMainPage','visualizza main page gecv')
+
+	INSERT INTO funzioni(sistema,nome,descrizione) VALUES (@idS+2,'AddCv','aggiungi cv');
+	declare @idFGeCv int = (select IDENT_CURRENT('funzioni'));
+	INSERT INTO funzioni(sistema,nome,descrizione) VALUES (@idS+2,'modCv','modifica cv'),(@idS+2,'EliminaCv','elimina cv'),(@idS+2,'RicercaCv','ricerca cv'),(@idS+2,'CaricaCv','carica cv');
+	--funzioni di admin
+	INSERT INTO funzioniAssociate(codiceRuolo,codiceFunzione) values(@idR,,(@idR,),(@idR,),(@idR,),(@idR,),(@idR,),(@idR,),(@idR,)
+	--funzioni di professore
+	INSERT INTO funzioniAssociate(codiceRuolo,codiceFunzione) values(@idR+1,@idFGeTime),(@idR+1,@idFGeTime+1),(@idR+1,@idFGeTime+2),(@idR+1,@idFGeTime+3),(@idR+1,@idFGeTime+4),(@idR+1,@idFGeCorso+1),(@idR+1,@idFGeCorso+2),(@idR+1,@idFGeCorso+3),(@idR+1,@idFGeCorso+4),(@idR+1,12),(@idR+1,14),(@idR+1,16);
+	--funzioni di dipendente
+	INSERT INTO funzioniAssociate(codiceRuolo,codiceFunzione) values(@idR+2,1),(@idR+2,2),(3,3),(@idR+2,4),(@idR+2,8),(@idR+2,9),(@idR+2,10),(@idR+2,11),(@idR+2,12),(@idR+2,14),(@idR+2,16);
+	--funzioni di studente
+	insert into funzioniAssociate(codiceRuolo,codiceFunzione) values (@idR+3,8),(@idR+3,9),(@idR+3,10),(@idR+3,11),(@idR+3,12),(@idR+3,13),(@idR+3,15),(@idR+3,17);
+	--funzioni di sconosciuto
+	insert into funzioniAssociate(codiceRuolo,codiceFunzione) values (@idR+4,4),(@idR+4,8),(@idR+4,11),(@idR+4,12),(@idR+4,17);
+commit tran
+end try
+begin catch
+	rollback tran
+end catch
