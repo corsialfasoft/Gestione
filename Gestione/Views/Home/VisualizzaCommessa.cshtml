@@ -15,31 +15,29 @@
     </h3>
 </div>
 @if(ViewBag.Giorni != null) {
-    if(ViewBag.Commesse.Count == 1) {
-        <div class="container h2">
-            @ViewBag.NomeCommessa
-        </div>
-        <hr />
-        <table class="table table-striped">
-            <thead class="thead-light">
+    <div class="container h2">
+        @ViewBag.NomeCommessa
+    </div>
+    <hr />
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Ore Lavorate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int index = 1; index <= ViewBag.Giorni.Count; index++) {
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Ore Lavorate</th>
+                    <th scope="row">@index</th>
+                    <td>@ViewBag.Giorni[index - 1].Data.ToShortDateString()</td>
+                    <td>@ViewBag.Giorni[index - 1].OreLavorate</td>
                 </tr>
-            </thead>
-            <tbody>
-                @for(int index = 1; index <= ViewBag.Giorni.Count; index++) {
-                    <tr>
-                        <th scope="row">@index</th>
-                        <td>@ViewBag.Giorni[index - 1].Data.ToShortDateString()</td>
-                        <td>@ViewBag.Giorni[index - 1].OreLavorate</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
- } else if(ViewBag.Commesse > 1) {
+            }
+        </tbody>
+    </table>
+} else if(ViewBag.Commesse!=null && ViewBag.Commesse.Count > 1) {
     <div class="container h2">
         @ViewBag.NomeCommessa
     </div>
@@ -52,17 +50,18 @@
             </tr>
         </thead>
         <tbody>
-            @{int i = 0;}
-            @foreach (DTCommessa dtc in ViewBag.Commesse) {
+            @{int i = 1;}
+            @foreach(DTCommessa dtc in ViewBag.Commesse) {
                 <tr>
                     <th scope="col">@i</th>
                     <th scope="col">
-                        <span class="badge">
-                            @Html.ActionLink("Dettagli", "DettaglioCommessa", new { nome = dtc.Nome})
-                        </span>
                         @dtc.Nome
+                        <span class="badge" style="float:right; color:black; background-color:lightgray">
+                            @Html.ActionLink("Seleziona","DettaglioCommessa",new { nome = dtc.Nome })
+                        </span>
                     </th>
                 </tr>
+                i++;
             }
     </table>
 }
