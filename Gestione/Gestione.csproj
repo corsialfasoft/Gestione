@@ -151,6 +151,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccessObject.cs" />
+    <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\GeTimeDAODMcs.cs" />
     <Compile Include="Models\GeTimeDModelDM.cs" />
@@ -161,6 +162,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="ImgResource\IconCorsi.jpg" />
+    <Content Include="SQL\DDLProfiler.sql" />
     <Content Include="Scripts\GeTime.js" />
     <Content Include="SQL\DDLGeCo.sql" />
     <Content Include="SQL\SP_GeCo.sql" />

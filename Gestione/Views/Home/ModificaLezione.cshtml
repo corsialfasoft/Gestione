@@ -3,7 +3,7 @@
     ViewBag.Title = "ModificaLezione";
 }
 <h2>@ViewBag.Message</h2>
-<h2>Modifica lezione.</h2>
+<h2>Modifica lezione</h2>
 @using(Html.BeginForm("ModificaLezionePost","Home",FormMethod.Post)) {
     <div class="row">
         <div class="col-md-3">  
@@ -21,7 +21,7 @@
         <div class="col-md-3">
             <label>Durata</label>
             <input name="LezDurata" value="@ViewBag.Lezione.Durata" type="number" required />
-            <input name="idCorso" type="hidden" value="@ViewBag.Id" />
+            <input name="id" type="hidden" value="@ViewBag.Corso.Id" />
             <input name="idLezione" type="hidden" value="@ViewBag.Lezione.Id" />
         </div>
         <div class="col-md-3">
@@ -30,7 +30,7 @@
         <div>
             <span class="bottone"> @Html.ActionLink("Elenco corsi","ElencoCorsi","Home")</span>
             <span classs="badge">
-                @Html.ActionLink("Lista Lezioni","Corso",new { id = ViewBag.CorsoId })
+                @Html.ActionLink("Lista Lezioni","Corso",new { id = ViewBag.Corso.Id })
             </span>
         </div>
     </div>

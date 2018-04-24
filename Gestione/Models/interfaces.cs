@@ -18,8 +18,11 @@ namespace Interfaces {
         void AddCvStudi(string MatrCv, PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
-        void ModEspLav(string MatrCv, EspLav espV, EspLav esp);
-        void ModComp(Competenza daMod, Competenza Mod, string matricola); // Modifica la singola competenza
+		void DelEspLav(EspLav espLav , string matricola);
+		void DelCompetenza(Competenza comp , string matricola);
+		void DelPerStud(PerStud ps , string matricola);
+        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );	
+		void ModComp(Competenza daMod , Competenza Mod , string matricola); // Modifica la singola competenza
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
     }
 	public enum HType { HMalattia = 1, HPermesso, HFerie }

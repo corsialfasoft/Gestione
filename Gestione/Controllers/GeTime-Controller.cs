@@ -15,7 +15,7 @@ namespace Gestione.Controllers {
         }
         [HttpPost]
         public ActionResult VisualizzaGiorno(DateTime data) {
-            DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
+            DTGGiorno giorno = dm.VisualizzaGiorno(data, profile.Matricola);
             if (giorno!=null) {
                 ViewBag.giorno = giorno;
             } else {
@@ -70,7 +70,7 @@ namespace Gestione.Controllers {
                 return View("AddGiorno");
             }
 			ViewBag.GeCoDataTime = dateTime;
-            DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, P.Matricola);
+            DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, profile.Matricola);
 			try{
                 if (giorno != null && (giorno.data.CompareTo(DateTime.Today) <= 0 || giorno.data.Month >= (DateTime.Now.Month - 6))) {
                     if (giorno.OreFerie > 0) {
@@ -96,7 +96,7 @@ namespace Gestione.Controllers {
 						ViewBag.Message ="Commessa non trovata";
 						return View("AddGiorno");
 					} else if(commesse.Count == 1){
-						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, P.Matricola);						
+						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, profile.Matricola);						
 					} else if(commesse.Count > 1) {
                         Session["stateGiorno"] = new StateGiorno { Data= dateTime, Ore=(int)ore };
                         ViewBag.ListaCommesse = commesse;
@@ -108,17 +108,17 @@ namespace Gestione.Controllers {
                         return View();
                     }
                     HType tOre = (HType) 2;
-					dm.Compila(dateTime, (int)ore, tOre, P.Matricola);
+					dm.Compila(dateTime, (int)ore, tOre, profile.Matricola);
 				} else if (tipoOre == "Ore di malattia") {
                     if (ore == null) {
                         ViewBag.Message = "Inserire le ore";
                         return View();
                     }
                     HType tOre = (HType) 1;
-				    dm.Compila(dateTime, (int)ore, tOre, P.Matricola);
+				    dm.Compila(dateTime, (int)ore, tOre, profile.Matricola);
 				} else {
 					HType tOre = (HType) 3;
-                    dm.Compila(dateTime, 8, tOre, P.Matricola);
+                    dm.Compila(dateTime, 8, tOre, profile.Matricola);
 				}
 				ViewBag.EsitoAddGiorno = ore + " " + tipoOre + " aggiunte!";
 			}catch(Exception e){

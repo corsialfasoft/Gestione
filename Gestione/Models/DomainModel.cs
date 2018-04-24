@@ -1,46 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Interfaces;
 using DAO;
 using Gestione.Controllers;
-using static Gestione.Controllers.HomeController;
 
-namespace Gestione.Models{
+namespace Gestione.Models {
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime{
 		DataAccesObject dao = new DataAccesObject();
 		public List<Lezione> ListaLezioni(Corso input){
-			return dao.ListaLezioni(input);
+			try{
+				return dao.ListaLezioni(input);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
         public void AddCompetenze(string MatrCv,Competenza comp){
-            dao.AddCompetenze(MatrCv,comp);
+            try{
+				dao.AddCompetenze(MatrCv,comp);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
         }
 
         public void AddCvStudi(string MatrCv,PerStud studi){
-            dao.AddCvStudi(MatrCv, studi);
+            try{
+				dao.AddCvStudi(MatrCv, studi);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
         }
 
         public void AddEspLav(string MatrCv,EspLav esp){
-            dao.AddEspLav(MatrCv,esp);
+            try{
+				dao.AddEspLav(MatrCv,esp);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
         }
 
 		public void AggiungiCV(CV a){
-			DataAccesObject dao = new DataAccesObject();
-            dao.AggiungiCV(a);
+			try{
+				dao.AggiungiCV(a);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
 		public void Iscriviti(int idCorso,string idStudente){
 			try{
 				dao.Iscriviti(idCorso,idStudente);
-			}catch(Exception e){				
-				throw e ;
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
 			}
 		}
 
 		public void AddLezione(int idCorso, Lezione lezione){			
 			try{
 				dao.AddLezione(idCorso,lezione);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
 				throw e;
 			}
@@ -49,103 +80,161 @@ namespace Gestione.Models{
 		public List<Corso> ListaCorsi(string idUtente){
 			try{
 				return dao.ListaCorsi(idUtente);
-			}catch(Exception e){ 
-                throw e; 
-            }
-		}
-
-		public List<Corso> ListaCorsi(){
-			try{
-				return dao.ListaCorsi();
-			}catch(Exception e){ 
-                throw e; 
-            }
-		}
-
-		public Corso SearchCorsi(int idCorso){
-			try{
-				return dao.SearchCorsi(idCorso);
-			}catch(Exception e){ 
-                throw e; 
-            }
-		}
-
-		public List<Corso> SearchCorsi(string descrizione){
-			try{
-				return  dao.SearchCorsi(descrizione);
-			}catch(Exception e){ 
-                throw e; 
-            }
-		}
-
-		public List<Corso> SearchCorsi(string descrizione,string idUtente){
-			try{
-				return dao.SearchCorsi(descrizione,idUtente);
-			}catch(Exception e){ 
-                throw e; 
-            }
-        }
-
-		public void AddCorso(Corso corso){
-            try{ 
-               dao.AddCorso(corso);
-            }catch(Exception e){ 
-                throw e; 
-            }
-        }
-
-		public void ModLezione(Lezione lezione){
-			try{
-				dao.ModLezione(lezione);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
 				throw e;
 			}
 		}
 
-		public void EliminaCV(CV curriculum){
-            DataAccesObject db = new DataAccesObject();
+		public List<Corso> ListaCorsi(){
+			try{
+				return dao.ListaCorsi();
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+
+		public Corso SearchCorsi(int idCorso){
+			try{
+				return dao.SearchCorsi(idCorso);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+
+		public List<Corso> SearchCorsi(string descrizione){
+			try{
+				return  dao.SearchCorsi(descrizione);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+
+		public List<Corso> SearchCorsi(string descrizione,string idUtente){
+			try{
+				return dao.SearchCorsi(descrizione,idUtente);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+        }
+
+		public void AddCorso(Corso corso){
             try{ 
-                db.EliminaCV(curriculum);
-            }catch(Exception e){ 
-                throw e;    
-            }
+               dao.AddCorso(corso);
+            }catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+        }
+
+		public void ModLezione(Lezione lezione){
+			try{
+				dao.ModLezione(lezione);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+
+		public void EliminaCV(CV curriculum){           
+            try{ 
+                dao.EliminaCV(curriculum);
+            }catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
         public void ModEspLav(string MatrCv,EspLav espV,EspLav esp){
-            dao.ModEspLav(MatrCv,espV,esp);
+            try{
+				dao.ModEspLav(MatrCv,espV,esp);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
         }
 
 		public void ModComp(Competenza daMod,Competenza Mod,string matricola){
-			dao.ModComp(matricola,daMod,Mod);
+			try{
+				dao.ModComp(matricola,daMod,Mod);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
-		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr){
-			DataAccesObject doo = new DataAccesObject();
-            doo.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
+		public void ModificaCV(CV c ){
+			try{
+				dao.ModificaCV(c);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
         public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod){
-            dao.ModPerStudi(matricola,daMod,Mod);
+            try{
+				dao.ModPerStudi(matricola,daMod,Mod);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
         }
 
         public CV Search(string id){
-			DataAccesObject dao = new DataAccesObject();
-			return dao.Search(id);
+			try{
+				return dao.Search(id);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
 		public List<CV> SearchChiava(string chiava){
-			DataAccesObject dao = new DataAccesObject();
-			return dao.SearchChiava(chiava);
+			try{
+				return dao.SearchChiava(chiava);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
 		public List<CV> SearchCognome(string cognome){
-			DataAccesObject dao = new DataAccesObject();
-			return dao.SearchCognome(cognome);
+			try{
+				return dao.SearchCognome(cognome);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
 		public List<CV> SearchEta(int eta){
-			DataAccesObject dao = new DataAccesObject();
-			return dao.SearchEta(eta);
+			try{
+				return dao.SearchEta(eta);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
         public void CaricaCV(string path){
@@ -153,8 +242,13 @@ namespace Gestione.Models{
         }
 
         public List<CV> SearchRange(int etmin,int etmax){
-			DataAccesObject dao = new DataAccesObject();
-			return dao.SearchRange(etmin,etmax);
+			try{
+				return dao.SearchRange(etmin,etmax);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
         //GeTime
@@ -170,6 +264,8 @@ namespace Gestione.Models{
 					}
 				}
 				return dTGiorni;
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
 				throw e;
 			}
@@ -186,28 +282,74 @@ namespace Gestione.Models{
                     return dtcomm;
                 }
 				return null;
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
-					throw e;
+				throw e;
 			}
 		}
 
         public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente){
             try{
                 dao.CompilaHLavoro(data, ore, idCommessa, idUtente);
-            }catch(Exception e){
-                throw e;
-            }
+            }catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
         }
 
         public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
             try{
                 dao.Compila(data, ore, tipoOre, idUtente);
-            }catch(Exception e){
-                throw e;
-            }
+            }catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
         }
 
         public DTGGiorno VisualizzaGiorno(DateTime data, string idUtente){
+			try{
+				Giorno giornoInterface = dao.VisualizzaGiorno(data, idUtente);
+				if (giornoInterface != null){
+					DTGGiorno DTgiorno = new DTGGiorno{
+						data = giornoInterface.Data,
+						OrePermesso = giornoInterface.HPermesso,
+						OreMalattia = giornoInterface.HMalattia,
+						OreFerie = giornoInterface.HFerie
+					};
+					foreach (OreLavorative orecommessa in giornoInterface.OreLavorate){
+						OreLavorate orelavorate = new OreLavorate {
+							nome = orecommessa.Nome,
+							oreGiorno = orecommessa.Ore,
+							descrizione = orecommessa.Descrizione
+						};
+						DTgiorno.OreLavorate.Add(orelavorate);
+					}
+					DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
+					return DTgiorno;
+				}
+				return null;
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+
+		public void DelEspLav(EspLav espLav,string matricola) {
+			dao.DelEspLav(espLav,matricola);
+		}
+
+		public void DelCompetenza(Competenza comp,string matricola) {
+			dao.DelCompetenza(comp , matricola);
+		}
+
+		public void DelPerStud(PerStud ps,string matricola) {
+			dao.DelPerStud(ps,matricola);
+		}
+	}
             Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
             if (giornoInterface != null){
                 DTGGiorno DTgiorno = new DTGGiorno{
