@@ -25,5 +25,23 @@ namespace Gestione.Controllers {
         public ViewResult VisualizzaMese() { 
             return View();
         }
+        public ViewResult AddGiorno(string commessa) {
+            if (stateGiorno != null && commessa!="") {
+                List<DTCommessa> commesse= dm.CercaCommessa(commessa);
+                if(commesse.Count == 1) {
+                    dm.CompilaHLavoro(stateGiorno.Data, stateGiorno.Ore, commesse[0].Id, P.Matricola);
+                    stateGiorno = null;
+                } else {
+                    ViewBag.Message = "Operazione non consentita";
+                }
+            }else
+                ViewBag.Message="Operazione non consentita";
+            return View("AddGiorno");
+        }
+        public class StateGiorno {
+            public DateTime Data { get; set; }
+            public int Ore { get; set; }
+        }
+        private StateGiorno stateGiorno = null;
     }
 }

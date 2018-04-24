@@ -91,8 +91,8 @@ namespace Gestione.Controllers {
 					} else if(commesse.Count == 1){
 						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, P.Matricola);						
 					} else if(commesse.Count > 1) {
-						ViewBag.ListaCommesse = commesse;
-						//return View("AddGiorno");
+                        stateGiorno= new StateGiorno { Data= dateTime, Ore=(int)ore };
+                        ViewBag.ListaCommesse = commesse;
 					}
 				} else if (tipoOre == "Ore di permesso"){
                     if (ore == null) {
