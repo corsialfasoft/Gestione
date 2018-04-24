@@ -33,9 +33,9 @@
         <div>
             <span class="bottone"> @Html.ActionLink("Elenco corsi","ElencoCorsi","Home")</span>
             <span classs="badge">
-                @Html.ActionLink("Lista Lezioni","Corso",new { idCorso = ViewBag.CorsoId })
+                @Html.ActionLink("Lista Lezioni","Corso",new { id = ViewBag.Corso.Id })
             </span>
         </div>
-
+    </div>
 
 }
