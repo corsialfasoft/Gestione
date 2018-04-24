@@ -22,6 +22,25 @@
     input {
     }
 </style>
+<script type="text/javascript">
+        function changeHTyp(value) {
+        if (value == 'Ore di permesso' || value == 'Ore di malattia') {
+            // document.getElementById('commesse').hidden = true;
+            document.getElementById('commesse').disabled = true;
+            document.getElementById('ore').value = "";
+            document.getElementById('ore').disabled = false;
+        }
+        if (value == 'Ore di ferie') {
+            document.getElementById('ore').value = 8;
+            document.getElementById('ore').disabled = true;
+            document.getElementById('commesse').disabled = true;
+        }
+        if (value == 'Ore di lavoro') {
+            document.getElementById('commesse').disabled = false;
+            document.getElementById('ore').value = "";
+            document.getElementById('ore').disabled = false;
+        }
+    }</script>
 <h2>@ViewBag.Title</h2>
 <div class="text-danger container">
     <h4>@ViewBag.Message</h4>
@@ -37,7 +56,7 @@
                     <form method="get">
                         Tipologia Ore (*)
                         @*<input list="HType" name="tipoOre">*@
-                        <select id="HType" name="tipoOre">
+                        <select id="HType" name="tipoOre"  onChange ="javascript:changeHTyp(this.value);">
                             <option value="" selected="selected" />Seleziona tipo ore
                             <option value="Ore di lavoro" />Ore di lavoro
                             <option value="Ore di permesso" />Ore di permesso
@@ -46,9 +65,9 @@
                         </select>
                     </form>
                     <br><br>
-                    Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " /> (Solo per ore di lavoro)
+                    Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commessa"/> (Solo per ore di lavoro)
                      <br><br>
-                    Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8>
+                    Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8 id="ore">
                     <br><br>
                     <input type="submit" name="caricaOre" value="Carica Ore" />
                     <br><br>
