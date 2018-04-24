@@ -1,37 +1,76 @@
 ﻿@{
-    ViewBag.Title = "Lezione";
+    ViewBag.Title = "Compila lezione";
 }
 <h2>@ViewBag.Title</h2>
 <div class="text">
     @ViewBag.Message
 </div>
+
+<style>
+    #myElencoCorsi {
+        position: fixed;
+        bottom: 310px;
+        left: 10px;
+        z-index: 99;
+        border: none;
+        background-color: white;
+        color: Black;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    #myElencoLezioni {
+        position: fixed;
+        bottom: 260px;
+        left: 10px;
+        z-index: 99;
+        border: none;
+        background-color: white;
+        color: Black;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    .button {
+        background-color: Black;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 15px;
+    }
+</style>
+
+
 @using(Html.BeginForm("AddLezione","Home",FormMethod.Post)) {
+    <div class="row" style="float:inherit">
+        <div class="col-md-3">
+            <input name="LezNome" type="text" style="border-radius:7px;font-size:14px;" required placeholder="Nome della lezione.." />
+        </div>
+        <input type="submit" class="button" value="Aggiungi Lezione" style="float:right;" />
+    </div> <br />
     <div class="row">
         <div class="col-md-3">
-            <label>Nome</label>
-            <input name="LezNome" type="text" required/>
+            <textarea name="LezDescrizione" rows="4" cols="50" required placeholder="Inserisci una descrizione" style="border-radius:7px;font-size:14px;"></textarea>
         </div>
-    </div>
+    </div> <br />
     <div class="row">
         <div class="col-md-3">
-            <label>Descrizione</label>
-            <textarea name="LezDescrizione" rows="4" cols="50" required></textarea>
+            <input name="LezDurata" type="number" style="border-radius:7px;font-size:14px;" placeholder="Durata" required />
+            <input name="id" type="hidden" value="@ViewBag.Corso.Id" />
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label>Durata</label>
-            <input name="LezDurata" type="number"  required/>
-            <input name="id" type="hidden" value="@ViewBag.CorsoId" />
-        </div>
-        <div class="col-md-3">
-            <input type="submit" value="Aggiungi" />
-        </div>
+
         <div>
-            <span class="bottone"> @Html.ActionLink("Elenco corsi","ElencoCorsi","Home")</span>
-            <span classs="badge">
-                @Html.ActionLink("Lista Lezioni","Corso",new { id = ViewBag.CorsoId })
-            </span>
+
         </div>
     </div>
+
 }
+<a href="/Home/ElencoCorsi"> <button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi"><span class="glyphicon glyphicon-list"></span></button> </a>
+<a href='@Url.Action("Corso","Corso",new { id = ViewBag.Corso.Id })'><button id="myElencoLezioni" style="position: fixed;" title="Elenco Lezioni"><span class="glyphicon glyphicon-th"></span></button></a>
