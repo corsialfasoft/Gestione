@@ -41,7 +41,8 @@ namespace DAO {
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
-		List<Commessa> CercaCommessa(string nomeCommessa);
+		List<Commessa> CercaCommesse(string nomeCommessa);
+        Commessa CercaCommessa(string nomeCommessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
@@ -357,12 +358,12 @@ namespace DAO {
         }
 
         //GeTime 
-		public List<Commessa> CercaCommessa(string nomeCommessa){
+		public List<Commessa> CercaCommesse(string nomeCommessa){
 			try {
 				SqlParameter[] parameter = {
 					new SqlParameter("@nomeCommessa", nomeCommessa)
 				};			
-				return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInListaCommesse, parameter, "GeTime");
+				return DB.ExecQProcedureReader("SP_CercaCommesse", transf.TrasformInListaCommesse, parameter, "GeTime");
 			} catch(SqlException){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
@@ -444,6 +445,17 @@ namespace DAO {
                 throw e;
             }
         }
+        public Commessa CercaCommessa(string nomeCommessa) {
+            try {
+                SqlParameter[] param = { new SqlParameter("@nomeCommessa", nomeCommessa) };
+                return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, param, "GeTime");
+            } catch (SqlException) {
+                throw new Exception("Errore server!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
 
         //GeCo
         public List<Lezione> ListaLezioni(Corso corso){

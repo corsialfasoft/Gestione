@@ -34,9 +34,9 @@ create table OreLavorative(
 --TestVisualizzaGiorno
 set implicit_transactions on
 begin try 
-insert into Giorni(giorno,idUtente) values ('2000-01-01','GTVGiorno');
+insert into Giorni(giorno,idUtente) values ('2000-01-01','MkMatric');
 declare @idG int = IDENT_CURRENT('Giorni');
-insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaGiorno','questa commessa viene utilizzata per il test',5);
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaGiorno','questa commessa viene utilizzata per il test',10);
 declare @idC int = IDENT_CURRENT('Commesse');
 insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG,@idC,4);
 insert into OreNonLavorative(tipoOre,ore,idGiorno) values (1,4,@idG)
@@ -49,14 +49,14 @@ end catch
 --TestVisualizzaCommessa 
 set implicit_transactions on
 begin try 
-insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaCommessa','questa commessa viene utilizzata per il test',5)
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaCommessa','questa commessa viene utilizzata per il test',10)
 
 declare @idC1 int = IDENT_CURRENT('Commesse');
-insert into Giorni(giorno,idUtente) values ('2000-01-01','GTCommessa')
+insert into Giorni(giorno,idUtente) values ('2000-01-02','MkMatric')
 declare @idG1 int = IDENT_CURRENT('Giorni');
 insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG1,@idC1,4)
 
-insert into Giorni(giorno,idUtente) values ('2000-01-02','GTCommessa')
+insert into Giorni(giorno,idUtente) values ('2000-01-03','MkMatric')
 declare @idG2 int = IDENT_CURRENT('Giorni');
 insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG2,@idC1,4)
 commit tran
@@ -66,6 +66,30 @@ begin catch
 end catch
 --TestCompilaOreLavorative
 
-insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestCompilaOreL','questa commessa viene utilizzata per il test',5)
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestCompilaOreL','questa commessa viene utilizzata per il test',2147483647)
+--TestVisualizzaMese
+set implicit_transactions on
+begin try 
+insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaMese','questa commessa viene utilizzata per il test',40)
 
+declare @idC1 int = IDENT_CURRENT('Commesse');
+insert into Giorni(giorno,idUtente) values ('2001-01-01','MkMatric')
+declare @idG1 int = IDENT_CURRENT('Giorni');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG1,@idC1,4)
+insert into OreNonLavorative(tipoOre,ore,idGiorno) values (1,4,@idG1)
+insert into Giorni(giorno,idUtente) values ('2001-01-05','MkMatric')
+declare @idG2 int = IDENT_CURRENT('Giorni');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG2,@idC1,4)
+insert into OreNonLavorative(tipoOre,ore,idGiorno) values (2,4,@idG2)
+insert into Giorni(giorno,idUtente) values ('2001-01-10','MkMatric')
+declare @idG3 int = IDENT_CURRENT('Giorni');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG3,@idC1,4)
+insert into Giorni(giorno,idUtente) values ('2001-01-20','MkMatric')
+declare @idG4 int = IDENT_CURRENT('Giorni');
+insert into OreNonLavorative(tipoOre,ore,idGiorno) values (3,4,@idG4)
+commit tran
+end try
+begin catch
+	rollback tran
+end catch
 

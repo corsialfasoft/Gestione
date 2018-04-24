@@ -12,23 +12,16 @@ AS
 			INSERT INTO Giorni (giorno, idUtente) VALUES (@giorno, @idUtente);
 			SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'))
 		END
-	DECLARE @OreLav int = ISNULL((SELECT top 1 SUM(ore) FROM OreLavorative WHERE idGiorno=@idGiorno),0)
-	DECLARE @OreNLav int =  ISNULL((SELECT top 1 SUM(ore) FROM OreNonLavorative WHERE idGiorno=@idGiorno),0)
-	IF @OreNLav+ @OreLav +@ore>8 
-		throw 111133,'non si puo inserire il record',22;
-	ELSE
-		BEGIN
-			begin try
-					INSERT INTO OreNonLavorative (tipoOre, ore, idGiorno) VALUES (@TipoOre, @ore, @idGiorno);
-				end try
-				begin catch			
-					if(@@Error = 2627)
-						begin
-							declare @oreNL int = (select top 1 ore from OreNonLavorative where idGiorno=@idGiorno and tipoOre = @TipoOre);
-							update OreNonLavorative set ore=@ore+@oreNL where idGiorno=@idGiorno and tipoOre = @TipoOre;
-						end
-				end catch
-		END
+	begin try
+		INSERT INTO OreNonLavorative (tipoOre, ore, idGiorno) VALUES (@TipoOre, @ore, @idGiorno);
+	end try
+	begin catch			
+		if(@@Error = 2627)
+			begin
+				declare @oreNL int = (select top 1 ore from OreNonLavorative where idGiorno=@idGiorno and tipoOre = @TipoOre);
+				update OreNonLavorative set ore=@ore+@oreNL where idGiorno=@idGiorno and tipoOre = @TipoOre;
+			end
+	end catch
 GO
 create procedure SP_AddHLavoro
 	@data Date,
@@ -42,23 +35,16 @@ as
 			INSERT INTO Giorni (giorno, idUtente) VALUES (@data, @idUtente);
 			SET @idGiorno = (SELECT IDENT_CURRENT ('Giorni'));
 		end;
-	declare @oreNonLav int =  ISNULL((select sum(ore) from OreNonLavorative where idGiorno = @idGiorno),0);
-	declare @oreLav int = ISNULL((select sum(ore) from OreLavorative where idGiorno = @idGiorno),0);
-	if (@ore + @oreLav + @oreNonLav <= 8)
-		begin
-			begin try
-				insert into OreLavorative(idGiorno, idCommessa, ore) values(@idGiorno, @idCommessa, @ore);
-			end try
-			begin catch			
-				if(@@Error = 2627)
-					begin
-						declare @oreDellaComm int = (select top 1 ore from OreLavorative where idGiorno=@idGiorno and idCommessa = @idCommessa);
-						update OreLavorative set ore=@ore+@oreDellaComm where idGiorno=@idGiorno and idCommessa = @idCommessa;
-					end
-			end catch
-		end
-	else
-		throw 111133,'non si puo inserire il record',22;
+	begin try
+		insert into OreLavorative(idGiorno, idCommessa, ore) values(@idGiorno, @idCommessa, @ore);
+	end try
+	begin catch			
+		if(@@Error = 2627)
+			begin
+				declare @oreDellaComm int = (select top 1 ore from OreLavorative where idGiorno=@idGiorno and idCommessa = @idCommessa);
+				update OreLavorative set ore=@ore+@oreDellaComm where idGiorno=@idGiorno and idCommessa = @idCommessa;
+			end
+	end catch
 go
 create procedure SP_VisualizzaCommessa
 	@idC int,
@@ -70,6 +56,15 @@ as
 	order by G.giorno;
 go
 create procedure SP_CercaCommessa
+	@nomeCommessa nvarchar(50)
+as	
+	select id,nome,descrizione,stimaOre, (select ISNULL(SUM(OL.ore),0)
+										  from OreLavorative OL inner join Commesse C1 on OL.idCommessa=C1.id
+										  where C.id=C1.id) as OreTotLavorate
+	from Commesse C
+	where nome = @nomeCommessa;
+go
+create procedure SP_CercaCommesse
 	@nomeCommessa nvarchar(50)
 as	
 	select id,nome,descrizione,stimaOre, (select ISNULL(SUM(OL.ore),0)
