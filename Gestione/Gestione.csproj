@@ -146,15 +146,12 @@
     <Compile Include="Controllers\GeTime-Controller.cs" />
     <Compile Include="Controllers\GeCv-Controller.cs" />
     <Compile Include="Controllers\DT.cs" />
-    <Compile Include="Controllers\GeTimeDettaglioMese.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccessObject.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\DomainModel.cs" />
-    <Compile Include="Models\GeTimeDAODMcs.cs" />
-    <Compile Include="Models\GeTimeDModelDM.cs" />
     <Compile Include="Models\interfaces.cs" />
     <Compile Include="Models\trasformatori.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -327,7 +327,7 @@ namespace Gestione.Models {
 						};
 						DTgiorno.OreLavorate.Add(orelavorate);
 					}
-					DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
+					DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate;
 					return DTgiorno;
 				}
 				return null;
@@ -338,7 +338,15 @@ namespace Gestione.Models {
 			}
 		}
 
-		public void DelEspLav(EspLav espLav,string matricola) {
+        public List<DTGiornoDMese> DettaglioMese(int anno, int mese, string idutente) {
+            try {
+                return dao.DettaglioMese(anno, mese, idutente);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        public void DelEspLav(EspLav espLav,string matricola) {
 			dao.DelEspLav(espLav,matricola);
 		}
 
@@ -349,27 +357,6 @@ namespace Gestione.Models {
 		public void DelPerStud(PerStud ps,string matricola) {
 			dao.DelPerStud(ps,matricola);
 		}
-	}
-            Giorno giornoInterface = new DataAccesObject().VisualizzaGiorno(data, idUtente);
-            if (giornoInterface != null){
-                DTGGiorno DTgiorno = new DTGGiorno{
-                    data = giornoInterface.Data,
-                    OrePermesso = giornoInterface.HPermesso,
-                    OreMalattia = giornoInterface.HMalattia,
-                    OreFerie = giornoInterface.HFerie
-                };
-                foreach (OreLavorative orecommessa in giornoInterface.OreLavorate){
-                    OreLavorate orelavorate = new OreLavorate {
-                        nome = orecommessa.Nome,
-                        oreGiorno = orecommessa.Ore,
-                        descrizione = orecommessa.Descrizione
-                    };
-                    DTgiorno.OreLavorate.Add(orelavorate);
-                }
-                DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate;
-                return DTgiorno;
-            }
-            return null;
-        }
+
     }
 }

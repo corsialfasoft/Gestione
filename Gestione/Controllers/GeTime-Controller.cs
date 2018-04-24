@@ -35,7 +35,7 @@ namespace Gestione.Controllers {
 					List<DTCommessa> dTCommesse = dm.CercaCommessa(commessa);
 					if(dTCommesse.Count>0) {
                         if (dTCommesse.Count==1) {
-                            List<DTGiorno> giorni = dm.GiorniCommessa(dTCommesse[0].Id, P.Matricola);
+                            List<DTGiorno> giorni = dm.GiorniCommessa(dTCommesse[0].Id,profile.Matricola);
 						    ViewBag.NomeCommessa= dTCommesse[0].Nome;
                             ViewBag.Commesse = dTCommesse;
 							ViewBag.Giorni = giorni;
@@ -128,6 +128,47 @@ namespace Gestione.Controllers {
 		}
         public ActionResult Modifica() {
             return View();
+        }
+        [HttpPost]
+        public ViewResult VisualizzaMese(string anno, string mese = "1") {
+            if (anno != "" && int.TryParse(anno, out int annoI) && int.TryParse(mese, out int meseI)) {
+                ViewBag.Mese = dm.DettaglioMese(annoI, meseI, profile.Matricola);
+                if (ViewBag.Mese.Count > 0) {
+                    ViewBag.TOreL = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.TotOreLavorate);
+                    ViewBag.TOreP = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.OrePermesso);
+                    ViewBag.TOreM = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.OreMalattia);
+                    ViewBag.TOreF = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.OreFerie);
+                }
+                ViewBag.Year = annoI;
+                ViewBag.Month = meseI;
+            } else
+                ViewBag.Message = "Inserire anno e mese";
+            return View();
+        }
+        public ViewResult VisualizzaMese() {
+
+            return View();
+        }
+        [HttpGet]
+        public ViewResult AddGiornoSelectCommessa(string nome) {
+            StateGiorno stateGiorno = Session["stateGiorno"] as StateGiorno;
+            if (stateGiorno != null && nome != "") {
+                List<DTCommessa> commesse = dm.CercaCommessa(nome);
+                if (commesse.Count == 1) {
+                    dm.CompilaHLavoro(stateGiorno.Data, stateGiorno.Ore, commesse[0].Id, profile.Matricola);
+                    ViewBag.GeCoDataTime = stateGiorno.Data;//.ToString("yyyy-MM-dd");
+                    ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
+                    Session["stateGiorno"] = null;
+                } else {
+                    ViewBag.Message = "Operazione non consentita";
+                }
+            } else
+                ViewBag.Message = "Operazione non consentita";
+            return View("AddGiorno");
+        }
+        public class StateGiorno {
+            public DateTime Data { get; set; }
+            public int Ore { get; set; }
         }
     }
 }
