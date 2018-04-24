@@ -32,7 +32,6 @@ namespace Gestione.Models {
 		
 	}
 	public partial class ProfileModel: IProfileModel{
-		//private ILoginDao dao;
 		private static ProfileModel Profile;
 		private HttpSessionStateBase session;
 		public Profilo profile {get;}

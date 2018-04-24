@@ -23,7 +23,6 @@ CREATE TABLE utenti(
 go
 CREATE TABLE funzioni(
     codice INT IDENTITY(1,1) primary key NOT NULL,
-    sistema INT,
     nome VARCHAR(50),
 	fksistema INT FOREIGN KEY REFERENCES sistemi
 )

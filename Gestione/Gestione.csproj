@@ -162,6 +162,7 @@
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
     <Content Include="SQL\DDLGeCo.sql" />
+    <Content Include="SQL\DML-Profiler.sql" />
     <Content Include="SQL\SP_GeCo.sql" />
     <Content Include="SQL\DDLGeCv.sql" />
     <Content Include="SQL\SP_GeCv.sql" />
