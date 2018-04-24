@@ -1,4 +1,4 @@
-﻿
+﻿@using Gestione.Controllers;
 @{
     ViewBag.Title = "Visualizza Commessa";
 }
@@ -10,11 +10,11 @@
     </form>
 </div>
 <div class="container">
-    <h3>
+    <h3 class="alert-danger">
         @ViewBag.Message
     </h3>
 </div>
-@if (ViewBag.Giorni != null && ViewBag.Giorni.Count > 0) {
+@if(ViewBag.Giorni != null) {
     <div class="container h2">
         @ViewBag.NomeCommessa
     </div>
@@ -28,13 +28,40 @@
             </tr>
         </thead>
         <tbody>
-            @for (int index = 1;index<= ViewBag.Giorni.Count; index++) {
+            @for(int index = 1; index <= ViewBag.Giorni.Count; index++) {
                 <tr>
                     <th scope="row">@index</th>
-                    <td>@ViewBag.Giorni[index-1].Data.ToShortDateString()</td>
-                    <td>@ViewBag.Giorni[index-1].OreLavorate</td>
+                    <td>@ViewBag.Giorni[index - 1].Data.ToShortDateString()</td>
+                    <td>@ViewBag.Giorni[index - 1].OreLavorate</td>
                 </tr>
             }
         </tbody>
+    </table>
+} else if(ViewBag.Commesse!=null && ViewBag.Commesse.Count > 1) {
+    <div class="container h2">
+        @ViewBag.NomeCommessa
+    </div>
+    <hr />
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome Commessa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 1;}
+            @foreach(DTCommessa dtc in ViewBag.Commesse) {
+                <tr>
+                    <th scope="col">@i</th>
+                    <th scope="col">
+                        @dtc.Nome
+                        <span class="badge" style="float:right; color:black; background-color:lightgray">
+                            @Html.ActionLink("Seleziona","DettaglioCommessa",new { nome = dtc.Nome })
+                        </span>
+                    </th>
+                </tr>
+                i++;
+            }
     </table>
 }

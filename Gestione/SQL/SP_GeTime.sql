@@ -66,7 +66,8 @@ create procedure SP_VisualizzaCommessa
 as 
 	select G.id,G.giorno,OL.ore,C.id,C.nome,C.descrizione
 	from Giorni G inner join OreLavorative OL on G.id=OL.idGiorno inner join Commesse C on OL.idCommessa=C.id
-	where G.idUtente=@idU and C.id=@idC;
+	where G.idUtente=@idU and C.id=@idC
+	order by G.giorno;
 go
 create procedure SP_CercaCommessa
 	@nomeCommessa nvarchar(50)
@@ -75,11 +76,11 @@ as
 										  from OreLavorative OL inner join Commesse C1 on OL.idCommessa=C1.id
 										  where C.id=C1.id) as OreTotLavorate
 	from Commesse C
-	where nome = @nomeCommessa;
+	where nome like '%'+@nomeCommessa+'%';
 go
 create procedure SP_VisualizzaGiorno
 	@Data date,
-	@IdUtente nvarchar(20)
+	@IdUtente nvarchar(10)
 as
 	select 4, ol.ore, c.nome, c.descrizione, c.id
 		from Commesse c inner join OreLavorative ol on c.id = ol.idCommessa
@@ -89,4 +90,20 @@ as
 	select  onl.tipoOre, onl.ore, '','', 1
 		from OreNonLavorative onl inner join Giorni g on onl.idGiorno = g.id
 		where g.giorno = @Data and g.idUtente = @IdUtente;
+go
+create procedure SP_VisualizzaMese
+	@Anno int,
+	@Mese int,
+	@IdUtente nvarchar(10)
+as
+	select 4 as tipoOre, sum(ol.ore) ore, g.giorno
+		from OreLavorative ol
+		inner join Giorni g on ol.idGiorno = g.id
+		where (year(g.giorno) = @Anno and month(g.giorno) = @Mese) and g.idUtente = @IdUtente
+		group by g.giorno
+	union all
+	select onl.tipoOre, onl.ore, g.giorno
+		from OreNonLavorative onl inner join Giorni g on onl.idGiorno = g.id
+		where (year(g.giorno) = @Anno and month(g.giorno) = @Mese) and g.idUtente = @IdUtente
+		order by g.giorno
 go
