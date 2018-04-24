@@ -49,11 +49,13 @@ namespace Gestione.Controllers {
                 PerStud perS = new PerStud { AnnoInizio = annoInizio, AnnoFine = annoFine, Titolo = titolo, Descrizione = descrizione };
                 dm.AddCvStudi(p.Matricola, perS);
                 ViewBag.Message="Il percorso studi è stato inserito con successo nel tuo Curriculum!";
-            } else{
+				ViewBag.CV = dm.Search(p.Matricola);
+				ModelState.Clear();
+				return View("DettaglioCurriculum");
+			} else{
                 ViewBag.Message = "Formato inserito non corretto";
                 return View("MyPage");
             }
-            return View($"MyPage");
         }
 		 [HttpPost]
         public ActionResult ModEspLav(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp){
@@ -69,7 +71,9 @@ namespace Gestione.Controllers {
             Profilo p = Session["profile"] as Profilo;
             dm.AddEspLav(p.Matricola,esp);
             ViewBag.Message="Esperienza aggiunta nel curriculum,corri a controllare!";
-            return View($"MyPage");
+			ViewBag.CV = dm.Search(p.Matricola);
+			ModelState.Clear();
+			return View("DettaglioCurriculum");
         }
 		 [HttpPost]
         public ActionResult AddComp(string tipo,string livello){
@@ -78,7 +82,9 @@ namespace Gestione.Controllers {
 			comp.Titolo=tipo;
 			comp.Livello=int.Parse(livello);			
 			dm.AddCompetenze(p.Matricola,comp);
-            return View($"MyPage");
+            ViewBag.CV = dm.Search(p.Matricola);
+			ModelState.Clear();
+			return View("DettaglioCurriculum");
         }
 		[HttpGet]
         public ActionResult DettCv(string id){           
@@ -88,11 +94,13 @@ namespace Gestione.Controllers {
 		[HttpPost]
         public ActionResult PassaEspLav(int annoInizioEsp,int annoFineEsp,string qualifica,string descrizioneEsp) {
             ViewBag.Esperienza = InitEspLav(annoInizioEsp,annoFineEsp,qualifica,descrizioneEsp);
-            Session["esperienza"] = ViewBag.Esperienza;
+            ViewBag.Matricola = P.Matricola;
+			Session["esperienza"] = ViewBag.Esperienza;
             return View("ModEspLav");
         }
 		[HttpPost]
 		public ActionResult PassaComp(string tipo, int livello){
+			ViewBag.Matricola = P.Matricola;
 			ViewBag.Comp = InitComp(tipo, livello);
             Session["competenza"] = ViewBag.Comp;
 			return View("ModComp");
@@ -110,12 +118,14 @@ namespace Gestione.Controllers {
 		 [HttpPost]
         public ActionResult PassaPerStud(int annoInizio,int annoFine,string titolo,string descrizione) {
             ViewBag.Percorso = InitPercorso(annoInizio,annoFine,titolo,descrizione);
+			ViewBag.Matricola = P.Matricola;
             Session["percorso"] = ViewBag.Percorso;
             return View("ModPerStud");
         }
 		[HttpPost]
         public ActionResult PassaCV(string nome,string cognome,int eta,string email,string residenza,string telefono){
             ViewBag.CV = InitForseCV(nome,cognome,eta,email,residenza,telefono);
+			ViewBag.CV.Matricola = P.Matricola;
             return View("ModAnag");
         }
 		[HttpPost]
@@ -147,19 +157,22 @@ namespace Gestione.Controllers {
             }
         }
 		[HttpPost]
-        public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
+       public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
             try{
                if(Session["profile"]!=null){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-                 string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
-                    dm.ModificaCV(nome,cognome,eta,email,residenza,telefono,matr);   
+                 //string matr = (Session["profile"] as Profilo).Matricola;//ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+					CV c = InitForseCV(nome,cognome,eta,email,residenza,telefono);
+					c.Matricola=(Session["profile"] as Profilo).Matricola;
+                    dm.ModificaCV(c);   
                     ViewBag.Message = "Dati anagrafici modificati";
+					ViewBag.CV = c;
                     return View("MyPage");
                 }
             }catch(Exception){ 
                 ViewBag.Message = "Si è verificato un errore, non siamo riusciti a modificare i dati anagrafici";    
             }
             return View("ModAnag");
-        }
+		}
 		// [HttpPost] Commentato per risolvere bug su elimina da lista
         public ActionResult EliminaCV(string id){ 
             CV temp = dm.Search(id); 
@@ -250,6 +263,26 @@ namespace Gestione.Controllers {
 			}
 			ViewBag.Message="Inserire dei parametri di ricerca validi";
 			return View();
+		}
+		public void EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola){
+			dm.DelEspLav(new EspLav{AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
+			 Profilo p = Session["profile"] as Profilo;
+			Response.Redirect($"/Home/DettCv/{matricola}");
+		}
+		public void EliminaCompetenza(string titolo,int livello,string matricola){
+			dm.DelCompetenza(new Competenza {Titolo=titolo,Livello=livello },matricola);
+			Response.Redirect($"/Home/DettCV/{matricola}");
+		}
+		public ActionResult EliminaPerStud(int AI ,int AF , string Ti , string Des){	
+			PerStud ps = new PerStud();
+			ps.AnnoInizio=AI;
+			ps.AnnoFine=AF;
+			ps.Titolo=Ti;
+			ps.Descrizione=Des;
+			 Profilo p = Session["profile"] as Profilo;
+			dm.DelPerStud(ps,p.Matricola);
+			ViewBag.CV = dm.Search(p.Matricola);
+			return View("DettaglioCurriculum");
 		}
     }
 }

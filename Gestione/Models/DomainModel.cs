@@ -177,9 +177,9 @@ namespace Gestione.Models {
 			}
 		}
 
-		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr){
+		public void ModificaCV(CV c ){
 			try{
-				dao.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
+				dao.ModificaCV(c);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
@@ -332,5 +332,17 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-    }
+
+		public void DelEspLav(EspLav espLav,string matricola) {
+			dao.DelEspLav(espLav,matricola);
+		}
+
+		public void DelCompetenza(Competenza comp,string matricola) {
+			dao.DelCompetenza(comp , matricola);
+		}
+
+		public void DelPerStud(PerStud ps,string matricola) {
+			dao.DelPerStud(ps,matricola);
+		}
+	}
 }

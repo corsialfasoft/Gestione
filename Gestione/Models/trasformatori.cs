@@ -109,7 +109,9 @@ namespace DAO{
 			if(data.Read()){
 				output = new CV{
 					Matricola = data.GetString(0)
-				};					
+				};
+				DataAccesObject dao = new DataAccesObject();
+				output=dao.Search(output.Matricola);
 			}
 			return output;
 		}
