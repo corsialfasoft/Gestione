@@ -69,10 +69,6 @@ namespace Gestione.Controllers {
                 ViewBag.Message="Scegliere la tipologia delle ore";
                 return View("AddGiorno");
             }
-             if(Commessa==""){
-                ViewBag.Message="inserire la commessa";
-                return View("AddGiorno");
-            }
 			ViewBag.GeCoDataTime = dateTime;
             DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, P.Matricola);
 			try{
@@ -91,6 +87,9 @@ namespace Gestione.Controllers {
                     if (ore == null) {
                         ViewBag.Message = "Inserire le ore";
                         return View();
+                    }else if(Commessa == ""){
+                        ViewBag.Message="inserire la commessa";
+                        return View("AddGiorno");
                     }
 					List<DTCommessa> commesse = dm.CercaCommessa(Commessa);
 					if (commesse.Count == 0){

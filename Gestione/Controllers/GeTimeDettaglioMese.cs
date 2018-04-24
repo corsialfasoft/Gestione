@@ -32,7 +32,7 @@ namespace Gestione.Controllers {
                 List<DTCommessa> commesse= dm.CercaCommessa(nome);
                 if(commesse.Count == 1) {
                     dm.CompilaHLavoro(stateGiorno.Data, stateGiorno.Ore, commesse[0].Id, P.Matricola);
-                    ViewBag.GeCoDataTime = stateGiorno.Data.ToString("yyyy-MM-dd");
+                    ViewBag.GeCoDataTime = stateGiorno.Data;//.ToString("yyyy-MM-dd");
                     ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
                     Session["stateGiorno"] = null;
                 } else {
