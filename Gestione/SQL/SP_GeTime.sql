@@ -75,7 +75,7 @@ as
 										  from OreLavorative OL inner join Commesse C1 on OL.idCommessa=C1.id
 										  where C.id=C1.id) as OreTotLavorate
 	from Commesse C
-	where nome = @nomeCommessa;
+	where nome like '%'+@nomeCommessa+'%';
 go
 create procedure SP_VisualizzaGiorno
 	@Data date,

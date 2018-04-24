@@ -164,8 +164,9 @@ namespace Gestione.Models{
 				List<DTGiorno> dTGiorni = new List<DTGiorno>();
 				if (giorni != null && giorni.Count > 0) {
 					foreach (Giorno giorno in giorni) {
-						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
+						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) {
 							dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
+                        }
 					}
 				}
 				return dTGiorni;
@@ -174,11 +175,16 @@ namespace Gestione.Models{
 			}
         }
 
-		public DTCommessa CercaCommessa(string nomeCommessa){
+		public List<DTCommessa> CercaCommessa(string nomeCommessa){
+            List<DTCommessa> dtcomm = new List<DTCommessa>();
 			try{ 
-				Commessa commessa = dao.CercaCommessa(nomeCommessa);
-				if(commessa!=null)
-					return new  DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate);
+				List<Commessa> commesse = dao.CercaCommessa(nomeCommessa);
+				if(commesse!=null) {
+                    foreach (Commessa commessa in commesse) {
+                        dtcomm.Add(new DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate));
+                    }
+                    return dtcomm;
+                }
 				return null;
 			}catch(Exception e){
 					throw e;

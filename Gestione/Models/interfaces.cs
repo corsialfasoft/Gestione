@@ -22,14 +22,14 @@ namespace Interfaces {
         void ModComp(Competenza daMod, Competenza Mod, string matricola); // Modifica la singola competenza
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
     }
-    public enum HType { HMalattia = 1, HPermesso, HFerie }
-    interface IGeTime {
-        void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
-        void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
-        DTGGiorno VisualizzaGiorno(DateTime data, string idUtente);
-        List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente);
-        DTCommessa CercaCommessa(string nomeCommessa);
-    }
+	public enum HType { HMalattia = 1, HPermesso, HFerie }
+	interface IGeTime {
+		void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
+		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
+		DTGGiorno VisualizzaGiorno(DateTime data, string idUtente);
+		List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente);
+		List<DTCommessa> CercaCommessa(string nomeCommessa);
+	}
     public interface IGeCo {
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
