@@ -12,7 +12,7 @@ namespace Gestione.Tests.Controllers {
 
         [TestMethod]
         public void TestCompilaOreLavrative() {
-            HomeController controller = new HomeController(new Profilo(Guid.NewGuid().ToString().Substring(0, 10), "studente",null,"test", "OreLavrative"));
+            HomeController controller = new HomeController();
             ViewResult result = controller.AddGiorno(DateTime.Today, "Ore di lavoro",2, "GeTime TestCompilaOreL") as ViewResult;
             Assert.IsNull(result.ViewBag.Message);
             Assert.IsNotNull(result.ViewBag.EsitoAddGiorno);
@@ -22,7 +22,7 @@ namespace Gestione.Tests.Controllers {
 
         [TestMethod]
         public void TestCompilaNonLavrative() {
-            HomeController controller = new HomeController(new Profilo(Guid.NewGuid().ToString().Substring(0,10), "studente", null, "test", "OreNonLavrative"));
+            HomeController controller = new HomeController();
             ViewResult result = controller.AddGiorno(DateTime.Today, "Ore di permesso", 2, "") as ViewResult;
             Assert.IsNull(result.ViewBag.Message);
             Assert.IsNotNull(result.ViewBag.EsitoAddGiorno);
@@ -35,14 +35,14 @@ namespace Gestione.Tests.Controllers {
         }
         [TestMethod]
         public void TestVisualizzaCommessa() {
-            HomeController controller = new HomeController(new Profilo("GTCommessa", "studente", null, "test", "OreNonLavrative"));
+            HomeController controller = new HomeController();
             ViewResult result = controller.VisualizzaCommessa("GeTime TestVisualizzaCommessa") as ViewResult;
             Assert.IsNotNull(result.ViewBag.Giorni);
             Assert.IsTrue(result.ViewBag.Giorni.Count==2);
         }
         [TestMethod]
         public void TestVisualizzaGiorno() {
-            HomeController controller = new HomeController(new Profilo("GTVGiorno", "studente", null, "test", "OreNonLavrative"));
+            HomeController controller = new HomeController();
             string value = "2000-01-01"; //non funziona se nn sono presenti nel DB questi valori!!!!!!!!!
             DateTime convertedDate;
             convertedDate = Convert.ToDateTime(value); //non funziona se nn sono presenti nel DB questi valori!!!!!!!!!

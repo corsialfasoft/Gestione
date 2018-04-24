@@ -280,13 +280,13 @@ namespace DAO {
         public void ModificaCV(CV c){
             try{
                 SqlParameter[] parameter = {
-                    new SqlParameter("@cognomeM", c.Cognome),
-                    new SqlParameter("@matricolaM", c.Matricola),
-                    new SqlParameter("@nomeM", c.Nome),
-                    new SqlParameter("@etaM", c.Eta),
-                    new SqlParameter("@emailM", c.Email),
-                    new SqlParameter("@residenzaM", c.Residenza),
-                    new SqlParameter("@telefonoM", c.Telefono)
+                    new SqlParameter("@cognome", c.Cognome),
+                    new SqlParameter("@matr", c.Matricola),
+                    new SqlParameter("@nome", c.Nome),
+                    new SqlParameter("@eta", c.Eta),
+                    new SqlParameter("@email", c.Email),
+                    new SqlParameter("@residenza", c.Residenza),
+                    new SqlParameter("@telefono", c.Telefono)
                 };
                 DB.ExecNonQProcedure("ModificaCV", parameter, "GeCv");
             } catch(SqlException){
