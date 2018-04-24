@@ -6,19 +6,41 @@
 <h3>@ViewBag.Message</h3>
 
 <div class="containter">
-    @using(Html.BeginForm("EliminaCV","Home",FormMethod.Post)) {
-        <div class="row">
-            @if(ViewBag.ListaCV != null) {
-                foreach(CV cv in ViewBag.ListaCV) {
-            <div class="col-md-3">
-                <a class="btn btn-default" href="/Home/DettCv/@cv.Matricola">Dettaglio</a>
-                <a class="btn btn-default" href="/Home/EliminaCV/@cv.Matricola">ELIMINA</a>
-                @*<input class="btn btn-default" type="submit" value="Elimina" />*@
-                <input id="nome" name="nome" type="text" placeholder="@cv.Nome" />
-                <input id="cognome" name="cognome" type="text" placeholder="@cv.Cognome" />
-            </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Lista Curriculum</div>
+        @using(Html.BeginForm("EliminaCV","Home",FormMethod.Post)) {
+            <table class="table">
+                <tr>
+                    <th style="border-right: 1px solid #dddddd; text-align:center">Nome</th>
+                    <th style="border-right: 1px solid #dddddd; text-align:center">Cognome</th>
+                    <th style="border-right: 1px solid #dddddd; text-align:center">Eta'</th>
+                    <th style="border-right: 1px solid #dddddd; text-align:center">Numero di Telefono</th>
+                </tr>
+                @if(ViewBag.ListaCV != null) {
+                    foreach(CV cv in ViewBag.ListaCV) {
+                        <tr>
+                            <td style="border-right: 1px solid #dddddd;">
+                                @cv.Nome
+                            </td>
+                            <td style="border-right: 1px solid #dddddd;">
+                                @cv.Cognome
+                            </td>
+                            <td style="border-right: 1px solid #dddddd; text-align:center">
+                                @cv.Eta
+                            </td>
+                            <td style="border-right: 1px solid #dddddd; text-align:center">
+                                @cv.Telefono
+                            </td>
+                            <td style="border-right: 1px solid #dddddd; text-align:center">
+                                <a class="btn btn-default" href="/Home/DettCv/@cv.Matricola">Dettaglio</a>
+                            </td>
+                            <td style="border-right: 1px solid #dddddd; text-align:center">
+                                <a class="btn btn-default" href="/Home/EliminaCV/@cv.Matricola">Elimina</a>
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-        </div>
-    }
+            </table>
+        }
+    </div>
 </div>

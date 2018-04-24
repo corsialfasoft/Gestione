@@ -60,7 +60,7 @@ namespace Gestione.Models {
 
 		public Profilo GetProfile() {
 			List<string> funzioni = new List<string>(){"RicercaCurriculum"};
-			return new Profilo("MockMatricola",funzioni,"MockNome","MockCognome");
+			return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
 		}
 
 		public bool Login(string username,string password) {
