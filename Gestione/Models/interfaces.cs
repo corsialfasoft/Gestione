@@ -31,8 +31,9 @@ namespace Interfaces {
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		DTGGiorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente);
-		List<DTCommessa> CercaCommessa(string nomeCommessa);
-	}
+		List<DTCommessa> CercaCommesse(string nomeCommessa);
+        DTCommessa CercaCommessa(string nomeCommessa);
+    }
     public interface IGeCo {
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);

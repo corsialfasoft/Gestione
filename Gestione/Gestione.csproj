@@ -161,7 +161,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
-    <Content Include="Scripts\GeTime.js" />
     <Content Include="SQL\DDLGeCo.sql" />
     <Content Include="SQL\SP_GeCo.sql" />
     <Content Include="SQL\DDLGeCv.sql" />

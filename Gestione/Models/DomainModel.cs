@@ -271,10 +271,10 @@ namespace Gestione.Models {
 			}
         }
 
-		public List<DTCommessa> CercaCommessa(string nomeCommessa){
+		public List<DTCommessa> CercaCommesse(string nomeCommessa){
             List<DTCommessa> dtcomm = new List<DTCommessa>();
 			try{ 
-				List<Commessa> commesse = dao.CercaCommessa(nomeCommessa);
+				List<Commessa> commesse = dao.CercaCommesse(nomeCommessa);
 				if(commesse!=null) {
                     foreach (Commessa commessa in commesse) {
                         dtcomm.Add(new DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate));
@@ -289,6 +289,18 @@ namespace Gestione.Models {
 			}
 		}
 
+        public DTCommessa CercaCommessa(string nomeCommessa) {
+            try {
+               Commessa commessa = dao.CercaCommessa(nomeCommessa);
+                if(commessa!=null)
+                    return new DTCommessa(commessa.Id, commessa.Nome, commessa.Descrizione, commessa.Capienza, commessa.OreLavorate);
+                return null;
+            } catch (SystemException) {
+                throw new Exception("Errore di sistema!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
         public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente){
             try{
                 dao.CompilaHLavoro(data, ore, idCommessa, idUtente);
@@ -298,6 +310,7 @@ namespace Gestione.Models {
 				throw e;
 			}
         }
+
 
         public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
             try{
