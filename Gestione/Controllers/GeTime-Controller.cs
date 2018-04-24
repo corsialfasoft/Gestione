@@ -68,7 +68,7 @@ namespace Gestione.Controllers {
 			ViewBag.GeCoDataTime = dateTime;
             DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, P.Matricola);
 			try{
-                if (giorno != null) {
+                if (giorno != null && giorno.data.CompareTo(DateTime.Today) <= 0 || giorno.data.Month >= (DateTime.Now.Month - 6)) {
                     if (giorno.OreFerie > 0) {
                         ViewBag.Giorno = giorno;
                         ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} eri in ferie";
