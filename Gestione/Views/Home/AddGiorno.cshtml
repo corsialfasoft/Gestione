@@ -23,7 +23,7 @@
     }
 </style>
 <script type="text/javascript">
-        function changeHTyp(value) {
+   function changeHTyp(value) {
         if (value == 'Ore di permesso' || value == 'Ore di malattia') {
             // document.getElementById('commesse').hidden = true;
             document.getElementById('commesse').disabled = true;
@@ -35,7 +35,7 @@
             document.getElementById('ore').disabled = true;
             document.getElementById('commesse').disabled = true;
         }
-        if (value == 'Ore di lavoro') {
+       if (value == 'Ore di lavoro' || value =='') {
             document.getElementById('commesse').disabled = false;
             document.getElementById('ore').value = "";
             document.getElementById('ore').disabled = false;
@@ -65,7 +65,7 @@
                         </select>
                     </form>
                     <br><br>
-                    Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commessa"/> (Solo per ore di lavoro)
+                    Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commesse"/> (Solo per ore di lavoro)
                      <br><br>
                     Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8 id="ore">
                     <br><br>
