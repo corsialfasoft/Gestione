@@ -93,7 +93,7 @@
                         <td>@lezioni.Nome</td>
                         <td>@lezioni.Descrizione</td>
                         <td>@lezioni.Durata</td>
-                        <td> <button class="btn btn-default">  @Html.ActionLink("Modifica", "ModificaLezione", new { nomeLezione = lezioni.Nome, descrizioneLezione = lezioni.Descrizione, durataLezione = lezioni.Durata, idLezione = lezioni.Id, idCorso = ViewBag.Corso.Id }) </button></td>
+                        <td> <button class="btn btn-default">  @Html.ActionLink("Modifica", "ModificaLezione", new { nomeLezione = lezioni.Nome, descrizioneLezione = lezioni.Descrizione, durataLezione = lezioni.Durata, idLezione = lezioni.Id, id = ViewBag.Corso.Id }) </button></td>
                     </tr>
                     }
                 </tbody>

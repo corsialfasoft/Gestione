@@ -20,7 +20,7 @@
             <th scope="col">Durata</th>
             <th>
                 <input name="LezDurata" value="@ViewBag.Lezione.Durata" type="number" required />
-                <input name="idCorso" type="hidden" value="@ViewBag.Id" />
+                <input name="id" type="hidden" value="@ViewBag.Corso.Id" />
                 <input name="idLezione" type="hidden" value="@ViewBag.Lezione.Id" />
             </th>
         </tr>
@@ -36,6 +36,6 @@
                 @Html.ActionLink("Lista Lezioni","Corso",new { id = ViewBag.Corso.Id })
             </span>
         </div>
-    </div>
+    
 
 }
