@@ -1,6 +1,6 @@
 ﻿SELECT * FROM Curriculum
 INSERT INTO Curriculum(nome,Cognome,Eta,Matricola,Email,Residenza,Telefono) VALUES('Nauman','Aziz',21,'AAAA','nauman@aziz.com','Via Aziz 1','111111')
-INSERT INTO Curriculum(nome,Cognome,Eta,Matricola,Email,Residenza,Telefono) VALUES('Edoardo','PogaTanto',26,'BBBB','edo@pogo.com','Via Mano 2','22222')
+INSERT INTO Curriculum(nome,Cognome,Eta,Matricola,Email,Residenza,Telefono) VALUES('Edoardo','PogaTanto',26,'MkMatric','edo@pogo.com','Via Mano 2','22222')
 INSERT INTO Curriculum(nome,Cognome,Eta,Matricola,Email,Residenza,Telefono) VALUES('Massimo','Franzoso',22,'CCCC','max@franzoso.com','Via Moto 3','333333')
 INSERT INTO Curriculum(nome,Cognome,Eta,Matricola,Email,Residenza,Telefono) VALUES('Luca','Gentilesca',25,'DDDD','luca@gent.com','Via Cuneo 4','444444')
 INSERT INTO Curriculum(nome,Cognome,Eta,Matricola,Email,Residenza,Telefono) VALUES('Dragos','Brinzila',23,'EEEE','dra@brin.com','Via Moldavia 5','55555')

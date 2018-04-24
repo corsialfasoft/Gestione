@@ -46,44 +46,44 @@ namespace Gestione.Controllers {
 			};
 			return percorso;
         }
-        private CV InitCV(string nome,string cognome,string eta,
-            string email,string residenza,string telefono,string annoinizio,string annofine,
-            string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
-            string descrizionesp,string tipo,string livello) {
-            try{
-				CV cv = new CV {
-					Nome = nome,
-					Cognome = cognome,
-					Eta = int.Parse(eta),
-					Email = email,
-					Residenza = residenza,
-					Telefono = telefono,
-                    Matricola="BBBB"
-				};
-				EspLav esp = new EspLav {
-					AnnoInizio = int.Parse(annoinizioesp),
-					AnnoFine = int.Parse(annofinesp),
-					Qualifica = qualifica,
-					Descrizione = descrizionesp
-				};
-				cv.Esperienze.Add(esp);
-				PerStud percorso = new PerStud {
-					AnnoInizio = int.Parse(annoinizio),
-					AnnoFine = int.Parse(annofine),
-					Titolo = titolo,
-					Descrizione = descrizione
-				};
-				cv.Percorsostudi.Add(percorso);
-				Competenza comp = new Competenza {
-					Titolo = tipo,
-					Livello = int.Parse(livello)
-				};
-				cv.Competenze.Add(comp);
-                return cv;
-            } catch(Exception e) {
-                throw e;
-            }
-        }
+    //    private CV InitCV(string nome,string cognome,string eta,
+    //        string email,string residenza,string telefono,string annoinizio,string annofine,
+    //        string titolo, string descrizione, string annoinizioesp, string annofinesp,string qualifica,
+    //        string descrizionesp,string tipo,string livello) {
+    //        try{
+				//CV cv = new CV {
+				//	Nome = nome,
+				//	Cognome = cognome,
+				//	Eta = int.Parse(eta),
+				//	Email = email,
+				//	Residenza = residenza,
+				//	Telefono = telefono,
+    //                Matricola="BBBB"
+				//};
+				//EspLav esp = new EspLav {
+				//	AnnoInizio = int.Parse(annoinizioesp),
+				//	AnnoFine = int.Parse(annofinesp),
+				//	Qualifica = qualifica,
+				//	Descrizione = descrizionesp
+				//};
+				//cv.Esperienze.Add(esp);
+				//PerStud percorso = new PerStud {
+				//	AnnoInizio = int.Parse(annoinizio),
+				//	AnnoFine = int.Parse(annofine),
+				//	Titolo = titolo,
+				//	Descrizione = descrizione
+				//};
+				//cv.Percorsostudi.Add(percorso);
+				//Competenza comp = new Competenza {
+				//	Titolo = tipo,
+				//	Livello = int.Parse(livello)
+				//};
+				//cv.Competenze.Add(comp);
+    //            return cv;
+    //        } catch(Exception e) {
+    //            throw e;
+    //        }
+    //    }
 
     }
     public class DTGiorno {
