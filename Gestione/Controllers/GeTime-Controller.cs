@@ -96,7 +96,11 @@ namespace Gestione.Controllers {
 						ViewBag.Message ="Commessa non trovata";
 						return View("AddGiorno");
 					} else if(commesse.Count == 1){
-						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, profile.Matricola);						
+                        if (commesse[0].OreLavorate+(int) ore>commesse[0].Capienza) {
+                            ViewBag.Message = $"Capienza ore commessa superate!\nMassimo ore: {commesse[0].Capienza}";
+                            return View("AddGiorno");
+                        }
+						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, profile.Matricola);				
 					} else if(commesse.Count > 1) {
                         Session["stateGiorno"] = new StateGiorno { Data= dateTime, Ore=(int)ore };
                         ViewBag.ListaCommesse = commesse;
