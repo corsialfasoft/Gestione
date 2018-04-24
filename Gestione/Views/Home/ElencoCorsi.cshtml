@@ -14,7 +14,7 @@
         left: 20px;
         z-index: 99;
         border: none;
-        background-color: white;
+        background-color: black;
         color: Black;
         cursor: pointer;
         padding: 15px;
@@ -39,7 +39,7 @@
 
 <body>
     <h1 style="padding-left:15px">@ViewBag.Title</h1>
-    <div class="row">
+    <div >
         <h4 style="padding-left:30px">@ViewBag.Message</h4>
         <div style="float:right; padding-bottom:10px; padding-right:30px; text-align:right" class="col-lg-6">
             @using(Html.BeginForm("ElencoCorsi","Home",FormMethod.Post)) {
@@ -91,7 +91,6 @@
      <button id="myAddCorsi" style="position: fixed;" title="Aggiungi corso" href="/Home/AddCorso"><span class="glyphicon glyphicon-plus"></span></button>
     <script>
         window.onscroll = function () { scrollFunction() };
-
         function scrollFunction() {
             if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
                 document.getElementById("myElencoCorsi").style.display = "block";
@@ -99,17 +98,13 @@
                 document.getElementById("myElencoCorsi").style.display = "none";
             }
         }
-
         function scrollFunction() {
             if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
                 document.getElementById("myAddCorsi").style.display = "block";
             } else {
                 document.getElementById("myAddCorsi").style.display = "none";
             }
-        }
-
-
-
+        }    
     </script>
 </body>
 

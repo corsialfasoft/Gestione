@@ -101,8 +101,8 @@
         </div>
         }
 
-        <button id="myIscriviti" style="position: fixed;" title="Iscriviti" href='@Url.Action("Iscriviti","Iscrizione",new { idCorso = ViewBag.Corso.Id },"prova")'><span class="glyphicon glyphicon-ok-circle"></span></button>
-        <button id="myLezione" style="position: fixed;" title="Aggiungi Lezione" href='@Url.Action("AddLezione","Home",new { idCorso = ViewBag.Corso.Id })'><span class="glyphicon glyphicon-plus"></span></button>
+        <button id="myIscriviti" style="position: fixed;" title="Iscriviti" href='@Url.Action("Iscriviti","Iscrizione",new { id = ViewBag.Corso.Id },"prova")'><span class="glyphicon glyphicon-ok-circle"></span></button>
+        <button id="myLezione" style="position: fixed;" title="Aggiungi Lezione" href='@Url.Action("AddLezione","Home",new { id = ViewBag.Corso.Id })'><span class="glyphicon glyphicon-plus"></span></button>
         <button id="myElencoCorsi" style="position: fixed;" title="Elenco Corsi" href="/Home/ElencoCorsi"><span class="glyphicon glyphicon-list"></span></button>
 
 

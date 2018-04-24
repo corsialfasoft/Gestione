@@ -2,7 +2,14 @@
     ViewBag.Title = "Home Page - Gestione";
 }
 <style>
-    .btn {
+    .jumbotron {
+        background-image: url('../../ImgResource/Corso.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+    }
+        .btn {
         background-color: #5F9EA0;
         border: none;
         color: white;
@@ -46,11 +53,7 @@
 </style>
 
 <div class="container">
-    <div class="jumbotron" style=" 
-        background-image: url('../../ImgResource/Corso.jpg');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    ">
+    <div class="jumbotron">
         <h1 style="color: #f7ca43;"> Corsi</h1>
 
         <p><a href="/Home/ElencoCorsi" class="btn btn-primary btn-lg" name="button">Vai a corsi &raquo;</a></p>
