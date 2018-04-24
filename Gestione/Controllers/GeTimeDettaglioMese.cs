@@ -26,5 +26,26 @@ namespace Gestione.Controllers {
 
             return View();
         }
+        [HttpGet]
+        public ViewResult AddGiornoSelectCommessa(string nome) {
+             StateGiorno stateGiorno = Session["stateGiorno"] as StateGiorno;
+            if (stateGiorno != null && nome!="") {
+                List<DTCommessa> commesse= dm.CercaCommessa(nome);
+                if(commesse.Count == 1) {
+                    dm.CompilaHLavoro(stateGiorno.Data, stateGiorno.Ore, commesse[0].Id, P.Matricola);
+                    ViewBag.GeCoDataTime = stateGiorno.Data;//.ToString("yyyy-MM-dd");
+                    ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
+                    Session["stateGiorno"] = null;
+                } else {
+                    ViewBag.Message = "Operazione non consentita";
+                }
+            }else
+                ViewBag.Message="Operazione non consentita";
+            return View("AddGiorno");
+        }
+        public class StateGiorno {
+            public DateTime Data { get; set; }
+            public int Ore { get; set; }
+        }
     }
 }
