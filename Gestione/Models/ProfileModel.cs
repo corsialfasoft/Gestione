@@ -34,7 +34,7 @@ namespace Gestione.Models {
 		IProfilaturaDao profdao = new ProfiloDao();
 		private static ProfileModel Profile;
 		private HttpSessionStateBase session;
-		public Profilo profile {get;}
+		public Profilo profile {get;set;}
 		public static ProfileModel Instance(HttpSessionStateBase session){
 			if(Profile==null) Profile = new ProfileModel();
 			Profile.session= session;
@@ -51,7 +51,8 @@ namespace Gestione.Models {
 		}
 		public Profilo GetProfile(string username,string password){
 			try{
-				return profdao.GetProfile(username,password);
+                profile = profdao.GetProfile(username,password);
+				return profile;
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
