@@ -5,7 +5,6 @@ using DAO;
 using ProfileDao;
 
 namespace Gestione.Models {
-
 	public class Profilo {
 		private const string PROFILE_VARIABLE = "profile";
 		public List<string> Funzioni { get; set;}
@@ -15,12 +14,12 @@ namespace Gestione.Models {
 
 		internal Profilo() { }
 
-		internal Profilo(string matricola,List<string> funzioni,string nome,string cognome){
-			Matricola = matricola;
-			Funzioni = funzioni;
-			Nome = nome;
-			Cognome = cognome;
-		}
+		//internal Profilo(string matricola,List<string> funzioni,string nome,string cognome){
+		//	Matricola = matricola;
+		//	Funzioni = funzioni;
+		//	Nome = nome;
+		//	Cognome = cognome;
+		//}
 		public bool CheckFunction(string functionName) {
 			return Funzioni.Contains(functionName);
 		}
@@ -61,32 +60,3 @@ namespace Gestione.Models {
 		}
 	}
 }
-		//public bool Login(string username,string password) {
-		//	//TODO set profile in session.
-		//	throw new NotImplementedException();
-		//}
-
-		
-	
-	//public class ProfileMock : IProfileModel {
-	//	internal static ProfileMock Instance(HttpSessionStateBase session) {
-	//		return new ProfileMock();
-	//	}
-	//	public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
-	//		try{
-	//			dao.IscrizioneAlPortale(nome, cognome, usr, psw);
-	//		}catch(SystemException){
-	//			throw new Exception("Errore di sistema!");
-	//		}catch(Exception e){
-	//			throw e;
-	//		}
-	//	}
-	//	public Profilo GetProfile() {
-	//		List<string> funzioni = new List<string>(){"RicercaCurriculum"};
-	//		return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
-	//	}
-
-	//	public bool Login(string username,string password) {
-	//		return true;
-	//	}
-	//}

@@ -6,19 +6,12 @@ using System.Web.Mvc;
 using Interfaces;
 using Gestione.Models;
 
-namespace Gestione.Controllers
-{
-
-	
-	public partial class HomeController : Controller
-	{
-		//Profilo P;
-		//TODO Remove
-        //public HomeController(Profilo p) {
-        //    P = p;
-        //}
+namespace Gestione.Controllers{
+	public partial class HomeController : Controller{
+        public ProfileModel pm;
         public HomeController(){
-			//profile = ProfileMock.Instance(Session).GetProfile();
+            HttpSessionStateBase ses =(HttpSessionStateBase)Session["profile"];
+			pm = ProfileModel.Instance(ses);
 		}
 		public ActionResult ElencoCorsi()
 		{

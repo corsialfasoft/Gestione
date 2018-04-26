@@ -17,7 +17,6 @@ namespace Gestione.Controllers {
 
         [HttpPost]
         public ActionResult Iscriviti(string nome,string cognome,string usr,string psw) {
-            ProfileModel pm = new ProfileModel();
             try{
                 pm.IscrizioneAlPortale(nome,cognome,usr,psw);
                 ViewBag.Message = "Utente registrato con successo";
@@ -30,7 +29,6 @@ namespace Gestione.Controllers {
 
         [HttpPost]
         public ActionResult Login(string usr, string psw) {
-            ProfileModel pm = new ProfileModel();
             try{
                 Session["profile"] = pm.GetProfile(usr,psw);
                 return View("MyPage");
