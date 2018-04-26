@@ -21,27 +21,36 @@
 </style>
 <h2>@ViewBag.Title</h2>
 <div class="text-danger container">
-    <h4>@ViewBag.Message</h4>
+    <h4>@ViewBag.Mex</h4>
 </div>
 <br>
-@*@if (ViewBag.AddCommessa == null) {*@
 
-@*}*@
-    <div class="row">
-        <div class=" col-md-6">
-            @using (Html.BeginForm("AddCommessa", "Home", FormMethod.Post)) {
-        <div class="Conteiner">
-            <br><br>
-            Nome Commessa  (*) <input type="text" name="Commessa" placeholder=" - - nome commessa - - " id="commessa" required />
-            <br><br>
-            Descrizione:  (*)  <input type="text" name="DescrCommessa" placeholder=" - descrizione commessa - " id="descrCommessa" required />
-            <br><br>
-            Stima ore:  (*)  <input type="number" name="StimaOre" id="stimaOre" min=0 required />
-            <br><br>
-            <input type="submit" name="addCommessa" value="Aggiungi" />
-            <br><br>
-        </div>
-            }
-            <p>(*) Campi obligatori</p>
-            <br><br>
+@if (ViewBag.AddCommessa != null) {
+    <p>Hai aggiunto la seguente Commessa:</p>
+    <br>
+    <p>Nome:    <b>@ViewBag.AddCommessa.Nome</b></p>
+    <br>
+    <p>Descrizione:    <b>@ViewBag.AddCommessa.Descrizione<</b></p>
+    <br>
+    <p>Stima ore:     <b> @ViewBag.AddCommessa.Capienza</b></p>
+}
+@{ViewBag.AddCommessa = null;}
+
+<div class="row">
+    <div class=" col-md-6">
+        @using (Html.BeginForm("AddCommessa", "Home", FormMethod.Post)) {
+            <div class="Conteiner">
+                <br><br>
+                Nome Commessa  (*) <input type="text" name="Commessa" placeholder=" - - nome commessa - - " id="commessa" required />
+                <br><br>
+                Descrizione:  (*)  <input type="text" name="DescrCommessa" placeholder=" - descrizione commessa - " id="descrCommessa" required />
+                <br><br>
+                Stima ore:  (*)  <input type="number" name="StimaOre" id="stimaOre" min=0 required />
+                <br><br>
+                <input type="submit" name="addCommessa" value="Aggiungi" />
+                <br><br>
+            </div>
+        }
+        <p>(*) Campi obligatori</p>
+        <br><br>
     </div>

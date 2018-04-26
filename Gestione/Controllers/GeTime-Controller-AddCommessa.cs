@@ -12,7 +12,7 @@ namespace Gestione.Controllers {
 		public ActionResult AddCommessa() {
 			return View("AddCommessa");
 		}
-		[HttpGet]       //AGGIUSTARE //FINIRE
+		[HttpPost]       //AGGIUSTARE //FINIRE
 		public ActionResult AddCommessa(string commessa, string descrCommessa, string stimaOre) {
 			try {
 				int oreStimate = 0;
@@ -30,12 +30,12 @@ namespace Gestione.Controllers {
 						//ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
 						//Session["stateGiorno"] = null;
 					} else {
-						ViewBag.Message = "Operazione non consentita";
+						ViewBag.Mex = "Operazione non consentita, commessa già eistente";
 					}
 				} else
-					ViewBag.Message = "Operazione non consentita";
+					ViewBag.Mex = "Operazione non consentita, campi non riempiti correttamente";
 			} catch (Exception e) {
-				ViewBag.Message = e.Message;
+				ViewBag.Mex = e.Message;
 			}
 			return View("AddCommessa");
 		}
