@@ -76,9 +76,10 @@ namespace Gestione.Controllers {
         }
 		 [HttpPost]
         public ActionResult AddComp(string tipo,string livello){
-			Competenza comp = new Competenza();
-			comp.Titolo=tipo;
-			comp.Livello=int.Parse(livello);			
+			Competenza comp = new Competenza {
+				Titolo = tipo,
+				Livello = int.Parse(livello)
+			};
 			dm.AddCompetenze(profile.Matricola,comp);
             ViewBag.CV = dm.Search(profile.Matricola);
 			ModelState.Clear();
@@ -237,13 +238,14 @@ namespace Gestione.Controllers {
 			dm.DelCompetenza(new Competenza {Titolo=titolo,Livello=livello },matricola);
 			Response.Redirect($"/Home/DettCV/{matricola}");
 		}
-		public ActionResult EliminaPerStud(int AI ,int AF , string Ti , string Des){	
-			PerStud ps = new PerStud();
-			ps.AnnoInizio=AI;
-			ps.AnnoFine=AF;
-			ps.Titolo=Ti;
-			ps.Descrizione=Des;
-			
+		public ActionResult EliminaPerStud(int AI ,int AF , string Ti , string Des){
+			PerStud ps = new PerStud {
+				AnnoInizio = AI,
+				AnnoFine = AF,
+				Titolo = Ti,
+				Descrizione = Des
+			};
+
 			dm.DelPerStud(ps,profile.Matricola);
 			ViewBag.CV = dm.Search(profile.Matricola);
 			return View("DettaglioCurriculum");

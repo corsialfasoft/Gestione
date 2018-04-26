@@ -230,6 +230,7 @@
     <Content Include="Views\Home\ModEspLav.cshtml" />
     <Content Include="Views\Home\ModPerStud.cshtml" />
     <Content Include="Views\Home\ModComp.cshtml" />
+    <Content Include="Views\Home\VisualizzaMese.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
