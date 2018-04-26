@@ -468,7 +468,7 @@ namespace DAO {
                 };
                 int RowAffected = DB.ExecNonQProcedure("ModCorso", param, "GeCorsi");
                 if (RowAffected == 0) {
-                    throw new LezionNonModificataException("Non hai modificato la lezione");
+                    throw new Exception("Non hai modificato il corso");
                 }
             } catch (SqlException) {
                 throw new Exception("Errore server!");

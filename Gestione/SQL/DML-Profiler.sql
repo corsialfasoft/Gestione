@@ -93,4 +93,4 @@ INSERT INTO funzioniAssociate(fkRuolo,fkFunzione) VALUES(4,11);
 INSERT INTO funzioniAssociate(fkRuolo,fkFunzione) VALUES(4,12);
 
 
-INSERT INTO utenti(matricola,nome,cognome,username,passwd,fkruolo) VALUES('admin','admin','admin','admin','admin',1);
+INSERT INTO utenti(nome,cognome,username,passwd,fkruolo) VALUES('admin','admin','admin','admin',1);
