@@ -147,6 +147,8 @@ namespace Interfaces {
         public int Capienza { get; set; }
         public int OreLavorate { get; set; }
 
+		public Commessa(){ }
+
         public Commessa(int id, string nome, string descrizione, int capienza, int oreLavorate) {
             Id = id;
             OreLavorate = oreLavorate;

@@ -19,9 +19,14 @@ namespace Gestione.Controllers {
 				bool oreBool = int.TryParse(stimaOre, out oreStimate);
 				if (commessa != null && descrCommessa != null && oreBool != false && oreStimate > 0) {
 					DTCommessa comm = dm.CercaCommessa(commessa);
-					if (comm != null) {
+					if (comm == null) {
+						comm = new DTCommessa();
+						comm.Nome = commessa;
+						comm.Descrizione = descrCommessa;
+						comm.Capienza = oreStimate;
 						dm.AddCommessa(comm);
 						ViewBag.AddCommessa = comm;
+						//ViewBag.AddCommessa = new DTCommessa(){};
 						//ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
 						//Session["stateGiorno"] = null;
 					} else {
