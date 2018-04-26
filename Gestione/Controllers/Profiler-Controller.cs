@@ -7,13 +7,16 @@ using Gestione.Models;
 using Interfaces;
 
 namespace Gestione.Controllers {
-    
     public partial class HomeController : Controller {
         public ActionResult Login() {
             return View();
         }
         public ActionResult Iscriviti() {
             return View();
+        }
+        public ActionResult Logout() {
+            Session["profile"] = null;
+            return View("Index");
         }
 
         [HttpPost]

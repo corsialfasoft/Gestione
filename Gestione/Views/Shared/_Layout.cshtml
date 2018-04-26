@@ -88,7 +88,12 @@
             <a href="/Home/MyPage" class="login-form"><img class="zoom" src="~/ImgResource/CV.png" height="120" width="120" style="padding: 15px 32px;"></a>
         </div>
         <div class="col-xs-6 col-xs-4 col-md-4 col-md-4" style="text-align:right;">
-            <a href="/Home/Login" class="login-form"><button type="submit" class="button" style="float: right; "><span>Login</span></button></a>
+            @if(Session["profile"] == null) {
+                <a href="/Home/Login" class="button" style="float:right";><span>Login</span></a>
+            } else {
+                <a href="/Home/Logout" class="button" style="float:right" ;><span>Logout</span></a>
+            }
+            <!-- <a href="/Home/Login" class="login-form"><button type="submit" class="button" style="float: right; "><span>Login</span></button></a>-->
         </div>
 
 
