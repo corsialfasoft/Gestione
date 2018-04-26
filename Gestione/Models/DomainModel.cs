@@ -116,8 +116,17 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
+        public void ModCorso(Corso corso) {
+            try {
+                dao.ModCorso(corso);
+            } catch (SystemException) {
+                throw new Exception("Errore di sistema!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
 
-		public List<Corso> SearchCorsi(string descrizione,string idUtente){
+        public List<Corso> SearchCorsi(string descrizione,string idUtente){
 			try{
 				return dao.SearchCorsi(descrizione,idUtente);
 			}catch(SystemException){
@@ -270,7 +279,8 @@ namespace Gestione.Models {
 			}
         }
 
-		public DTCommessa CercaCommessa(string nomeCommessa){
+
+        public DTCommessa CercaCommessa(string nomeCommessa){
 			try{ 
 				Commessa commessa = dao.CercaCommessa(nomeCommessa);
 				if(commessa!=null){

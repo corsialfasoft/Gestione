@@ -204,12 +204,42 @@ namespace Gestione.Controllers
 				dm.ModLezione(lezione);
 			} catch(Exception) {
 				ViewBag.Message = "Qualcosa è andato storto.";
-				throw;
 			}
 			Corso s = dm.SearchCorsi(id);			
 			ViewBag.Corso=s;
 			ViewBag.Lezioni = dm.ListaLezioni(s);
 			return View("Corso");
-		} 
+		}
+        public ActionResult ModificaCorso(int idCorso) {
+            Corso Cor = dm.SearchCorsi(idCorso);
+            if (Cor == null) { 
+                ViewBag.Message="Corso non trovato";
+                return View("ElencoCorsi");
+            }
+            ViewBag.Corso=Cor;
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult ModificaCorso(string CorNome, string CorDescrizione, DateTime CorInizio, DateTime CorFine, int idCorso) {
+            if(CorNome.Length>0 && CorDescrizione.Length > 0) { 
+                Corso Corso = new Corso {
+                    Id = idCorso,
+                    Nome = CorNome,
+                    Descrizione = CorDescrizione,
+                    Inizio = CorInizio,
+                    Fine = CorFine
+                };
+                try {
+                    dm.ModCorso(Corso);
+                } catch (Exception) {
+                    ViewBag.Message = "Qualcosa è andato storto.";
+                }         
+            }
+            Corso s = dm.SearchCorsi(idCorso);
+            ViewBag.Corso = s;
+            ViewBag.Lezioni = dm.ListaLezioni(s);
+            return View("Corso");
+        }
     }
 }
