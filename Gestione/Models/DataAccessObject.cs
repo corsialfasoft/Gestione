@@ -43,6 +43,7 @@ namespace DAO {
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		List<Commessa> CercaCommesse(string nomeCommessa);
         Commessa CercaCommessa(string nomeCommessa);
+		void AddCommessa(Commessa commessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
@@ -455,10 +456,9 @@ namespace DAO {
                 throw e;
             }
         }
-
-
-        //GeCo
-        public List<Lezione> ListaLezioni(Corso corso){
+		
+		//GeCo
+		public List<Lezione> ListaLezioni(Corso corso){
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
 				return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezioni,param,"GeCorsi");
