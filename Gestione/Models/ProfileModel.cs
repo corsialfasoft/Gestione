@@ -29,6 +29,7 @@ namespace Gestione.Models {
 	public interface IProfileModel {
 		bool Login(string username, string password);
 		Profilo GetProfile();
+		void IscrizioneAlPortale(string nome,string cognome, string usr,string psw);
 		
 	}
 	public partial class ProfileModel: IProfileModel{
@@ -39,6 +40,15 @@ namespace Gestione.Models {
 			if(Profile==null) Profile = new ProfileModel();
 			Profile.session= session;
 			return Profile;
+		}
+		public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
+			try{
+				dao.IscrizioneAlPortale(nome, cognome, usr,psw);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
 		public Profilo GetProfile() {
@@ -56,7 +66,15 @@ namespace Gestione.Models {
 		internal static ProfileMock Instance(HttpSessionStateBase session) {
 			return new ProfileMock();
 		}
-
+		public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
+			try{
+				dao.IscrizioneAlPortale(nome, cognome, usr, psw);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
 		public Profilo GetProfile() {
 			List<string> funzioni = new List<string>(){"RicercaCurriculum"};
 			return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
