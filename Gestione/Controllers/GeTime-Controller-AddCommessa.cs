@@ -12,13 +12,15 @@ namespace Gestione.Controllers {
 		public ActionResult AddCommessa() {
 			return View("AddCommessa");
 		}
-		[HttpPost]       //AGGIUSTARE //FINIRE
+		[HttpPost]
 		public ActionResult AddCommessa(string commessa, string descrCommessa, string stimaOre) {
 			try {
 				int oreStimate = 0;
+				DTCommessa comm = null;
+				ViewBag.AddCommessa = null;
 				bool oreBool = int.TryParse(stimaOre, out oreStimate);
 				if (commessa != null && descrCommessa != null && oreBool != false && oreStimate > 0) {
-					DTCommessa comm = dm.CercaCommessa(commessa);
+					comm = dm.CercaCommessa(commessa);
 					if (comm == null) {
 						comm = new DTCommessa();
 						comm.Nome = commessa;
@@ -26,11 +28,8 @@ namespace Gestione.Controllers {
 						comm.Capienza = oreStimate;
 						dm.AddCommessa(comm);
 						ViewBag.AddCommessa = comm;
-						//ViewBag.AddCommessa = new DTCommessa(){};
-						//ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
-						//Session["stateGiorno"] = null;
 					} else {
-						ViewBag.Mex = "Operazione non consentita, commessa già eistente";
+						ViewBag.Mex = "Operazione non consentita, commessa già esistente";
 					}
 				} else
 					ViewBag.Mex = "Operazione non consentita, campi non riempiti correttamente";
