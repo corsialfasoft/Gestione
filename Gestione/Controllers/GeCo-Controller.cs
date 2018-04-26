@@ -6,18 +6,13 @@ using System.Web.Mvc;
 using Interfaces;
 using Gestione.Models;
 
-namespace Gestione.Controllers
-{
-
-	
-	public partial class HomeController : Controller
-	{
-		
+namespace Gestione.Controllers{
+	public partial class HomeController : Controller{
+        //public ProfileModel pm;
         public HomeController(){
-			
+			profile = ProfileModel.Instance(Session).profile;
 		}
-		public ActionResult ElencoCorsi()
-		{
+		public ActionResult ElencoCorsi(){
 			ViewBag.Controllo = null;
 			List<Corso> ris = dm.ListaCorsi();
 			if(ris != null) {
@@ -28,8 +23,7 @@ namespace Gestione.Controllers
 			return View();
 		}
 		[HttpPost]
-		public ActionResult ElencoCorsi(bool mieiCorsi,string descrizione, string id)
-		{
+		public ActionResult ElencoCorsi(bool mieiCorsi,string descrizione, string id){
 			if(mieiCorsi){
 				if(int.TryParse(id, out int output)){
 					Corso c = dm.SearchCorsi(output);
@@ -90,16 +84,14 @@ namespace Gestione.Controllers
 				}
 			}			
 		}
-		public ActionResult ElencoCorso(int id)
-		{
+		public ActionResult ElencoCorso(int id){
 			Corso c = dm.SearchCorsi(id);
 			List<Corso> res = new List<Corso> { c };
 			ViewBag.Corsi = res;
 			return View("ElencoCorsi");
 		}
 		[HttpPost]
-		public ActionResult AddCorso(string _nome,string _descrizione,DateTime _inizio,DateTime _fine)
-		{
+		public ActionResult AddCorso(string _nome,string _descrizione,DateTime _inizio,DateTime _fine){
 			string prossimo;
 			Corso temp = new Corso { Nome = _nome,Descrizione = _descrizione,Inizio = _inizio,Fine = _fine };
 			try {
@@ -112,13 +104,11 @@ namespace Gestione.Controllers
 			}
 			return View(prossimo);
 		}
-		public ActionResult AddCorso()
-		{
+		public ActionResult AddCorso(){
 			return View();
 		}
 		[HttpPost]
-		public ActionResult AddLezione(string LezNome,string LezDescrizione,int LezDurata,int id)
-		{
+		public ActionResult AddLezione(string LezNome,string LezDescrizione,int LezDurata,int id){
 			Lezione lez = new Lezione {
 				Nome = LezNome,
 				Descrizione = LezDescrizione,
@@ -129,34 +119,28 @@ namespace Gestione.Controllers
 			ViewBag.Message = "Lezione aggiunta correttamente";
 			return View();
 		}
-		public ActionResult Index()
-		{
+		public ActionResult Index(){
 			return View();
 		}
-		public ActionResult AddLezione(int id)
-		{
+		public ActionResult AddLezione(int id){
 			ViewBag.Message = id;
 			ViewBag.CorsoId = id;
 			return View();
 		}
-		public ActionResult About()
-		{
+		public ActionResult About(){
 			ViewBag.Message = "Your application description page.";
 			return View();
 		}
-		public ActionResult Contact()
-		{
+		public ActionResult Contact(){
 			ViewBag.Message = "Your contact page.";
 			return View();
 		}
-		public ActionResult ElencoCorsiStudente(string matricola)
-		{
+		public ActionResult ElencoCorsiStudente(string matricola){
 			List<Corso> corso = dm.ListaCorsi(matricola);
 			ViewBag.CorsiStudente = corso;
 			return View();
 		}
-		public ActionResult Corso(int id)
-		{
+		public ActionResult Corso(int id){
 			Corso scelto = dm.SearchCorsi(id);
 			List<Lezione> lezions = dm.ListaLezioni(scelto);
 			ViewBag.Corso = scelto;
@@ -173,8 +157,7 @@ namespace Gestione.Controllers
 			}
 			return View("ElencoCorsi");
 		}
-		public ActionResult ModificaLezione(string nomeLezione,int idLezione,string descrizioneLezione,int durataLezione,int id)
-		{
+		public ActionResult ModificaLezione(string nomeLezione,int idLezione,string descrizioneLezione,int durataLezione,int id){
 			Lezione a = new Lezione {
 				Nome = nomeLezione,
 				Id = idLezione,
@@ -188,8 +171,7 @@ namespace Gestione.Controllers
 			return View();
 		}
 		[HttpPost]
-		public ActionResult ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int id)
-		{
+		public ActionResult ModificaLezionePost(string LezNome,string LezDescrizione,int LezDurata,int idLezione,int id){
 			Lezione lezione = new Lezione {
 				Id = idLezione,
 				Nome = LezNome,

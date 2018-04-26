@@ -9,7 +9,7 @@ using Interfaces;
 namespace Gestione.Controllers {
     public partial class HomeController : Controller {
 		private Profilo profile;
-		private const string FunctionRicercaCurriculum = "RicercaCurriculum";
+ 		//private const string FunctionRicercaCurriculum = "RicercaCurriculum";
 
 		public ActionResult ListaCurriculum(){
 			return View();
@@ -146,12 +146,12 @@ namespace Gestione.Controllers {
             CV temp = dm.Search(id); 
             string prossimo ;
             try{ 
-                dm.EliminaCV(temp);
-                ViewBag.Message = "Curriculum eliminato con successo";
-
-				if(profile.CheckFunction(FunctionRicercaCurriculum)){ 
-                    prossimo = FunctionRicercaCurriculum;
+				if(profile.CheckFunction("EliminaCv")){ 
+                    dm.EliminaCV(temp);
+                    ViewBag.Message = "Curriculum eliminato con successo";
+                    prossimo = "RicercaCurriculum";
                 }else{
+                    ViewBag.Message = "Curriculum eliminato con successo";
                     prossimo = "MyPage";  
                 }
             }catch(Exception){ 

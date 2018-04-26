@@ -198,7 +198,7 @@ namespace DAO{
 
         public List<string> TransfInFunzioni(SqlDataReader data) {
             List<string> result = new List<string>();
-            if(data.Read()){
+            while(data.Read()){
                 result.Add(data.GetValue(0) == DBNull.Value ? "" : data.GetString(0));
             }
             return result;
