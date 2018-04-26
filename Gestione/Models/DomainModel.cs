@@ -279,7 +279,6 @@ namespace Gestione.Models {
 			}
         }
 
-
         public DTCommessa CercaCommessa(string nomeCommessa){
 			try{ 
 				Commessa commessa = dao.CercaCommessa(nomeCommessa);

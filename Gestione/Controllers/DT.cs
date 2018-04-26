@@ -8,8 +8,7 @@ using Interfaces;
 
 namespace Gestione.Controllers {
     
-    public partial class HomeController : Controller {
-        
+    public partial class HomeController : Controller {        
         public CV InitForseCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
 			CV cv = new CV {
 				Nome = nome,

@@ -12,13 +12,9 @@ namespace Gestione.Controllers
 	
 	public partial class HomeController : Controller
 	{
-		//Profilo P;
-		//TODO Remove
-        //public HomeController(Profilo p) {
-        //    P = p;
-        //}
+		
         public HomeController(){
-			//profile = ProfileMock.Instance(Session).GetProfile();
+			
 		}
 		public ActionResult ElencoCorsi()
 		{
