@@ -51,7 +51,7 @@ namespace Gestione.Models {
 		}
 		public Profilo GetProfile(string username,string password){
 			try{
-			return profdao.GetProfile(username,password);
+				return profdao.GetProfile(username,password);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
