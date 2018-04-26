@@ -1,13 +1,7 @@
-﻿@section Scripts{
-    <link href="~/Content/corso.css" rel="stylesheet" />
-}
+﻿@section Scripts{    <link href="~/Content/corso.css" rel="stylesheet" />}
 
-@{
-    ViewBag.Title = "Elenco Corsi";
-}
-
+@{    ViewBag.Title = "Elenco Corsi";}
 <style>
-
     #myElencoCorsi {
         position: fixed;
         bottom: 259px;
@@ -21,7 +15,6 @@
         border-radius: 10px;
         font-size: 13px;
     }
-
     #myAddCorsi {
         position: fixed;
         bottom: 210px;
@@ -41,14 +34,30 @@
     <h1 style="padding-left:15px">@ViewBag.Title</h1>
     <div>
         <h4 style="padding-left:30px">@ViewBag.Message</h4>
-        <div style="float:right; padding-bottom:10px; padding-right:30px; text-align:right" class="col-lg-6">
+        <div style="float:right; padding-bottom:10px; text-align:right" class="col-lg-6">
             @using (Html.BeginForm("ElencoCorsi", "Home", FormMethod.Post)) {
-                <label>Cerca Tra I Miei Corsi</label>
                 <!-- input type="checkbox" name="mieiCorsi"  value="true" id="mieiCorsi"  />-->
-                @Html.CheckBox("mieiCorsi", true)
-                <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" style="border-radius:4px;" />
+                <table align="right">
+                    <tr>
+                        <th> <input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" style="border-radius:4px;" /></th>
+                        <th  ><input type="text" name="id" id="id" placeholder="Inserisci id" style="border-radius:4px;" /></th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td align="right">
+                        Cerca Tra I Miei Corsi    @Html.CheckBox("mieiCorsi", true)
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td align="right"><input type="submit" value="Cerca"></td>
+                    </tr>
+                </table>
+                @*<input type="text" name="descrizione" id="descrizione" placeholder="Inserisci la descrizione" style="border-radius:4px;" />
                 <input type="text" name="id" id="id" placeholder="Inserisci id" style="border-radius:4px;" />
-                <input type="submit" value="Cerca">
+                <label>Cerca Tra I Miei Corsi</label>
+                @Html.CheckBox("mieiCorsi", true)
+                <input type="submit" value="Cerca">*@
             }
         </div>
     </div>

@@ -2,41 +2,91 @@
 <html>
 <head>
     <style>
-        #myBtn {
-            display: none;
-            position: fixed;
-            bottom: 5%;
-            left: 10%;
-            z-index: 99;
-            font-size: 18px;
+        body{
+            overflow-x:hidden;
+        }
+        .zoom:hover {
+            box-shadow: 0px 0px 0px #000000;
+            z-index: 2;
+            -webkit-transition: all 200ms ease-in;
+            -webkit-transform: scale(1.2);
+            transition: all 200ms ease-in;
+            -ms-transform: scale(1.2);
+            -moz-transition: all 200ms ease-in;
+            -moz-transform: scale(1.2);
+            transition: all 200ms ease-in;
+            transform: scale(1.1);
+        }
+        .button {
+            background-color: Black;
             border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 4px;
+            color: white;
+            padding: 15px 32px;
+            margin-right:3%;
+            margin-top:4%;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 15px;
         }
-            #myBtn:hover {
-                background-color: lightgray;
-            }
-        .img{
-            padding-left:0px; 
-            padding-top:0px; 
-        }
-        .row {
-            padding: 2px;
-            text-align: left;
-            border-bottom: 2px solid black;
-        }
-        .image {
-            margin-top: 15px;
-            width: 100px;
-            height: 100px;
-        }
-        .tre{
-         padding-left:5%;
-         padding-right:5%;
-        }
-       
+    .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+    .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
+
+    .button:hover span {
+        padding-right: 25px;
+    }
+
+    .button:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+    #myBtn {
+        display: none;
+        position: fixed;
+        bottom: 5%;
+        left: 10%;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+    }
+    #myBtn:hover {
+      background-color: lightgray;
+    }
+    .img{
+        padding-left:0px;
+        padding-top:0px;
+    }
+    .row {
+        padding: 2px;
+        text-align: left;
+        border-bottom: 2px solid black;
+    }
+    .image {
+        margin-top: 15px;
+        width: 100px;
+        height: 100px;
+    }
+    .tre{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
     </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
@@ -48,18 +98,26 @@
 <body style="padding-top:0px;">
    <div class="row">
 
-       <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
            <a href="/Home/Index" class="navbar-brand">
                <img src="~/ImgResource/Logo.jpg" height="100" width="200">
            </a>
-           <div class="collapse navbar-collapse " id="navbarSupportedContent" style="padding-left:30%;">    
-                        <a class="nav-link tre"href="/Home/ElencoCorsi"><img  class="image" src="~/ImgResource/IconCorsi.jpg"  > </a>
-                   
-                        <a class="nav-link tre"href="/Home/GeTimeHome" ><img class="image" src="~/ImgResource/Ore.jpg"  ></a>
-                   
-                        <a class="nav-link tre" href="/Home/MyPage"><img class="image" src="~/ImgResource/CV.png" ></a>
-               </div>
-</nav>
+           <div class="collapse navbar-collapse " id="navbarSupportedContent" style="padding-left:30%;">
+               <a class="nav-link tre " href="/Home/ElencoCorsi"><img class="image zoom" src="~/ImgResource/IconCorsi.jpg"> </a>
+
+               <a class="nav-link tre " href="/Home/GeTimeHome"><img class="image zoom" src="~/ImgResource/Ore.jpg"></a>
+
+               <a class="nav-link tre " href="/Home/MyPage"><img class="image zoom" src="~/ImgResource/CV.png"></a>
+
+               <a href="/Home/Login" class="nav-link login-form"  style="text-align:right;">
+                   <button type="submit" class="button" style="float: right; ">
+                       <span>Login</span>
+                   </button>
+               </a>
+           </div>
+           
+          
+       </nav>
    </div>
         <div class="container body-content">
             @RenderBody()
