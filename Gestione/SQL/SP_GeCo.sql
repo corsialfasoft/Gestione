@@ -77,3 +77,15 @@ as
 	set nome=@nome,descrizione=@descrizione,durata=@durata
 	where id=@idLezione;
 go
+-- Nauman
+Create procedure ModCorso
+	@idCorso int,
+	@nome nvarchar(200),
+	@descrizione nvarchar(50),
+	@inizio date,
+	@fine date
+as
+	Update Corsi 
+	set nome=@nome,descrizione=@descrizione,dInizio=@inizio,dFine=@fine
+	where id=@idCorso;
+go

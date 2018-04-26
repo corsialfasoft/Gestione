@@ -456,8 +456,28 @@ namespace DAO {
 			} catch(Exception e){
 				throw e;
 			}
-		}		
-		public void AddLezione(int idCorso,Lezione lezione){
+		}
+        public void ModCorso(Corso corso) {
+            try {
+                SqlParameter[] param = {
+                    new SqlParameter("@idCorso",corso.Id),
+                    new SqlParameter("@nome",corso.Nome),
+                    new SqlParameter("@descrizione",corso.Descrizione),
+                    new SqlParameter("@inizio",corso.Inizio),
+                    new SqlParameter("@fine",corso.Fine)
+                };
+                int RowAffected = DB.ExecNonQProcedure("ModCorso", param, "GeCorsi");
+                if (RowAffected == 0) {
+                    throw new LezionNonModificataException("Non hai modificato la lezione");
+                }
+            } catch (SqlException) {
+                throw new Exception("Errore server!");
+            } catch (Exception e) {
+                throw e;
+            }
+
+        }
+        public void AddLezione(int idCorso,Lezione lezione){
 			try{
 				SqlParameter[] param = {
 					new SqlParameter ("@idCorsi", idCorso),
@@ -626,7 +646,9 @@ namespace DAO {
 			};
 			return builder.ToString();
         }
-	}
+
+        
+    }
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
 		public LezionNonModificataException() {}

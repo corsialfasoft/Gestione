@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Modifica Corso";
+}
+<h2>@ViewBag.Message</h2>
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("ModificaCorso", "Home", FormMethod.Post)) {
+    <div class="row">
+        <div class="col-md-6">
+            <label>Nome</label>
+            <input name="CorNome" value="@ViewBag.Corso.Nome" />
+        </div>
+         <div class="col-md-3">
+            <input type="submit" value="Modifica" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label>Descrizione</label>
+            <textarea name="CorDescrizione" rows="4" cols="50" required>@ViewBag.Corso.Descrizione</textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <label class="col-md-1">Inizio</label>
+            <input class="col-md-2" name="CorInizio" value="@ViewBag.Corso.Inizio.ToString("yyyy-MM-dd")" type="date" required />
+        </div>
+    </div>
+    <div class="row">
+        <div >
+            <label class="col-md-1">Fine</label>
+            <input class="col-md-2" name="CorFine" value="@ViewBag.Corso.Fine.ToString("yyyy-MM-dd")" type="date" required />
+            <input name="idCorso" type="hidden" value="@ViewBag.Corso.Id" />
+        </div>
+    </div>
+
+}
