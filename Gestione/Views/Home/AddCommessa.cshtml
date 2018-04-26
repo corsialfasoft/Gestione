@@ -1,0 +1,45 @@
+﻿@using Gestione.Controllers;
+@{
+    ViewBag.Title = "Aggiungi Commessa";
+}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<h2>@ViewBag.Title</h2>
+<div class="text-danger container">
+    <h4>@ViewBag.Message</h4>
+</div>
+<br>
+@*@if (ViewBag.ListaCommesse == null) {*@
+    <div class="row">
+        <div class=" col-md-6">
+            @using (Html.BeginForm("AddCommessa", "Home", FormMethod.Post)) {
+        <div class="Conteiner">
+            <br><br>
+            Nome Commessa  (*) <input type="text" name="Commessa" placeholder=" - - nome commessa - - " id="commessa" required />
+            <br><br>
+            Descrizione:  (*)  <input type="text" name="DescrCommessa" placeholder=" - descrizione commessa - " id="descrCommessa" required />
+            <br><br>
+            Stima ore:  (*)  <input type="number" name="StimaOre" id="stimaOre" min=0 required />
+            <br><br>
+            <input type="submit" name="addCommessa" value="Aggiungi" />
+            <br><br>
+        </div>
+            }
+            <p>(*) Campi obligatori</p>
+            <br><br>
+    </div>

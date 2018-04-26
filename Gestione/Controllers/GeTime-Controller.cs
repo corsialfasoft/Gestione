@@ -198,5 +198,8 @@ namespace Gestione.Controllers {
             public DateTime Data { get; set; }
             public int Ore { get; set; }
         }
-    }
+		public ActionResult AddCommessa() {
+			return View("AddCommessa");
+		}
+	}
 }
