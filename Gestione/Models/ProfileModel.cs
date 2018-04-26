@@ -31,8 +31,9 @@ namespace Gestione.Models {
 
 	
 	public interface IProfileModel {
-		//bool Login(string username, string password);
-		Profilo GetProfile(string username,string password);
+		bool Login(string username, string password);
+		Profilo GetProfile();
+		void IscrizioneAlPortale(string nome,string cognome, string usr,string psw);
 		
 	}
 	public partial class ProfileModel: IProfileModel{
@@ -45,39 +46,41 @@ namespace Gestione.Models {
 			Profile.session= session;
 			return Profile;
 		}
+		public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
+			try{
+				dao.IscrizioneAlPortale(nome, cognome, usr,psw);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
 
 		//public bool Login(string username,string password) {
 		//	//TODO set profile in session.
 		//	throw new NotImplementedException();
 		//}
 
-		public Profilo GetProfile(string username,string password){
+		
+	}
+
+	public class ProfileMock : IProfileModel {
+		internal static ProfileMock Instance(HttpSessionStateBase session) {
+			return new ProfileMock();
+		}
+		public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
 			try{
-				SqlParameter[] param = {new SqlParameter("@usr", username),
-                    new SqlParameter("@pass",password)};
-				Profilo output = DB.ExecQProcedureReader("GetProfile",transf.TransfInProfilo,param, "Profilatura");
-				SqlParameter[] paramss = {new SqlParameter("@usr", username),
-                    new SqlParameter("@pass",password)};
-                List<string> funzioni =  DB.ExecQProcedureReader("GetFunzioni",transf.TransfInFunzioni,paramss, "Profilatura");
-                output.Funzioni = funzioni;
-				return output;
-			} catch(SqlException){
-				throw new Exception("Errore server!");
-			} catch(Exception e){
+				dao.IscrizioneAlPortale(nome, cognome, usr, psw);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
 				throw e;
 			}
 		}
-	}
-
-	//public class ProfileMock : IProfileModel {
-	//	internal static ProfileMock Instance(HttpSessionStateBase session) {
-	//		return new ProfileMock();
-	//	}
-
-	//	public Profilo GetProfile() {
-	//		List<string> funzioni = new List<string>(){"RicercaCurriculum"};
-	//		return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
-	//	}
+		public Profilo GetProfile() {
+			List<string> funzioni = new List<string>(){"RicercaCurriculum"};
+			return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
+		}
 
 	//	public bool Login(string username,string password) {
 	//		return true;
