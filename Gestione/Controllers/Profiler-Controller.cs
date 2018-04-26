@@ -31,9 +31,9 @@ namespace Gestione.Controllers {
 
         [HttpPost]
         public ActionResult Login(string usr, string psw) {
-            DomainModel dm = new DomainModel();
+            ProfileModel pm = new ProfileModel();
             try{
-                //Session["profile"] = dm.GetProfile(usr,psw);
+                Session["profile"] = pm.GetProfile(usr,psw);
                 return View("MyPage");
             } catch(Exception) {
                 ViewBag.Message = "Login e password non validi";

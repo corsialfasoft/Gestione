@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using Gestione.Controllers;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using LibreriaDB;
+using DAO;
 
 namespace Gestione.Models {
 
 	public class Profilo {
 		private const string PROFILE_VARIABLE = "profile";
-		private List<String> Funzioni { get; }
-		public string Matricola { get; }
-		public string Nome { get; }
-		public string Cognome { get; }
+		public List<string> Funzioni { get; set;}
+		public string Matricola { get; set; }
+		public string Nome { get; set;}
+		public string Cognome { get; set;}
 
 		internal Profilo() { }
 
-		internal Profilo(string matricola,List<String> funzioni,string nome,string cognome){
+		internal Profilo(string matricola,List<string> funzioni,string nome,string cognome){
 			Matricola = matricola;
 			Funzioni = funzioni;
 			Nome = nome;
@@ -27,11 +31,12 @@ namespace Gestione.Models {
 
 	
 	public interface IProfileModel {
-		bool Login(string username, string password);
-		Profilo GetProfile();
+		//bool Login(string username, string password);
+		Profilo GetProfile(string username,string password);
 		
 	}
 	public partial class ProfileModel: IProfileModel{
+        ITrasformer transf = new Trasformator();
 		private static ProfileModel Profile;
 		private HttpSessionStateBase session;
 		public Profilo profile {get;}
@@ -41,31 +46,43 @@ namespace Gestione.Models {
 			return Profile;
 		}
 
-		public Profilo GetProfile() {
-			//todo if not set load default profile
-			throw new NotImplementedException();
-		}
+		//public bool Login(string username,string password) {
+		//	//TODO set profile in session.
+		//	throw new NotImplementedException();
+		//}
 
-		public bool Login(string username,string password) {
-			//TODO set profile in session.
-			throw new NotImplementedException();
+		public Profilo GetProfile(string username,string password){
+			try{
+				SqlParameter[] param = {new SqlParameter("@usr", username),
+                    new SqlParameter("@pass",password)};
+				Profilo output = DB.ExecQProcedureReader("GetProfile",transf.TransfInProfilo,param, "Profilatura");
+				SqlParameter[] paramss = {new SqlParameter("@usr", username),
+                    new SqlParameter("@pass",password)};
+                List<string> funzioni =  DB.ExecQProcedureReader("GetFunzioni",transf.TransfInFunzioni,paramss, "Profilatura");
+                output.Funzioni = funzioni;
+				return output;
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
 		}
 	}
 
-	public class ProfileMock : IProfileModel {
-		internal static ProfileMock Instance(HttpSessionStateBase session) {
-			return new ProfileMock();
-		}
+	//public class ProfileMock : IProfileModel {
+	//	internal static ProfileMock Instance(HttpSessionStateBase session) {
+	//		return new ProfileMock();
+	//	}
 
-		public Profilo GetProfile() {
-			List<string> funzioni = new List<string>(){"RicercaCurriculum"};
-			return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
-		}
+	//	public Profilo GetProfile() {
+	//		List<string> funzioni = new List<string>(){"RicercaCurriculum"};
+	//		return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
+	//	}
 
-		public bool Login(string username,string password) {
-			return true;
-		}
-	}
+	//	public bool Login(string username,string password) {
+	//		return true;
+	//	}
+	//}
 
 
 }

@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Gestione.Models;
+using Interfaces;
 using LibreriaDB;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace DAO{
 		List<EspLav> TransfInListEspLav(SqlDataReader data);
 		Lezione TrasformInLezione(SqlDataReader data);
         List<Lezione> TrasformInLezioni(SqlDataReader data);
+        Profilo TransfInProfilo(SqlDataReader data);
+        List<string> TransfInFunzioni(SqlDataReader data);
     }
 	public class Trasformator :ITrasformer{
         //GeCo
@@ -180,5 +183,25 @@ namespace DAO{
 		public List<EspLav> TransfInListEspLav(SqlDataReader data){
 			return DB.TrasformInList(data, TransEspLav);
 		}
-	}
+
+        public Profilo TransfInProfilo(SqlDataReader data) {
+            Profilo result = null;
+            if(data.Read()){
+                result = new Profilo{ 
+                    Matricola = data.GetValue(0) == DBNull.Value ? "" : data.GetString(0),
+                    Nome = data.GetValue(0) == DBNull.Value ? "" : data.GetString(1),
+                    Cognome = data.GetValue(0) == DBNull.Value ? "" : data.GetString(2),
+                    };
+            }
+            return result;
+        }
+
+        public List<string> TransfInFunzioni(SqlDataReader data) {
+            List<string> result = new List<string>();
+            if(data.Read()){
+                result.Add(data.GetValue(0) == DBNull.Value ? "" : data.GetString(0));
+            }
+            return result;
+        }
+    }
 }	
