@@ -57,6 +57,7 @@ namespace Gestione.Controllers {
                 ViewBag.Message = "Formato inserito non corretto";
                 return View("MyPage");
             }
+            return View($"MyPage");
         }
 		 [HttpPost]
         public ActionResult ModEspLav(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp){
