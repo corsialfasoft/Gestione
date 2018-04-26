@@ -116,27 +116,30 @@
     <div id="id01">
         <h3>@ViewBag.Message</h3>
         @using(Html.BeginForm("Iscriviti","Home",FormMethod.Post)) {
-            <div class="containerss">
-                <h1>Iscriviti</h1>
-                <p>La prego di compilare il form per l'iscrizione al portale</p>
-                <hr>
+        <div class="containerss">
+            <h1>Iscriviti</h1>
+            <p>La prego di compilare il form per l'iscrizione al portale</p>
+            <hr>
 
-                <label><b>Nome:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></label>
-                <input type="text" placeholder="Inserisci il nome" name="nome" required><br>
+            <label><b>Nome:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></label>
+            <input type="text" placeholder="Inserisci il nome" name="nome" required><br>
 
-                <label><b>Cognome:&nbsp&nbsp&nbsp&nbsp</b></label>
-                <input type="text" placeholder="Inserisci il cognome" name="cognome" required><br>
+            <label><b>Cognome:&nbsp&nbsp&nbsp&nbsp</b></label>
+            <input type="text" placeholder="Inserisci il cognome" name="cognome" required><br>
 
-                <label><b>Username:&nbsp&nbsp&nbsp&nbsp</b></label>
-                <input type="text" placeholder="Inserisci l'username" name="usr" required><br>
+            <label><b>Username:&nbsp&nbsp&nbsp&nbsp</b></label>
+            <input type="text" placeholder="Inserisci l'username" name="usr" required><br>
 
-                <label><b>Password:&nbsp&nbsp&nbsp&nbsp</b></label>
-                <input type="password" placeholder="Inserisci la password" name="psw" required><br>
-                <div class="clearfix">
-                    <button type="button" class="cancelbtn">Annulla</button>
-                    <button type="submit" class="signupbtn">Iscriviti</button>
-                </div>
+            <label><b>Password:&nbsp&nbsp&nbsp&nbsp</b></label>
+            <input type="password" placeholder="Inserisci la password" name="psw" required><br>
+            <div class="clearfix">
+                <button type="button" class="cancelbtn">Annulla</button>
+                <button type="submit" class="signupbtn">Iscriviti</button>
             </div>
+            <div>
+                <p>Se sei già iscritto vai al <a href="/Home/Login">Login</a></p>
+            </div>
+        </div>
         }
     </div>
 </div>
