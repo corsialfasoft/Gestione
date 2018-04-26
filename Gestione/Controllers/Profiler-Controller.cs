@@ -20,7 +20,7 @@ namespace Gestione.Controllers {
         public ActionResult Iscriviti(string nome,string cognome,string usr,string psw) {
             DomainModel dm = new DomainModel();
             try{
-                //dm.IscrizioneAlPortale(nome,cognome,usr,psw);
+                dm.IscrizioneAlPortale(nome,cognome,usr,psw);
                 ViewBag.Message = "Utente registrato con successo";
                 return View("Index");
             } catch(Exception) {
@@ -31,9 +31,9 @@ namespace Gestione.Controllers {
 
         [HttpPost]
         public ActionResult Login(string usr, string psw) {
-            DomainModel dm = new DomainModel();
+            ProfileModel pm = new ProfileModel();
             try{
-                //Session["profile"] = dm.GetProfile(usr,psw);
+                Session["profile"] = dm.GetProfile(usr,psw);
                 return View("MyPage");
             } catch(Exception) {
                 ViewBag.Message = "Login e password non validi";

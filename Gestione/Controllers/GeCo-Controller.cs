@@ -18,7 +18,7 @@ namespace Gestione.Controllers
         //    P = p;
         //}
         public HomeController(){
-			profile = ProfileMock.Instance(Session).GetProfile();
+			//profile = ProfileMock.Instance(Session).GetProfile();
 		}
 		public ActionResult ElencoCorsi()
 		{
