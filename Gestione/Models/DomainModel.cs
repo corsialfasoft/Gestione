@@ -334,15 +334,33 @@ namespace Gestione.Models {
 		}
 
 		public void DelEspLav(EspLav espLav,string matricola) {
-			dao.DelEspLav(espLav,matricola);
-		}
+			try{
+				dao.DelEspLav(espLav,matricola);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}		
 
 		public void DelCompetenza(Competenza comp,string matricola) {
-			dao.DelCompetenza(comp , matricola);
-		}
+			try{
+				dao.DelCompetenza(comp , matricola);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}		
 
 		public void DelPerStud(PerStud ps,string matricola) {
-			dao.DelPerStud(ps,matricola);
+			try{
+				dao.DelPerStud(ps,matricola);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}		
 		}
 	}
 }

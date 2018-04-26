@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Gestione.Models;
-using Interfaces;
 
 namespace Gestione.Controllers {
-    
-    public partial class HomeController : Controller {
+
+	public partial class HomeController : Controller {
         public ActionResult Login() {
             return View();
         }
@@ -18,9 +14,9 @@ namespace Gestione.Controllers {
 
         [HttpPost]
         public ActionResult Iscriviti(string nome,string cognome,string usr,string psw) {
-            DomainModel dm = new DomainModel();
+            ProfileModel pm = new ProfileModel();
             try{
-                dm.IscrizioneAlPortale(nome,cognome,usr,psw);
+                pm.IscrizioneAlPortale(nome,cognome,usr,psw);
                 ViewBag.Message = "Utente registrato con successo";
                 return View("Index");
             } catch(Exception) {
@@ -33,7 +29,7 @@ namespace Gestione.Controllers {
         public ActionResult Login(string usr, string psw) {
             ProfileModel pm = new ProfileModel();
             try{
-                Session["profile"] = dm.GetProfile(usr,psw);
+                Session["profile"] = pm.GetProfile(usr,psw);
                 return View("MyPage");
             } catch(Exception) {
                 ViewBag.Message = "Login e password non validi";

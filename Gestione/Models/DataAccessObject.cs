@@ -557,26 +557,35 @@ namespace DAO {
 		public void DelEspLav(EspLav espLav,string matricola) {
 			SqlConnection con= new SqlConnection(GetStringBuilderCV());
 			try {
-				con.Open();
-				SqlCommand command = new SqlCommand("DelEspLav",con);
-				command.CommandType=CommandType.StoredProcedure;
-				command.Parameters.Add("@annoIdaDel",SqlDbType.Int).Value=espLav.AnnoInizio;
-				command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
-				command.Parameters.Add("@qualificaDaDel",SqlDbType.NVarChar).Value=espLav.Qualifica;
-				command.Parameters.Add("@descrDaDel",SqlDbType.NVarChar).Value=espLav.Descrizione;
-				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
-                int x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
-					throw new Exception("Nessuna Esperienza eliminata");
-					}
-				
-			}catch(Exception e) {
+				SqlParameter[] param = { new SqlParameter("@annoIdaDel", espLav.AnnoInizio),
+										new SqlParameter("@annoFdaDel", espLav.AnnoFine),
+										new SqlParameter("@qualificaDaDel", espLav.Qualifica),
+										new SqlParameter("@descrDaDel", espLav.Descrizione),
+										new SqlParameter("@matricola", matricola)
+										};
+				DB.ExecNonQProcedure("DelEspLav",param,"GECV");
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
 				throw e;
-			}finally {
-				con.Dispose();
 			}
 		}
+				//con.Open();
+				//SqlCommand command = new SqlCommand("DelEspLav",con) {
+				//	CommandType = CommandType.StoredProcedure
+				//};
+				//command.Parameters.Add("@annoIdaDel",SqlDbType.Int).Value=espLav.AnnoInizio;
+				//command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
+				//command.Parameters.Add("@qualificaDaDel",SqlDbType.NVarChar).Value=espLav.Qualifica;
+				//command.Parameters.Add("@descrDaDel",SqlDbType.NVarChar).Value=espLav.Descrizione;
+				//command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
+				// int x = command.ExecuteNonQuery();
+				//command.Dispose();
+				//if (x == 0) { 
+				//	throw new Exception("Nessuna Esperienza eliminata");
+				//	}
+				
+			
 
 		public void DelCompetenza(Competenza comp,string matricola) {
 			SqlConnection con= new SqlConnection(GetStringBuilderCV());

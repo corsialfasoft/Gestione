@@ -129,7 +129,7 @@ namespace Gestione.Controllers {
 		[HttpPost]
        public ActionResult ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono) {
 			try{
-              if(profile.Matricola!=null){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+              if(profile.Matricola!=null){ 
 					CV c = InitForseCV(nome,cognome,eta,email,residenza,telefono);
 					c.Matricola=profile.Matricola;
                     dm.ModificaCV(c);   
@@ -149,7 +149,7 @@ namespace Gestione.Controllers {
                 dm.EliminaCV(temp);
                 ViewBag.Message = "Curriculum eliminato con successo";
 
-				if(profile.CheckFunction(FunctionRicercaCurriculum)){ //ATTENZIONE DA RIVEDERE QUANDO CI SARA' LA PROFILATURA
+				if(profile.CheckFunction(FunctionRicercaCurriculum)){ 
                     prossimo = FunctionRicercaCurriculum;
                 }else{
                     prossimo = "MyPage";  

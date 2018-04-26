@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gestione.Controllers;
 using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using LibreriaDB;
 using DAO;
+using ProfileDao;
 
 namespace Gestione.Models {
 
@@ -28,16 +25,14 @@ namespace Gestione.Models {
 			return Funzioni.Contains(functionName);
 		}
 	}
-
 	
 	public interface IProfileModel {
-		bool Login(string username, string password);
-		Profilo GetProfile();
-		void IscrizioneAlPortale(string nome,string cognome, string usr,string psw);
-		
+		Profilo GetProfile(string username,string password);
+		void IscrizioneAlPortale(string nome,string cognome, string usr,string psw);		
 	}
-	public partial class ProfileModel: IProfileModel{
-        ITrasformer transf = new Trasformator();
+
+	public partial class ProfileModel: IProfileModel{        
+		IProfilaturaDao profdao = new ProfiloDao();
 		private static ProfileModel Profile;
 		private HttpSessionStateBase session;
 		public Profilo profile {get;}
@@ -48,44 +43,50 @@ namespace Gestione.Models {
 		}
 		public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
 			try{
-				dao.IscrizioneAlPortale(nome, cognome, usr,psw);
+				profdao.IscrizioneAlPortale(nome, cognome, usr,psw);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
 				throw e;
 			}
 		}
-
+		public Profilo GetProfile(string username,string password){
+			try{
+			return profdao.GetProfile(username,password);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+	}
+}
 		//public bool Login(string username,string password) {
 		//	//TODO set profile in session.
 		//	throw new NotImplementedException();
 		//}
 
 		
-	}
-
-	public class ProfileMock : IProfileModel {
-		internal static ProfileMock Instance(HttpSessionStateBase session) {
-			return new ProfileMock();
-		}
-		public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
-			try{
-				dao.IscrizioneAlPortale(nome, cognome, usr, psw);
-			}catch(SystemException){
-				throw new Exception("Errore di sistema!");
-			}catch(Exception e){
-				throw e;
-			}
-		}
-		public Profilo GetProfile() {
-			List<string> funzioni = new List<string>(){"RicercaCurriculum"};
-			return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
-		}
+	
+	//public class ProfileMock : IProfileModel {
+	//	internal static ProfileMock Instance(HttpSessionStateBase session) {
+	//		return new ProfileMock();
+	//	}
+	//	public void IscrizioneAlPortale(string nome,string cognome, string usr,string psw){
+	//		try{
+	//			dao.IscrizioneAlPortale(nome, cognome, usr, psw);
+	//		}catch(SystemException){
+	//			throw new Exception("Errore di sistema!");
+	//		}catch(Exception e){
+	//			throw e;
+	//		}
+	//	}
+	//	public Profilo GetProfile() {
+	//		List<string> funzioni = new List<string>(){"RicercaCurriculum"};
+	//		return new Profilo("MkMatric",funzioni,"MkNome","MkCognome");
+	//	}
 
 	//	public bool Login(string username,string password) {
 	//		return true;
 	//	}
 	//}
-
-
-}

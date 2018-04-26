@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Runtime.Serialization;
-using Interfaces;
 using LibreriaDB;
-using System.Data;
 using Gestione.Models;
 using DAO;
 
-namespace ProfileDao{
-	public interface ProfilaturaDao{
-		bool Login(string username, string password);
-		Profilo GetProfile();
+namespace ProfileDao {
+	public interface IProfilaturaDao{		
+		Profilo GetProfile(string username,string password);
 		void IscrizioneAlPortale(string nome,string cognome, string usr,string psw);
 	}
-	public class ProfiloDao : ProfilaturaDao{
+	public class ProfiloDao : IProfilaturaDao{
 		ITrasformer transf = new Trasformator();
 		public Profilo GetProfile(string username,string password){
 			try{
