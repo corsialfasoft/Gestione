@@ -151,6 +151,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccessObject.cs" />
+    <Compile Include="Models\ProfileDao.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\interfaces.cs" />

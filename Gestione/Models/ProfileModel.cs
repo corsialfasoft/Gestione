@@ -61,22 +61,7 @@ namespace Gestione.Models {
 		//	throw new NotImplementedException();
 		//}
 
-		public Profilo GetProfile(string username,string password){
-			try{
-				SqlParameter[] param = {new SqlParameter("@usr", username),
-                    new SqlParameter("@pass",password)};
-				Profilo output = DB.ExecQProcedureReader("GetProfile",transf.TransfInProfilo,param, "Profilatura");
-				SqlParameter[] paramss = {new SqlParameter("@usr", username),
-                    new SqlParameter("@pass",password)};
-                List<string> funzioni =  DB.ExecQProcedureReader("GetFunzioni",transf.TransfInFunzioni,paramss, "Profilatura");
-                output.Funzioni = funzioni;
-				return output;
-			} catch(SqlException){
-				throw new Exception("Errore server!");
-			} catch(Exception e){
-				throw e;
-			}
-		}
+		
 	}
 
 	public class ProfileMock : IProfileModel {
