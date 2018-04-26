@@ -574,8 +574,7 @@ namespace DAO {
 			}
 		}
 
-		public void DelEspLav(EspLav espLav,string matricola) {
-			SqlConnection con= new SqlConnection(GetStringBuilderCV());
+		public void DelEspLav(EspLav espLav,string matricola) {			
 			try {
 				SqlParameter[] param = { new SqlParameter("@annoIdaDel", espLav.AnnoInizio),
 										new SqlParameter("@annoFdaDel", espLav.AnnoFine),
@@ -583,80 +582,52 @@ namespace DAO {
 										new SqlParameter("@descrDaDel", espLav.Descrizione),
 										new SqlParameter("@matricola", matricola)
 										};
-				DB.ExecNonQProcedure("DelEspLav",param,"GECV");
+				int RowsAffected = DB.ExecNonQProcedure("DelEspLav",param,"GECV");
+				if(RowsAffected == 0){
+					throw new Exception("Nessuna Esperienza eliminata");				
+				}
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
+		}		
+
+		public void DelCompetenza(Competenza comp,string matricola) {
+			try {
+				SqlParameter[] param ={ new SqlParameter("@titolo",comp.Titolo),
+										new SqlParameter("@livello",comp.Livello),
+										new SqlParameter("@matricola",matricola)
+										};
+				int RowsAffected = DB.ExecNonQProcedure("DelComp",param,"GECV");
+				if(RowsAffected == 0){
+					throw new Exception("Nessuna Esperienza eliminata");				
+				}
 			} catch(SqlException){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
 			}
 		}
-				//con.Open();
-				//SqlCommand command = new SqlCommand("DelEspLav",con) {
-				//	CommandType = CommandType.StoredProcedure
-				//};
-				//command.Parameters.Add("@annoIdaDel",SqlDbType.Int).Value=espLav.AnnoInizio;
-				//command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
-				//command.Parameters.Add("@qualificaDaDel",SqlDbType.NVarChar).Value=espLav.Qualifica;
-				//command.Parameters.Add("@descrDaDel",SqlDbType.NVarChar).Value=espLav.Descrizione;
-				//command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
-				// int x = command.ExecuteNonQuery();
-				//command.Dispose();
-				//if (x == 0) { 
-				//	throw new Exception("Nessuna Esperienza eliminata");
-				//	}
-				
-			
 
-		public void DelCompetenza(Competenza comp,string matricola) {
-			SqlConnection con= new SqlConnection(GetStringBuilderCV());
-			try {
-				con.Open();
-				SqlCommand command = new SqlCommand("DelComp",con);
-				command.CommandType=CommandType.StoredProcedure;
-				command.Parameters.Add("@titolo",SqlDbType.NVarChar).Value=comp.Titolo;
-				command.Parameters.Add("@livello",SqlDbType.Int).Value=comp.Livello;
-				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
-                int x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
-					throw new Exception("Nessuna Esperienza eliminata");
-					}
-				
-			}catch(Exception e) {
-				throw e;
-			}finally {
-				con.Dispose();
-			}
-		}
-
-		public void DelPerStud(PerStud ps,string matricola) {
-			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
+		public void DelPerStud(PerStud ps,string matricola) {			
 			try{
-				connection.Open();
-				SqlCommand command = new SqlCommand("DelPerStud",connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@matricola", System.Data.SqlDbType.NVarChar).Value= matricola;
-				command.Parameters.Add("@AnnoIniz", System.Data.SqlDbType.Int).Value= ps.AnnoInizio;
-				command.Parameters.Add("@AnnoFine", System.Data.SqlDbType.Int).Value= ps.AnnoFine;
-				command.Parameters.Add("@Titolo", System.Data.SqlDbType.NVarChar).Value= ps.Titolo;
-				command.Parameters.Add("@Descr", System.Data.SqlDbType.NVarChar).Value= ps.Descrizione;
-				command.ExecuteNonQuery();
-				command.Dispose();
-			}catch(Exception e ){
-				throw e ;
-			}finally{
-				connection.Dispose();
+				SqlParameter[] param = { new SqlParameter("@matricola", matricola),
+										new SqlParameter("@AnnoIniz", ps.AnnoInizio),
+										new SqlParameter("@AnnoFine", ps.AnnoFine),
+										new SqlParameter("@Titolo", ps.Titolo),
+										new SqlParameter("@Descr", ps.Descrizione)
+										};
+				int RowsAffected = DB.ExecNonQProcedure("DelPerStud",param,"GECV");
+				if(RowsAffected == 0){
+					throw new Exception("Nessun Percorso eliminato");				
+				}
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
 			}
 		}
-		private string GetStringBuilderCV() {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			return builder.ToString();
-        }
-
-        
     }
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
