@@ -1,32 +1,31 @@
 ﻿@{
-    ViewBag.Title = "Lezione";
+    ViewBag.Title = "Compila Lezione";
 }
 <h2>@ViewBag.Title</h2>
 <div class="text">
     @ViewBag.Message
 </div>
 @using(Html.BeginForm("AddLezione","Home",FormMethod.Post)) {
-    <div class="row">
-        <div class="col-md-3">
-            <label>Nome</label>
-            <input name="LezNome" type="text" required/>
-        </div>
+<div class="row">
+    <div class="col-md-3">
+
+        <input name="LezNome" type="text" required placeholder="Inserisci nome" style="border-radius:6px;" />
     </div>
+    <input type="submit" value="Aggiungi" class="button" style="float:right;"/>
+</div> <br />
+    <div class="row">
+        <div class="col-md-3">        
+            <textarea name="LezDescrizione" rows="4" cols="50" placeholder="Inserisci una descrizione" style="border-radius:6px;" required></textarea>
+        </div>
+    </div> <br />
     <div class="row">
         <div class="col-md-3">
-            <label>Descrizione</label>
-            <textarea name="LezDescrizione" rows="4" cols="50" required></textarea>
+            
+            <input name="LezDurata" type="number" placeholder="Inserisci la durata" style="border-radius:6px;"  required/>
+            <input name="id" type="hidden" value="@ViewBag.CorsoId" />
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label>Durata</label>
-            <input name="LezDurata" type="number"  required/>
-            <input name="idCorso" type="hidden" value="@ViewBag.CorsoId" />
-        </div>
-        <div class="col-md-3">
-            <input type="submit" value="Aggiungi" />
-        </div>
+        <div class="col-md-3">          
+        </div> <br />
         <div>
             <span class="bottone"> @Html.ActionLink("Elenco corsi","ElencoCorsi","Home")</span>
             <span classs="badge">

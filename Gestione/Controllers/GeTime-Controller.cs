@@ -15,7 +15,7 @@ namespace Gestione.Controllers {
         }
         [HttpPost]
         public ActionResult VisualizzaGiorno(DateTime data) {
-            DTGGiorno giorno = dm.VisualizzaGiorno(data, P.Matricola);
+            DTGGiorno giorno = dm.VisualizzaGiorno(data, profile.Matricola);
             if (giorno!=null) {
                 ViewBag.giorno = giorno;
             } else {
@@ -29,84 +29,173 @@ namespace Gestione.Controllers {
 		[HttpPost]
 		public ActionResult VisualizzaCommessa(string commessa) {
 			if(commessa.Length==0)
-				ViewBag.Message = "Inserire un nome di commessa";
+				ViewBag.Message = "Inserire il nome della commessa!";
 			else{ 
-				try{ 
-					DTCommessa dTCommessa = dm.CercaCommessa(commessa);
-					if(dTCommessa != null){ 
-						List<DTGiorno> giorni = dm.GiorniCommessa(dTCommessa.Id, P.Matricola);
-						if(giorni!=null && giorni.Count>0){
-							ViewBag.NomeCommessa= dTCommessa.Nome;
+				try{
+					List<DTCommessa> dTCommesse = dm.CercaCommesse(commessa);
+					if(dTCommesse.Count>0) {
+                        if (dTCommesse.Count==1) {
+                            List<DTGiorno> giorni = dm.GiorniCommessa(dTCommesse[0].Id,profile.Matricola);
+						    ViewBag.NomeCommessa= dTCommesse[0].Nome;
+                            ViewBag.Commesse = dTCommesse;
 							ViewBag.Giorni = giorni;
-						}else
-							ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
-				
-					}
-				}catch(Exception){
+                        } else {
+                            ViewBag.Commesse = dTCommesse;
+                        }
+                    } else {
+						ViewBag.Message = "Non è stato trovata nessuna commessa con questo nome";
+                    }
+				} catch(Exception) {
 					ViewBag.Message = "Errore del server";
 				}
 			}
 			return View("VisualizzaCommessa");
 		}
+        [HttpGet]
+        public ActionResult DettaglioCommessa(string nome) {
+            DTCommessa commessa = dm.CercaCommessa(nome);
+            if (commessa != null) {
+                List<DTGiorno> giorni = dm.GiorniCommessa(commessa.Id, profile.Matricola);
+                ViewBag.NomeCommessa = commessa.Nome;
+                ViewBag.Commesse = commessa;
+                ViewBag.Giorni = giorni;
+            } else {
+                ViewBag.Message = "Operazione non consentita";
+            }
+            return View("VisualizzaCommessa");
+        }
         public ActionResult GeTimeHome() {
             return View();
         }
 		public ActionResult AddGiorno() {
-			return View("AddGiorno");
+			return View();
 		}
+
 		[HttpPost]
-		public ActionResult AddGiorno(DateTime dateTime, string tipoOre, int ?ore, string Commessa) {
-			ViewBag.GeCoDataTime = dateTime;
-            DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, P.Matricola);
+		public ActionResult AddGiorno(DateTime dateTime, string tipoOre, int? ore, string Commessa) {
+            if(tipoOre==""){
+                ViewBag.Message="Scegliere la tipologia delle ore";
+                return View();
+            }
+            if (ore == null && tipoOre != "Ore di ferie" || (ore != null && ore <= 0)) {
+                ViewBag.Message = "Inserire le ore";
+                return View();
+            }
+            DTGGiorno giorno = dm.VisualizzaGiorno(dateTime, profile.Matricola);
 			try{
-                if (giorno != null) {
+                int oreT =0;
+                int oreL = 0;
+                if (giorno != null && (giorno.data.CompareTo(DateTime.Today) <= 0 || giorno.data.Month >= (DateTime.Now.Month - 6))) {
+                    oreT = giorno.OreMalattia + giorno.OrePermesso + giorno.TotOreLavorate + giorno.OreFerie;
                     if (giorno.OreFerie > 0) {
                         ViewBag.Giorno = giorno;
                         ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} eri in ferie";
-                        return View("AddGiorno");
-                    } else if (giorno.OreMalattia + giorno.OrePermesso + giorno.TotOreLavorate + (tipoOre != "Ore di ferie" ?  ore==null ? 0 : ore : 8) > 8) {
-                        ViewBag.Giorno = giorno;
-                        ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} stai superando le 8 ore";
-                        return View("AddGiorno");
+                        return View();
                     }
+                    oreL= giorno.TotOreLavorate;
                 }
 				if (tipoOre == "Ore di lavoro"){
-                    if (ore == null) {
-                        ViewBag.Message = "Inserire le ore";
+                    if(Commessa == ""){
+                        ViewBag.Message="Inserire la commessa";
                         return View();
                     }
-					DTCommessa commessa =dm.CercaCommessa(Commessa);
-					if (commessa == null){
+                    if (oreT == oreL && oreT + ore > 14) {
+                        ViewBag.Giorno = giorno;
+                        ViewBag.Message="Massimo ore lavorative raggiunte!";
+                        return View();
+                    } else if (oreT != oreL && oreT + ore > 8)
+                        return ErrorMessage(dateTime, giorno);
+                    List<DTCommessa> commesse = dm.CercaCommesse(Commessa);
+					if (commesse.Count == 0){
 						ViewBag.Message ="Commessa non trovata";
-						return View("AddGiorno");
+						return View();
+					} else if(commesse.Count == 1){
+                        if (commesse[0].OreLavorate+ore>commesse[0].Capienza) {
+                            ViewBag.Message = $"Capienza ore commessa superate!\nMassimo ore: {commesse[0].Capienza}";
+                            return View();
+                        }
+						dm.CompilaHLavoro(dateTime,(int) ore, commesse[0].Id, profile.Matricola);				
+					} else if(commesse.Count > 1) {
+                        Session["stateGiorno"] = new StateGiorno { Data= dateTime, Ore=(int)ore };
+                        ViewBag.ListaCommesse = commesse;
+                        return View();
 					}
-					dm.CompilaHLavoro(dateTime,(int) ore, commessa.Id, P.Matricola);
 				} else if (tipoOre == "Ore di permesso"){
-                    if (ore == null) {
-                        ViewBag.Message = "Inserire le ore";
-                        return View();
-                    }
-                    HType tOre = (HType) 2;
-					dm.Compila(dateTime, (int)ore, tOre, P.Matricola);
+                    if (oreT + ore > 8)
+                        return ErrorMessage(dateTime, giorno);
+                    dm.Compila(dateTime,(int)ore, (HType)2, profile.Matricola);
 				} else if (tipoOre == "Ore di malattia") {
-                    if (ore == null) {
-                        ViewBag.Message = "Inserire le ore";
-                        return View();
-                    }
-                    HType tOre = (HType) 1;
-				    dm.Compila(dateTime, (int)ore, tOre, P.Matricola);
-				} else {
-					HType tOre = (HType) 3;
-                    dm.Compila(dateTime, 8, tOre, P.Matricola);
-				}
+                    if (oreT + ore > 8) 
+                        return ErrorMessage(dateTime, giorno);
+                    dm.Compila(dateTime, (int)ore, (HType)1, profile.Matricola);
+				} else if (tipoOre == "Ore di ferie"){
+                    if (oreT + 8 > 8) 
+                        return ErrorMessage(dateTime, giorno);
+                    dm.Compila(dateTime, 8, (HType)3, profile.Matricola);
+                } else {
+                    ViewBag.Message = $"Input Errato!";
+                    return View();
+                }
 				ViewBag.EsitoAddGiorno = ore + " " + tipoOre + " aggiunte!";
-			}catch(Exception){
-                ViewBag.Message = "Ci sono gia presenti altri tipi di ore";
+                ViewBag.GeCoDataTime = dateTime;
+            } catch(Exception e){
+                ViewBag.Message = "Errore server";
             }
-			return View("AddGiorno");
+			return View();
 		}
+
+        private ActionResult ErrorMessage(DateTime dateTime, DTGGiorno giorno) {
+            ViewBag.Giorno = giorno;
+            ViewBag.Message = $"Il giorno {dateTime.ToString("yyyy-MM-dd")} stai superando le 8 ore";
+            return View("AddGiorno");
+        }
+
         public ActionResult Modifica() {
             return View();
+        }
+        [HttpPost]
+        public ViewResult VisualizzaMese(string anno, string mese = "1") {
+            if (anno != "" && int.TryParse(anno, out int annoI) && int.TryParse(mese, out int meseI)) {
+                ViewBag.Mese = dm.DettaglioMese(annoI, meseI, profile.Matricola);
+                if (ViewBag.Mese.Count > 0) {
+                    ViewBag.TOreL = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.TotOreLavorate);
+                    ViewBag.TOreP = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.OrePermesso);
+                    ViewBag.TOreM = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.OreMalattia);
+                    ViewBag.TOreF = ((List<DTGiornoDMese>)ViewBag.Mese).Sum<DTGiornoDMese>(dTGiornoDMese => dTGiornoDMese.OreFerie);
+                }
+                ViewBag.Year = annoI;
+                ViewBag.Month = meseI;
+            } else
+                ViewBag.Message = "Inserire anno e mese";
+            return View();
+        }
+        public ViewResult VisualizzaMese() {
+
+            return View();
+        }
+        [HttpGet]
+        public ViewResult AddGiornoSelectCommessa(string nome) {
+            try {
+				if(Session["stateGiorno"] is StateGiorno stateGiorno && nome != "") {
+					DTCommessa commessa = dm.CercaCommessa(nome);
+					if(commessa != null) {
+						dm.CompilaHLavoro(stateGiorno.Data,stateGiorno.Ore,commessa.Id,profile.Matricola);
+						ViewBag.GeCoDataTime = stateGiorno.Data;
+						ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
+						Session["stateGiorno"] = null;
+					} else {
+						ViewBag.Message = "Operazione non consentita";
+					}
+				} else
+					ViewBag.Message = "Operazione non consentita";
+			} catch(Exception e) {
+                ViewBag.Message = e.Message;
+            }
+            return View("AddGiorno");
+        }
+        public class StateGiorno {
+            public DateTime Data { get; set; }
+            public int Ore { get; set; }
         }
     }
 }

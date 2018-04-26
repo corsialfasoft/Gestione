@@ -4,12 +4,14 @@ using System.Data.SqlClient;
 using System.Runtime.Serialization;
 using Interfaces;
 using LibreriaDB;
+using System.Data;
+using Gestione.Controllers;
 
 namespace DAO {
 	public interface IDao{
         //modifica un curriculum nel db
-		void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr);
-        //quando sei loggato, puoi aggiungere un curriculum nel db.
+		void ModificaCV(CV c);
+        //quando sei loggato, puoi aggiungere un curriculum nel db
 		void AggiungiCV(CV a);
         //quando non sei loggato, puoi spedire un curriuculum
 		void CaricaCV(string path);
@@ -28,6 +30,9 @@ namespace DAO {
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
+		void DelEspLav(EspLav espLav , string matricola);
+		void DelCompetenza(Competenza comp , string matricola);
+		void DelPerStud(PerStud ps , string matricola);
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
         //Modifica la singola competenza
 		void ModComp(string matricola, Competenza daMod , Competenza Mod );
@@ -36,7 +41,8 @@ namespace DAO {
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
-		Commessa CercaCommessa(string nomeCommessa);
+		List<Commessa> CercaCommesse(string nomeCommessa);
+        Commessa CercaCommessa(string nomeCommessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
@@ -273,16 +279,16 @@ namespace DAO {
                 throw e;
             }
         }
-        public void ModificaCV(string nome, string cognome, int eta, string email, string residenza, string telefono, string matr){
+        public void ModificaCV(CV c){
             try{
                 SqlParameter[] parameter = {
-                    new SqlParameter("@cognome", cognome),
-                    new SqlParameter("@matr", matr),
-                    new SqlParameter("@nome", nome),
-                    new SqlParameter("@eta", eta),
-                    new SqlParameter("@email", email),
-                    new SqlParameter("@residenza", residenza),
-                    new SqlParameter("@telefono", telefono)
+                    new SqlParameter("@cognome", c.Cognome),
+                    new SqlParameter("@matr", c.Matricola),
+                    new SqlParameter("@nome", c.Nome),
+                    new SqlParameter("@eta", c.Eta),
+                    new SqlParameter("@email", c.Email),
+                    new SqlParameter("@residenza", c.Residenza),
+                    new SqlParameter("@telefono", c.Telefono)
                 };
                 DB.ExecNonQProcedure("ModificaCV", parameter, "GeCv");
             } catch(SqlException){
@@ -352,12 +358,12 @@ namespace DAO {
         }
 
         //GeTime 
-		public Commessa CercaCommessa(string nomeCommessa){
+		public List<Commessa> CercaCommesse(string nomeCommessa){
 			try {
 				SqlParameter[] parameter = {
 					new SqlParameter("@nomeCommessa", nomeCommessa)
 				};			
-				return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, parameter, "GeTime");
+				return DB.ExecQProcedureReader("SP_CercaCommesse", transf.TrasformInListaCommesse, parameter, "GeTime");
 			} catch(SqlException){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
@@ -423,8 +429,35 @@ namespace DAO {
 				throw e;
 			}
 		}
+        public List<DTGiornoDMese> DettaglioMese(int anno, int mese, string idutente) {
+            try {
+                SqlParameter[] param = { new SqlParameter("@anno", anno), new SqlParameter("@mese", mese), new SqlParameter("@idutente", idutente) };
+                List<Giorno> output = DB.ExecQProcedureReader("SP_VisualizzaMese", transf.TransfInGiorni, param, "GeTime");
+                List<DTGiornoDMese> result = null;
+                if (output.Count > 0) {
+                    result = output.ConvertAll(new Converter<Giorno, DTGiornoDMese>(transf.ConvertGiornoInDTGDMese));
+                } else
+                    result = new List<DTGiornoDMese>();
+                return result;
+            } catch (SqlException e) {
+                throw new Exception(e.Message);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        public Commessa CercaCommessa(string nomeCommessa) {
+            try {
+                SqlParameter[] param = { new SqlParameter("@nomeCommessa", nomeCommessa) };
+                return DB.ExecQProcedureReader("SP_CercaCommessa", transf.TrasformInCommessa, param, "GeTime");
+            } catch (SqlException) {
+                throw new Exception("Errore server!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
 
-		//GeCo
+
+        //GeCo
         public List<Lezione> ListaLezioni(Corso corso){
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
@@ -549,6 +582,79 @@ namespace DAO {
 				throw e;
 			}
 		}
+
+		public void DelEspLav(EspLav espLav,string matricola) {
+			SqlConnection con= new SqlConnection(GetStringBuilderCV());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("DelEspLav",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@annoIdaDel",SqlDbType.Int).Value=espLav.AnnoInizio;
+				command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
+				command.Parameters.Add("@qualificaDaDel",SqlDbType.NVarChar).Value=espLav.Qualifica;
+				command.Parameters.Add("@descrDaDel",SqlDbType.NVarChar).Value=espLav.Descrizione;
+				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza eliminata");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
+		}
+
+		public void DelCompetenza(Competenza comp,string matricola) {
+			SqlConnection con= new SqlConnection(GetStringBuilderCV());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("DelComp",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@titolo",SqlDbType.NVarChar).Value=comp.Titolo;
+				command.Parameters.Add("@livello",SqlDbType.Int).Value=comp.Livello;
+				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza eliminata");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
+		}
+
+		public void DelPerStud(PerStud ps,string matricola) {
+			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
+			try{
+				connection.Open();
+				SqlCommand command = new SqlCommand("DelPerStud",connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@matricola", System.Data.SqlDbType.NVarChar).Value= matricola;
+				command.Parameters.Add("@AnnoIniz", System.Data.SqlDbType.Int).Value= ps.AnnoInizio;
+				command.Parameters.Add("@AnnoFine", System.Data.SqlDbType.Int).Value= ps.AnnoFine;
+				command.Parameters.Add("@Titolo", System.Data.SqlDbType.NVarChar).Value= ps.Titolo;
+				command.Parameters.Add("@Descr", System.Data.SqlDbType.NVarChar).Value= ps.Descrizione;
+				command.ExecuteNonQuery();
+				command.Dispose();
+			}catch(Exception e ){
+				throw e ;
+			}finally{
+				connection.Dispose();
+			}
+		}
+		private string GetStringBuilderCV() {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			return builder.ToString();
+        }
 	}
 	[Serializable]
 	internal class LezionNonModificataException : Exception {

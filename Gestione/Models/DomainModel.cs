@@ -177,9 +177,9 @@ namespace Gestione.Models {
 			}
 		}
 
-		public void ModificaCV(string nome,string cognome,int eta,string email,string residenza,string telefono,string matr){
+		public void ModificaCV(CV c ){
 			try{
-				dao.ModificaCV(nome,cognome,eta,email, residenza,telefono,matr);
+				dao.ModificaCV(c);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
@@ -258,8 +258,9 @@ namespace Gestione.Models {
 				List<DTGiorno> dTGiorni = new List<DTGiorno>();
 				if (giorni != null && giorni.Count > 0) {
 					foreach (Giorno giorno in giorni) {
-						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) 
+						if (giorno.OreLavorate != null && giorno.OreLavorate.Count > 0) {
 							dTGiorni.Add(new DTGiorno { Data = giorno.Data, OreLavorate = giorno.OreLavorate[0].Ore });
+                        }
 					}
 				}
 				return dTGiorni;
@@ -270,12 +271,16 @@ namespace Gestione.Models {
 			}
         }
 
-		public DTCommessa CercaCommessa(string nomeCommessa){
+		public List<DTCommessa> CercaCommesse(string nomeCommessa){
+            List<DTCommessa> dtcomm = new List<DTCommessa>();
 			try{ 
-				Commessa commessa = dao.CercaCommessa(nomeCommessa);
-				if(commessa!=null){
-					return new  DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate);
-				}
+				List<Commessa> commesse = dao.CercaCommesse(nomeCommessa);
+				if(commesse!=null) {
+                    foreach (Commessa commessa in commesse) {
+                        dtcomm.Add(new DTCommessa(commessa.Id,commessa.Nome,commessa.Descrizione,commessa.Capienza,commessa.OreLavorate));
+                    }
+                    return dtcomm;
+                }
 				return null;
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
@@ -284,6 +289,18 @@ namespace Gestione.Models {
 			}
 		}
 
+        public DTCommessa CercaCommessa(string nomeCommessa) {
+            try {
+               Commessa commessa = dao.CercaCommessa(nomeCommessa);
+                if(commessa!=null)
+                    return new DTCommessa(commessa.Id, commessa.Nome, commessa.Descrizione, commessa.Capienza, commessa.OreLavorate);
+                return null;
+            } catch (SystemException) {
+                throw new Exception("Errore di sistema!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
         public void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente){
             try{
                 dao.CompilaHLavoro(data, ore, idCommessa, idUtente);
@@ -293,6 +310,7 @@ namespace Gestione.Models {
 				throw e;
 			}
         }
+
 
         public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
             try{
@@ -322,7 +340,7 @@ namespace Gestione.Models {
 						};
 						DTgiorno.OreLavorate.Add(orelavorate);
 					}
-					DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate();
+					DTgiorno.TotOreLavorate = giornoInterface.TotOreLavorate;
 					return DTgiorno;
 				}
 				return null;
@@ -332,5 +350,26 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
+
+        public List<DTGiornoDMese> DettaglioMese(int anno, int mese, string idutente) {
+            try {
+                return dao.DettaglioMese(anno, mese, idutente);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        public void DelEspLav(EspLav espLav,string matricola) {
+			dao.DelEspLav(espLav,matricola);
+		}
+
+		public void DelCompetenza(Competenza comp,string matricola) {
+			dao.DelCompetenza(comp , matricola);
+		}
+
+		public void DelPerStud(PerStud ps,string matricola) {
+			dao.DelPerStud(ps,matricola);
+		}
+
     }
 }
