@@ -455,23 +455,52 @@ namespace DAO {
 			}
 		}
         public void AddCorso(Corso corso) {
+			SqlParameter[] param = {
+				new SqlParameter("@nome", corso.Nome),
+				new SqlParameter("@descrizione", corso.Descrizione),
+				new SqlParameter("@dInizio", corso.Inizio),
+				new SqlParameter("@dFine", corso.Fine)
+			};
+
+			Execute(CmdAddCorso,param);
+		}
+
+		private delegate Tout CommandDelegate<Tout>(SqlParameter[] param);
+		private delegate void CommandDelegate(SqlParameter[] param);
+		private Tout Execute<Tout>(CommandDelegate<Tout> metodo, SqlParameter[] param) {
 			try{
-				SqlParameter[] param = {
-					new SqlParameter("@nome", corso.Nome),
-					new SqlParameter("@descrizione", corso.Descrizione),
-					new SqlParameter("@dInizio", corso.Inizio),
-					new SqlParameter("@dFine", corso.Fine)
-				};
-				int RowAffected = DB.ExecNonQProcedure("AddCorso", param,"GeCorsi");
-				if(RowAffected == 0){
-					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
-				}
-			} catch (SqlException e) {
+				return metodo(param);
+			} catch(SqlException e) {
 				throw new Exception(e.Message);
-			} catch (Exception e) {
+			} catch(Exception e) {
 				throw e;
 			}
 		}
+		private delegate Tout TransformerDelegate<Tout>(SqlDataReader reader);
+		private void Execute<Tout>(CommandDelegate metodo, SqlParameter[] param, TransformerDelegate<Tout> transformer) {
+			try{
+				metodo(param);
+			} catch(SqlException e) {
+				throw new Exception(e.Message);
+			} catch(Exception e) {
+				throw e;
+			}
+		}
+
+		private static bool CmdAddCorso(SqlParameter[] param) {
+			//try {
+				int RowAffected = DB.ExecNonQProcedure("AddCorso",param,"GeCorsi");
+				if(RowAffected == 0) {
+					throw new CorsoNonAggiuntaException("Corso non aggiunto");
+				}
+				return true;
+			//} catch(SqlException e) {
+			//	throw new Exception(e.Message);
+			//} catch(Exception e) {
+			//	throw e;
+			//}
+		}
+
 		public List<Corso> ListaCorsi() {
 		try{
 			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInCorsi, null,"GeCorsi");       
