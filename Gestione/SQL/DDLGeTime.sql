@@ -5,7 +5,7 @@ create table TipologiaOre(
 	nomeTipoOre varchar(20),
 	descrizione varchar(50)
 );
-insert into TipologiaOre(nomeTipoOre,descrizione) values ('Malattia','sono le ore di malattia'), ('Permesso','sono le ore di permesso richieste in un giorno'), ('Ferie','sono 8 ore di ferie'), ('Lavorative','sono le ore lavorate su una commessa')
+insert into TipologiaOre(nomeTipoOre,descrizione) values ('Malattia','sono le ore di malattia'), ('Permesso','sono le ore di permesso richieste in un giorno'), ('Ferie','sono 8 ore di ferie'), ('Lavorative','sono le ore lavorate su una commessa');
 create table Giorni(
 	id int primary key identity(1,1),
 	giorno date not null,
@@ -39,7 +39,7 @@ declare @idG int = IDENT_CURRENT('Giorni');
 insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaGiorno','questa commessa viene utilizzata per il test',10);
 declare @idC int = IDENT_CURRENT('Commesse');
 insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG,@idC,4);
-insert into OreNonLavorative(tipoOre,ore,idGiorno) values (1,4,@idG)
+insert into OreNonLavorative(tipoOre,ore,idGiorno) values (1,4,@idG);
 commit tran
 end try
 begin catch
@@ -75,9 +75,9 @@ insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaMe
 declare @idC1 int = IDENT_CURRENT('Commesse');
 insert into Giorni(giorno,idUtente) values ('2001-01-01','MkMatric')
 declare @idG1 int = IDENT_CURRENT('Giorni');
-insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG1,@idC1,4)
-insert into OreNonLavorative(tipoOre,ore,idGiorno) values (1,4,@idG1)
-insert into Giorni(giorno,idUtente) values ('2001-01-05','MkMatric')
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG1,@idC1,4);
+insert into OreNonLavorative(tipoOre,ore,idGiorno) values (1,4,@idG1);
+insert into Giorni(giorno,idUtente) values ('2001-01-05','MkMatric');
 declare @idG2 int = IDENT_CURRENT('Giorni');
 insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG2,@idC1,4)
 insert into OreNonLavorative(tipoOre,ore,idGiorno) values (2,4,@idG2)
