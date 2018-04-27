@@ -327,17 +327,19 @@ namespace DAO {
             }
         }
 		public void EliminaCV(CV curriculum) {
-			try{
+			//try{
 				SqlParameter[] param ={ new SqlParameter("@idcurr", curriculum.Matricola)};
-				int output = DB.ExecNonQProcedure("dbo.DeleteCurriculum", param, "GeCv");
-				if (output == 0) { 
-					throw new Exception("Nessun curriculum eliminato!");
-					}				
-			}catch(SqlException e){
-				throw new Exception(e.Message);
-			}catch(Exception e){
-				throw e;
-			}
+				Execute(NonQprocedura,param,"dbo.DeleteCurriculum","GeTime");
+				
+				//int output = DB.ExecNonQProcedure("dbo.DeleteCurriculum", param, "GeCv");
+			//	if (output == 0) { 
+			//		throw new Exception("Nessun curriculum eliminato!");
+			//		}				
+			//}catch(SqlException e){
+			//	throw new Exception(e.Message);
+			//}catch(Exception e){
+			//	throw e;
+			//}
 		}		
         public void CaricaCV(string path) {
             throw new NotImplementedException();
@@ -357,32 +359,36 @@ namespace DAO {
 			}
 		}
 		public void Compila(DateTime data, int ore, HType tipoOre, string idUtente) {
-            try{ 
+            //try{ 
                 SqlParameter[] parameters = {
 					new SqlParameter("@giorno",data.ToString("yyyy-MM-dd")),
 					new SqlParameter("@idUtente",idUtente),
 					new SqlParameter("@ore", ore),
 					new SqlParameter("@TipoOre", (int)tipoOre)
 					};
-				DB.ExecNonQProcedure("SP_Compila", parameters, "GeTime");
-            } catch (SqlException e) {
-                throw new Exception(e.Message);
-            } catch (Exception e) {
-                throw e;
-            }
+				Execute(NonQprocedura,parameters,"SP_","GeTime");
+
+				//DB.ExecNonQProcedure("SP_Compila", parameters, "GeTime");
+    //        } catch (SqlException e) {
+    //            throw new Exception(e.Message);
+    //        } catch (Exception e) {
+    //            throw e;
+    //        }
         }
 		public void CompilaHLavoro(DateTime data,int ore,int idCommessa,string idUtente) {
-			try {
+			//try {
                 SqlParameter[] parameters = {
 					new SqlParameter("@data",data.ToString("yyyy-MM-dd")),
 					new SqlParameter("@ore", ore),
 					new SqlParameter("@idCommessa",idCommessa),
 					new SqlParameter("@idUtente", idUtente)
 					};
-                DB.ExecNonQProcedure("SP_AddHLavoro", parameters, "GeTime");
-			} catch (Exception e){
-				throw e;
-			}
+				Execute(NonQprocedura,parameters,"SP_AddHLavoro","GeTime");
+
+   //             DB.ExecNonQProcedure("SP_AddHLavoro", parameters, "GeTime");
+			//} catch (Exception e){
+			//	throw e;
+			//}
 		}
 		public Giorno VisualizzaGiorno(DateTime data, string idUtente) {
             try {
@@ -419,40 +425,42 @@ namespace DAO {
 			return DB.ExecQProcedureReader("ListaLezioni",transf.TrasformInLezioni,param,"GeCorsi");
 		}
 		public void ModLezione(Lezione lezione){
-			try{
+			//try{
 				SqlParameter[] param = {
 					new SqlParameter("@idLezione",lezione.Id),
 					new SqlParameter("@nome",lezione.Nome),
 					new SqlParameter("@descrizione",lezione.Descrizione),
 					new SqlParameter("@durata",lezione.Durata)
 				};
-				int RowAffected =DB.ExecNonQProcedure("ModLezione",param,"GeCorsi");
-				if (RowAffected == 0) {
-					throw new LezionNonModificataException("Non hai modificato la lezione");
-				}
-			} catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
+				Execute(NonQprocedura,param,"ModLezione","GeCorsi");
+			//	int RowAffected =DB.ExecNonQProcedure("ModLezione",param,"GeCorsi");
+			//	if (RowAffected == 0) {
+			//		throw new LezionNonModificataException("Non hai modificato la lezione");
+			//	}
+			//} catch (SqlException e) {
+			//	throw new Exception(e.Message);
+			//} catch (Exception e) {
+			//	throw e;
+			//}
 		}		
 		public void AddLezione(int idCorso,Lezione lezione) {
-			try{
+			//try{
 				SqlParameter[] param = {
 					new SqlParameter ("@idCorsi", idCorso),
 					new SqlParameter ("@nome", lezione.Nome),
 					new SqlParameter("@descrizione", lezione.Descrizione),
 					new SqlParameter("@durata", lezione.Durata)
 				};
-				int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
-				if(RowAffected == 0){
-					throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
-				}
-			} catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
+				Execute(NonQprocedura,param,"AddLezione","GeCorsi");
+			//	int RowAffected = DB.ExecNonQProcedure("AddLezione", param,"GeCorsi");
+			//	if(RowAffected == 0){
+			//		throw new LezioneNonAggiuntaException("Lezione non aggiunta") ;
+			//	}
+			//} catch (SqlException e) {
+			//	throw new Exception(e.Message);
+			//} catch (Exception e) {
+			//	throw e;
+			//}
 		}
         public void AddCorso(Corso corso) {
 			SqlParameter[] param = {
@@ -461,50 +469,70 @@ namespace DAO {
 				new SqlParameter("@dInizio", corso.Inizio),
 				new SqlParameter("@dFine", corso.Fine)
 			};
-
-			Execute(CmdAddCorso,param);
+			Execute(NonQprocedura,param,"AddCorso","GeCorsi");
+			//Execute(CmdAddCorso,param);
 		}
-
-		private delegate Tout CommandDelegate<Tout>(SqlParameter[] param);
-		private delegate void CommandDelegate(SqlParameter[] param);
-		private Tout Execute<Tout>(CommandDelegate<Tout> metodo, SqlParameter[] param) {
+		
+		//NON READER VOID
+		private delegate void CommandDelegate(SqlParameter[] param,string NomeProcedura, string NomeDb);
+		private void Execute(CommandDelegate metodo, SqlParameter[] param,string NomeProcedura, string NomeDb){
 			try{
-				return metodo(param);
+				 metodo(param,NomeProcedura,NomeDb);
 			} catch(SqlException e) {
 				throw new Exception(e.Message);
 			} catch(Exception e) {
 				throw e;
 			}
 		}
-		private delegate Tout TransformerDelegate<Tout>(SqlDataReader reader);
-		private void Execute<Tout>(CommandDelegate metodo, SqlParameter[] param, TransformerDelegate<Tout> transformer) {
+		
+		//NON READER TOUT
+		private delegate Tout CommandDelegate<Tout>(SqlParameter[] param,string NomeProcedura, string NomeDb);
+		private Tout Execute<Tout>(CommandDelegate<Tout> metodo, SqlParameter[] param,string NomeProcedura, string NomeDb) {
 			try{
-				metodo(param);
+				return metodo(param,NomeProcedura,NomeDb);
 			} catch(SqlException e) {
 				throw new Exception(e.Message);
 			} catch(Exception e) {
 				throw e;
 			}
 		}
-
-		private static bool CmdAddCorso(SqlParameter[] param) {
-			//try {
-				int RowAffected = DB.ExecNonQProcedure("AddCorso",param,"GeCorsi");
+		private static bool NonQprocedura(SqlParameter[] param, string NomeProcedura, string NomeDb){
+			int RowAffected = DB.ExecNonQProcedure(NomeProcedura,param,NomeDb);
 				if(RowAffected == 0) {
 					throw new CorsoNonAggiuntaException("Corso non aggiunto");
 				}
 				return true;
+		}
+		
+		private delegate Tout TransformerDelegate<Tout>(SqlDataReader reader);
+		private void Execute<TOut>(CommandDelegate metodo, SqlParameter[] param, TransformerDelegate<TOut> transformer,string NomeProcedura, string NomeDb) {
+			try{
+				metodo(param,NomeProcedura,NomeDb);
+			} catch(SqlException e) {
+				throw new Exception(e.Message);
+			} catch(Exception e) {
+				throw e;
+			}
+		}
+		//private static bool AddCorso(SqlParameter[] param) {
+		//	return NonQprocedura(param,"AddCorso","GeCorsi");
+			//try {
+				//int RowAffected = DB.ExecNonQProcedure("AddCorso",param,"GeCorsi");
+				//if(RowAffected == 0) {
+				//	throw new CorsoNonAggiuntaException("Corso non aggiunto");
+				//}
+				//return true;
 			//} catch(SqlException e) {
 			//	throw new Exception(e.Message);
 			//} catch(Exception e) {
 			//	throw e;
 			//}
-		}
+		//}
 
 		public List<Corso> ListaCorsi() {
-		try{
-			return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInCorsi, null,"GeCorsi");       
-		} catch (SqlException e) {
+			try{
+				return DB.ExecQProcedureReader("ListaCorsi",transf.TrasformInCorsi, null,"GeCorsi");       
+			} catch (SqlException e) {
 				throw new Exception(e.Message);
 			} catch (Exception e) {
 				throw e;
@@ -531,14 +559,16 @@ namespace DAO {
 			}
 		}		
 		public void Iscriviti(int idCorso,string idStudente) {
-			try{
+			//try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",idCorso), new SqlParameter("@matr",idStudente)};
-				DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
-			} catch (SqlException e) {
-				throw new Exception(e.Message);
-			} catch (Exception e) {
-				throw e;
-			}
+				Execute(NonQprocedura,param,"Iscrizione","GeCorsi");
+				
+				//	DB.ExecNonQProcedure("Iscrizione",param,"GeCorsi");
+			//} catch (SqlException e) {
+			//	throw new Exception(e.Message);
+			//} catch (Exception e) {
+			//	throw e;
+			//}
 		}
 		public List<Corso> SearchCorsi(string descrizione) {
 			try{
