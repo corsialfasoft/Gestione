@@ -25,6 +25,7 @@ namespace DAO{
         List<Lezione> TrasformInLezioni(SqlDataReader data);
         List<Giorno> TransfInGiorni(SqlDataReader data);
         DTGiornoDMese ConvertGiornoInDTGDMese(Giorno giorno);
+        List<string> TransfInListString(SqlDataReader reader);
     }
 	public class Trasformator :ITrasformer{
         //GeCo
@@ -222,6 +223,13 @@ namespace DAO{
                 data = giorno.Data, OreFerie = giorno.HFerie, OreMalattia = giorno.HMalattia,
                 OrePermesso = giorno.HPermesso, TotOreLavorate = giorno.TotOreLavorate
             };
+        }
+        public List<string> TransfInListString(SqlDataReader reader) {
+            List<string> list = new List<string>();
+            while (reader.Read()) {
+                list.Add(reader.GetString(0));
+            }
+            return list;
         }
     }
 }	

@@ -102,3 +102,20 @@ as
 		where (year(g.giorno) = @Anno and month(g.giorno) = @Mese) and g.idUtente = @IdUtente
 		order by g.giorno
 go
+create procedure GetYears
+	@idUtente nvarchar(20)
+as 
+	select format(giorno, 'yyyy')
+	from Giorni
+	where idUtente= @idUtente
+	group by format(giorno, 'yyyy')
+go
+create procedure GetMonth
+	@idUtente nvarchar(20),
+	@year int
+as
+	select FORMAT(giorno,'MM')
+	from Giorni
+	where idUtente = @idUtente and FORMAT(giorno,'yyyy') = @year
+	group by  FORMAT(giorno,'MM')
+go

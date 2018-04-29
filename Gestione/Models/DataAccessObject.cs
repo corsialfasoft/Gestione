@@ -43,6 +43,8 @@ namespace DAO {
 		List<Giorno> GiorniCommessa(int idCommessa, string idUtente);
 		List<Commessa> CercaCommesse(string nomeCommessa);
         Commessa CercaCommessa(string nomeCommessa);
+        List<int> Years(string idUtente);
+        List<int> Month(int year, string idUtente);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
@@ -357,8 +359,8 @@ namespace DAO {
             throw new NotImplementedException();
         }
 
-        //GeTime 
-		public List<Commessa> CercaCommesse(string nomeCommessa){
+        # region GeTime
+        public List<Commessa> CercaCommesse(string nomeCommessa){
 			try {
 				SqlParameter[] parameter = {
 					new SqlParameter("@nomeCommessa", nomeCommessa)
@@ -455,7 +457,27 @@ namespace DAO {
                 throw e;
             }
         }
-
+        public List<int> Years(string idUtente) {
+            try {
+                SqlParameter[] parameters = {new SqlParameter("@idUtente",idUtente)};
+                return DB.ExecQProcedureReader("GetYears", transf.TransfInListString, parameters, "GeTime").ConvertAll<int>(new Converter<string, int>(str =>  Convert.ToInt32(str)));
+            } catch (SqlException) {
+                throw new Exception("Errore server!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        public List<int> Month(int year,string idUtente) {
+            try {
+                SqlParameter[] parameters = { new SqlParameter("@idUtente", idUtente),new SqlParameter("@year",year) };
+                return DB.ExecQProcedureReader("GetMonth", DB.TrasformLInt, parameters, "GeTime");
+            } catch (SqlException) {
+                throw new Exception("Errore server!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        #endregion
 
         //GeCo
         public List<Lezione> ListaLezioni(Corso corso){

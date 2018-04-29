@@ -33,6 +33,8 @@ namespace Interfaces {
 		List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente);
 		List<DTCommessa> CercaCommesse(string nomeCommessa);
         DTCommessa CercaCommessa(string nomeCommessa);
+        List<int> Years(string idUtente);
+        List<int> Month(int year, string idUtente);
     }
     public interface IGeCo {
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
