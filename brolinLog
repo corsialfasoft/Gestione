@@ -1,0 +1,359 @@
+commit b10faab92a80d80bbe60235a512c85453c27a912
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 20 17:26:18 2018 +0200
+
+    Aggiunta pagina di modifica COmpetenze
+
+ Gestione/Controllers/HomeController.cs | 28 +++++++++++++++++++++++++++-
+ Gestione/Gestione.csproj               |  1 +
+ Gestione/Views/Home/ModComp.cshtml     | 34 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 62 insertions(+), 1 deletion(-)
+
+commit 83c24d0c085599667488cc292ecbc3cc8da407ff
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 20 14:46:37 2018 +0200
+
+    ATTENZIONE!!! MODIFICATA PROCEDURA SEARCH PAROLA CHIAVA!
+
+ Gestione/database gecv/SQL_Carmen.sql | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 170301cae897aa0519bb6e0ef93c6bc1208a4c0d
+Merge: e987b9c 80c7fb6
+Author: brolin2 <37894878+brolin2@users.noreply.github.com>
+Date:   Fri Apr 20 10:08:38 2018 +0200
+
+    Merge pull request #67 from corsialfasoft/Test&Fix
+    
+    Fix && Test
+
+commit 80c7fb691e98a930904f213789a8a631e21684c5 (refs/remotes/origin/Test&Fix)
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 20 10:05:56 2018 +0200
+
+    Aggiuti test e modificate EspLav(entrambi i metodi avevano lo stesso metodo) , Aggiornate le procedure di add e modifiche (qualche rollback che non serviva e ho dovuto meetere alter invece di create ) , Modificato sul dao un riferimento sbagliato ( matricola aveva tipo int invece che nvarchar) ed aggiuti i test.
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs | 27 ++++++++++++++++++------
+ Gestione/Controllers/EspLav.cs                   |  2 +-
+ Gestione/Models/DataAccessObject.cs              |  4 ++--
+ Gestione/database gecv/ProcedureAdd.sql          |  6 +++---
+ Gestione/database gecv/ProcedureModifiche.sql    |  7 +++---
+ 5 files changed, 30 insertions(+), 16 deletions(-)
+
+commit e987b9c4cf77b4e1af661e731540065ce3140933
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 20 09:36:24 2018 +0200
+
+    aggiunto un metodo di test
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+commit 41867d27bcf8029ea8ae32df25459bbc8f2de9ad
+Merge: 4211c21 d84dbd2
+Author: brolin2 <37894878+brolin2@users.noreply.github.com>
+Date:   Thu Apr 19 16:41:48 2018 +0200
+
+    Merge pull request #64 from corsialfasoft/UpdateFlo
+    
+    Update flo
+
+commit d84dbd272812d7128de1e3e3a4a53c701e69f284 (refs/remotes/origin/UpdateFlo)
+Merge: f9c03cb 4211c21
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 19 16:40:49 2018 +0200
+
+    commit del merge
+
+commit f9c03cbccd02145fb3268c26069cb2165b6072af
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 19 16:34:16 2018 +0200
+
+    Aggiunti metodi add e modifica Competenze (anche su interfacce)
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs | 14 ++++++++++++
+ Gestione/Controllers/ControllerComp.cs           | 29 ++++++++++++++++++++++++
+ Gestione/Controllers/HomeController.cs           |  3 ++-
+ Gestione/Gestione.csproj                         |  1 +
+ Gestione/Models/DataAccessObject.cs              |  2 +-
+ Gestione/Models/DomainModel.cs                   |  5 ++++
+ Gestione/Models/interfaces.cs                    |  1 +
+ Gestione/database gecv/ProcedureAdd.sql          |  2 +-
+ Gestione/database gecv/ProcedureModifiche.sql    |  3 ++-
+ 9 files changed, 56 insertions(+), 4 deletions(-)
+
+commit 14598bdba6a1811e04f00d550b92eb042a3de599
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Wed Apr 18 14:13:08 2018 +0200
+
+    riviste delle cose
+
+ Gestione/Controllers/HomeController.cs         |  8 ++++----
+ Gestione/Models/DAOFlo.cs                      | 23 ++++++++++++-----------
+ Gestione/Views/Home/DettaglioCurriculum.cshtml |  2 +-
+ 3 files changed, 17 insertions(+), 16 deletions(-)
+
+commit 9c1f4729aac350522d50da5f2e045095cd03224c
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Mon Apr 16 20:40:40 2018 +0200
+
+    Risolti piccoli bug nella Ricerca Di Curriculum , la visualizzazione ed l'eliminazione ; risolto bug CercaCognome
+
+ Gestione/Controllers/HomeController.cs         | 11 +++++++----
+ Gestione/Controllers/SearchCV1.cs              |  4 ++--
+ Gestione/Models/DAOFlo.cs                      | 26 +++++++++++++-------------
+ Gestione/Models/DataAccessObject.cs            |  8 ++++----
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 12 ++++++------
+ Gestione/Views/Home/ListaCurriculum.cshtml     | 13 +++++++------
+ Gestione/database gecv/ProcedureFlo.sql        |  2 +-
+ 7 files changed, 40 insertions(+), 36 deletions(-)
+
+commit 72581633abd83df1c2df641376091e215d2d8bcf
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Mon Apr 16 16:37:44 2018 +0200
+
+    Aggiornate stored procedure
+
+ Gestione/database gecv/ProcedureFlo.sql | 14 +++++++-------
+ Gestione/database gecv/SQL_Carmen.sql   | 33 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 39 insertions(+), 8 deletions(-)
+
+commit 625b5bd96fe63091d21f413189b05985369cb1db
+Merge: 9425776 9d2588c
+Author: brolin2 <37894878+brolin2@users.noreply.github.com>
+Date:   Mon Apr 16 16:29:50 2018 +0200
+
+    Merge pull request #53 from corsialfasoft/GeCvFlo
+    
+    Ge cv flo
+
+commit 9d2588cb6d0a2aebc891acc41b1416eb3693c365
+Merge: 043ea4f 9425776
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Mon Apr 16 16:28:12 2018 +0200
+
+    Merge da GeCv
+
+commit 043ea4f60b27404df068fa89e3a0e1c093e40c39
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Mon Apr 16 16:26:09 2018 +0200
+
+    aggiunte Stored procedure e dao sulle modifiche
+
+ Gestione/Gestione.csproj                      |   1 +
+ Gestione/Models/DAOFlo.cs                     |  68 ++++++++++++++++++
+ Gestione/database gecv/ProcedureModifiche.sql | 100 ++++++++++++++++++++++++++
+ 3 files changed, 169 insertions(+)
+
+commit e77b166311dafff3f7188432e3bed9b6f3a1c9a5
+Merge: ea0344a 1e649a4
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Mon Apr 16 14:56:22 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit ea0344ac19d12c7d1d68d96cccd977754ceddab2
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Mon Apr 16 14:56:10 2018 +0200
+
+    Aggiunti Metodi e stored Procedure su dao
+
+ Gestione/Gestione.csproj            |   1 +
+ Gestione/Models/DAOFlo.cs           | 170 ++++++++++++++++++++++++++++++++++++
+ Gestione/Models/DataAccessObject.cs |  12 +--
+ 3 files changed, 174 insertions(+), 9 deletions(-)
+
+commit 9337d2454f87cb9e5ae3f46d9715e9e4b583f90b
+Merge: 3ef55c2 4cd9a9e
+Author: brolin2 <37894878+brolin2@users.noreply.github.com>
+Date:   Fri Apr 13 16:56:44 2018 +0200
+
+    Merge pull request #28 from corsialfasoft/GeCo
+    
+    GeCo Aggiornato e funzionante HA!
+
+commit bea6f1bf6647703979db9ed076d08a9dd3be60a8 (refs/remotes/origin/ElencoCorsiFlo)
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 13 16:20:49 2018 +0200
+
+    Aggiornato Il Dettaglio in elenco Corsi
+
+ Gestione/Controllers/HomeController.cs | 2 +-
+ Gestione/Views/Home/ElencoCorsi.cshtml | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 89b48f064fccf8e14bf5d840efb29a1fdc6637fa
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 13 16:06:19 2018 +0200
+
+    AddLezione Funzionante , o almeno non crasha!
+
+ Gestione/Controllers/GeCoAddLezione.cs | 6 ++++--
+ Gestione/Controllers/HomeController.cs | 7 +++++--
+ Gestione/Views/Home/AddLezione.cshtml  | 1 +
+ Gestione/Views/Home/Corso.cshtml       | 5 +++--
+ 4 files changed, 13 insertions(+), 6 deletions(-)
+
+commit 256f2bdc9dbc30f852270d34818d5b601b00f099
+Merge: 89b48f0 bea6f1b
+Author: brolin2 <37894878+brolin2@users.noreply.github.com>
+Date:   Fri Apr 13 16:22:04 2018 +0200
+
+    Merge pull request #25 from corsialfasoft/ElencoCorsiFlo
+    
+    Aggiornato Il Dettaglio in elenco Corsi
+
+commit e5ccfdc97227bf61a594526e1a615749cc9b41be
+Merge: cee7f37 9d56f12
+Author: brolin2 <37894878+brolin2@users.noreply.github.com>
+Date:   Fri Apr 13 13:50:44 2018 +0200
+
+    Merge pull request #22 from corsialfasoft/ElencoCorsiFlo
+    
+    Elenco corsi flo
+
+commit 9d56f12a380e10dbcb3979807b7fb4295f9a5d64
+Merge: c46ec63 cee7f37
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 13 13:49:27 2018 +0200
+
+    Sincro Con GeCo
+
+commit c46ec63e095e1ec94497996cdb13655887d0022e
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 13 12:32:00 2018 +0200
+
+    aggiunta di piccolo messaggio
+
+ Gestione/Controllers/ElencoCorsiController.cs | 13 ++++++++++++-
+ Gestione/Views/Home/ElencoCorsi.cshtml        | 12 +++++++++---
+ 2 files changed, 21 insertions(+), 4 deletions(-)
+
+commit 5b266ce7f62af75f8bea62cabe88e3d6fd952d0e
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 13 12:01:12 2018 +0200
+
+    AGGIUNTI TEST
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs | 14 ++++++++++++++
+ Gestione/Controllers/ElencoCorsiController.cs    | 18 ++++++++++--------
+ Gestione/Views/Home/ElencoCorsi.cshtml           |  2 +-
+ 3 files changed, 25 insertions(+), 9 deletions(-)
+
+commit 269ef8d2f44b162d1dc96158ba7a699e95eb87bd
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Fri Apr 13 11:41:59 2018 +0200
+
+    Issues Completato
+
+ Gestione/Controllers/ElencoCorsiController.cs | 37 +++++++++--
+ Gestione/Controllers/HomeController.cs        |  4 +-
+ Gestione/Models/DataAccessObject.cs           | 94 +++++++++++++++++++++++----
+ Gestione/Models/ElencoCorsiModel.cs           |  7 +-
+ Gestione/Models/interfaces.cs                 |  4 +-
+ Gestione/Views/Home/ElencoCorsi.cshtml        | 23 +++----
+ 6 files changed, 134 insertions(+), 35 deletions(-)
+
+commit 1ba462593e5669eddfefdc47348c4203d606420e
+Merge: dc41da5 3ef55c2
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 17:24:51 2018 +0200
+
+    Merge branch 'Evolutive' into ElencoCorsiFlo
+
+commit 3ef55c28d61c2f53d07ee7d528a9731e21d96e6c
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 17:24:21 2018 +0200
+
+    Aggiunto Costruttore Vuoto!
+
+ Gestione/Controllers/HomeController.cs | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit dc41da56dcc407e5d4facaf7cbc70d207006c7fc
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 17:21:55 2018 +0200
+
+    Aggiornato Controller e View
+
+ Gestione/Controllers/ElencoCorsiController.cs | 20 +++++++++++++++++---
+ Gestione/Views/Home/ElencoCorsi.cshtml        | 24 +++++++++++++++---------
+ 2 files changed, 32 insertions(+), 12 deletions(-)
+
+commit 61dacfbeb344cdd7b4bb906bd4d49e85e8709596
+Merge: c4f0ee5 bac4e0f
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 16:46:11 2018 +0200
+
+    Issue Finita (credo)
+
+commit bac4e0f4353428d23721202fd94af398440856a2
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 16:37:40 2018 +0200
+
+    Aggiunto DataAccesObject Mock , Namespace : "DAO" , NomeClasse :"DataAccessObject"
+
+ Gestione/Gestione.csproj            |   1 +
+ Gestione/Models/DataAccessObject.cs | 131 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 132 insertions(+)
+
+commit c4f0ee513a4098b05fa2152c16bfb6b9479178c7
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 16:32:29 2018 +0200
+
+    MEtodi Quasi Funzionanti ha!
+
+ Gestione/Controllers/ElencoCorsiController.cs | 37 +++++++++++++++++++++++++++
+ Gestione/Controllers/HomeController.cs        |  2 +-
+ Gestione/Gestione.csproj                      |  2 ++
+ Gestione/Models/DomainModel.cs                | 24 +++--------------
+ Gestione/Models/ElencoCorsiModel.cs           | 25 ++++++++++++++++--
+ Gestione/Views/Home/ElencoCorsi.cshtml        | 22 +++++++++++-----
+ 6 files changed, 83 insertions(+), 29 deletions(-)
+
+commit 9babe4a7f4ee726d6105a540e19c752820d0c601
+Merge: 189d737 bbd5bef
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 15:33:29 2018 +0200
+
+    Merge branch 'Evolutive' into ElencoCorsiFlo
+
+commit 189d73704f14b92a0d7ba9f9a15b492b4ba5fb09
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 15:32:11 2018 +0200
+
+    ???
+
+ Gestione/Gestione.csproj               |  1 +
+ Gestione/Models/ElencoCorsi.cs         | 14 ++++++++++++++
+ Gestione/Models/ElencoCorsiModel.cs    | 14 ++++++++++++++
+ Gestione/Views/Home/ElencoCorsi.cshtml | 24 ++++++++++++++++++++++++
+ 4 files changed, 53 insertions(+)
+
+commit d87e40ae518760cdb86dab5a4aceb481f4a08e41
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 15:29:12 2018 +0200
+
+    Revert "Aggiuta Pagine e metodoModello"
+    
+    This reverts commit af00ecd7ce361f978ad1e4c4f35e113f8586ede1.
+
+ Gestione/Controllers/ElencoCorsiController.cs |  1 -
+ Gestione/Models/DomainModel.cs                |  5 -----
+ Gestione/Models/ElencoCorsi.cs                | 14 --------------
+ Gestione/Views/ElencoCorsi.cshtml             | 17 -----------------
+ Gestione/Views/Home/ElencoCorsi.cshtml        | 24 ------------------------
+ 5 files changed, 61 deletions(-)
+
+commit af00ecd7ce361f978ad1e4c4f35e113f8586ede1
+Author: brolin2 <gheliuc.florin@gmail.com>
+Date:   Thu Apr 12 15:26:56 2018 +0200
+
+    Aggiuta Pagine e metodoModello
+
+ Gestione/Controllers/ElencoCorsiController.cs |  1 +
+ Gestione/Models/DomainModel.cs                |  5 +++++
+ Gestione/Models/ElencoCorsi.cs                | 14 ++++++++++++++
+ Gestione/Views/ElencoCorsi.cshtml             | 17 +++++++++++++++++
+ Gestione/Views/Home/ElencoCorsi.cshtml        | 24 ++++++++++++++++++++++++
+ 5 files changed, 61 insertions(+)

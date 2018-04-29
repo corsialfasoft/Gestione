@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+            color: #fff;
+            background-color: #337ab7;
+        }
+        .nuovo {
+            margin-left: 30px;
+            width: 80%;
+        }
+
+        .sfondoCorso {
+            margin-top: 0px;
+            background-image: url(/ImgResource/Corso.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .form-control {
+            margin-bottom: 30px;
+        }
+
+        .row {
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+            padding-top: 50px !important;
+            padding-bottom: 50px !important;
+        }
+    </style>
+    <!-- CDN DI JQUERY BY http://jquery.com/download/ -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <!-- BOOSTRAP DEPENDENCIES BY http://getbootstrap.com/docs/3.3/getting-started/ -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+        var uri = '../api/Corsi';
+        $(document).ready(function () {
+            $("#Nuovo").hide();
+            function LoadCorsi() {
+                $('#Corso').empty();
+                $.getJSON(uri)
+                    .done(function (data) {
+                        $.each(data, function (key, item) {
+                            $('#Corso').append('<li class="list-group-item" onclick=LoadCorso(' + item.Id + ')>' + item.Nome + '</li>');
+                        });
+                    });
+            }
+            LoadCorsi();
+            $("#frmNuovo").submit(function (event) {
+                event.preventDefault();
+                var $form = $(this)
+                var corso = {};
+                var url = $form.attr("action");
+                corso.Nome = $form.find("input[name='_nome']").val();
+                corso.Descrizione = $form.find("textarea[name='_descrizione']").val();
+                corso.Inizio = $form.find("input[name='_inizio']").val();
+                corso.Fine = $form.find("input[name='_fine']").val();
+                var posting = $.post(url, corso);
+                posting.done(function (data) {
+                    //var content = $(data).find("#Message");
+                    LoadCorsi();
+                    $("#Message").append(data);
+                });
+            });
+        });
+        function LoadCorso(id) {
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    $('#DettaglioCorso').html(
+                        '<div class="panel panel-primary">' +
+                        '<div class="panel-heading">' + data.Nome + '</div>' +
+                        '<div class="panel-body"> <p><small>' + data.Descrizione + '</small></p>' +
+                        '<div class="form-group"><label>Data Inizio</label> ' +
+                        '<input disabled type="text" class="form-control" value="' + data.Inizio + '">' +
+                        '<div class="form-group"><label>Data Fine</label> ' +
+                        '<input disabled type="text" class="form-control" value="' + data.Fine + '"></div>' +
+
+                        '<a class="btn btn-success" href="#" role="button">Modifica</a> &nbsp;' +
+                        '<a class="btn btn-warning" href="#" role="button">Elimina</a>' +
+                        '</div>' +
+                        '</div > ');
+                    $('#Lezioni').empty();
+                    $('#Lezioni').append("<ul class='list-group' >");
+                    $.each(data.Lezioni, function (key, item) {
+                        $('#Lezioni').append("<li class='list-group-item'>" + item.Nome + "</li>");
+                    });
+                    $('#Lezioni').append("</ul>");
+
+                });
+        }
+        function AddLezione() {
+
+        }
+        function NuovoCorso() {
+            $("#Elenco").hide();
+            $("#Nuovo").show();
+            $("#TabElenco").removeClass("active");
+            $("#TabNuovo").addClass("active");
+        }
+        function ElencoCorsi() {
+            $("#Nuovo").hide();
+            $("#Elenco").show();
+            $("#TabNuovo").removeClass("active");
+            $("#TabElenco").addClass("active");
+        }
+    </script>
+    <title>Esempio utilizzo WEB API con JQUERY</title>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Gestione Corsi</h1>
+        </div>
+        <div class="text-info">
+
+        </div>
+        <div>
+            <ul class="nav nav-tabs ">
+                <li id="TabElenco" role="presentation" class="active "><a onclick="ElencoCorsi()">Elenco Corsi</a></li>
+                <li id="TabNuovo" role="presentation"><a onclick="NuovoCorso()">Nuovo Corso</a></li>
+            </ul>
+        </div>
+        <div id="Elenco" class="sfondoCorso">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group" id="Corso"></ul>
+                </div>
+                <div class="col-md-6">
+                    <div id="DettaglioCorso"></div>
+                    <div id="Lezioni"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Nuovo" class="sfondoCorso">
+            <div class="row">
+                <div class="nuovo">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Inserimento nuovo corso</div>
+                        <div class="panel-body form-group">
+                            <form action="/api/Corsi" id="frmNuovo" class="formStyle" method="post">
+
+                                <label>Nome</label>
+                                <input class="form-control" type="text" name="_nome" placeholder="Nome" required="">
+
+                                <label>Descrizione</label>
+                                <textarea class="form-control" name="_descrizione" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui la descrizione..."></textarea>
+
+                                <label>Data Inizio</label>
+                                <input class="form-control" type="date" name="_inizio" placeholder="Inizio" required="">
+
+                                <label>Data Fine</label>
+                                <input class="form-control" type="date" name="_fine" placeholder="Fine" required="">
+
+                                <input type="submit" class="btn btn-default" value="Inserisci corso">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Modal Body</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

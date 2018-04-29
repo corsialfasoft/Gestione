@@ -1,0 +1,845 @@
+commit d83ab11c1edea8167723b726e4e388ed37bcfa2f
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 21:42:24 2018 +0200
+
+    corretto bug GeCo
+
+ Gestione/SQL/SP_GeCo.sql               | 121 ++++++---------------------------
+ Gestione/Views/Home/ElencoCorsi.cshtml |  28 ++++----
+ 2 files changed, 36 insertions(+), 113 deletions(-)
+
+commit 988e9cb45d07e38e30a37f8d3d657db803a14972
+Merge: 86b1029 717f425
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Sat Apr 21 19:05:16 2018 +0200
+
+    Merge pull request #79 from corsialfasoft/completoM
+    
+    Finito il merge dei tre sistemi e la rifattorizzazione
+
+commit 717f425b80d081d754624cce38e8c54d7f9dd4da (refs/remotes/origin/completoM)
+Merge: 7057e94 fca81f8
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 18:57:07 2018 +0200
+
+    Merge branch 'completoM' of https://github.com/corsialfasoft/Gestione into completoM
+
+commit 7057e94df3adecfd446aa4be44cc1ef63abeaa29
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 18:56:41 2018 +0200
+
+    corretto bug GeTime
+
+ Gestione/Controllers/GeTime-Controller.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a704238b6b08b6d4a1aa74a34646a47465bb28b8
+Merge: a03e188 d33fc3f
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 18:34:52 2018 +0200
+
+    Merge branch 'completoM' of https://github.com/corsialfasoft/Gestione into completoM
+
+commit a03e188993d83d0c3935957d264da9721caf1688
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 18:34:40 2018 +0200
+
+    tolto spazi
+
+ Gestione/Views/Home/Index.cshtml | 6 ------
+ 1 file changed, 6 deletions(-)
+
+commit 689ac9dff6a5df3434c5086e7cb86c80ac9d7f50
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 18:30:22 2018 +0200
+
+    rifattorizzato trasformatori
+
+ Gestione/Models/DataAccessObject.cs | 261 ++++++++++++++++++------------------
+ Gestione/Models/trasformatori.cs    |  64 +++------
+ 2 files changed, 152 insertions(+), 173 deletions(-)
+
+commit dfe584e852111ec575cde8b560c4baf351a96136
+Merge: 20d6a4e fe05278
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 18:29:51 2018 +0200
+
+    merge con matte
+
+commit 20d6a4eb952167160ffdd09bc03d259852d7f43a
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 18:00:08 2018 +0200
+
+    riffattorizzato i trasformatori
+
+ Gestione/Models/DataAccessObject.cs |  12 ++--
+ Gestione/Models/trasformatori.cs    | 119 ++++++++++++++++++------------------
+ LibreriaDB/DB.cs                    |  12 +++-
+ 3 files changed, 75 insertions(+), 68 deletions(-)
+
+commit 5f41bdf46287b772f951cabf6a1210476cefccc6
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 17:18:13 2018 +0200
+
+    corretto un bug
+
+ Gestione/Controllers/DT.cs                | 70 +++++++++++++++----------------
+ Gestione/Controllers/GeTime-Controller.cs |  2 +-
+ 2 files changed, 36 insertions(+), 36 deletions(-)
+
+commit afa70b8a78b23e869f46c97292585a8202e262b0
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 16:55:00 2018 +0200
+
+    sistemato il controller
+
+ Gestione/Controllers/GeCo-Controller.cs   | 13 ++-----------
+ Gestione/Controllers/GeTime-Controller.cs | 15 +++++++--------
+ Gestione/Models/DomainModel.cs            |  4 ----
+ 3 files changed, 9 insertions(+), 23 deletions(-)
+
+commit 632d537a05187f0313498341f9f5f4f3da70cab8
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 16:40:55 2018 +0200
+
+    cancelato cose inutili Dao
+
+ Gestione/Models/DataAccessObject.cs | 231 +-----------------------------------
+ Gestione/Models/DomainModel.cs      |  22 ++--
+ 2 files changed, 12 insertions(+), 241 deletions(-)
+
+commit a26fd235bfd1e6c86b8d09656dbb7ca0b866ba81
+Merge: c49ce99 9a6559f
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 16:26:50 2018 +0200
+
+    Merge branch 'completoM' of https://github.com/corsialfasoft/Gestione into completoM
+
+commit c49ce993421c14ad04507485cfd55ef2346d2309
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 16:26:37 2018 +0200
+
+    sistemato DAO
+
+ Gestione/Models/DataAccessObject.cs | 64 +++++++++++++++++++------------------
+ Gestione/Models/interfaces.cs       |  1 +
+ 2 files changed, 34 insertions(+), 31 deletions(-)
+
+commit d86112b4d70cb3f23456ed0d408a8fdce64954cc
+Merge: f667562 2648153
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 16:12:33 2018 +0200
+
+    Merge branch 'completoM' of https://github.com/corsialfasoft/Gestione into completoM
+
+commit f667562da09d2a07e0e2f62e6037c333ee8441fc
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 16:11:18 2018 +0200
+
+    sistemato Dm
+
+ Gestione/Models/DomainModel.cs       | 96 ++++++++++++++++++++----------------
+ Gestione/Views/Shared/_Layout.cshtml | 63 +++++++++--------------
+ 2 files changed, 77 insertions(+), 82 deletions(-)
+
+commit 48669aa215cb7d9f4235bef8672300dfb718876c
+Merge: 0a18416 9f1844c
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 15:30:19 2018 +0200
+
+    merge con layoutHPFederico
+
+commit 0a18416526351653ebc00944ce146380e92c9446
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 15:26:17 2018 +0200
+
+    sistemato DomainModel
+
+ Gestione/Models/DomainModel.cs | 30 ++----------------------------
+ 1 file changed, 2 insertions(+), 28 deletions(-)
+
+commit 86b102972f52f3b0a32a86bd7c793cae255e549d
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 15:09:36 2018 +0200
+
+    modificato controller e SP
+
+ Gestione/Controllers/DT.cs                         | 122 ++++++++++++++++
+ Gestione/Controllers/GeCv-Controller.cs            |  23 ---
+ Gestione/Controllers/GeTime-Controller.cs          |  33 -----
+ Gestione/Controllers/dt-gecv.cs                    | 107 --------------
+ Gestione/Gestione.csproj                           |   8 +-
+ .../ddl-gecv.sql => SQL/DDLGeCv.sql}               |  20 +--
+ .../{database gecv/SP-GeCv.sql => SQL/SP_GeCv.sql} | 158 ++++++++-------------
+ Gestione/{database gecv => SQL}/test.sql           |   0
+ 8 files changed, 188 insertions(+), 283 deletions(-)
+
+commit 2775be6b0a88867ee50828ed924191c42f2aa2d8
+Merge: 787b13f 7e83b5c
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 13:45:48 2018 +0200
+
+    Merge branch 'Evolutive' of https://github.com/corsialfasoft/Gestione into Evolutive
+
+commit 787b13f26835328103f06dac1fa04600b1585a65
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Sat Apr 21 13:45:00 2018 +0200
+
+    tolto dei spazi
+
+ Gestione/SQL/SP_GeTime.sql | 5 -----
+ 1 file changed, 5 deletions(-)
+
+commit 35946aefc60667bccff55058e0e179dfd54f2881
+Merge: db15199 7bea1df
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 20 22:54:53 2018 +0200
+
+    Merge pull request #76 from corsialfasoft/GeTime
+    
+    rifattorizzazione Getime
+
+commit 7bea1df688ccf2ac105a08867718c573578f0b87 (refs/remotes/origin/GeTime)
+Merge: 860926f 656fd4f
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 22:50:23 2018 +0200
+
+    Merge branch 'GeTime' of https://github.com/corsialfasoft/Gestione into GeTime
+
+commit 860926fb33ea44f8802d2cdc9640b6f2cddb8cd6
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 22:49:20 2018 +0200
+
+    aggiunto DT di Getime nel file GeTime-Controller
+
+ Gestione/Controllers/DTGiorno.cs          | 38 -------------------------------
+ Gestione/Controllers/GeTime-Controller.cs | 35 +++++++++++++++++++++++++++-
+ Gestione/Gestione.csproj                  |  1 -
+ 3 files changed, 34 insertions(+), 40 deletions(-)
+
+commit 01490f62fa274abd98ebbffeb4ef58d7100662c4
+Merge: a6dcf1c 8265f69
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 20 21:54:13 2018 +0200
+
+    Merge pull request #74 from corsialfasoft/RamoNauman
+    
+    rifattorizzato GeTime
+
+commit 8265f690bfed78600864742c63bb9afed5546ed2 (refs/remotes/origin/RamoNauman)
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 21:49:29 2018 +0200
+
+    rifattorizzato GeTime
+
+ Gestione/Controllers/VisualizzaCommessa.cs |   3 +-
+ Gestione/Models/DataAccessObject.cs        |  94 +++++++-------------------
+ Gestione/Models/interfaces.cs              |   2 +-
+ Gestione/Models/trasformatori.cs           |  25 +++++++
+ Gestione/SQL/SP_GeTime.sql                 | 102 ++++++++++-------------------
+ 5 files changed, 87 insertions(+), 139 deletions(-)
+
+commit db1519956f7f39528dfc7c38342ee92acb3ac773
+Merge: 5fd999c a6dcf1c
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 20 17:19:20 2018 +0200
+
+    Merge pull request #73 from corsialfasoft/GeTime
+    
+    Ge time
+
+commit a6dcf1c2167a85564bc6cf9356d2d385c9dc751d
+Merge: 3e90af2 5fd999c
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 17:17:53 2018 +0200
+
+    Merge remote-tracking branch 'origin/Evolutive' into GeTime
+
+commit 5fd999cc8ff2fcf42ceaedf1eb8ed9fa7629fed8
+Merge: 202a893 048f04b
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 20 17:13:42 2018 +0200
+
+    Merge pull request #72 from corsialfasoft/GeTime
+    
+    merge da Getime  a geco
+
+commit 3e90af24998b4ae92722c438eccc7b9a8fdf039c
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 17:11:49 2018 +0200
+
+    sql
+
+ Gestione/Gestione.csproj                           |   9 +-
+ Gestione/{Sql/GeCo.sql => SQL/DDLGeCo.sql}         |   0
+ Gestione/SQL/SP_AddHLavoro.sql                     |  52 ---------
+ Gestione/SQL/SP_Compila.sql                        |  39 -------
+ Gestione/SQL/{stored-procedure.sql => SP_GeCo.sql} |   0
+ Gestione/SQL/SP_GeTime.sql                         | 127 +++++++++++++++++++++
+ Gestione/SQL/SP_VisualizzaCommessa.sql             |  23 ----
+ Gestione/SQL/SP_VisualizzaGiorno.sql               |  42 -------
+ 8 files changed, 130 insertions(+), 162 deletions(-)
+
+commit 048f04b22f0022a7a318c26dea65eebb4b533504
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 17:05:27 2018 +0200
+
+    merge con geco:  corretto
+
+ Gestione/Controllers/HomeController.cs      |  40 +----
+ Gestione/Gestione.csproj                    |   1 -
+ Gestione/Models/DataAccessObject.cs         |  21 +--
+ Gestione/Models/DomainModel.cs              |  32 +---
+ Gestione/Models/GeTimeAddGiorno.cs          |   2 -
+ Gestione/Models/GetimeVisualizzaCommessa.cs |   3 -
+ Gestione/Models/trasformatori.cs            |  23 ++-
+ Gestione/SQL/DB.cs                          | 247 ----------------------------
+ 8 files changed, 29 insertions(+), 340 deletions(-)
+
+commit ec490ec7898b7feb31c29f9e2575dca3ca1fef97
+Merge: b19dfed d3e9be8
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 17:04:08 2018 +0200
+
+    merge
+
+commit b19dfed9563095533436b5b8d144a0dec07c8bf8
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 16:36:02 2018 +0200
+
+    l'ultime modifiche
+
+ Gestione/Views/Home/GeTimeHome.cshtml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit e3dd8d2f1a34f9d084311f6f1cd3c5fa34f5145c (refs/remotes/origin/Profilatura)
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 16:28:03 2018 +0200
+
+    aggiunto Iprofiler
+
+ Gestione/Models/DataAccessObject.cs |  5 ++--
+ Gestione/Models/interfaces.cs       | 55 +++++++++++++++++++++++++++++++++++--
+ Gestione/ProfilaturaDDL.sql         | 21 ++++++++++++--
+ 3 files changed, 73 insertions(+), 8 deletions(-)
+
+commit 816d3ad1928ae1196615695d6297c173862e7290
+Merge: cad76bb c76367c
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 20 13:47:50 2018 +0200
+
+    Merge pull request #68 from corsialfasoft/RamoNauman
+    
+    Ramo nauman
+
+commit c76367cb4cc73181ee6e569e6ed2136019e6160d
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 13:28:07 2018 +0200
+
+    aggiunto i test e corretto gli errori
+
+ Gestione.Tests/Controllers/GeTimeTest.cs         | 38 +++++++++++++++---------
+ Gestione.Tests/Controllers/HomeControllerTest.cs | 21 +------------
+ Gestione/Models/DataAccessObject.cs              |  2 +-
+ Gestione/SQL/DDLGeTime.sql                       | 34 ++++++++++++++-------
+ Gestione/SQL/SP_VisualizzaCommessa.sql           |  2 +-
+ 5 files changed, 51 insertions(+), 46 deletions(-)
+
+commit f5b6a555898fc24376f45625f0f8b195ffef8837
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 20 11:31:47 2018 +0200
+
+    test
+
+ Gestione.Tests/Controllers/GeTimeTest.cs         | 47 ++++++++++++++++++++++++
+ Gestione.Tests/Controllers/HomeControllerTest.cs |  2 +-
+ Gestione.Tests/Gestione.Tests.csproj             |  1 +
+ Gestione/Controllers/HomeController.cs           |  4 ++
+ Gestione/Controllers/VisualizzaCommessa.cs       |  5 ++-
+ Gestione/Gestione.csproj                         |  1 +
+ Gestione/SQL/DDLGeTime.sql                       | 22 +++++++++++
+ Gestione/Views/Home/GeTimeHome.cshtml            | 34 +++++++++++++++++
+ LibreriaDB/Class1.cs                             | 12 ++++++
+ 9 files changed, 126 insertions(+), 2 deletions(-)
+
+commit a530f75092d320dba607aa30da4445fa88de2a70
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 19 17:12:02 2018 +0200
+
+    risolti piccoli problemini su add e modifiche competenze
+
+ Gestione/Controllers/ControllerComp.cs | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+commit a12d28a889615eaae160fc2627b93cd1ab2f9c7a
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 19 16:53:30 2018 +0200
+
+    corretto tutti errrori
+
+ Gestione/Controllers/EspLav.cs | 27 ---------------------------
+ Gestione/Models/DomainModel.cs |  1 -
+ 2 files changed, 28 deletions(-)
+
+commit ff753af03c51b2a674a8b39f022256eb0e027fa3
+Merge: 43c258c 41867d2
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 19 16:47:00 2018 +0200
+
+    mege
+
+commit cad76bbae19faab8a31660ffcee9b51310a329c2
+Merge: e956099 89076c7
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 19 16:43:56 2018 +0200
+
+    Merge pull request #65 from corsialfasoft/RamoNauman
+    
+    aggiunta la LibreriaDB
+
+commit 43c258c474b559fe22a52e13d121e20847947e77
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 19 16:34:01 2018 +0200
+
+    aggiunto ModPerStudi e AddPerStudi all'interno del file GeCVModPerStudi.cs
+    modificato le procedure di modifica
+
+ Gestione/Controllers/GeCVModPerStudi.cs       | 36 +++++++++++++++++++++++++++
+ Gestione/Gestione.csproj                      |  1 +
+ Gestione/Models/DataAccessObject.cs           |  7 +++---
+ Gestione/Models/DomainModel.cs                |  6 ++++-
+ Gestione/Models/interfaces.cs                 |  3 ++-
+ Gestione/database gecv/ProcedureModifiche.sql | 29 +++------------------
+ 6 files changed, 52 insertions(+), 30 deletions(-)
+
+commit 89076c7a77a3ddae2111471c2e52cd1a38b003ed
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 19 15:42:36 2018 +0200
+
+    aggiunta la LibreriaDB
+
+ Gestione.sln                          |   6 +
+ Gestione/Gestione.csproj              |   9 +-
+ LibreriaDB/DB.cs                      | 245 ++++++++++++++++++++++++++++++++++
+ LibreriaDB/LibreriaDB.csproj          |  47 +++++++
+ LibreriaDB/Properties/AssemblyInfo.cs |  36 +++++
+ 5 files changed, 340 insertions(+), 3 deletions(-)
+
+commit e956099f96ab7906ca918b144c1dbdb269358ab1
+Merge: ffb14b1 0e5aeba
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 19 15:06:10 2018 +0200
+
+    Merge pull request #61 from corsialfasoft/RamoNauman
+    
+    GeTime funziona manca HomePage
+
+commit 0e5aebaa08e3b9aa25fe76c31f4edd0046f3d820
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 19 14:58:12 2018 +0200
+
+    GeTime funziona manca HomePage
+
+ Gestione/Controllers/DTGiorno.cs        |   2 +-
+ Gestione/Controllers/GeTimeAddGiorno.cs |  23 ++++--
+ Gestione/Models/interfaces.cs           |   4 +-
+ Gestione/SQL/DDLGeTime.sql              |   4 +-
+ Gestione/SQL/SP_Compila.sql             |  14 +++-
+ Gestione/SQL/SP_VisualizzaGiorno.sql    |   1 -
+ Gestione/Views/Home/AddGiorno.cshtml    | 124 +++++++++++++++++++++++++-------
+ 7 files changed, 132 insertions(+), 40 deletions(-)
+
+commit ffb14b193bdf39e161c6797d24acb50739bf5e84
+Merge: ab81399 a6d987e
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Wed Apr 18 16:33:03 2018 +0200
+
+    Merge pull request #58 from corsialfasoft/RamoNauman
+    
+    fatto tutte cose
+
+commit a6d987e77d469079584711c90e9af497f4bfc8bc
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Wed Apr 18 16:05:29 2018 +0200
+
+    getime
+
+ Gestione/Models/DataAccessObject.cs         |  2 +-
+ Gestione/Models/GeTimeAddGiorno.cs          | 13 ++++++++-----
+ Gestione/Models/GetimeVisualizzaCommessa.cs |  6 ++----
+ Gestione/SQL/SP_AddHLavoro.sql              |  6 +-----
+ 4 files changed, 12 insertions(+), 15 deletions(-)
+
+commit 84889525fe793a1bad1a686ee3d14f1c6707e178
+Merge: 8f6c270 ab81399
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Wed Apr 18 15:54:46 2018 +0200
+
+    merge
+
+commit 8f6c2701b6056aae26871fa3bd95c9754b238744
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Wed Apr 18 15:48:52 2018 +0200
+
+    fine compilaHLavoro
+
+ Gestione/Controllers/GeTimeAddGiorno.cs | 35 ++++++++++++++++++++-------------
+ Gestione/Models/DataAccessObject.cs     | 10 ++++------
+ Gestione/SQL/SP_Compila.sql             | 22 +++++++++------------
+ Gestione/Views/Home/AddGiorno.cshtml    |  7 +++++--
+ 4 files changed, 39 insertions(+), 35 deletions(-)
+
+commit 3d37ac7aaa152aa63e1d898f523cb56a53d88997
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Tue Apr 17 09:30:24 2018 +0200
+
+    tutto cose
+
+ Gestione/Controllers/GeTimeAddGiorno.cs     | 18 ++++++++++++---
+ Gestione/Controllers/VisualizzaCommessa.cs  | 20 ++++++++++-------
+ Gestione/Models/DataAccessObject.cs         | 34 ++++++++++++++++-------------
+ Gestione/Models/DomainModel.cs              |  2 +-
+ Gestione/Models/GeTimeAddGiorno.cs          |  8 ++++++-
+ Gestione/Models/GetimeVisualizzaCommessa.cs | 30 +++++++++++++++----------
+ Gestione/Models/interfaces.cs               | 14 +++++-------
+ Gestione/SQL/SP_Compila.sql                 | 19 ++++++++--------
+ 8 files changed, 89 insertions(+), 56 deletions(-)
+
+commit 1efa7eb7e7ec25788ef6cddbe0e8ec5c19c23078
+Merge: d25be8c 9ba625c
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Mon Apr 16 18:44:58 2018 +0200
+
+    Merge pull request #56 from corsialfasoft/GeTime
+    
+    Ge time
+
+commit 9ba625c825723f6cebc40fd642ee054d27113f76
+Merge: ec12ba8 d25be8c
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Mon Apr 16 18:44:50 2018 +0200
+
+    Merge branch 'RamoNauman' into GeTime
+
+commit d25be8c15a6141501497a34f978d1a99e9c634ee
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Mon Apr 16 15:59:39 2018 +0200
+
+    procedure
+
+ Gestione/Gestione.csproj                                        | 1 +
+ Gestione/SQL/{StoredProcedure.sql => SP_VisualizzaCommessa.sql} | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 2684290ecbbdf2fe6b23f6560f3e0a0883647df9
+Merge: 75ff246 c4f5bc4
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Mon Apr 16 15:55:39 2018 +0200
+
+    Merge remote-tracking branch 'origin/GeTime' into RamoNauman
+
+commit 75ff246fb396878434b1fc48f8d303881ee46451
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Mon Apr 16 15:54:58 2018 +0200
+
+    modificato  con database
+
+ Gestione/Controllers/HomeController.cs        |  2 +-
+ Gestione/Controllers/VisualizzaCommessa.cs    | 22 ++++++-----
+ Gestione/Gestione.csproj                      |  3 ++
+ Gestione/Models/DataAccessObject.cs           | 57 +++++++++++++++++++--------
+ Gestione/Models/interfaces.cs                 | 25 ++++++------
+ Gestione/SQL/StoredProcedure.sql              | 22 +++++++++++
+ Gestione/Views/Home/VisualizzaCommessa.cshtml |  2 +-
+ 7 files changed, 94 insertions(+), 39 deletions(-)
+
+commit 83c8b1f261b2238521d1a6b6b81a405a9288982b
+Merge: 5bc7bc8 89932eb
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Mon Apr 16 09:50:42 2018 +0200
+
+    Merge pull request #32 from corsialfasoft/RamoNauman
+    
+    sql
+
+commit 89932eb771ec64514101c6f6a6c9d6bc4da6b371
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Mon Apr 16 09:50:01 2018 +0200
+
+    sql
+
+ Gestione/Gestione.csproj               | 2 +-
+ Gestione/{Models => SQL}/DDLGeTime.sql | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+commit 5bc7bc8d0899c4239363b0f7c0419e7e418044a1
+Merge: 4b32a2b 71c246c
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Mon Apr 16 09:46:07 2018 +0200
+
+    Merge pull request #31 from corsialfasoft/RamoNauman
+    
+    modificato DDL
+
+commit 71c246caf16cb64895b2b7118eb5f10c730287af
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Mon Apr 16 09:43:54 2018 +0200
+
+    modificato DDL
+
+ Gestione/Models/DDLGeTime.sql | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 4b32a2b8b5298e4d2a6f45b2a60b5ed095e60ebb
+Merge: c4f5bc4 940b154
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Mon Apr 16 09:38:37 2018 +0200
+
+    Merge pull request #30 from corsialfasoft/RamoNauman
+    
+    Ramo nauman
+
+commit 940b154327bf93c7edafe25d8be934fb2df63c7b
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Mon Apr 16 09:36:50 2018 +0200
+
+    DDLGeTime
+
+ Gestione/Gestione.csproj                      |  1 +
+ Gestione/Models/DDLGeTime.sql                 | 35 +++++++++++++++++++++++++++
+ Gestione/Views/Home/VisualizzaCommessa.cshtml |  8 +++---
+ 3 files changed, 40 insertions(+), 4 deletions(-)
+
+commit 302a1b0c192e9b4b30cbeab6c1ad33d1b1531432
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 13 17:27:47 2018 +0200
+
+    gra
+
+ Gestione/Content/Site.css                     | 3 +++
+ Gestione/Views/Home/VisualizzaCommessa.cshtml | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+commit 495a7d59b00dfb8fa3a52f45b8be5fdb0001db9d
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 13 17:19:49 2018 +0200
+
+    cambiata grafica
+
+ Gestione/Views/Home/VisualizzaCommessa.cshtml | 42 +++++++++++++--------------
+ 1 file changed, 20 insertions(+), 22 deletions(-)
+
+commit 553f109dcda166aec9e117b3a0522849021aa864
+Merge: 3b3632e c4f5bc4
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 13 16:30:38 2018 +0200
+
+    Merge pull request #27 from corsialfasoft/GeTime
+    
+    Ge time
+
+commit c4f5bc4ac135117b0fc2568e1371f2ec9fb7c775
+Merge: ade1da7 6be3938
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 13 16:29:46 2018 +0200
+
+    Merge pull request #26 from corsialfasoft/RamoNauman
+    
+    modificato interface e oggetti di domain model
+
+commit 6be3938044bac0fc5a2d36f3984db31291e1767a
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 13 16:27:20 2018 +0200
+
+    modificato interface e oggetti di domain model
+
+ Gestione/Controllers/VisualizzaCommessa.cs  | 18 ++++----------
+ Gestione/Models/DomainModel.cs              |  1 +
+ Gestione/Models/GetimeVisualizzaCommessa.cs | 37 +++++++++++++++++++++++++----
+ Gestione/Models/interfaces.cs               |  5 ++--
+ 4 files changed, 41 insertions(+), 20 deletions(-)
+
+commit 6c6080ed885a9297ffb9a410ca14f153883dbc39
+Merge: b8ccd2d afb883d
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 13 12:10:24 2018 +0200
+
+    Merge pull request #18 from corsialfasoft/RamoNauman
+    
+    modificato Visulizza Commessa
+
+commit afb883de96dc8a6a34616ac73ef0856f84680273
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 13 12:09:30 2018 +0200
+
+    modificato Visulizza Commessa
+
+ Gestione/Controllers/VisualizzaCommessa.cs |  4 ++--
+ Gestione/Models/DataAccessObject.cs        | 10 +++++-----
+ Gestione/Models/interfaces.cs              |  2 +-
+ 3 files changed, 8 insertions(+), 8 deletions(-)
+
+commit b8ccd2d98a9ea0305a9caa54c1d0ddad57af522e
+Merge: 3ccd3a2 4873531
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Fri Apr 13 11:58:44 2018 +0200
+
+    Merge pull request #16 from corsialfasoft/RamoNauman
+    
+    Ramo nauman
+
+commit 48735313e1e0e74c179be00c7aa359dc675cfa61
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Fri Apr 13 11:54:29 2018 +0200
+
+    modificato modello
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs |  8 +++-
+ Gestione/Content/Site.css                        |  1 -
+ Gestione/Models/interfaces.cs                    | 59 ++++++++++++++----------
+ 3 files changed, 41 insertions(+), 27 deletions(-)
+
+commit efa7d9635246b9e8d3d67d649299ea0697b7107c
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 12 23:14:21 2018 +0200
+
+    vhd
+
+ Gestione/Content/Site.css                     |  4 +++
+ Gestione/Controllers/HomeController.cs        |  6 ++--
+ Gestione/Controllers/VisualizzaCommessa.cs    | 25 ++++++++++++----
+ Gestione/Gestione.csproj                      |  2 +-
+ Gestione/Models/DataAccessObject.cs           | 20 ++++++++++---
+ Gestione/Models/GetimeVisualizzaCommessa.cs   |  9 ++++--
+ Gestione/Models/interfaces.cs                 | 13 ++++-----
+ Gestione/Views/Home/VisualizzaCommessa.cshtml | 42 +++++++++++++++++++++++++++
+ Gestione/Views/Home/VisulizzaCommessa.cshtml  | 41 --------------------------
+ 9 files changed, 96 insertions(+), 66 deletions(-)
+
+commit 2c95db40080b1dcb8de1092aca268457618aa0c7
+Merge: d6c46f0 bac4e0f
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 16:49:59 2018 +0200
+
+    Merge pull request #8 from corsialfasoft/Evolutive
+    
+    Aggiunto DataAccesObject Mock , Namespace : "DAO" , NomeClasse :"Data…
+
+commit d6c46f0fc96413631d409ade0b41db287e7ecac1
+Merge: 7870a40 f619ae3
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 12 16:08:37 2018 +0200
+
+    merge
+
+commit 7870a404d1550f5c07cc47bb6f80c6ddc1073351
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 12 16:07:35 2018 +0200
+
+    cotroller
+
+ Gestione/Controllers/HomeController.cs       |  2 +-
+ Gestione/Controllers/VisualizzaCommessa.cs   | 29 ++++++++++++++++++++++
+ Gestione/Gestione.csproj                     |  1 +
+ Gestione/Models/DomainModel.cs               | 10 +-------
+ Gestione/Views/Home/VisulizzaCommessa.cshtml | 37 +++++++++++++++++++++++++---
+ 5 files changed, 66 insertions(+), 13 deletions(-)
+
+commit f619ae3272492807196e232a155828f72829e630
+Merge: d9fbd34 3ccd3a2
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 16:07:00 2018 +0200
+
+    Merge pull request #7 from corsialfasoft/GeTime
+    
+    Ge time
+
+commit 3ccd3a25188e29d2dd465c5f5c86ff95e5e16db6
+Merge: 9078256 9f7991a
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 16:06:25 2018 +0200
+
+    Merge pull request #6 from corsialfasoft/Evolutive
+    
+    Evolutive
+
+commit 9f7991aac99f63cc01927f735d72c1f88715d1dc
+Merge: a25088e 9078256
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 16:04:10 2018 +0200
+
+    Merge pull request #5 from corsialfasoft/GeTime
+    
+    Ge time
+
+commit d9fbd346d7b586f528ea88084e553d10c4e62e7f
+Merge: 4dfc6bb 9078256
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 15:31:11 2018 +0200
+
+    Merge pull request #4 from corsialfasoft/GeTime
+    
+    Ge time
+
+commit 4dfc6bb2980ea16408137a94b431b75d1f21c40d
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 12 15:30:20 2018 +0200
+
+    n
+
+ Gestione/Gestione.csproj                     |  2 ++
+ Gestione/Models/GetimeVisualizzaCommessa.cs  | 17 +++++++++++++++++
+ Gestione/Views/Home/VisulizzaCommessa.cshtml | 10 ++++++++++
+ 3 files changed, 29 insertions(+)
+
+commit 9078256a0cc5836a9dedac66903f8a30ae701465
+Merge: 19f4de1 bbd5bef
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 15:28:09 2018 +0200
+
+    Merge pull request #3 from corsialfasoft/Evolutive
+    
+    Evolutive
+
+commit 19f4de1e754ebd78f0ab7eb8f4fcaeddd5966d73
+Merge: 019b628 4363a95
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 14:57:13 2018 +0200
+
+    Merge pull request #2 from corsialfasoft/Evolutive
+    
+    Evolutive
+
+commit 4363a95bfd3cc430b613039090fd4a648187d837
+Merge: aa03495 adca699
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 12 14:56:09 2018 +0200
+
+    Merge branch 'Evolutive' of https://github.com/corsialfasoft/Gestione into Evolutive
+
+commit aa0349584e2614d78c8d377e0ca0cb07b9f6ef25
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 12 14:55:48 2018 +0200
+
+    object GeTime
+
+ Gestione/Models/interfaces.cs | 83 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 83 insertions(+)
+
+commit 019b62888482d57a0d4a05638685bd1284688596
+Merge: 08add6d adca699
+Author: naumanaziz <37894836+naumanaziz@users.noreply.github.com>
+Date:   Thu Apr 12 14:42:41 2018 +0200
+
+    Merge pull request #1 from corsialfasoft/Evolutive
+    
+    Evolutive
+
+commit 99bd7f87440019d9ded67aae6b88ea9de54c0cc7
+Author: naumanaziz <aziznauman96@hotmail.it>
+Date:   Thu Apr 12 14:21:06 2018 +0200
+
+    IGeTime
+
+ Gestione/Models/interfaces.cs | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)

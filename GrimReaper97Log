@@ -1,0 +1,420 @@
+commit 18d564db4036851b6671be1fe93404be5bc21dfa
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Sat Apr 21 02:24:51 2018 +0200
+
+    Giusto per mettere qualche commento
+
+ Gestione/Controllers/ControllerComp.cs  |  2 +-
+ Gestione/Controllers/EspLav.cs          |  3 +--
+ Gestione/Controllers/GeCVModPerStudi.cs |  6 ++----
+ Gestione/Controllers/HomeController.cs  | 21 +++++++--------------
+ Gestione/Controllers/SearchCV1.cs       |  9 ++++-----
+ 5 files changed, 15 insertions(+), 26 deletions(-)
+
+commit 5b0fd94350a34e2784aad4e8e53f9b13fdf3a9d3 (refs/remotes/origin/GeCvFlo)
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Sat Apr 21 02:05:15 2018 +0200
+
+    Sistemato metodo Elimina, e layout RicercaCurriculum con qualche modifica anche nella MyPage
+
+ Gestione.Tests/Controllers/GeTimeTest.cs       | 57 +++++++++++++++++++++++
+ Gestione/Content/corso.css                     | 59 ++++++++++++++++++++++++
+ Gestione/Controllers/HomeController.cs         |  2 +-
+ Gestione/Models/DataAccessObject.cs            |  2 +-
+ Gestione/Views/Home/DettaglioCurriculum.cshtml |  2 +-
+ Gestione/Views/Home/MyPage.cshtml              | 12 ++---
+ Gestione/Views/Home/RicercaCurriculum.cshtml   | 64 ++++++++++++++++++--------
+ 7 files changed, 169 insertions(+), 29 deletions(-)
+
+commit 3e94dca9a16f5c12ff083db7ce80bc6b7fa2e4d5
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Sat Apr 21 01:24:24 2018 +0200
+
+    funzionalità di GeCv funzionanti
+
+ Gestione/Controllers/ControllerComp.cs         | 13 --------
+ Gestione/Controllers/HomeController.cs         | 27 ++++++++--------
+ Gestione/Controllers/SearchCV1.cs              |  7 ++--
+ Gestione/Views/Home/DettaglioCurriculum.cshtml |  9 ++++--
+ Gestione/Views/Home/ModComp.cshtml             | 45 ++++++++++++--------------
+ Gestione/Views/Home/MyPage.cshtml              | 14 +++++---
+ 6 files changed, 52 insertions(+), 63 deletions(-)
+
+commit b8c95d8a31631a6bd2157574814af553c22bec12
+Merge: c4f30ff b10faab
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Sat Apr 21 00:54:39 2018 +0200
+
+    mergiato con comp
+
+commit c4f30ff07f4157da8d9f443b8ffbde851632e8d4
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Sat Apr 21 00:53:20 2018 +0200
+
+    Sistemato EspLav e PercorsoStudi
+
+ Gestione/Controllers/ControllerComp.cs         |  4 +--
+ Gestione/Controllers/EspLav.cs                 |  3 +-
+ Gestione/Controllers/GeCVModPerStudi.cs        | 24 +++++++++-----
+ Gestione/Controllers/HomeController.cs         | 24 ++++++++++++--
+ Gestione/Gestione.csproj                       |  1 +
+ Gestione/Models/DAOFlo.cs                      | 30 ++++++++----------
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 27 ++++++----------
+ Gestione/Views/Home/ModEspLav.cshtml           |  4 +--
+ Gestione/Views/Home/ModPerStud.cshtml          | 44 ++++++++++++++++++++++++++
+ 9 files changed, 112 insertions(+), 49 deletions(-)
+
+commit 4323952195680e4fc26c9564c4f267235d1dfd06
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 20 17:24:38 2018 +0200
+
+    add EspLav & ModEspLav funge
+
+ Gestione/Controllers/EspLav.cs                | 14 +++++++++-----
+ Gestione/Controllers/HomeController.cs        |  1 +
+ Gestione/Controllers/SearchCV1.cs             |  2 +-
+ Gestione/Views/Home/ModEspLav.cshtml          | 10 +++++-----
+ Gestione/database gecv/ProcedureModifiche.sql |  2 ++
+ 5 files changed, 18 insertions(+), 11 deletions(-)
+
+commit 02f641af60cb3a1489e20778664f546c73ef2b7e
+Merge: cef6f01 83c24d0
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 20 16:36:09 2018 +0200
+
+    Merge branch 'GeCvFlo' of https://github.com/corsialfasoft/Gestione into GeCvFlo
+
+commit cef6f013cc69a8f04a8d8aca03faa64d0d7c209b
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 20 16:35:49 2018 +0200
+
+    Da modificare per flo
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs |   4 +-
+ Gestione/Controllers/HomeController.cs           |  49 +++++++++--
+ Gestione/Gestione.csproj                         |   2 +
+ Gestione/Models/DataAccessObject.cs              |   1 -
+ Gestione/Views/Home/DettaglioCurriculum.cshtml   | 106 ++---------------------
+ Gestione/Views/Home/ModAnag.cshtml               |  62 +++++++++++++
+ Gestione/Views/Home/ModEspLav.cshtml             |  44 ++++++++++
+ 7 files changed, 162 insertions(+), 106 deletions(-)
+
+commit cc30e57d0ace6c11199c58e9ba9db9193e1fbfba
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 20 12:20:17 2018 +0200
+
+    da sistemare
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs |  18 ++--
+ Gestione/Controllers/ControllerComp.cs           |  14 +--
+ Gestione/Controllers/EspLav.cs                   |  13 +--
+ Gestione/Controllers/GeCVModPerStudi.cs          |  16 ++--
+ Gestione/Controllers/HomeController.cs           |   8 +-
+ Gestione/Controllers/SearchCV1.cs                |   2 +
+ Gestione/Models/DataAccessObject.cs              |   2 +-
+ Gestione/Views/Home/DettaglioCurriculum.cshtml   | 108 +++++++++++++----------
+ 8 files changed, 100 insertions(+), 81 deletions(-)
+
+commit 491902b211846cce56510a120d94a96a3aea01f0
+Merge: 6405234 ac2ad80
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 20 10:22:15 2018 +0200
+
+    mergiato con modifiche nuove
+
+commit 640523419d4a35565a60c2f3acca6e12928ff245
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 20 10:21:15 2018 +0200
+
+    Cose mie view dettaglio
+
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 549 +++++++++++++++----------
+ Gestione/database gecv/test.sql                |   2 +-
+ 2 files changed, 333 insertions(+), 218 deletions(-)
+
+commit 9c8af010dbc51e365a54a51b5d2ffa72d1d30f1b
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 19 15:09:34 2018 +0200
+
+    Iniziamo da qui
+
+ Gestione/Controllers/HomeController.cs         |  63 ++++++-----
+ Gestione/Models/DAOFlo.cs                      |  23 ++--
+ Gestione/Models/DomainModel.cs                 |   2 +-
+ Gestione/Models/interfaces.cs                  |   5 +
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 146 ++++++++++++++++++++++---
+ Gestione/database gecv/ProcedureFlo.sql        |   7 +-
+ Gestione/database gecv/ProcedureModifiche.sql  |   4 +-
+ Gestione/database gecv/SQL_Carmen.sql          |   2 +-
+ Gestione/database gecv/ddl-gecv.sql            |  18 ++-
+ Gestione/database gecv/test.sql                |   2 +-
+ 10 files changed, 204 insertions(+), 68 deletions(-)
+
+commit edab594c5bd7595e9044b6fda11ddb761305119c
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Tue Apr 17 09:35:05 2018 +0200
+
+    Sistema profilatura
+
+ Gestione/Content/bootstrap.css          |  15 ++--
+ Gestione/Controllers/HomeController.cs  |  60 +++++++++-----
+ Gestione/Controllers/SearchCV1.cs       |   1 +
+ Gestione/Gestione.csproj                |   5 ++
+ Gestione/Models/DataAccessObject.cs     |  82 ++++++++++++++++++
+ Gestione/Models/DomainModel.cs          |  31 +++++++
+ Gestione/Models/interfaces.cs           |  18 +++-
+ Gestione/ProfilaturaDDL.sql             |  28 +++++++
+ Gestione/StoredProcedureProfilature.sql |  13 +++
+ Gestione/Views/Home/5713198.jpg         | Bin 0 -> 38037 bytes
+ Gestione/Views/Home/Index.cshtml        |  15 +++-
+ Gestione/Views/Home/Iscriviti.cshtml    | 142 ++++++++++++++++++++++++++++++++
+ Gestione/Views/Home/Login.cshtml        | 136 ++++++++++++++++++++++++++++++
+ Gestione/Views/Shared/_Layout.cshtml    |   5 ++
+ 14 files changed, 520 insertions(+), 31 deletions(-)
+
+commit 5c9715b3e89cfb678b4746f76c214bc0038363dd
+Merge: b7d47e6 c594d26
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 16:06:37 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit b7d47e699bdc4a93b6d088953d4361bfa6403eb8
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 16:06:15 2018 +0200
+
+    bug fixed
+
+ Gestione/Controllers/HomeController.cs | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit 229ced57a7af5e4fd02aed9e101aad1d48c4ed9b
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 14:44:46 2018 +0200
+
+    Da sistemareeeee
+
+ Gestione/Controllers/HomeController.cs         | 77 ++++++++++----------------
+ Gestione/Models/interfaces.cs                  |  8 +--
+ Gestione/Views/Home/DettaglioCurriculum.cshtml |  8 +--
+ 3 files changed, 36 insertions(+), 57 deletions(-)
+
+commit 9871fede20b78f96eab752573a6bc1c99cd6a89a
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 14:31:11 2018 +0200
+
+    Controllare questi errori "DettaglioCurriculum" passaggio da Compila al Dettaglio Curriculum
+
+ Gestione/Controllers/HomeController.cs         | 96 +++++++++++++++++---------
+ Gestione/Models/DomainModel.cs                 |  2 +-
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 34 ++++-----
+ 3 files changed, 83 insertions(+), 49 deletions(-)
+
+commit c87912e35642fbe5b3cdf12265346a3c5ba38a31
+Merge: ef2b5f6 560b6f3
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 13:47:13 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit ef2b5f62122596be475a9d67e23a04fedaefdb66
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 13:46:46 2018 +0200
+
+    Sistemato
+
+ Gestione/Controllers/HomeController.cs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 418dcd003664462f1e044b60d2f392d1e279bfea
+Merge: 44ce179 1c6f8b9
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 12:33:51 2018 +0200
+
+    mergeeee
+
+commit 44ce179bb6934eb91f8b29ccf2e19e7b70fdca3e
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 12:33:07 2018 +0200
+
+    Messo il bottone e fatto Modifica
+
+ Gestione/Controllers/HomeController.cs         |  85 ++++++---
+ Gestione/Models/DataAccessObject.cs            |   2 +-
+ Gestione/Models/DomainModel.cs                 |   3 +-
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 242 +++++++++++++------------
+ 4 files changed, 189 insertions(+), 143 deletions(-)
+
+commit f281bbf7c341fe05e1b18ee9e0531fa507841bb5
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 10:47:54 2018 +0200
+
+    Non è nullo allora fammi vedere i dati
+
+ Gestione/Views/Home/DettaglioCurriculum.cshtml | 178 ++++++++++++++++++++++---
+ Gestione/Views/Shared/_Layout.cshtml           |   2 +-
+ 2 files changed, 159 insertions(+), 21 deletions(-)
+
+commit 9833b32a437cb4d05a0bdbdfd725cf9b5ffec056
+Merge: 1309731 b1dec81
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 09:47:40 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit 13097311ce1b96c7235e5d46da869288300bf03a
+Merge: 7a60ee4 7c0b4ff
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 09:46:44 2018 +0200
+
+    Merge branch 'GeCv' of https://github.com/corsialfasoft/Gestione into GeCv
+
+commit 20aa85c768b6fec3be1724865aca895a3e8d2205
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 09:13:29 2018 +0200
+
+    Rinominata pagina
+
+ Gestione/Controllers/HomeController.cs                              | 6 +++---
+ Gestione/Gestione.csproj                                            | 2 +-
+ .../Home/{AggiungiCurriculum.cshtml => DettaglioCurriculum.cshtml}  | 0
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+commit b369158448fecc69265face859e2c218d92fd971
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 08:59:07 2018 +0200
+
+    Sistemato Aggiunta
+
+ Gestione/Controllers/HomeController.cs | 25 ++++++++++++++++++++++++-
+ Gestione/Models/interfaces.cs          |  1 +
+ 2 files changed, 25 insertions(+), 1 deletion(-)
+
+commit 7a60ee4c5665dc761abc9facc077843ee0fff966
+Merge: 70476a4 bac4e0f
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Fri Apr 13 08:45:35 2018 +0200
+
+    Merge branch 'Evolutive' into GeCv
+
+commit 9f068245e9119d0b9466055e47a977c8cd752f64
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 17:08:17 2018 +0200
+
+    Finish AggiungiCurriculum
+
+ Gestione/Controllers/HomeController.cs        |  2 ++
+ Gestione/Models/DataAccessObject.cs           |  2 +-
+ Gestione/Models/DomainModel.cs                |  4 +++-
+ Gestione/Views/Home/AggiungiCurriculum.cshtml | 12 ++++++------
+ 4 files changed, 12 insertions(+), 8 deletions(-)
+
+commit 414f12f773b512c5e7046b6ed00ac6350bf735c3
+Merge: 9d036ee bac4e0f
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 17:00:40 2018 +0200
+
+    merge di UIDettaglioCV
+
+commit 9d036ee7a8230b3bdd16d040160a07dffb2ec638
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 16:58:03 2018 +0200
+
+    Finito view AggiungiCurriculum
+
+ Gestione.Tests/Controllers/HomeControllerTest.cs |  23 ----
+ Gestione/Controllers/HomeController.cs           |  35 ++++--
+ Gestione/Gestione.csproj                         |   1 +
+ Gestione/Models/DomainModel.cs                   |   2 +-
+ Gestione/Models/interfaces.cs                    |  38 +++---
+ Gestione/Views/Home/AggiungiCurriculum.cshtml    | 146 +++++++++++++++++++++++
+ 6 files changed, 193 insertions(+), 52 deletions(-)
+
+commit f4f0ececf301d534dd50472499df18d4bf91e76c
+Merge: 9994a0d bbd5bef
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 15:27:46 2018 +0200
+
+    Merge branch 'Evolutive' into UIDettaglioCV
+
+commit 9994a0d4362dedadab1ad4d0c0e7ee3806bf03e4
+Merge: 11ccac9 361eb29
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 15:11:45 2018 +0200
+
+    Merge branch 'Evolutive' into UIDettaglioCV
+
+commit 361eb293e62c6194764bfaddf59ac265cef7b92c
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 15:11:20 2018 +0200
+
+    Risolto bug
+
+ Gestione/Models/interfaces.cs | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 11ccac91e8c9d17c561fc7fea48cfe76402c5d6d
+Merge: 32be48e 138d002
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 15:09:51 2018 +0200
+
+    Merge branch 'Evolutive' into UIDettaglioCV
+
+commit 70476a493f930d2b2b510cdffaf930616cf0c44b
+Merge: 0851017 138d002
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 15:09:39 2018 +0200
+
+    Merge branch 'Evolutive' into GeCv
+
+commit 138d002da8e04c887b1a7df15bb80483873d3276
+Merge: caa51b6 50dfaac
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 15:06:20 2018 +0200
+
+    mergiato con interfaces
+
+commit caa51b6557ff85ac767bebe033db60a18683459c
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 15:05:27 2018 +0200
+
+    DTO CV EspLav PerStud Competenza
+
+ Gestione/Models/DomainModel.cs |  7 ++-----
+ Gestione/Models/interfaces.cs  | 29 +++++++++++++++++++++++++++++
+ 2 files changed, 31 insertions(+), 5 deletions(-)
+
+commit 32be48e2419c4aafd4189ce902e663a7cabd218d
+Merge: 0851017 adca699
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 14:44:00 2018 +0200
+
+    Merge branch 'Evolutive' into UIDettaglioCV
+
+commit adca699ab645075509750bec052c4934dd5dcd7a
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 14:41:07 2018 +0200
+
+    Domain non implementato
+
+ Gestione/Gestione.csproj       | 1 +
+ Gestione/Models/DomainModel.cs | 9 +++++++++
+ Gestione/Models/interfaces.cs  | 5 ++++-
+ 3 files changed, 14 insertions(+), 1 deletion(-)
+
+commit 085101741147b86648250d6f4bed957e6ee2603e
+Merge: 750d2c4 99bd7f8
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 14:27:48 2018 +0200
+
+    Merge remote-tracking branch 'origin/Evolutive' into GeCv
+
+commit 80ca50ae4b32b7ee8c699d461ef9c462e0daeda8
+Author: GrimReaper97 <227993@supinfo.com>
+Date:   Thu Apr 12 14:14:49 2018 +0200
+
+    interfaces
+
+ Gestione/Gestione.csproj      | 2 +-
+ Gestione/Models/interfaces.cs | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)

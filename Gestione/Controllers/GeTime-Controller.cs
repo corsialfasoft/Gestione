@@ -175,21 +175,20 @@ namespace Gestione.Controllers {
         }
         [HttpGet]
         public ViewResult AddGiornoSelectCommessa(string nome) {
-            try { 
-                StateGiorno stateGiorno = Session["stateGiorno"] as StateGiorno;
-                if (stateGiorno != null && nome != "") {
-                    DTCommessa commessa = dm.CercaCommessa(nome);
-                    if (commessa!=null) {
-                        dm.CompilaHLavoro(stateGiorno.Data, stateGiorno.Ore, commessa.Id, profile.Matricola);
-                        ViewBag.GeCoDataTime = stateGiorno.Data;
-                        ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
-                        Session["stateGiorno"] = null;
-                    } else {
-                        ViewBag.Message = "Operazione non consentita";
-                    }
-                } else
-                    ViewBag.Message = "Operazione non consentita";
-            }catch(Exception e) {
+            try {
+				if(Session["stateGiorno"] is StateGiorno stateGiorno && nome != "") {
+					DTCommessa commessa = dm.CercaCommessa(nome);
+					if(commessa != null) {
+						dm.CompilaHLavoro(stateGiorno.Data,stateGiorno.Ore,commessa.Id,profile.Matricola);
+						ViewBag.GeCoDataTime = stateGiorno.Data;
+						ViewBag.EsitoAddGiorno = stateGiorno.Ore + " ore di lavoro aggiunte!";
+						Session["stateGiorno"] = null;
+					} else {
+						ViewBag.Message = "Operazione non consentita";
+					}
+				} else
+					ViewBag.Message = "Operazione non consentita";
+			} catch(Exception e) {
                 ViewBag.Message = e.Message;
             }
             return View("AddGiorno");
