@@ -51,14 +51,14 @@ set implicit_transactions on
 begin try 
 insert into Commesse(nome,descrizione,stimaOre) values ('GeTime TestVisualizzaCommessa','questa commessa viene utilizzata per il test',10)
 
-declare @idC1 int = IDENT_CURRENT('Commesse');
+declare @id1C1 int = IDENT_CURRENT('Commesse');
 insert into Giorni(giorno,idUtente) values ('2000-01-02','MkMatric')
-declare @idG1 int = IDENT_CURRENT('Giorni');
-insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG1,@idC1,4)
+declare @id1G1 int = IDENT_CURRENT('Giorni');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@id1G1,@id1C1,4)
 
 insert into Giorni(giorno,idUtente) values ('2000-01-03','MkMatric')
-declare @idG2 int = IDENT_CURRENT('Giorni');
-insert into OreLavorative(idGiorno,idCommessa,ore) values (@idG2,@idC1,4)
+declare @id1G2 int = IDENT_CURRENT('Giorni');
+insert into OreLavorative(idGiorno,idCommessa,ore) values (@id1G2,@id1C1,4)
 commit tran
 end try
 begin catch
