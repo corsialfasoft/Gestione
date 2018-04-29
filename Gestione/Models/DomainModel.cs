@@ -250,9 +250,8 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
-        //GeTime
-		public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
+        # region GeTime
+        public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
 			try{ 
 				List<Giorno> giorni = dao.GiorniCommessa(idCommessa, idUtente);
 				List<DTGiorno> dTGiorni = new List<DTGiorno>();
@@ -270,7 +269,6 @@ namespace Gestione.Models {
 				throw e;
 			}
         }
-
 		public List<DTCommessa> CercaCommesse(string nomeCommessa){
             List<DTCommessa> dtcomm = new List<DTCommessa>();
 			try{ 
@@ -288,7 +286,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
         public DTCommessa CercaCommessa(string nomeCommessa) {
             try {
                Commessa commessa = dao.CercaCommessa(nomeCommessa);
@@ -310,8 +307,6 @@ namespace Gestione.Models {
 				throw e;
 			}
         }
-
-
         public void Compila(DateTime data, int ore, HType tipoOre, string idUtente){
             try{
                 dao.Compila(data, ore, tipoOre, idUtente);
@@ -321,7 +316,6 @@ namespace Gestione.Models {
 				throw e;
 			}
         }
-
         public DTGGiorno VisualizzaGiorno(DateTime data, string idUtente){
 			try{
 				Giorno giornoInterface = dao.VisualizzaGiorno(data, idUtente);
@@ -350,7 +344,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
         public List<DTGiornoDMese> DettaglioMese(int anno, int mese, string idutente) {
             try {
                 return dao.DettaglioMese(anno, mese, idutente);
@@ -358,7 +351,25 @@ namespace Gestione.Models {
                 throw e;
             }
         }
-
+        public List<int> Years(string idUtente) {
+            try {
+                return dao.Years(idUtente);
+            } catch (SystemException) {
+                throw new Exception("Errore di sistema!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        public List<int> Month(int year, string idUtente) {
+            try {
+                return dao.Month(year,idUtente);
+            } catch (SystemException) {
+                throw new Exception("Errore di sistema!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        #endregion
         public void DelEspLav(EspLav espLav,string matricola) {
 			dao.DelEspLav(espLav,matricola);
 		}
