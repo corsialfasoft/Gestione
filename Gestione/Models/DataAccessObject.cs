@@ -499,21 +499,33 @@ namespace DAO {
 		private static bool NonQprocedura(SqlParameter[] param, string NomeProcedura, string NomeDb){
 			int RowAffected = DB.ExecNonQProcedure(NomeProcedura,param,NomeDb);
 				if(RowAffected == 0) {
-					throw new CorsoNonAggiuntaException("Corso non aggiunto");
+					throw new SomethingWentWrongException("Qualcosa è andato storto!");
 				}
 				return true;
 		}
-		
-		private delegate Tout TransformerDelegate<Tout>(SqlDataReader reader);
-		private void Execute<TOut>(CommandDelegate metodo, SqlParameter[] param, TransformerDelegate<TOut> transformer,string NomeProcedura, string NomeDb) {
+		private delegate void CommandDelegateQ(SqlParameter[] param,string NomeProcedura,Trasformator transformer, string NomeDb);		
+		//private delegate Tout TransformerDelegate<Tout>(SqlDataReader reader);
+		private void ExecuteQ<TOut>(string NomeProcedura,CommandDelegateQ metodo, Trasformator transformer, SqlParameter[] param, string NomeDb) {
 			try{
-				metodo(param,NomeProcedura,NomeDb);
+				metodo(param,NomeProcedura,transformer,NomeDb);
 			} catch(SqlException e) {
 				throw new Exception(e.Message);
 			} catch(Exception e) {
 				throw e;
 			}
 		}
+		private delegate TOut CommandDelegateQ<TOut>(SqlParameter[] param,string NomeProcedura,Trasformator transformer, string NomeDb);		
+
+		private TOut ExecuteQ<TOut>(string NomeProcedura,CommandDelegateQ<TOut> metodo, Trasformator transformer, SqlParameter[] param, string NomeDb) {
+			try{
+				return metodo(param,NomeProcedura,transformer,NomeDb);
+			} catch(SqlException e) {
+				throw new Exception(e.Message);
+			} catch(Exception e) {
+				throw e;
+			}
+		}
+
 		//private static bool AddCorso(SqlParameter[] param) {
 		//	return NonQprocedura(param,"AddCorso","GeCorsi");
 			//try {
@@ -592,6 +604,22 @@ namespace DAO {
 			}
 		}
 	}
+
+	[Serializable]
+	internal class SomethingWentWrongException : Exception {
+		public SomethingWentWrongException() {
+		}
+
+		public SomethingWentWrongException(string message) : base(message) {
+		}
+
+		public SomethingWentWrongException(string message,Exception innerException) : base(message,innerException) {
+		}
+
+		protected SomethingWentWrongException(SerializationInfo info,StreamingContext context) : base(info,context) {
+		}
+	}
+
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
 		public LezionNonModificataException() {}
