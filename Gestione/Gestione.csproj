@@ -161,9 +161,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAO-AddCommessa.cs" />
     <Compile Include="Models\DataAccessObject.cs" />
-    <Compile Include="Models\DM-AddCommessa.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Models\interfaces.cs" />
@@ -177,7 +175,6 @@
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
     <Content Include="SQL\DDLGeCo.sql" />
-    <Content Include="SQL\SP_AddCommessa.sql" />
     <Content Include="SQL\SP_GeCo.sql" />
     <Content Include="SQL\DDLGeCv.sql" />
     <Content Include="SQL\SP_GeCv.sql" />

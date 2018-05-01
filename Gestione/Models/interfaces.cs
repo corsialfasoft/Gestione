@@ -35,7 +35,6 @@ namespace Interfaces {
         DTCommessa CercaCommessa(string nomeCommessa);
         List<int> Years(string idUtente);
         List<int> Month(int year, string idUtente);
-    }
 		void AddCommessa(DTCommessa commessa);
 	}
     public interface IGeCo {

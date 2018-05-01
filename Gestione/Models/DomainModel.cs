@@ -369,6 +369,15 @@ namespace Gestione.Models {
                 throw e;
             }
         }
+        public void AddCommessa(DTCommessa commessa) {
+            Commessa newCommessa = null;
+            newCommessa = new Commessa();
+            newCommessa.Nome = commessa.Nome;
+            newCommessa.Descrizione = commessa.Descrizione;
+            newCommessa.Capienza = commessa.Capienza;
+            DataAccesObject dao = new DataAccesObject();
+            dao.AddCommessa(newCommessa);
+        }
         #endregion
         public void DelEspLav(EspLav espLav,string matricola) {
 			dao.DelEspLav(espLav,matricola);
