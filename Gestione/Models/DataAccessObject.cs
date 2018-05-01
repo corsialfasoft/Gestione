@@ -45,6 +45,7 @@ namespace DAO {
         Commessa CercaCommessa(string nomeCommessa);
         List<int> Years(string idUtente);
         List<int> Month(int year, string idUtente);
+		void AddCommessa(Commessa commessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
