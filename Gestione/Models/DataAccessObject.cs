@@ -45,6 +45,7 @@ namespace DAO {
         Commessa CercaCommessa(string nomeCommessa);
         List<int> Years(string idUtente);
         List<int> Month(int year, string idUtente);
+		void AddCommessa(Commessa commessa);
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
         //Aggiungi una lezione a un determinato corso. Lo puo fare solo il prof
@@ -471,6 +472,23 @@ namespace DAO {
             try {
                 SqlParameter[] parameters = { new SqlParameter("@idUtente", idUtente),new SqlParameter("@year",year) };
                 return DB.ExecQProcedureReader("GetMonth", DB.TrasformLInt, parameters, "GeTime");
+            } catch (SqlException) {
+                throw new Exception("Errore server!");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        public void AddCommessa(Commessa commessa) {
+            try {
+                SqlParameter[] param = {
+                    new SqlParameter ("@nome", commessa.Nome),
+                    new SqlParameter("@descrizione", commessa.Descrizione),
+                    new SqlParameter("@capienza", commessa.Capienza)
+                };
+                int RowAffected = DB.ExecNonQProcedure("SP_AddCommessa", param, "GeTime");
+                if (RowAffected == 0) {
+                    throw new Exception("Commessa non aggiunta");
+                }
             } catch (SqlException) {
                 throw new Exception("Errore server!");
             } catch (Exception e) {

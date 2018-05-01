@@ -35,7 +35,8 @@ namespace Interfaces {
         DTCommessa CercaCommessa(string nomeCommessa);
         List<int> Years(string idUtente);
         List<int> Month(int year, string idUtente);
-    }
+		void AddCommessa(DTCommessa commessa);
+	}
     public interface IGeCo {
         //Aggiungi nuovo corso. Lo puo fare solo l'admin
         void AddCorso(Corso corso);
@@ -147,6 +148,8 @@ namespace Interfaces {
         public string Nome { get; set; }
         public int Capienza { get; set; }
         public int OreLavorate { get; set; }
+
+		public Commessa(){ }
 
         public Commessa(int id, string nome, string descrizione, int capienza, int oreLavorate) {
             Id = id;
