@@ -102,3 +102,34 @@ as
 		where (year(g.giorno) = @Anno and month(g.giorno) = @Mese) and g.idUtente = @IdUtente
 		order by g.giorno
 go
+create procedure GetYears
+	@idUtente nvarchar(20)
+as 
+	select format(giorno, 'yyyy')
+	from Giorni
+	where idUtente= @idUtente
+	group by format(giorno, 'yyyy')
+go
+create procedure GetMonth
+	@idUtente nvarchar(20),
+	@year int
+as
+	select FORMAT(giorno,'MM')
+	from Giorni
+	where idUtente = @idUtente and FORMAT(giorno,'yyyy') = @year
+	group by  FORMAT(giorno,'MM')
+go
+create procedure SP_AddCommessa
+	@nome nvarchar (50),
+	@descrizione nvarchar (200),
+	@capienza int
+as
+	begin try
+		insert into dbo.Commesse(nome, descrizione, stimaOre) values (@nome, @descrizione, @capienza);
+	end try
+	begin catch
+		if(@@ERROR = 2627)
+			return 0
+	end catch
+	return 1
+go

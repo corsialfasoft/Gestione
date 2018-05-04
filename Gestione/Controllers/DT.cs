@@ -103,7 +103,10 @@ namespace Gestione.Controllers {
             Descrizione = descrizione;
             Capienza = capienza;
         }
-    }
+
+		public DTCommessa() {
+		}
+	}
     public class DTGGiorno {
         public DateTime data { get; set; }
         public int TotOreLavorate { get; set; }

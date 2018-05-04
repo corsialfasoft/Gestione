@@ -165,12 +165,18 @@ namespace Gestione.Controllers {
                 }
                 ViewBag.Year = annoI;
                 ViewBag.Month = meseI;
+                ViewBag.ListaAnni = dm.Years(profile.Matricola);
             } else
                 ViewBag.Message = "Inserire anno e mese";
             return View();
         }
         public ViewResult VisualizzaMese() {
-
+            List<int> list = dm.Years(profile.Matricola);
+            if (list.Count>0) {
+                list.Sort();
+                ViewBag.ListaAnni = list;
+            }else
+                ViewBag.Message = "Non hai mai lavorata!";
             return View();
         }
         [HttpGet]
