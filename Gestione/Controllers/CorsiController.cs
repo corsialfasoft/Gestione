@@ -14,19 +14,6 @@ namespace Gestione.Controllers {
             //result.Lezioni = dm.ListaLezioni(result);
             return result;
         }
-
-        [Route("api/Corsi/{idCorso}/Lezioni")]
-        [HttpGet]
-        public IEnumerable<Lezione> ListaLezioni(int idCorso){
-            return dm.ListaLezioni(dm.SearchCorsi(idCorso));
-        }
-
-        [Route("api/Corsi/{idCorso}/Lezioni/{nomeLezione}")]
-        [HttpGet]
-        public Lezione DettaglioLezione(int idCorso,string nomeLezione){
-            return dm.ListaLezioni(dm.SearchCorsi(idCorso)).Find(L => L.Nome.Equals(nomeLezione));
-        }
-
         // POST api/<controller>
         public void Post([FromBody]Corso corso) {
             dm.AddCorso(corso);
