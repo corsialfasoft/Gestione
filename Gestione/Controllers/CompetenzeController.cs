@@ -18,7 +18,7 @@ namespace Gestione.Controllers {
 		// GET api/<controller>/5
 		[HttpGet][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]		//FINIRE
 		public Competenza GetCompetenza(int idCompetenza) {
-			return null;
+			return dm.GetCompetenza(idCompetenza);
 		}
 
 		// POST api/<controller>
@@ -33,8 +33,8 @@ namespace Gestione.Controllers {
 
 		// DELETE api/<controller>/5
 		[HttpGet][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]      //FINIRE
-		public void Delete([FromBody]Competenza competenza, int idCV) {
-			dm.DelCompetenza(competenza, $"{idCV}");
+		public void Delete([FromBody]int idCV) {
+			dm.DelCompetenza(idCV);
 		}
 	}
 }
