@@ -528,6 +528,26 @@ namespace DAO {
 				throw e;
 			}
 		}		
+
+		public void EliminaLezione(int Id) {
+		try{
+				
+		
+		SqlParameter[] param ={ new SqlParameter("@IdLezione", Id)};
+				int output = DB.ExecNonQProcedure("dbo.DeleteLezione", param, "GeCorsi");
+				if (output == 0) { 
+					throw new Exception("Nessuna lezione eliminata!");
+					}				
+			}catch(SqlException){
+				throw new Exception("Errore server!");
+			}catch(Exception e){
+				throw e;
+			}
+			
+		
+		}
+
+
 		public void AddLezione(int idCorso,Lezione lezione){
 			try{
 				SqlParameter[] param = {
