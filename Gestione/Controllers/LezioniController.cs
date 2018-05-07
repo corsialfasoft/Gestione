@@ -22,5 +22,6 @@ namespace Gestione.Controllers
         public Lezione DettaglioLezione(int idCorso,string nomeLezione){
             return dm.ListaLezioni(dm.SearchCorsi(idCorso)).Find(L => L.Nome.Equals(nomeLezione));
         }
+
     }
 }

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lezioni</title>
+    <style>
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+            color: #fff;
+            background-color: #337ab7;
+        }
+
+        .nuovo {
+            margin-left: 30px;
+            width: 80%;
+        }
+
+        .sfondoCorso {
+            margin-top: 0px;
+            background-image: url(/ImgResource/Corso.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .form-control {
+            margin-bottom: 30px;
+        }
+
+        .row {
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+            padding-top: 50px !important;
+            padding-bottom: 50px !important;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+
+
+
+        function DeleteLezione(id) {
+            $.ajax({
+                url: '../api/WebApiRegister?id=' + id,
+                method: 'DELETE',
+
+                success: function (data) {
+                    $('#Lezioni').empty();
+                    $.getJSON(uri)
+                        .done(function (data) {
+                            $.each(data, function (key, item) {
+                                $('#Lezioni').append('<li class="list-group-item" onclick=LoadProdotto(' + item.id + ')>' + item.nome + ' &nbsp; ' + item.durata + ' &nbsp; ' + item.descrizione + '</li>');
+                            });
+                        });
+                    $("#DettaglioLezione").hide();
+                },
+            });
+
+        }
+    </script>
+
+
+</head>
+<body>
+    
+</body >
+</html >
