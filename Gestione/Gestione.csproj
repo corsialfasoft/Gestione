@@ -246,6 +246,7 @@
     <Content Include="Views\Home\ModComp.cshtml" />
     <Content Include="Views\Home\VisualizzaMese.cshtml" />
     <Content Include="Views\Home\AddCommessa.cshtml" />
+    <Content Include="Views\Home\VisualizzaGiornoWebApi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
