@@ -197,6 +197,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="README_WebAPI_Angular.md" />
+    <Content Include="webapi_jquery\VisualizzaGiornoWebApi.html" />
     <Content Include="webapi_jquery\GetimeAddGiorno.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
