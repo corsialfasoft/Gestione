@@ -41,11 +41,38 @@
 
     <script>
 
+        function AddLezione() {
+
+            $('#frmNuovo').submit(function (event) {
+                event.preventDefault();
+                var $form = $(this)
+                var lezione = {};
+                var url = $form.attr("action");
+                lezione.nome = $form.find("input[name='_nome']").val();
+                lezione.descrizione = $form.find("textarea[name='_descrizione']").val();
+                lezione.durata = $form.find("input[name='_durata']").val();
+                var posting = $.post(url, lezione);
+                posting.done(function (data) {
+                    //var content = $(data).find("#Message");
+                    AddLezione();
+                
+                });
+            });
+        }
+
+        function ModificaLezione(lezione) {
+           
+            $.ajax({
+                type: 'PUT',
+                url: 'api/Corsi/{idCorso}/Lezioni',
+                data: { nome: 'new name', descrizione: 'new description name', durata: 'new time' }
+            });
+            }
 
 
         function DeleteLezione(id) {
             $.ajax({
-                url: '../api/WebApiRegister?id=' + id,
+                url: '../api/Lezioni?id=' + id,
                 method: 'DELETE',
 
                 success: function (data) {
@@ -53,19 +80,42 @@
                     $.getJSON(uri)
                         .done(function (data) {
                             $.each(data, function (key, item) {
-                                $('#Lezioni').append('<li class="list-group-item" onclick=LoadProdotto(' + item.id + ')>' + item.nome + ' &nbsp; ' + item.durata + ' &nbsp; ' + item.descrizione + '</li>');
+                                $('#Lezioni').append('<li class="list-group-item" onclick=LoadProdotto(' + item.id + ')>' + item.nome + ' &nbsp; ' + item.durata + ' &nbsp; ' + item.descrizione + item. '</li>');
                             });
                         });
-                    $("#DettaglioLezione").hide();
                 },
             });
-
         }
     </script>
 
 
 </head>
 <body>
-    
-</body >
+
+    <div class="row">
+        <div class="nuovo">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Inserimento nuova lezione</div>
+                <div class="panel-body form-group">
+                    <form action="../api/Corsi/{idCorso}/Lezioni" id="frmNuovo" class="formStyle" method="post">
+
+                        <label>Nome</label>
+                        <input class="form-control" type="text" name="_nome" placeholder="Nome" required="">
+
+                        <label>Descrizione</label>
+                        <textarea class="form-control" name="_descrizione" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui la descrizione..."></textarea>
+
+                        <label>Durata</label>
+                        <input class="form-control" type="number" name="_durata" placeholder="Durata" required="">
+
+                        <input type="submit" class="btn btn-default" value="Inserisci Lezione">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+</body>
 </html >

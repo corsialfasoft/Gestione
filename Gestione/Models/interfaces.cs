@@ -57,6 +57,8 @@ namespace Interfaces {
         //Mostra la lista delle lezioni relative a un corso
         List<Lezione> ListaLezioni(Corso corso);
         void ModLezione(Lezione lezione);
+		void EliminaLezione(int Id);
+		//Elimina una lezione
     }
     public class Studente {
         public string Id { get; set; }

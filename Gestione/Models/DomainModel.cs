@@ -147,6 +147,16 @@ namespace Gestione.Models {
 			}
 		}
 
+		public void EliminaLezione(int Id) {
+		 try{ 
+                dao.EliminaLezione(Id);
+            }catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+
 		public void EliminaCV(CV curriculum){           
             try{ 
                 dao.EliminaCV(curriculum);
