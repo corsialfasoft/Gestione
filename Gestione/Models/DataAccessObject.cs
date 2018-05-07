@@ -34,9 +34,15 @@ namespace DAO {
 		void DelCompetenza(int id);
 		void DelPerStud(int id);
         void ModEspLav(int id, EspLav Mod);
-        //Modifica la singola competenza
 		void ModComp(int id , Competenza Mod);
         void ModPerStudi(int id, PerStud Mod);
+        List<EspLav> GetEspLav(string matricola);
+        List<PerStud> GetPerStudi(string matricola);
+        List<Competenza> GetComp(string matricola);
+        EspLav GetEsperienza(int id);
+        PerStud GetPercorso(int id);
+        Competenza GetCompetenza(int id);
+
         void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
@@ -65,12 +71,6 @@ namespace DAO {
         List<Corso> ListaCorsi(string idUtente);
 		//mostra tutte le lezioni associate a un corso
 		List<Lezione> ListaLezioni(Corso corso);
-        List<EspLav> GetEspLav(string matricola);
-        List<PerStud> GetPerStudi(string matricola);
-        List<Competenza> GetComp(string matricola);
-        EspLav GetEsperienza(int id);
-        PerStud GetPercorso(int id);
-        Competenza GetCompetenza(int id);
     }
 	
 	public partial class DataAccesObject : IDao {
