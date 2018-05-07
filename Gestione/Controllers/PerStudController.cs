@@ -20,11 +20,10 @@ namespace Gestione.Controllers
 		}
 
 		// GET api/<controller>/5
-		[HttpGet][Route("api/Cv/{idCV}/PerStud/{id}")]
-		public PerStud Get(int id)
+		[HttpGet][Route("api/Cv/{idCV}/PerStud/{idPer}")]
+		public PerStud Get(int idPer)
 		{
-			//return dm.GetPercorso(id);
-			return null;
+			return dm.GetPercorso(idPer);
 		}
 
 		[HttpPost][Route("api/Cv/{idCV}/PerStud/")]
@@ -34,16 +33,17 @@ namespace Gestione.Controllers
 		}
 
 		// PUT api/<controller>/5
-		public void Put(int id,[FromBody]string value)
+		[HttpPut][Route("api/Cv/{idCV}/PerStud/{idPer}")]
+		public void Put(string idCV,string idPer,[FromBody]PerStud percorso)
 		{
-			//dm.ModPerStudi()
+			dm.ModPerStudi(idCV,percorso);
 		}
 
-		// DELETE api/<controller>/5
-		[HttpDelete][Route("api/Cv/{idCV}/PerStud/{id}")]
-		public void Delete(int id)
+		// DELETE api/<controller>/5 
+		[HttpDelete][Route("api/Cv/{idCV}/PerStud/{idPer}")]
+		public void Delete(string idPer)
 		{
-			//dm.DelPerStud(id);
+			dm.DelPerStud(idPer);
 		}
 	}
 }
