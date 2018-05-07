@@ -17,8 +17,8 @@ namespace Gestione.Controllers {
 
 		// GET api/<controller>/5
 		[HttpGet][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]
-		public string Get(int idCompetenza) {
-			return "value";
+		public Competenza GetCompetenza(int idCompetenza) {
+			return null;
 		}
 
 		// POST api/<controller>
