@@ -36,14 +36,14 @@ namespace Gestione.Controllers
 		[HttpPut][Route("api/Cv/{idCV}/PerStud/{idPer}")]
 		public void Put(string idCV,string idPer,[FromBody]PerStud percorso)
 		{
-			dm.ModPerStudi(idCV,percorso);
+			dm.ModPerStudi(int.Parse(idCV),percorso);
 		}
 
 		// DELETE api/<controller>/5 
 		[HttpDelete][Route("api/Cv/{idCV}/PerStud/{idPer}")]
 		public void Delete(string idPer,string idCV)
 		{
-			dm.DelPerStud(idPer,idCV);
+			dm.DelPerStud(int.Parse(idPer));
 		}
 	}
 }

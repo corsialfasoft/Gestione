@@ -23,11 +23,11 @@ namespace Gestione.Controllers {
             return dm.ListaLezioni(dm.SearchCorsi(idCorso)).Find(L => L.Nome.Equals(nomeLezione));
         }
 
-        [Route("api/CV/{idCV}/EspLav/{nomeLezione}")]
-        [HttpGet]
-        public Lezione DettaglioLezione(int idCorso,string nomeLezione){
-            return dm.ListaLezioni(dm.SearchCorsi(idCorso)).Find(L => L.Nome.Equals(nomeLezione));
-        }
+        //[Route("api/CV/{idCV}/EspLav/{nomeLezione}")]
+        //[HttpGet]
+        //public Lezione DettaglioLezione(int idCorso,string nomeLezione){
+        //    return dm.ListaLezioni(dm.SearchCorsi(idCorso)).Find(L => L.Nome.Equals(nomeLezione));
+        //}
 
     }
 }
