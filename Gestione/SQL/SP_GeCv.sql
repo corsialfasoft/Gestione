@@ -244,7 +244,7 @@ as
 	Delete EspLav where idEl =@id
 go
 
-create procedure DelPerStud
+Alter procedure DelPerStud
 	@id int
 as
 	delete PercorsoStudi from PercorsoStudi where IdPs = @id;
