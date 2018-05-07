@@ -160,7 +160,7 @@ namespace Gestione.Models {
 
         public void ModEspLav(string MatrCv,EspLav espV,EspLav esp){
             try{
-				dao.ModEspLav(MatrCv,espV,esp);
+				dao.ModEspLav(espV.Id,esp);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
@@ -170,7 +170,7 @@ namespace Gestione.Models {
 
 		public void ModComp(Competenza daMod,Competenza Mod,string matricola){
 			try{
-				dao.ModComp(matricola,daMod,Mod);
+				dao.ModComp(daMod.Id,Mod);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
@@ -190,7 +190,7 @@ namespace Gestione.Models {
 
         public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod){
             try{
-				dao.ModPerStudi(matricola,daMod,Mod);
+				dao.ModPerStudi(daMod.Id,Mod);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
@@ -381,15 +381,15 @@ namespace Gestione.Models {
         }
         #endregion
         public void DelEspLav(EspLav espLav,string matricola) {
-			dao.DelEspLav(espLav,matricola);
+			dao.DelEspLav(espLav.Id);
 		}
 
 		public void DelCompetenza(Competenza comp,string matricola) {
-			dao.DelCompetenza(comp , matricola);
+			dao.DelCompetenza(comp.Id);
 		}
 
 		public void DelPerStud(PerStud ps,string matricola) {
-			dao.DelPerStud(ps,matricola);
+			dao.DelPerStud(ps.Id);
 		}
 
         public List<EspLav> GetEspLav(string matricola) {

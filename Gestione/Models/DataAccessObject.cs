@@ -30,13 +30,13 @@ namespace DAO {
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
-		void DelEspLav(EspLav espLav , string matricola);
-		void DelCompetenza(Competenza comp , string matricola);
-		void DelPerStud(PerStud ps , string matricola);
-        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
+		void DelEspLav(int id);
+		void DelCompetenza(int id);
+		void DelPerStud(int id);
+        void ModEspLav(int id, EspLav Mod);
         //Modifica la singola competenza
-		void ModComp(string matricola, Competenza daMod , Competenza Mod );
-        void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+		void ModComp(int id , Competenza Mod);
+        void ModPerStudi(int id, PerStud Mod);
         void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
@@ -68,17 +68,19 @@ namespace DAO {
         List<EspLav> GetEspLav(string matricola);
         List<PerStud> GetPerStudi(string matricola);
         List<Competenza> GetComp(string matricola);
+        EspLav GetEsperienza(int id);
+        PerStud GetPercorso(int id);
+        Competenza GetCompetenza(int id);
     }
 	
 	public partial class DataAccesObject : IDao {
 		ITrasformer transf = new Trasformator();
-		//GeCv
-		public void ModComp(string matricola , Competenza daMod , Competenza Mod){
+		
+        # region GeCV
+		public void ModComp(int id , Competenza Mod){
 			try{
 				SqlParameter[] parameters = {
-					new SqlParameter("@matricola", matricola),
-					new SqlParameter("@titoloDaMod", daMod.Titolo),
-					new SqlParameter("@livdaMod", daMod.Livello),
+					new SqlParameter("@id", id),
 					new SqlParameter("@titoloMod", Mod.Titolo),
 					new SqlParameter("@livMod", Mod.Livello)					
 				};
@@ -92,14 +94,10 @@ namespace DAO {
 				throw e;
 			}
 		}
-		public void ModPerStudi(string matricola , PerStud daMod , PerStud Mod){
+		public void ModPerStudi(int id, PerStud Mod){
 			try{
 				SqlParameter[] parameters = {
-					new SqlParameter("@matricola", matricola),
-					new SqlParameter("@annoIdaMod", daMod.AnnoInizio),
-					new SqlParameter("@annoFdaMod", daMod.AnnoFine),
-					new SqlParameter("@titoloDaMod", daMod.Titolo),
-					new SqlParameter("@descrDaMod", daMod.Descrizione),
+					new SqlParameter("@id", id),
 					new SqlParameter("@annoIMod", Mod.AnnoInizio),
 					new SqlParameter("@annoFMod", Mod.AnnoFine),
 					new SqlParameter("@titoloMod", Mod.Titolo),
@@ -115,14 +113,10 @@ namespace DAO {
 				throw e;
 			}
 		}
-		public void ModEspLav(string matricola , EspLav daMod , EspLav Mod){			
+		public void ModEspLav(int id, EspLav Mod){			
 			try{
 				SqlParameter[] parameters = {
-					new SqlParameter("@matricola", matricola),
-					new SqlParameter("@annoIdaMod", daMod.AnnoInizio),
-					new SqlParameter("@annoFdaMod", daMod.AnnoFine),
-					new SqlParameter("@qualificaDaMod", daMod.Qualifica),
-					new SqlParameter("@descrDaMod", daMod.Descrizione),
+					new SqlParameter("@id", id),
 					new SqlParameter("@annoIMod", Mod.AnnoInizio),
 					new SqlParameter("@annoFMod", Mod.AnnoFine),
 					new SqlParameter("@qualificaMod", Mod.Qualifica),
@@ -205,8 +199,6 @@ namespace DAO {
 				throw e;
 			}
 		}
-
-        //Da controllare
         public void ModificaCV(CV a,CV b){
 			try{
 				SqlParameter[] parameters = {
@@ -222,8 +214,8 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception();
 				}
-				ModEspLav(a.Matricola,a.Esperienze[0],b.Esperienze[0]);
-				ModComp(a.Matricola,a.Competenze[0],b.Competenze[0]);
+				ModEspLav(a.Esperienze[0].Id,b.Esperienze[0]);
+				ModComp(a.Competenze[0].Id,b.Competenze[0]);
 			} catch(SqlException){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
@@ -363,6 +355,151 @@ namespace DAO {
             throw new NotImplementedException();
         }
 
+
+		public void DelEspLav(int id) {
+			SqlConnection con= new SqlConnection(GetStringBuilderCV());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("DelEspLav",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@id",SqlDbType.Int).Value=id;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza eliminata");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
+		}
+		public void DelCompetenza(int id) {
+			SqlConnection con= new SqlConnection(GetStringBuilderCV());
+			try {
+				con.Open();
+				SqlCommand command = new SqlCommand("DelComp",con);
+				command.CommandType=CommandType.StoredProcedure;
+				command.Parameters.Add("@id",SqlDbType.Int).Value=id;
+                int x = command.ExecuteNonQuery();
+				command.Dispose();
+				if (x == 0) { 
+					throw new Exception("Nessuna Esperienza eliminata");
+					}
+				
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				con.Dispose();
+			}
+		}
+		public void DelPerStud(int id) {
+			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
+			try{
+				connection.Open();
+				SqlCommand command = new SqlCommand("DelPerStud",connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value= id;
+				command.ExecuteNonQuery();
+				command.Dispose();
+			}catch(Exception e ){
+				throw e ;
+			}finally{
+				connection.Dispose();
+			}
+		}
+		private string GetStringBuilderCV() {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			return builder.ToString();
+        }
+
+        public EspLav GetEsperienza(int id) {
+            SqlConnection con = new SqlConnection(GetStringBuilderCV());
+            try{ 
+                EspLav el = new EspLav();
+                SqlCommand cmd = new SqlCommand("GetEsperienza",con);
+				cmd.CommandType=CommandType.StoredProcedure;
+				cmd.Parameters.Add("@id",SqlDbType.Int).Value=id;
+                SqlDataReader data = cmd.ExecuteReader();
+                while(data.Read()){ 
+                    el = new EspLav{
+                        Id = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+					    AnnoInizio = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+					    AnnoFine = data.GetValue(2) == DBNull.Value ? 0 : data.GetInt32(2),
+                        Qualifica = data.GetValue(3)==DBNull.Value ? "" : data.GetString(3),
+                        Descrizione = data.GetValue(4)==DBNull.Value ? "" : data.GetString(4)
+                    };
+                }
+                data.Close();
+                cmd.Dispose();
+                return el;
+
+            }catch(Exception e){ 
+                throw e;    
+            }finally{ 
+                con.Dispose();    
+            }
+        }
+
+        public PerStud GetPercorso(int id) {
+            SqlConnection con = new SqlConnection(GetStringBuilderCV());
+            try{ 
+                PerStud ps = new PerStud();
+                SqlCommand cmd = new SqlCommand("GetPercorso",con);
+				cmd.CommandType=CommandType.StoredProcedure;
+				cmd.Parameters.Add("@id",SqlDbType.Int).Value=id;
+                SqlDataReader data = cmd.ExecuteReader();
+                while(data.Read()){ 
+                    ps = new PerStud{
+                        Id = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+					    AnnoInizio = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+                        AnnoFine = data.GetValue(2) == DBNull.Value ? 0 : data.GetInt32(2),
+                        Titolo = data.GetValue(3) == DBNull.Value ? "" : data.GetString(3),
+                        Descrizione = data.GetValue(4) == DBNull.Value ? "" : data.GetString(4)
+				    };
+                }
+                data.Close();
+                cmd.Dispose();
+                return ps;
+
+            }catch(Exception e){ 
+                throw e;    
+            }finally{ 
+                con.Dispose();    
+            }
+        }
+
+        public Competenza GetCompetenza(int id) {
+            SqlConnection con = new SqlConnection(GetStringBuilderCV());
+            try{ 
+                Competenza cs = new Competenza();
+                SqlCommand cmd = new SqlCommand("GetCompetenza",con);
+				cmd.CommandType=CommandType.StoredProcedure;
+				cmd.Parameters.Add("@id",SqlDbType.Int).Value=id;
+                SqlDataReader data = cmd.ExecuteReader();
+                while(data.Read()){ 
+                    cs = new Competenza{
+                    Id = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+					Livello = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+                    Titolo = data.GetValue(2) == DBNull.Value ? "" : data.GetString(2)
+				};
+                }
+                data.Close();
+                cmd.Dispose();
+                return cs;
+
+            }catch(Exception e){ 
+                throw e;    
+            }finally{ 
+                con.Dispose();    
+            }
+        }
+        #endregion
+       
         # region GeTime
         public List<Commessa> CercaCommesse(string nomeCommessa){
 			try {
@@ -500,7 +637,7 @@ namespace DAO {
         }
         #endregion
 
-        //GeCo
+        # region GeCo
         public List<Lezione> ListaLezioni(Corso corso){
 			try{
 				SqlParameter[] param = {new SqlParameter("@IdCorso",corso.Id)};
@@ -625,80 +762,8 @@ namespace DAO {
 				throw e;
 			}
 		}
-
-		public void DelEspLav(EspLav espLav,string matricola) {
-			SqlConnection con= new SqlConnection(GetStringBuilderCV());
-			try {
-				con.Open();
-				SqlCommand command = new SqlCommand("DelEspLav",con);
-				command.CommandType=CommandType.StoredProcedure;
-				command.Parameters.Add("@annoIdaDel",SqlDbType.Int).Value=espLav.AnnoInizio;
-				command.Parameters.Add("@annoFdaDel",SqlDbType.Int).Value=espLav.AnnoFine;
-				command.Parameters.Add("@qualificaDaDel",SqlDbType.NVarChar).Value=espLav.Qualifica;
-				command.Parameters.Add("@descrDaDel",SqlDbType.NVarChar).Value=espLav.Descrizione;
-				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
-                int x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
-					throw new Exception("Nessuna Esperienza eliminata");
-					}
-				
-			}catch(Exception e) {
-				throw e;
-			}finally {
-				con.Dispose();
-			}
-		}
-
-		public void DelCompetenza(Competenza comp,string matricola) {
-			SqlConnection con= new SqlConnection(GetStringBuilderCV());
-			try {
-				con.Open();
-				SqlCommand command = new SqlCommand("DelComp",con);
-				command.CommandType=CommandType.StoredProcedure;
-				command.Parameters.Add("@titolo",SqlDbType.NVarChar).Value=comp.Titolo;
-				command.Parameters.Add("@livello",SqlDbType.Int).Value=comp.Livello;
-				command.Parameters.Add("@matricola",SqlDbType.NVarChar).Value=matricola;
-                int x = command.ExecuteNonQuery();
-				command.Dispose();
-				if (x == 0) { 
-					throw new Exception("Nessuna Esperienza eliminata");
-					}
-				
-			}catch(Exception e) {
-				throw e;
-			}finally {
-				con.Dispose();
-			}
-		}
-
-		public void DelPerStud(PerStud ps,string matricola) {
-			SqlConnection connection = new SqlConnection(GetStringBuilderCV());
-			try{
-				connection.Open();
-				SqlCommand command = new SqlCommand("DelPerStud",connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@matricola", System.Data.SqlDbType.NVarChar).Value= matricola;
-				command.Parameters.Add("@AnnoIniz", System.Data.SqlDbType.Int).Value= ps.AnnoInizio;
-				command.Parameters.Add("@AnnoFine", System.Data.SqlDbType.Int).Value= ps.AnnoFine;
-				command.Parameters.Add("@Titolo", System.Data.SqlDbType.NVarChar).Value= ps.Titolo;
-				command.Parameters.Add("@Descr", System.Data.SqlDbType.NVarChar).Value= ps.Descrizione;
-				command.ExecuteNonQuery();
-				command.Dispose();
-			}catch(Exception e ){
-				throw e ;
-			}finally{
-				connection.Dispose();
-			}
-		}
-		private string GetStringBuilderCV() {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			return builder.ToString();
-        }
-	}
+        #endregion
+    }
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
 		public LezionNonModificataException() {}
