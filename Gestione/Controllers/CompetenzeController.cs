@@ -16,17 +16,15 @@ namespace Gestione.Controllers {
 		}
 
 		// GET api/<controller>/5
-		public string Get(int id) {
+		[HttpGet][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]
+		public string Get(int idCompetenza) {
 			return "value";
 		}
 
 		// POST api/<controller>
 		[HttpPost][Route("api/CV/{idCV}/Competenza")]
-		public void Post([FromBody]string titolo, int livello) {
-			Competenza c = new Competenza();
-			c.Titolo = titolo;
-			c.Livello = livello;
-			dm.AddCompetenze(titolo, c);
+		public void Post([FromBody]Competenza competenza, int idCV) {
+			dm.AddCompetenze($"{idCV}", competenza);
 		}
 
 		// PUT api/<controller>/5
