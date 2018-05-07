@@ -34,7 +34,7 @@ namespace Gestione.Controllers {
             if(annoFine> annoInizio && titolo.Length>0 && descrizione.Length > 0){			    
                 PerStud perSN = new PerStud { AnnoInizio = annoInizio, AnnoFine= annoFine,Titolo= titolo,Descrizione= descrizione };
                 PerStud perSV = Session["percorso"] as PerStud;
-                dm.ModPerStudi(profile.Matricola, perSV, perSN);
+                dm.ModPerStudi(perSV.Id, perSN);
                 ViewBag.Message = "Il percorso studi è stato modificato con successo, corri a controllare!";
             }else{
                 ViewBag.Message ="Formato inserito non corretto";
@@ -63,7 +63,7 @@ namespace Gestione.Controllers {
         public ActionResult ModEspLav(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp){
             EspLav esp = new EspLav{ AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp};
             EspLav espV = Session["esperienza"] as EspLav;
-            dm.ModEspLav(profile.Matricola,espV,esp);
+            dm.ModEspLav(espV.Id,esp);
             ViewBag.Message = "Funziona";
             return View($"MyPage");
         }
@@ -110,7 +110,7 @@ namespace Gestione.Controllers {
 			Competenza c = new Competenza();
 			c = InitComp(tipo,livello);
 			Competenza daMod = Session["competenza"] as Competenza;
-			dm.ModComp(daMod,c,profile.Matricola);
+			dm.ModComp(daMod.Id,c);
 			ViewBag.Comp = c;
 			return View ("MyPage");
 		}
@@ -230,26 +230,18 @@ namespace Gestione.Controllers {
 			ViewBag.Message="Inserire dei parametri di ricerca validi";
 			return View();
 		}
-		public void EliminaEsperienza(int annoInizioEsp, int annoFineEsp, string qualifica, string descrizioneEsp,string matricola){
-			dm.DelEspLav(new EspLav{AnnoInizio=annoInizioEsp,AnnoFine=annoFineEsp,Qualifica=qualifica,Descrizione=descrizioneEsp },matricola);
+		public void EliminaEsperienza(int id,string matricola){
+			dm.DelEspLav(id);
 			 Profilo p = profile;
 			Response.Redirect($"/Home/DettCv/{matricola}");
 		}
-		public void EliminaCompetenza(string titolo,int livello,string matricola){
-			dm.DelCompetenza(new Competenza {Titolo=titolo,Livello=livello },matricola);
+		public void EliminaCompetenza(int id,string matricola){
+			dm.DelCompetenza(id);
 			Response.Redirect($"/Home/DettCV/{matricola}");
 		}
-		public ActionResult EliminaPerStud(int AI ,int AF , string Ti , string Des){
-			PerStud ps = new PerStud {
-				AnnoInizio = AI,
-				AnnoFine = AF,
-				Titolo = Ti,
-				Descrizione = Des
-			};
-
-			dm.DelPerStud(ps,profile.Matricola);
-			ViewBag.CV = dm.Search(profile.Matricola);
-			return View("DettaglioCurriculum");
+		public void EliminaPerStud(int id,string matricola){
+			dm.DelPerStud(id);
+			Response.Redirect($"/Home/DettCV/{matricola}");
 		}
     }
 }
