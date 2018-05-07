@@ -338,3 +338,21 @@ as
 				p.Titolo = @Titolo and p.Descrizione=@Descr and p.IdCv = @idcurr);
 	delete PercorsoStudi from PercorsoStudi where IdPs = @idPs;
 go
+
+Create Procedure GetPercorso 
+	@id int
+as
+	select ps.IdPs,ps.AnnoI,ps.AnnoF,ps.Titolo,ps.Descrizione from PercorsoStudi ps where ps.IdPs=@id;
+go
+
+Create Procedure GetEsperienza 
+	@id int
+as
+	select el.IdEl,el.AnnoI,el.AnnoF,el.Qualifica, el.Descrizione from EspLav el where c.IdEl=@id;
+go
+
+Create Procedure GetCompetenza
+	@id int
+as
+	select c.IdCs,c.Tipo, c.Livello from Competenze c where c.IdCs=@id;
+go

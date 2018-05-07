@@ -7,7 +7,9 @@ using Gestione.Controllers;
 namespace Gestione.Models {
 	public partial class DomainModel : IGeCo, IGeCV, IGeTime{
 		DataAccesObject dao = new DataAccesObject();
-		public List<Lezione> ListaLezioni(Corso input){
+
+        #region GeCo
+        public List<Lezione> ListaLezioni(Corso input){
 			try{
 				return dao.ListaLezioni(input);
 			}catch(SystemException){
@@ -16,47 +18,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
-        public void AddCompetenze(string MatrCv,Competenza comp){
-            try{
-				dao.AddCompetenze(MatrCv,comp);
-			}catch(SystemException){
-				throw new Exception("Errore di sistema!");
-			}catch(Exception e){
-				throw e;
-			}
-        }
-
-        public void AddCvStudi(string MatrCv,PerStud studi){
-            try{
-				dao.AddCvStudi(MatrCv, studi);
-			}catch(SystemException){
-				throw new Exception("Errore di sistema!");
-			}catch(Exception e){
-				throw e;
-			}
-        }
-
-        public void AddEspLav(string MatrCv,EspLav esp){
-            try{
-				dao.AddEspLav(MatrCv,esp);
-			}catch(SystemException){
-				throw new Exception("Errore di sistema!");
-			}catch(Exception e){
-				throw e;
-			}
-        }
-
-		public void AggiungiCV(CV a){
-			try{
-				dao.AggiungiCV(a);
-			}catch(SystemException){
-				throw new Exception("Errore di sistema!");
-			}catch(Exception e){
-				throw e;
-			}
-		}
-
 		public void Iscriviti(int idCorso,string idStudente){
 			try{
 				dao.Iscriviti(idCorso,idStudente);
@@ -66,7 +27,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public void AddLezione(int idCorso, Lezione lezione){			
 			try{
 				dao.AddLezione(idCorso,lezione);
@@ -76,7 +36,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public List<Corso> ListaCorsi(string idUtente){
 			try{
 				return dao.ListaCorsi(idUtente);
@@ -86,7 +45,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public List<Corso> ListaCorsi(){
 			try{
 				return dao.ListaCorsi();
@@ -96,7 +54,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public Corso SearchCorsi(int idCorso){
 			try{
 				return dao.SearchCorsi(idCorso);
@@ -106,7 +63,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public List<Corso> SearchCorsi(string descrizione){
 			try{
 				return  dao.SearchCorsi(descrizione);
@@ -116,8 +72,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
-
 		public List<Corso> SearchCorsi(string descrizione,string idUtente){
 			try{
 				return dao.SearchCorsi(descrizione,idUtente);
@@ -127,7 +81,6 @@ namespace Gestione.Models {
 				throw e;
 			}
         }
-
 		public void AddCorso(Corso corso){
             try{ 
                dao.AddCorso(corso);
@@ -137,7 +90,6 @@ namespace Gestione.Models {
 				throw e;
 			}
         }
-
 		public void ModLezione(Lezione lezione){
 			try{
 				dao.ModLezione(lezione);
@@ -148,6 +100,50 @@ namespace Gestione.Models {
 			}
 		}
 
+        #endregion
+        
+        #region GeCv
+        public void CaricaCV(string path){
+            throw new NotImplementedException();
+        }
+        
+		public void AggiungiCV(CV a){
+			try{
+				dao.AggiungiCV(a);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+        public void AddCompetenze(string MatrCv,Competenza comp){
+            try{
+				dao.AddCompetenze(MatrCv,comp);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+        }
+        public void AddCvStudi(string MatrCv,PerStud studi){
+            try{
+				dao.AddCvStudi(MatrCv, studi);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+        }
+        public void AddEspLav(string MatrCv,EspLav esp){
+            try{
+				dao.AddEspLav(MatrCv,esp);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+        }
+        
 		public void EliminaCV(CV curriculum){           
             try{ 
                 dao.EliminaCV(curriculum);
@@ -157,25 +153,14 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
-        public void ModEspLav(string MatrCv,EspLav espV,EspLav esp){
-            try{
-				dao.ModEspLav(MatrCv,espV,esp);
-			}catch(SystemException){
-				throw new Exception("Errore di sistema!");
-			}catch(Exception e){
-				throw e;
-			}
-        }
-
-		public void ModComp(Competenza daMod,Competenza Mod,string matricola){
-			try{
-				dao.ModComp(matricola,daMod,Mod);
-			}catch(SystemException){
-				throw new Exception("Errore di sistema!");
-			}catch(Exception e){
-				throw e;
-			}
+        public void DelEspLav(int id) {
+			dao.DelEspLav(id);
+		}
+		public void DelCompetenza(int id) {
+			dao.DelCompetenza(id);
+		}
+		public void DelPerStud(int id) {
+			dao.DelPerStud(id);
 		}
 
 		public void ModificaCV(CV c ){
@@ -187,15 +172,63 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
-        public void ModPerStudi(string matricola, PerStud daMod, PerStud Mod){
+        public void ModEspLav(int id,EspLav esp){
             try{
-				dao.ModPerStudi(matricola,daMod,Mod);
+				dao.ModEspLav(id,esp);
 			}catch(SystemException){
 				throw new Exception("Errore di sistema!");
 			}catch(Exception e){
 				throw e;
 			}
+        }
+		public void ModComp(int id,Competenza comp){
+			try{
+				dao.ModComp(id,comp);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+		}
+        public void ModPerStudi(int id, PerStud perStud){
+            try{
+				dao.ModPerStudi(id,perStud);
+			}catch(SystemException){
+				throw new Exception("Errore di sistema!");
+			}catch(Exception e){
+				throw e;
+			}
+        }
+
+        public List<EspLav> GetEspLav(string matricola) {
+            return dao.GetEspLav(matricola);
+        }
+        public List<PerStud> GetPerStudi(string matricola) {
+            return dao.GetPerStudi(matricola);
+        }
+        public List<Competenza> GetComp(string matricola) {
+            return dao.GetComp(matricola);
+        }
+        public EspLav GetEsperienza(int id) {
+            try{ 
+                return dao.GetEsperienza(id);
+            }catch(Exception e){ 
+                throw e;    
+            }
+        }
+        public PerStud GetPercorso(int id) {
+            try{ 
+                return dao.GetPercorso(id);
+            }catch(Exception e){ 
+                throw e;    
+            }
+        }
+        public Competenza GetCompetenza(int id) {
+            try{ 
+                return dao.GetCompetenza(id);
+            }catch(Exception e){ 
+                throw e;    
+            }
         }
 
         public CV Search(string id){
@@ -207,7 +240,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public List<CV> SearchChiava(string chiava){
 			try{
 				return dao.SearchChiava(chiava);
@@ -217,7 +249,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public List<CV> SearchCognome(string cognome){
 			try{
 				return dao.SearchCognome(cognome);
@@ -227,7 +258,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
 		public List<CV> SearchEta(int eta){
 			try{
 				return dao.SearchEta(eta);
@@ -237,11 +267,6 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
-
-        public void CaricaCV(string path){
-            throw new NotImplementedException();
-        }
-
         public List<CV> SearchRange(int etmin,int etmax){
 			try{
 				return dao.SearchRange(etmin,etmax);
@@ -251,6 +276,9 @@ namespace Gestione.Models {
 				throw e;
 			}
 		}
+
+        #endregion
+        
         # region GeTime
         public List<DTGiorno> GiorniCommessa(int idCommessa, string idUtente){
 			try{ 
@@ -380,28 +408,5 @@ namespace Gestione.Models {
             dao.AddCommessa(newCommessa);
         }
         #endregion
-        public void DelEspLav(EspLav espLav,string matricola) {
-			dao.DelEspLav(espLav,matricola);
-		}
-
-		public void DelCompetenza(Competenza comp,string matricola) {
-			dao.DelCompetenza(comp , matricola);
-		}
-
-		public void DelPerStud(PerStud ps,string matricola) {
-			dao.DelPerStud(ps,matricola);
-		}
-
-        public List<EspLav> GetEspLav(string matricola) {
-            return dao.GetEspLav(matricola);
-        }
-
-        public List<PerStud> GetPerStudi(string matricola) {
-            return dao.GetPerStudi(matricola);
-        }
-
-        public List<Competenza> GetComp(string matricola) {
-            return dao.GetComp(matricola);
-        }
     }
 }
