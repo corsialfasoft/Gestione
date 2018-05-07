@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Gestione.Models;
+using Interfaces;
 
 namespace Gestione.Controllers {
 	public class CompetenzeController : ApiController {
@@ -21,8 +22,11 @@ namespace Gestione.Controllers {
 
 		// POST api/<controller>
 		[HttpPost][Route("api/CV/{idCV}/Competenza")]
-		public void Post([FromBody]string titolo, string livello) {
-			dm.AddCommessa(titolo, livello);
+		public void Post([FromBody]string titolo, int livello) {
+			Competenza c = new Competenza();
+			c.Titolo = titolo;
+			c.Livello = livello;
+			dm.AddCompetenze(titolo, c);
 		}
 
 		// PUT api/<controller>/5
