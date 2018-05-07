@@ -391,5 +391,16 @@ namespace Gestione.Models {
 			dao.DelPerStud(ps,matricola);
 		}
 
+        public List<EspLav> GetEspLav(string matricola) {
+            return dao.GetEspLav(matricola);
+        }
+
+        public List<PerStud> GetPerStudi(string matricola) {
+            return dao.GetPerStudi(matricola);
+        }
+
+        public List<Competenza> GetComp(string matricola) {
+            return dao.GetComp(matricola);
+        }
     }
 }

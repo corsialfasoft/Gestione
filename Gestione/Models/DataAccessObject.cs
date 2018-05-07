@@ -65,6 +65,9 @@ namespace DAO {
         List<Corso> ListaCorsi(string idUtente);
 		//mostra tutte le lezioni associate a un corso
 		List<Lezione> ListaLezioni(Corso corso);
+        List<EspLav> GetEspLav(string matricola);
+        List<PerStud> GetPerStudi(string matricola);
+        List<Competenza> GetComp(string matricola);
     }
 	
 	public partial class DataAccesObject : IDao {
@@ -155,7 +158,7 @@ namespace DAO {
 				throw e;
 			}
 		}
-		private List<EspLav> GetEspLav(string matricola){
+		public List<EspLav> GetEspLav(string matricola){
 		try{			
 			SqlParameter[] param = {new SqlParameter("@Matricola",matricola)};
 			List<EspLav> output = DB.ExecQProcedureReader("GetEspLav",transf.TransfInListEspLav,param, "GeCv");
@@ -166,7 +169,7 @@ namespace DAO {
 				throw e;
 			}
 		}
-		private List<PerStud> GetPerStudi(string matricola){
+		public List<PerStud> GetPerStudi(string matricola){
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
 				List<PerStud> output = DB.ExecQProcedureReader("GetPerStudi",transf.TransfInListPerstud,param, "GeCv");
@@ -177,7 +180,7 @@ namespace DAO {
 				throw e;
 			}
 		}
-		private List<Competenza> GetComp(string matricola){
+		public List<Competenza> GetComp(string matricola){
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
 				List<Competenza> output = DB.ExecQProcedureReader("GetComp",transf.TransfInCompetenze,param, "GeCv");

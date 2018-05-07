@@ -24,6 +24,9 @@ namespace Interfaces {
         void ModEspLav(string MatrCv, EspLav espV, EspLav esp );	
 		void ModComp(Competenza daMod , Competenza Mod , string matricola); // Modifica la singola competenza
         void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+        List<EspLav> GetEspLav(string matricola);
+        List<PerStud> GetPerStudi(string matricola);
+        List<Competenza> GetComp(string matricola);
     }
 	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
