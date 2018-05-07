@@ -375,7 +375,6 @@ namespace Gestione.Models {
             newCommessa.Nome = commessa.Nome;
             newCommessa.Descrizione = commessa.Descrizione;
             newCommessa.Capienza = commessa.Capienza;
-            DataAccesObject dao = new DataAccesObject();
             dao.AddCommessa(newCommessa);
         }
         #endregion

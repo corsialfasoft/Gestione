@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#giorno').hide();
+            $('#tabella_commesse').hide();
+            $('form_compila').submit(function () {
+                event.preventDefault();
+                var $form = $(this);
+                if ($form.find('select :selected').text() == 'Ore di lavoro') {
+                    var commesse = $.getJSON('../api/Commesse' + $form.find("input[name='Commessa']"));
+                    if (commesse != null && commesse.length > 0) {
+                        if (commesse.length == 1) {
+                            var Giorno = {};
+                            Giorno.Data = $form.find("input[name='dateTime']");
+                            Giorno.Ore = $form.find("input[name='ore']");
+                            Giorno.Commessa = commesse[0].Nome
+                            Giorno.TipoOre = 'Ore di lavoro';
+                            $.post('../api/Getime', Giorno, function (data) {
+                                $('#Message').empty().append('richiesta avvenuta con successo')
+                            }).fail(function (data) { $('#Message').empty().append('richiesta fallita') });
+                        } else {
+                            $('compila').hide();
+                            viewCommesse(commesse);
+                        }
+                    }
+                }
+            });
+            function viewCommesse(commesse){
+                for (var i; i < commesse.length; i++) {
+                    html += '<tr>' +
+                        '<th scope="col">' + (i + 1) + '</th>' +
+                        '<th scope="col">' + commesse[i].Nome +
+                        '<span class="badge" style="float:right; color:black; background-color:lightgray">' +
+                        '<button onclick=sendGiorno(' + commesse[i].Nome + ')></button>' +
+                        '</span>' +
+                        '</th>' +
+                        '</tr>';
+                }
+                html += '<input type="hidden" id=data value=' + $form.find("input[name='dateTime']") + ' >';
+                html += '<input type="hidden" id=ore value=' + $form.find("input[name='ore']") + ' >';
+                $('#tabella_commesse tbody').empty().append(html);
+                $('tabella_commesse').show();
+            }
+            function sendGiorno(nome) {
+                var Giorno = {};
+                Giorno.Data = $("#data");
+                Giorno.Ore = $("#ore");
+                Giorno.Commessa = nome
+                Giorno.TipoOre = 'Ore di lavoro';
+                $.post('../api/Getime', Giorno, function (data) {
+                    $('#Message').empty().append('richiesta avvenuta con successo')
+                }).fail(function (data) {
+                    $('#Message').empty().append('richiesta fallita');
+
+                });
+            }
+            function viewGiorno(data) {
+                $.post('../api/Getime/' + data.Year + '/' + data.Month + '/' + data.Day, Giorno, function (data) {
+                    var count = 0;
+                    var tabella_giorno = $('#tabella_giorno');
+                    tabella_giorno.find('#permesso').html(data.OrePermesso);
+                    tabella_giorno.find('#malttie').html(data.OreMalattia);
+                    tabella_giorno.find('#ferie').html(data.OreFerie);
+                    data.OreLavorate.forEach(function (orelavorate) {
+                        var html = '';
+                        html += '<tr>';
+                        if (count == 0) {
+                            html += '<td>Totale ore lavoro</td>' +
+                                ' <td>ViewBag.Giorno.TotOreLavorate</td>';
+                            count++;
+                        } else {
+                            html += '<td></td>' +
+                                '<td></td>';
+                        }
+                        html += '<td>' + orelavorate.nome + '</td>' +
+                            '<td>' + orelavorate.oreGiorno + '</td>' +
+                            '<td>' + orelavorate.descrizione + '</td>' +
+                            '</tr>';
+                        tabella_giorno.append(html);
+                    });
+                }).fail(function (data) {
+                    $('#Message').empty().append('richiesta fallita');
+
+                });
+               
+            }
+        });
+        function changeHTyp(value) {
+            if (value == 'Ore di permesso' || value == 'Ore di malattia') {
+                document.getElementById('commesse').disabled = true;
+                document.getElementById('ore').value = "";
+                document.getElementById('ore').setAttribute('max', '8');
+                document.getElementById('ore').disabled = false;
+            } else if (value == 'Ore di ferie') {
+                document.getElementById('ore').value = 8;
+                document.getElementById('ore').disabled = true;
+                document.getElementById('commesse').disabled = true;
+            } else if (value == 'Ore di lavoro' || value == '') {
+                document.getElementById('commesse').disabled = false;
+                document.getElementById('ore').value = "";
+                if (value == 'Ore di lavoro')
+                    document.getElementById('ore').setAttribute('max', '14');
+                else
+                    document.getElementById('ore').setAttribute('max', '8');
+                document.getElementById('ore').disabled = false;
+            }
+        }
+    </script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <title>Aggiungi Giorno</title>
+</head>
+<body>
+    <div id="addGiorno">
+        <h2>Aggiungi Giorno</h2>
+        <div id="Message" class="text-danger container">
+        </div>
+        <br>
+        <div id="compila" class="row">
+            <div class=" col-md-6">
+                <form action="../Getime" method="post" id="form_compila">
+                    <div class="Conteiner">
+                        Data (*)          <input type="date" name="dateTime" min="@DateTime.Today.AddDays(-180).ToString(" yyyy-MM-dd")" max="@DateTime.Today.ToString(" yyyy-MM-dd")" required />
+                        <br><br>
+                        Tipologia Ore (*)
+                        <select id="HType" name="tipoOre" onChange="javascript:changeHTyp(this.value);">
+                            <option value="" selected="selected" />Seleziona tipo ore
+                            <option value="Ore di lavoro" />Ore di lavoro
+                            <option value="Ore di permesso" />Ore di permesso
+                            <option value="Ore di ferie" />Ore di ferie
+                            <option value="Ore di malattia" />Ore di malattia
+                        </select>
+                        <br><br>
+                        Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commesse" /> (Solo per ore di lavoro)
+                        <br><br>
+                        Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8 id="ore">
+                        <br><br>
+                        <input type="submit" name="caricaOre" value="Carica Ore" />
+                        <br><br>
+                    </div>
+                </form>
+                <p>(*) Campi obligatori</p>
+                <br><br>
+                <p id="esito"></p>
+                <br><br>
+            </div>
+            <div id="giorno" class=" col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Dettagli del Giorno
+                    </div>
+                    <table id="tabella_giorno">
+                        <tr>
+                            <td>Tipo</td>
+                            <td>Totale ore</td>
+                            <td>Commessa</td>
+                            <td>Ore lavoro commessa</td>
+                            <td>Note</td>
+                        </tr>
+                        <tr >
+                            <td>Totale ore permesso</td>
+                            <td id="permesso"></td>
+                        </tr>
+                        <tr>
+                            <td>Totale ore malattia</td>
+                            <td id="malattia"></td>
+                        </tr>
+                        <tr>
+                            <td>Totale ore ferie</td>
+                            <td id="ferie"></td>
+                        </tr>
+                    </table>
+                </div>
+                }
+            </div>
+        </div>
+        <div id="tabella_commesse" class="row">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome Commessa</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
