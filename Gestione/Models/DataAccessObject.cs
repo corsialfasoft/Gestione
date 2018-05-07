@@ -67,6 +67,8 @@ namespace DAO {
 		List<Lezione> ListaLezioni(Corso corso);
 		//ModCorso
 		void ModificaCorso(int IdCorsoToMod, Corso NuovoCorso);
+		//Elimina Corso
+		void EliminaCorso(int id);
     }
 	
 	public partial class DataAccesObject : IDao {
@@ -728,6 +730,20 @@ namespace DAO {
 				};
 			int RowAffected =DB.ExecNonQProcedure("ModificaCorso",param,"GeCorsi");
 				if (RowAffected == 0) {
+					throw new CorsoNonAggiuntoOModException("Non hai modificato il corso");
+				}
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
+		}
+
+		public void EliminaCorso(int id) {
+			try{
+				SqlParameter[] param = { new SqlParameter("@IdCorso",id)};
+				int RowAffected= DB.ExecNonQProcedure("CancellaCorso", param,"GeCorsi");
+			if (RowAffected == 0) {
 					throw new CorsoNonAggiuntoOModException("Non hai modificato il corso");
 				}
 			} catch(SqlException){

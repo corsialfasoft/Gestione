@@ -24,6 +24,7 @@ namespace Gestione.Controllers {
         }
         // DELETE api/<controller>/5
         public void Delete(int id) {
+			dm.EliminaCorso(id);
         }
     }
 }

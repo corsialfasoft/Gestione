@@ -409,5 +409,15 @@ namespace Gestione.Models {
                 throw e;
             }			
 		}
+
+		public void EliminaCorso(int id) {
+			try{
+				dao.EliminaCorso(id);
+			}catch (SystemException) {
+                throw new Exception("Errore di sistema!");
+            } catch (Exception e) {
+                throw e;
+            }		
+		}
 	}
 }

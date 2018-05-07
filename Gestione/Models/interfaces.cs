@@ -63,6 +63,8 @@ namespace Interfaces {
 		void ModLezione(Lezione lezione);
 		//Modifica Corso
 		void ModificaCorso(int IdCorsoToMod, Corso NuovoCorso);
+		//Elimina Corso
+		void EliminaCorso(int id);
 
     }
     public class Studente {

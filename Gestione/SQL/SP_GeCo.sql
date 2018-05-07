@@ -90,4 +90,9 @@ as
 	where id=@IdCorso;
 go
 
-exec ModificaCorso 'aggiornato','nuovoagg', '01-01-2010','02-01-2010',1
+create procedure CancellaCorso
+@IdCorso int
+as
+	delete from Corsi where id= @IdCorso;
+go
+
