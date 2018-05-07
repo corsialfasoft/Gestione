@@ -77,62 +77,19 @@ namespace DAO {
 		ITrasformer transf = new Trasformator();
 		
         # region GeCV
-		public void ModComp(int id , Competenza Mod){
-			try{
-				SqlParameter[] parameters = {
-					new SqlParameter("@id", id),
-					new SqlParameter("@titoloMod", Mod.Titolo),
-					new SqlParameter("@livMod", Mod.Livello)					
-				};
-				int output = DB.ExecNonQProcedure("ModComp", parameters,"GeCV");
-				if(output == 0){
-					throw new Exception("Nessuna modifica fatta!");
-				}
-			} catch (SqlException) {
-				throw new Exception("Errore server!");
-			} catch (Exception e) {
-				throw e;
-			}
-		}
-		public void ModPerStudi(int id, PerStud Mod){
-			try{
-				SqlParameter[] parameters = {
-					new SqlParameter("@id", id),
-					new SqlParameter("@annoIMod", Mod.AnnoInizio),
-					new SqlParameter("@annoFMod", Mod.AnnoFine),
-					new SqlParameter("@titoloMod", Mod.Titolo),
-					new SqlParameter("@descrMod", Mod.Descrizione),
-				};
-			int output = DB.ExecNonQProcedure("ModPerStud", parameters,"GeCV");
-				if(output == 0){
-					throw new Exception("Nessuna modifica fatta!");
-				}
-			} catch (SqlException) {
-				throw new Exception("Errore server!");
-			} catch (Exception e) {
-				throw e;
-			}
-		}
-		public void ModEspLav(int id, EspLav Mod){			
-			try{
-				SqlParameter[] parameters = {
-					new SqlParameter("@id", id),
-					new SqlParameter("@annoIMod", Mod.AnnoInizio),
-					new SqlParameter("@annoFMod", Mod.AnnoFine),
-					new SqlParameter("@qualificaMod", Mod.Qualifica),
-					new SqlParameter("@descrMod", Mod.Descrizione),
-				};
-			int output = DB.ExecNonQProcedure("ModEspLav", parameters,"GeCV");
-				if(output == 0){
-					throw new Exception("Nessuna modifica fatta!");
-				}
-			} catch (SqlException){
-				throw new Exception("Errore server!");
-			} catch (Exception e){
-				throw e;
-			}
-		}
-		public void AggiungiCV(CV c){
+		private string GetStringBuilderCV() {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
+				DataSource = @"(localdb)\MSSQLLocalDB",
+				InitialCatalog = "GECV"
+			};
+			return builder.ToString();
+        }
+
+        public void CaricaCV(string path){
+            throw new NotImplementedException();
+        }
+
+        public void AggiungiCV(CV c){
 			try{
 				SqlParameter[] parameters = { 
 					new SqlParameter("@Nome",c.Nome),
@@ -146,76 +103,6 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception("Nessun CV aggiunto!");
 				}
-			} catch(SqlException){
-				throw new Exception("Errore server!");
-			} catch(Exception e){
-				throw e;
-			}
-		}
-		public List<EspLav> GetEspLav(string matricola){
-		try{			
-			SqlParameter[] param = {new SqlParameter("@Matricola",matricola)};
-			List<EspLav> output = DB.ExecQProcedureReader("GetEspLav",transf.TransfInListEspLav,param, "GeCv");
-				return output;
-			} catch(SqlException){
-				throw new Exception("Errore server!");
-			} catch(Exception e) {
-				throw e;
-			}
-		}
-		public List<PerStud> GetPerStudi(string matricola){
-			try{
-				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
-				List<PerStud> output = DB.ExecQProcedureReader("GetPerStudi",transf.TransfInListPerstud,param, "GeCv");
-				return output;
-			} catch(SqlException){
-				throw new Exception("Errore server!");
-			} catch(Exception e){
-				throw e;
-			}
-		}
-		public List<Competenza> GetComp(string matricola){
-			try{
-				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
-				List<Competenza> output = DB.ExecQProcedureReader("GetComp",transf.TransfInCompetenze,param, "GeCv");
-				return output;
-			} catch(SqlException){
-				throw new Exception("Errore server!");
-			} catch(Exception e){
-				throw e;
-			}
-		}
-		public CV Search(string matr){
-			try{
-				SqlParameter[] param = {new SqlParameter("@Matricola",matr)};
-				CV output = DB.ExecQProcedureReader("GetCv",transf.TransfInCv,param,"GeCv");
-				output.Percorsostudi= GetPerStudi(output.Matricola);
-				output.Esperienze = GetEspLav(output.Matricola);
-				output.Competenze = GetComp(output.Matricola);
-				return output;
-			} catch(SqlException){
-				throw new Exception("Errore server!");
-			} catch(Exception e){
-				throw e;
-			}
-		}
-        public void ModificaCV(CV a,CV b){
-			try{
-				SqlParameter[] parameters = {
-					new SqlParameter("@matricolaM",a.Matricola),
-					new SqlParameter("@nomeM",b.Nome),
-					new SqlParameter("@cognomeM",b.Cognome),
-					new SqlParameter("@etaM",b.Eta),
-					new SqlParameter("@emailM",b.Email),
-					new SqlParameter("@residenzaM",b.Residenza),				
-					new SqlParameter("@telefonoM",b.Telefono),
-				};
-				int output = DB.ExecNonQProcedure("ModificaCurriculum", parameters,"GeCV");
-				if(output == 0){
-					throw new Exception();
-				}
-				ModEspLav(a.Esperienze[0].Id,b.Esperienze[0]);
-				ModComp(a.Competenze[0].Id,b.Competenze[0]);
 			} catch(SqlException){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
@@ -277,6 +164,7 @@ namespace DAO {
                 throw e;
             }
         }
+		
         public void ModificaCV(CV c){
             try{
                 SqlParameter[] parameter = {
@@ -295,50 +183,86 @@ namespace DAO {
                 throw e;
             }
         }
-        public List<CV> SearchChiava(string chiave){
-            try {
-                SqlParameter[] parameter = { new SqlParameter("@parola", chiave) };
-                return DB.ExecQProcedureReader("dbo.CercaParolaChiava", transf.TransfListCV0, parameter, "GeCv");
-            } catch(SqlException){
-                throw new Exception("Errore server!");
-            } catch(Exception e){
-                throw e;
-            }
-        }
-        public List<CV> SearchCognome(string cognome){
-            try {
-                SqlParameter[] param = { new SqlParameter("@cognome", cognome) };
-                return DB.ExecQProcedureReader("dbo.CercaCognome", transf.TransfListCV0, param, "GeCv");
-            } catch(SqlException){
-                throw new Exception("Errore server!");
-            } catch(Exception e){
-                throw e;
-            }
-        }
-        public List<CV> SearchRange(int etmin, int etmax){
-            try {
-                SqlParameter[] parameters = {
-                    new SqlParameter("@e_min", etmin),
-                    new SqlParameter("@e_max", etmax)
-                };
-                return DB.ExecQProcedureReader("dbo.CercaEtaMinMax", transf.TransfListCV0, parameters, "GeCv");
-            } catch(SqlException){
-                throw new Exception("Errore server!");
-            } catch(Exception e){
-                throw e;
-            }
-        }
-        public List<CV> SearchEta(int eta){
-            try {
-                SqlParameter[] param = { new SqlParameter("@eta", eta) };
-                return DB.ExecQProcedureReader("dbo.CercaEta", transf.TransfListCV0, param, "GeCv");
-            } catch(SqlException){
-                throw new Exception("Errore server!");
-            } catch(Exception e){
-                throw e;
-            }
-        }
-		public void EliminaCV(CV curriculum){
+        public void ModificaCV(CV a,CV b){
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@matricolaM",a.Matricola),
+					new SqlParameter("@nomeM",b.Nome),
+					new SqlParameter("@cognomeM",b.Cognome),
+					new SqlParameter("@etaM",b.Eta),
+					new SqlParameter("@emailM",b.Email),
+					new SqlParameter("@residenzaM",b.Residenza),				
+					new SqlParameter("@telefonoM",b.Telefono),
+				};
+				int output = DB.ExecNonQProcedure("ModificaCurriculum", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception();
+				}
+				ModEspLav(a.Esperienze[0].Id,b.Esperienze[0]);
+				ModComp(a.Competenze[0].Id,b.Competenze[0]);
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
+		}
+		public void ModEspLav(int id, EspLav Mod){			
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@id", id),
+					new SqlParameter("@annoIMod", Mod.AnnoInizio),
+					new SqlParameter("@annoFMod", Mod.AnnoFine),
+					new SqlParameter("@qualificaMod", Mod.Qualifica),
+					new SqlParameter("@descrMod", Mod.Descrizione),
+				};
+			int output = DB.ExecNonQProcedure("ModEspLav", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessuna modifica fatta!");
+				}
+			} catch (SqlException){
+				throw new Exception("Errore server!");
+			} catch (Exception e){
+				throw e;
+			}
+		}
+		public void ModComp(int id , Competenza Mod){
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@id", id),
+					new SqlParameter("@titoloMod", Mod.Titolo),
+					new SqlParameter("@livMod", Mod.Livello)					
+				};
+				int output = DB.ExecNonQProcedure("ModComp", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessuna modifica fatta!");
+				}
+			} catch (SqlException) {
+				throw new Exception("Errore server!");
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		public void ModPerStudi(int id, PerStud Mod){
+			try{
+				SqlParameter[] parameters = {
+					new SqlParameter("@id", id),
+					new SqlParameter("@annoIMod", Mod.AnnoInizio),
+					new SqlParameter("@annoFMod", Mod.AnnoFine),
+					new SqlParameter("@titoloMod", Mod.Titolo),
+					new SqlParameter("@descrMod", Mod.Descrizione),
+				};
+			int output = DB.ExecNonQProcedure("ModPerStud", parameters,"GeCV");
+				if(output == 0){
+					throw new Exception("Nessuna modifica fatta!");
+				}
+			} catch (SqlException) {
+				throw new Exception("Errore server!");
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		
+        public void EliminaCV(CV curriculum){
 			try{
 				SqlParameter[] param ={ new SqlParameter("@idcurr", curriculum.Matricola)};
 				int output = DB.ExecNonQProcedure("dbo.DeleteCurriculum", param, "GeCv");
@@ -351,10 +275,6 @@ namespace DAO {
 				throw e;
 			}
 		}		
-        public void CaricaCV(string path){
-            throw new NotImplementedException();
-        }
-        
 		public void DelEspLav(int id) {
 			SqlConnection con= new SqlConnection(GetStringBuilderCV());
 			try {
@@ -408,14 +328,40 @@ namespace DAO {
 				connection.Dispose();
 			}
 		}
-		private string GetStringBuilderCV() {
-			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder {
-				DataSource = @"(localdb)\MSSQLLocalDB",
-				InitialCatalog = "GECV"
-			};
-			return builder.ToString();
-        }
-
+		
+        public List<EspLav> GetEspLav(string matricola){
+		try{			
+			SqlParameter[] param = {new SqlParameter("@Matricola",matricola)};
+			List<EspLav> output = DB.ExecQProcedureReader("GetEspLav",transf.TransfInListEspLav,param, "GeCv");
+				return output;
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e) {
+				throw e;
+			}
+		}
+		public List<PerStud> GetPerStudi(string matricola){
+			try{
+				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
+				List<PerStud> output = DB.ExecQProcedureReader("GetPerStudi",transf.TransfInListPerstud,param, "GeCv");
+				return output;
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
+		}
+		public List<Competenza> GetComp(string matricola){
+			try{
+				SqlParameter[] param = {new SqlParameter("@Matricola", matricola)};
+				List<Competenza> output = DB.ExecQProcedureReader("GetComp",transf.TransfInCompetenze,param, "GeCv");
+				return output;
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
+		}
         public EspLav GetEsperienza(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
@@ -495,6 +441,66 @@ namespace DAO {
                 con.Dispose();    
             }
         }
+		
+        public CV Search(string matr){
+			try{
+				SqlParameter[] param = {new SqlParameter("@Matricola",matr)};
+				CV output = DB.ExecQProcedureReader("GetCv",transf.TransfInCv,param,"GeCv");
+				output.Percorsostudi= GetPerStudi(output.Matricola);
+				output.Esperienze = GetEspLav(output.Matricola);
+				output.Competenze = GetComp(output.Matricola);
+				return output;
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
+		}
+        public List<CV> SearchChiava(string chiave){
+            try {
+                SqlParameter[] parameter = { new SqlParameter("@parola", chiave) };
+                return DB.ExecQProcedureReader("dbo.CercaParolaChiava", transf.TransfListCV0, parameter, "GeCv");
+            } catch(SqlException){
+                throw new Exception("Errore server!");
+            } catch(Exception e){
+                throw e;
+            }
+        }
+        public List<CV> SearchCognome(string cognome){
+            try {
+                SqlParameter[] param = { new SqlParameter("@cognome", cognome) };
+                return DB.ExecQProcedureReader("dbo.CercaCognome", transf.TransfListCV0, param, "GeCv");
+            } catch(SqlException){
+                throw new Exception("Errore server!");
+            } catch(Exception e){
+                throw e;
+            }
+        }
+        public List<CV> SearchRange(int etmin, int etmax){
+            try {
+                SqlParameter[] parameters = {
+                    new SqlParameter("@e_min", etmin),
+                    new SqlParameter("@e_max", etmax)
+                };
+                return DB.ExecQProcedureReader("dbo.CercaEtaMinMax", transf.TransfListCV0, parameters, "GeCv");
+            } catch(SqlException){
+                throw new Exception("Errore server!");
+            } catch(Exception e){
+                throw e;
+            }
+        }
+        public List<CV> SearchEta(int eta){
+            try {
+                SqlParameter[] param = { new SqlParameter("@eta", eta) };
+                return DB.ExecQProcedureReader("dbo.CercaEta", transf.TransfListCV0, param, "GeCv");
+            } catch(SqlException){
+                throw new Exception("Errore server!");
+            } catch(Exception e){
+                throw e;
+            }
+        }
+        
+
         #endregion
        
         # region GeTime
