@@ -117,6 +117,7 @@ namespace Gestione.Models {
 			}
 		}
 
+
 		public List<Corso> SearchCorsi(string descrizione,string idUtente){
 			try{
 				return dao.SearchCorsi(descrizione,idUtente);

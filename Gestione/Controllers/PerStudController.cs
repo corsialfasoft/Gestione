@@ -16,28 +16,33 @@ namespace Gestione.Controllers
 		[HttpGet][Route("api/Cv/{idCV}/PerStud/")]
 		public IEnumerable<PerStud> Get()
 		{
-			return null;
+			return dm.GetPerStudi("{idCV}");
 		}
 
 		// GET api/<controller>/5
-		public string Get(int id)
+		[HttpGet][Route("api/Cv/{idCV}/PerStud/{id}")]
+		public PerStud Get(int id)
 		{
-			return "value";
+			return dm.GetPercorso(id);
 		}
 
-		// POST api/<controller>
-		public void Post([FromBody]string value)
+		[HttpPost][Route("api/Cv/{idCV}/PerStud/")]
+		public void Post([FromBody]PerStud percorso)
 		{
+			dm.AddCvStudi(idCv,percorso);
 		}
 
 		// PUT api/<controller>/5
 		public void Put(int id,[FromBody]string value)
 		{
+			dm.ModPerStudi()
 		}
 
 		// DELETE api/<controller>/5
+		[HttpDelete][Route("api/Cv/{idCV}/PerStud/{id}")]
 		public void Delete(int id)
 		{
+			dm.DelPerStud(id);
 		}
 	}
 }
