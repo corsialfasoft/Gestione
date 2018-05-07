@@ -180,18 +180,21 @@ namespace Interfaces {
         }
     }
     public class EspLav {
+        public int Id{get;set;}
         public int AnnoInizio { get; set; }
         public int AnnoFine { get; set; }
         public string Qualifica { get; set; }
         public string Descrizione { get; set; }
     }
     public class PerStud {
+        public int Id{get;set;}
         public int AnnoInizio { get; set; }
         public int AnnoFine { get; set; }
         public string Titolo { get; set; }
         public string Descrizione { get; set; }
     }
     public class Competenza {
+        public int Id{get;set;}
         public string Titolo { get; set; }
         public int Livello { get; set; }
     }
