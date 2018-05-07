@@ -30,13 +30,13 @@ namespace DAO {
         void AddCvStudi(string MatrCv,PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
-		void DelEspLav(EspLav espLav , string matricola);
-		void DelCompetenza(Competenza comp , string matricola);
-		void DelPerStud(PerStud ps , string matricola);
-        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );
+		void DelEspLav(int id);
+		void DelCompetenza(int id);
+		void DelPerStud(int id);
+        void ModEspLav(int id, EspLav Mod);
         //Modifica la singola competenza
-		void ModComp(string matricola, Competenza daMod , Competenza Mod );
-        void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+		void ModComp(int id , Competenza Mod);
+        void ModPerStudi(int id, PerStud Mod);
         void CompilaHLavoro(DateTime data, int ore, int idCommessa, string idUtente);
 		void Compila(DateTime data, int ore, HType tipoOre, string idUtente);
 		Giorno VisualizzaGiorno(DateTime data, string idUtente);
@@ -214,8 +214,8 @@ namespace DAO {
 				if(output == 0){
 					throw new Exception();
 				}
-				ModEspLav(a.Matricola,a.Esperienze[0],b.Esperienze[0]);
-				ModComp(a.Matricola,a.Competenze[0],b.Competenze[0]);
+				ModEspLav(a.Esperienze[0].Id,b.Esperienze[0]);
+				ModComp(a.Competenze[0].Id,b.Competenze[0]);
 			} catch(SqlException){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
