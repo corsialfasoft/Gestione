@@ -43,7 +43,7 @@ namespace Gestione.Controllers
 		[HttpDelete][Route("api/Cv/{idCV}/PerStud/{id}")]
 		public void Delete(int id)
 		{
-			//dm.DelPerStud(id);
+			//dm.DelPerStud(id); 
 		}
 	}
 }
