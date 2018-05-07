@@ -60,7 +60,7 @@
                 var corso = {};
                 var url = $form.attr("action");
                 corso.Nome = $form.find("input[name='_nome']").val();
-                corso.Descrizione = $form.find("textarea[name='_descrizione']").val();
+                corso.Descrizione = $form.find("input[name='_descrizione']").val();
                 corso.Inizio = $form.find("input[name='_inizio']").val();
                 corso.Fine = $form.find("input[name='_fine']").val();
                 var posting = $.post(url, corso);
@@ -71,30 +71,54 @@
                 });
             });
         });
+           
+            
         function LoadCorso(id) {
             $.getJSON(uri + '/' + id)
                 .done(function (data) {
                     $('#DettaglioCorso').html(
+                        '<form action="/api/Corsi" id="frmAgg" class="formStyle" method="post">' +
                         '<div class="panel panel-primary">' +
-                        '<div class="panel-heading">' + data.Nome + '</div>' +
-                        '<div class="panel-body"> <p><small>' + data.Descrizione + '</small></p>' +
+                        '<div class="form-group"><label>Nome</label> ' +
+                        '<input type="text" name="_nome" class="form-control" value="' + data.Nome + '">' +
+                        '<div class="form-group"><label>Descrizione</label> ' +
+                        '<input type="text" name="_descrizione" class="form-control" value="' + data.Descrizione + '">' +
                         '<div class="form-group"><label>Data Inizio</label> ' +
-                        '<input disabled type="text" class="form-control" value="' + data.Inizio + '">' +
+                        '<input type="text" name="_inizio" class="form-control" value="' + data.Inizio + '">' +
                         '<div class="form-group"><label>Data Fine</label> ' +
-                        '<input disabled type="text" class="form-control" value="' + data.Fine + '"></div>' +
-
-                        '<a class="btn btn-success" href="#" role="button">Modifica</a> &nbsp;' +
+                        '<input type="text" name="_fine" class="form-control" value="' + data.Fine + '"></div>' +
+                        '<input type="submit" value="Modifica" class="btn btn-success"></input> &nbsp;' +
                         '<a class="btn btn-warning" href="#" role="button">Elimina</a>' +
                         '</div>' +
-                        '</div > ');
+                        '</div >' +
+                        '</form >'
+                    );
                     $('#Lezioni').empty();
                     $('#Lezioni').append("<ul class='list-group' >");
                     $.each(data.Lezioni, function (key, item) {
                         $('#Lezioni').append("<li class='list-group-item'>" + item.Nome + "</li>");
                     });
                     $('#Lezioni').append("</ul>");
-
-                });
+                    $("#frmAgg").submit(function (event) {
+                        event.preventDefault();
+                        var $form = $(this)
+                        var corso = {};
+                        var url = $form.attr("action");
+                        corso.Nome = $form.find("input[name='_nome']").val();
+                        corso.Descrizione = $form.find("input[name='_descrizione']").val();
+                        corso.Inizio = $form.find("input[name='_inizio']").val();
+                        corso.Fine = $form.find("input[name='_fine']").val();
+                        $.ajax({
+                            url: '../api/Corsi/'+id,
+                            type: 'PUT',
+                            data: corso,
+                            dataType: 'application/json',
+                            success: function (data) {
+                                alert('si!');
+                            }                       
+                        });
+                    });
+                });            
         }
         function AddLezione() {
 

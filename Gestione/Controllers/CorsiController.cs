@@ -24,6 +24,7 @@ namespace Gestione.Controllers {
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]Corso corso) {
+			dm.ModificaCorso(id,corso);
         }
 
         // DELETE api/<controller>/5

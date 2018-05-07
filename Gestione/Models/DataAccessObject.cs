@@ -65,6 +65,8 @@ namespace DAO {
         List<Corso> ListaCorsi(string idUtente);
 		//mostra tutte le lezioni associate a un corso
 		List<Lezione> ListaLezioni(Corso corso);
+		//ModCorso
+		void ModificaCorso(int IdCorsoToMod, Corso NuovoCorso);
     }
 	
 	public partial class DataAccesObject : IDao {
@@ -554,7 +556,7 @@ namespace DAO {
 				};
 				int RowAffected = DB.ExecNonQProcedure("AddCorso", param,"GeCorsi");
 				if(RowAffected == 0){
-					throw new CorsoNonAggiuntaException("Corso non aggiunto") ;
+					throw new CorsoNonAggiuntoOModException("Corso non aggiunto") ;
 				}
 			} catch(SqlException){
 				throw new Exception("Errore server!");
@@ -695,6 +697,25 @@ namespace DAO {
 			};
 			return builder.ToString();
         }
+
+		public void ModificaCorso(int IdCorsoToMod,Corso NuovoCorso) {
+			try{
+				SqlParameter[] param = { new SqlParameter("@IdCorso",IdCorsoToMod),
+										 new SqlParameter("@nomeN",NuovoCorso.Nome),
+										 new SqlParameter("@descrizioneN",NuovoCorso.Descrizione),
+										 new SqlParameter("@dInizioN",NuovoCorso.Inizio),
+										 new SqlParameter("@dFineN",NuovoCorso.Fine)										 
+				};
+			int RowAffected =DB.ExecNonQProcedure("ModificaCorso",param,"GeCorsi");
+				if (RowAffected == 0) {
+					throw new CorsoNonAggiuntoOModException("Non hai modificato il corso");
+				}
+			} catch(SqlException){
+				throw new Exception("Errore server!");
+			} catch(Exception e){
+				throw e;
+			}
+		}
 	}
 	[Serializable]
 	internal class LezionNonModificataException : Exception {
@@ -711,10 +732,10 @@ namespace DAO {
 		protected LezioneNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context){}
 	}
 	[Serializable]
-	internal class CorsoNonAggiuntaException : Exception {
-		public CorsoNonAggiuntaException() {}
-		public CorsoNonAggiuntaException(string message) : base(message) { }
-		public CorsoNonAggiuntaException(string message,Exception innerException) : base(message,innerException) {}
-		protected CorsoNonAggiuntaException(SerializationInfo info,StreamingContext context) : base(info,context) {}
+	internal class CorsoNonAggiuntoOModException : Exception {
+		public CorsoNonAggiuntoOModException() {}
+		public CorsoNonAggiuntoOModException(string message) : base(message) { }
+		public CorsoNonAggiuntoOModException(string message,Exception innerException) : base(message,innerException) {}
+		protected CorsoNonAggiuntoOModException(SerializationInfo info,StreamingContext context) : base(info,context) {}
 	}
 }

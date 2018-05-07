@@ -375,7 +375,6 @@ namespace Gestione.Models {
             newCommessa.Nome = commessa.Nome;
             newCommessa.Descrizione = commessa.Descrizione;
             newCommessa.Capienza = commessa.Capienza;
-            DataAccesObject dao = new DataAccesObject();
             dao.AddCommessa(newCommessa);
         }
         #endregion
@@ -391,5 +390,14 @@ namespace Gestione.Models {
 			dao.DelPerStud(ps,matricola);
 		}
 
-    }
+		public void ModificaCorso(int IdCorsoToMod,Corso NuovoCorso) {
+			try{
+				dao.ModificaCorso(IdCorsoToMod,NuovoCorso);
+			} catch (SystemException) {
+                throw new Exception("Errore di sistema!");
+            } catch (Exception e) {
+                throw e;
+            }			
+		}
+	}
 }
