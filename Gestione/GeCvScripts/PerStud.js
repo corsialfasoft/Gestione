@@ -1,7 +1,7 @@
 ﻿var percorso = '../api/Cv/{idCV}/PerStud';
 $document.ready(function () {
+    $('#Aggiungi').hide();
     LoadPerStud();
-    $("#Aggiungi").hide();
 });
 function LoadPerStud() {
     $.getJSON(percorso)
