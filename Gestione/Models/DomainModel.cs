@@ -403,5 +403,9 @@ namespace Gestione.Models {
         public List<Competenza> GetComp(string matricola) {
             return dao.GetComp(matricola);
         }
+		public PerStud GetPercorso(int id)
+		{
+			return dao.GetPercorso(id);
+		}
     }
 }
