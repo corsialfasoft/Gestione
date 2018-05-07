@@ -262,21 +262,21 @@ Create Procedure GetComp
 as
 	declare @idc int  ;
 	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
-	select c.Livello,c.Tipo from Competenze c where c.IdCv=@idc;
+	select c.IdCs,c.Livello,c.Tipo from Competenze c where c.IdCv=@idc;
 go
 Create procedure GetPerStudi
 	@Matricola nvarchar(10)
 as
 	declare @idc int  ;
 	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
-	select p.AnnoI,p.AnnoF,p.Titolo,p.Descrizione from PercorsoStudi p where p.IdCv=@idc;
+	select p.IdPs,p.AnnoI,p.AnnoF,p.Titolo,p.Descrizione from PercorsoStudi p where p.IdCv=@idc;
 go
 Create procedure GetEspLav
 	@Matricola nvarchar(10)
 as
 	declare @idc int  ;
 	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
-	select e.AnnoI,e.AnnoF,e.Qualifica,e.Descrizione from EspLav e where e.IdCv=@idc;
+	select e.idEl, e.AnnoI,e.AnnoF,e.Qualifica,e.Descrizione from EspLav e where e.IdCv=@idc;
 go
 Create procedure DelComp
 	@matricola nvarchar(10),
