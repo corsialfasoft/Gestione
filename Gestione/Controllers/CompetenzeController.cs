@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Gestione.Models;
 
 namespace Gestione.Controllers {
 	public class CompetenzeController : ApiController {
+		DomainModel dm = new DomainModel();
 		// GET api/<controller>
 		public IEnumerable<string> Get() {
 			return new string[] { "value1", "value2" };
@@ -19,7 +21,8 @@ namespace Gestione.Controllers {
 
 		// POST api/<controller>
 		[HttpPost][Route("api/CV/{idCV}/Competenza")]
-		public void Post([FromBody]string value) {
+		public void Post([FromBody]string titolo, string livello) {
+			dm.AddCommessa(titolo, livello);
 		}
 
 		// PUT api/<controller>/5
