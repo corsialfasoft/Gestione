@@ -18,7 +18,7 @@ namespace Gestione.Controllers {
 		}
 
 		// POST api/<controller>
-		[HttpPost][Route]
+		[HttpPost][Route("api/CV/{idCV}/Competenza")]
 		public void Post([FromBody]string value) {
 		}
 
