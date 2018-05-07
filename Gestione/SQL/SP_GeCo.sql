@@ -93,6 +93,8 @@ go
 create procedure CancellaCorso
 @IdCorso int
 as
-	delete from Corsi where id= @IdCorso;
+	delete from Lezioni where @IdCorso = idCorsi;
+	delete from StudentiCorsi where @IdCorso = idCorsi;
+	delete from Corsi where @IdCorso=id;
 go
 

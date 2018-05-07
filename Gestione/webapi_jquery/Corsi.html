@@ -87,7 +87,7 @@
                         '<div class="form-group"><label>Data Fine</label> ' +
                         '<input type="text" name="_fine" class="form-control" value="' + data.Fine + '"></div>' +
                         '<input type="submit" value="Modifica" class="btn btn-success"></input> &nbsp;' +
-                        '<a class="btn btn-warning" href="#" role="button">Elimina</a>' +
+                        '<button onclick=Elimina('+data.Id+') class="btn btn-warning" >Elimina</button>' +
                         '</div>' +
                         '</div >' +
                         '</form >'
@@ -108,16 +108,29 @@
                         corso.Inizio = $form.find("input[name='_inizio']").val();
                         corso.Fine = $form.find("input[name='_fine']").val();
                         $.ajax({
-                            url: '../api/Corsi/'+id,
+                            url: '../api/Corsi/' + id,
                             type: 'PUT',
                             data: corso,
                             dataType: 'application/json',
                             success: function (data) {
-                                alert('si!');
-                            }                      
+                                alert('modificato!');
+                            }
                         });
                     });
+                   
                 });            
+        }
+        function Elimina(id) {
+            $.ajax({
+                url: '../api/Corsi/' + id,
+                type: 'DELETE',
+                //contentType: 'application/json',
+                success: function (data) {
+                    alert('eliminato!');
+                }
+            }).fail(function (data) {
+                alert('fail');
+            });
         }
         function AddLezione() {
 

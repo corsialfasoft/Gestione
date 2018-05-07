@@ -746,7 +746,7 @@ namespace DAO {
 			if (RowAffected == 0) {
 					throw new CorsoNonAggiuntoOModException("Non hai modificato il corso");
 				}
-			} catch(SqlException){
+			} catch(SqlException e){
 				throw new Exception("Errore server!");
 			} catch(Exception e){
 				throw e;
