@@ -354,8 +354,7 @@ namespace DAO {
         public void CaricaCV(string path){
             throw new NotImplementedException();
         }
-
-
+        
 		public void DelEspLav(int id) {
 			SqlConnection con= new SqlConnection(GetStringBuilderCV());
 			try {
@@ -444,7 +443,6 @@ namespace DAO {
                 con.Dispose();    
             }
         }
-
         public PerStud GetPercorso(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
@@ -472,7 +470,6 @@ namespace DAO {
                 con.Dispose();    
             }
         }
-
         public Competenza GetCompetenza(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
