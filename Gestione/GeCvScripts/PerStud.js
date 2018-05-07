@@ -1,10 +1,10 @@
-﻿var percorso = '../api/Cv/{idCV}/PerStud';
+﻿var percorso = '../api/Cv/';
 $document.ready(function () {
     $('#Aggiungi').hide();
     LoadPerStud();
 });
-function LoadPerStud() {
-    $.getJSON(percorso)
+function LoadPerStud(matricola) {
+    $.getJSON(percorso + '/'+ 'AAAA' + '/PerStud')
         .done(function (data) {
             $.each(data, function (key, item) {
                 $("#Percorso").append('<li class="list-group-item" onclick=LoadPerStud(' + item.Id + ')>' + item.Descrizione + '</li>');
