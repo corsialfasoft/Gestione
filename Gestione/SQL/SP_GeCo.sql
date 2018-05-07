@@ -77,3 +77,17 @@ as
 	set nome=@nome,descrizione=@descrizione,durata=@durata
 	where id=@idLezione;
 go
+
+create procedure ModificaCorso
+@nomeN NVARCHAR(15),
+@descrizioneN NVARCHAR(100),
+@dInizioN DATE,
+@dFineN DATE,
+@IdCorso int
+as
+	update Corsi
+	set nome=@nomeN, descrizione=@descrizioneN, dInizio=@dInizioN, dFine=@dFineN
+	where id=@IdCorso;
+go
+
+exec ModificaCorso 'aggiornato','nuovoagg', '01-01-2010','02-01-2010',1
