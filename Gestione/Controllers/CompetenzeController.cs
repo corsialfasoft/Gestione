@@ -23,8 +23,8 @@ namespace Gestione.Controllers {
 
 		// POST api/<controller>
 		[HttpPost][Route("api/CV/{idCV}/Competenza")]
-		public void Post([FromBody]Competenza competenza, int idCV) {
-			dm.AddCompetenze($"{idCV}", competenza);
+		public void Post([FromBody]Competenza competenza, string idCV) {
+			dm.AddCompetenze(idCV, competenza);
 		}
 
 		// PUT api/<controller>/5
@@ -32,9 +32,9 @@ namespace Gestione.Controllers {
 		}
 
 		// DELETE api/<controller>/5
-		[HttpGet][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]      //FINIRE
-		public void Delete([FromBody]int idCV) {
-			dm.DelCompetenza(idCV);
+		[HttpDelete][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]      //FINIRE
+		public void Delete(int idCompetenza) {
+			dm.DelCompetenza(idCompetenza);
 		}
 	}
 }

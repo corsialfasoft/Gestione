@@ -1,51 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+<body>
 
-    <meta charset="utf-8" />
-    <style>
-        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-            color: #fff;
-            background-color: #337ab7;
-        }
-
-        .nuovo {
-            margin-left: 30px;
-            width: 80%;
-        }
-
-        .sfondoCompetenza {
-            margin-top: 0px;
-            /*background-image: url(/ImgResource/Corso.jpg);*/
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .form-control {
-            margin-bottom: 30px;
-        }
-
-        .row {
-            margin-right: 0px !important;
-            margin-left: 0px !important;
-            padding-top: 50px !important;
-            padding-bottom: 50px !important;
-        }
-    </style>
-    <!-- CDN DI JQUERY BY http://jquery.com/download/ -->
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-
-    <!-- BOOSTRAP DEPENDENCIES BY http://getbootstrap.com/docs/3.3/getting-started/ -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <!--<meta charset="utf-8" />-->
-    <title>DAJE</title>
     <script>
-        var uri = '../api/CV/{idCV}';
+        var uri = '../api/CV/{idCV}/Competenza';
         $(document).ready(function () {
             $("#Nuovo").hide();
             function LoadCompetenze() {
@@ -130,7 +88,5 @@
             $("#TabElenco").addClass("active");
         }
     </script>
-</head>
-<body>
 </body>
 </html>

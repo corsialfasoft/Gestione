@@ -44,7 +44,7 @@
 
     <!--<meta charset="utf-8" />-->
     <title>Aggiungi Competenza</title>
-    <script></script>
+    <script src="GeCvScripts/AddComp.JS"></script>
 </head>
 <body>
     <div class="container">
@@ -61,7 +61,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">Inserimento nuova competenza</div>
                         <div class="panel-body form-group">
-                            <form action="/api/CV/{idCV}" id="frmNuovo" class="formStyle" method="post">
+                            <form action="/api/CV/{idCV}/Competenza" id="frmNuovo" class="formStyle" method="post">
 
                                 <label>Titolo</label>
                                 <textarea class="form-control" name="_titolo" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui il titolo..."></textarea>
