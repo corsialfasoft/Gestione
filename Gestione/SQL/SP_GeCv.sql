@@ -132,82 +132,35 @@ create procedure CercaMatricola
 as
 	select c.IdCv From Curriculum c where c.matricola=@matri;
 go
+
 create procedure ModEspLav
-	@matricola nvarchar(10),
-	@annoIdaMod int, @annoFdaMod int,
-	@qualificaDaMod nvarchar(50),
-	@descrDaMod nvarchar(200),
-	@annoIMod int , @annoFMod int ,
+	@id int,
+	@annoIMod int ,
+	@annoFMod int ,
 	@qualificaMod nvarchar(50),
 	@descrMod nvarchar(200)
 as
-	declare @idcurr int;
-	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
-	if @idcurr is null
-		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
-	else
-		begin
-		declare @idEsp int;
-		set @idEsp = (select e.IdEl from EspLav e where e.IdCv= @idcurr and e.AnnoF=@annoFdaMod and
-						e.AnnoI= @annoIdaMod and e.Qualifica= @qualificaDaMod and e.Descrizione= @descrDaMod );
-		if @idEsp is null 
-			throw 66666 , 'Id ESP LAV NON TROVATO Errata!!!!!! RIPROVA' ,2;
-		else
-			begin
-			update EspLav set AnnoI = @annoIMod , AnnoF= @annoFMod, Qualifica = @qualificaMod , Descrizione=@descrMod
-						where IdEl = @idEsp;
-			end
-		end
+	update EspLav set AnnoI = @annoIMod , AnnoF= @annoFMod, Qualifica = @qualificaMod , Descrizione=@descrMod
+		where IdEl = @id;
 go
+
 create procedure ModPerStud
-	@matricola nvarchar(10),
-	@annoIdaMod int, @annoFdaMod int,
-	@titoloDaMod nvarchar(50),
-	@descrDaMod nvarchar(200),
-	@annoIMod int , @annoFMod int ,
+	@id int,
+	@annoIMod int , 
+	@annoFMod int ,
 	@titoloMod nvarchar(50),
 	@descrMod nvarchar(200)
 as
-	declare @idcurr int;
-	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
-	if @idcurr is null
-		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
-	else
-		begin
-		declare @idpers int;
-		set @idpers = (select e.IdPs from PercorsoStudi e where e.IdCv= @idcurr and e.AnnoF=@annoFdaMod and
-						e.AnnoI= @annoIdaMod and e.Titolo= @titoloDaMod and e.Descrizione= @descrDaMod );
-		if @idpers is null 
-			throw 66666 , 'Id PERCORSO STUDI NON TROVATO Errata!!!!!! RIPROVA' ,2;
-		else
-			begin
-			update PercorsoStudi  set AnnoI = @annoIMod , AnnoF= @annoFMod, Titolo = @titoloMod , Descrizione=@descrMod
-						where IdPs = @idpers;
-			end
-		end
+	update PercorsoStudi  set AnnoI = @annoIMod , AnnoF= @annoFMod, Titolo = @titoloMod , Descrizione=@descrMod
+		where IdPs = @id;
 go
+
 create procedure ModComp
-	@matricola nvarchar(10),
-	@titoloDaMod nvarchar(50),
-	@livDaMod int , 
+	@id int,
 	@titoloMod nvarchar(50),
 	@livMod int
 as
-	declare @idcurr int;
-	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
-	if @idcurr is null
-		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
-	else
-		begin 
-			declare @idComp int;
-			set @idComp = (select c.IdCs from Competenze c where (c.Tipo= @titoloDaMod) and (c.Livello=@livDaMod) and (c.IdCv=@idcurr));
-			if @idComp is null
-				throw 66666 , 'Competenza Errata!!!!!! RIPROVA' ,2;
-			else 
-				begin
-					UPDATE Competenze set Tipo= @titoloMod , Livello= @livMod where IdCs=@idComp;
-				end
-			end
+	UPDATE Competenze set Tipo= @titoloMod , Livello= @livMod where IdCs=@id;
 go
 create procedure ModificaCV
 	@nome nvarchar(50),
@@ -262,79 +215,55 @@ Create Procedure GetComp
 as
 	declare @idc int  ;
 	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
-	select c.Livello,c.Tipo from Competenze c where c.IdCv=@idc;
+	select c.IdCs,c.Livello,c.Tipo from Competenze c where c.IdCv=@idc;
 go
 Create procedure GetPerStudi
 	@Matricola nvarchar(10)
 as
 	declare @idc int  ;
 	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
-	select p.AnnoI,p.AnnoF,p.Titolo,p.Descrizione from PercorsoStudi p where p.IdCv=@idc;
+	select p.IdPs,p.AnnoI,p.AnnoF,p.Titolo,p.Descrizione from PercorsoStudi p where p.IdCv=@idc;
 go
 Create procedure GetEspLav
 	@Matricola nvarchar(10)
 as
 	declare @idc int  ;
 	set @idc = (select top 1 c.IdCv from Curriculum c where c.Matricola=@Matricola);
-	select e.AnnoI,e.AnnoF,e.Qualifica,e.Descrizione from EspLav e where e.IdCv=@idc;
+	select e.idEl, e.AnnoI,e.AnnoF,e.Qualifica,e.Descrizione from EspLav e where e.IdCv=@idc;
 go
+
 Create procedure DelComp
-	@matricola nvarchar(10),
-	@titolo nvarchar(50),
-	@livello int
+	@id int
 as
-	declare @idcurr int;
-	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
-	if @idcurr is null
-		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
-	else
-		begin 
-			declare @idComp int;
-			set @idComp = (select c.IdCs from Competenze c where c.Tipo= @titolo and c.Livello=@livello and c.IdCv=@idcurr);
-			if @idComp is null
-				throw 66666 , 'Competenza Errata!!!!!! RIPROVA' ,2;
-			else 
-				begin
-					Delete Competenze where idCs=@idComp
-				end
-			end
+	Delete Competenze where idCs=@id
 go
 
 Create procedure DelEspLav
-	@matricola nvarchar(10),
-	@annoIdaDel int, @annoFdaDel int,
-	@qualificaDaDel nvarchar(50),
-	@descrDaDel nvarchar(200)
+	@id int
 as
-	declare @idcurr int;
-	set @idcurr = (select c.IdCv from Curriculum c where c.matricola = @matricola);
-	if @idcurr is null
-		throw 66666 , 'Matricola Errata!!!!!! RIPROVA' ,2;
-	else
-			begin
-			declare @idEsp int;
-			set @idEsp = (select e.IdEl from EspLav e where e.IdCv= @idcurr and e.AnnoF=@annoFdaDel and
-							e.AnnoI= @annoIdaDel and e.Qualifica= @qualificaDaDel and e.Descrizione= @descrDaDel );
-			if @idEsp is null 
-				throw 66666 , 'Id ESP LAV NON TROVATO Errata!!!!!! RIPROVA' ,2;
-			else
-				begin
-				Delete EspLav where idEl =@idEsp
-				end
-			end
+	Delete EspLav where idEl =@id
 go
 
 create procedure DelPerStud
-	@matricola nvarchar(10),
-	@AnnoIniz int,
-	@AnnoFine int,
-	@Titolo nvarchar(50),
-	@Descr nvarchar(200)
+	@id int
 as
-	declare @idcurr int;
-	set @idcurr = (select top 1  c.IdCv from Curriculum c where c.Matricola = @matricola);
-	declare @idPs int ;
-	set @idPs = (select top 1 p.IdPs from  PercorsoStudi p where p.AnnoI=@AnnoIniz and p.AnnoF= @AnnoFine and
-				p.Titolo = @Titolo and p.Descrizione=@Descr and p.IdCv = @idcurr);
-	delete PercorsoStudi from PercorsoStudi where IdPs = @idPs;
+	delete PercorsoStudi from PercorsoStudi where IdPs = @id;
+go
+
+Create Procedure GetPercorso 
+	@id int
+as
+	select ps.IdPs,ps.AnnoI,ps.AnnoF,ps.Titolo,ps.Descrizione from PercorsoStudi ps where ps.IdPs=@id;
+go
+
+Create Procedure GetEsperienza 
+	@id int
+as
+	select el.IdEl,el.AnnoI,el.AnnoF,el.Qualifica, el.Descrizione from EspLav el where c.IdEl=@id;
+go
+
+Create Procedure GetCompetenza
+	@id int
+as
+	select c.IdCs,c.Tipo, c.Livello from Competenze c where c.IdCs=@id;
 go

@@ -15,15 +15,22 @@ namespace Interfaces {
         List<CV> SearchRange(int etmin, int etmax); //search per un range di età minimo e massimo
         void EliminaCV(CV curriculum); //Elimina un CV dal db
         List<CV> SearchCognome(string cognome); //Ricerca solo per cognome
+
         void AddCvStudi(string MatrCv, PerStud studi);
         void AddEspLav(string MatrCv, EspLav esp);
         void AddCompetenze(string MatrCv, Competenza comp);
-		void DelEspLav(EspLav espLav , string matricola);
-		void DelCompetenza(Competenza comp , string matricola);
-		void DelPerStud(PerStud ps , string matricola);
-        void ModEspLav(string MatrCv, EspLav espV, EspLav esp );	
-		void ModComp(Competenza daMod , Competenza Mod , string matricola); // Modifica la singola competenza
-        void ModPerStudi(string matricola, PerStud daMod, PerStud Mod);
+		void DelEspLav(int id);
+		void DelCompetenza(int id);
+		void DelPerStud(int id);
+        void ModEspLav(int id, EspLav esp );	
+		void ModComp(int id, Competenza comp); // Modifica la singola competenza
+        void ModPerStudi(int id, PerStud perStud);
+        List<EspLav> GetEspLav(string matricola);
+        List<PerStud> GetPerStudi(string matricola);
+        List<Competenza> GetComp(string matricola);
+        EspLav GetEsperienza(int id);
+        PerStud GetPercorso(int id);
+        Competenza GetCompetenza(int id);
     }
 	public enum HType { HMalattia = 1, HPermesso, HFerie }
 	interface IGeTime {
@@ -177,18 +184,21 @@ namespace Interfaces {
         }
     }
     public class EspLav {
+        public int Id{get;set;}
         public int AnnoInizio { get; set; }
         public int AnnoFine { get; set; }
         public string Qualifica { get; set; }
         public string Descrizione { get; set; }
     }
     public class PerStud {
+        public int Id{get;set;}
         public int AnnoInizio { get; set; }
         public int AnnoFine { get; set; }
         public string Titolo { get; set; }
         public string Descrizione { get; set; }
     }
     public class Competenza {
+        public int Id{get;set;}
         public string Titolo { get; set; }
         public int Livello { get; set; }
     }
