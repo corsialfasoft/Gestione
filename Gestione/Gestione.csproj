@@ -152,6 +152,7 @@
     <Compile Include="App_Start\WebApiRegister.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommesseController.cs" />
     <Compile Include="Controllers\CorsiController.cs" />
     <Compile Include="Controllers\GeCo-Controller.cs" />
     <Compile Include="Controllers\GeTime-Controller.cs" />
@@ -196,6 +197,7 @@
     </Content>
     <Content Include="README_WebAPI_Angular.md" />
     <Content Include="webapi_jquery\VisualizzaGiornoWebApi.html" />
+    <Content Include="webapi_jquery\GetimeAddGiorno.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

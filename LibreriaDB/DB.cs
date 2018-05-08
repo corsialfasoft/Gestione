@@ -167,12 +167,15 @@ namespace LibreriaDB{
         /// <param name="data">SqlDataReader da cui leggere i dati. </param>
         /// <returns></returns>
 		public static List<int> TrasformLInt(SqlDataReader data) {
-			List<int> ris = new List<int>();
-			while (data.Read()) {
-				ris.Add(data.GetInt32(0));
-			}
-			return ris;
-		}
+            List<int> output = new List<int>();
+            while (data.Read()) {
+                if (data.GetValue(0).GetType().Name == typeof(decimal).GetType().Name)
+                    output.Add(Decimal.ToInt32((Decimal)data.GetValue(0)));
+                else
+                    output.Add(Convert.ToInt32(data.GetValue(0)));
+            }
+            return output;
+        }
         /// <summary>
         /// Drop di un DataBase
         /// </summary>
