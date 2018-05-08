@@ -172,6 +172,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Scripts\GeTime\AddGiorno.js" />
+    <Content Include="webapi_jquery\AddGiorno.html" />
     <Content Include="webapi_jquery\Corsi.html" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
