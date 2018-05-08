@@ -12,7 +12,6 @@ namespace Gestione.Controllers {
     public partial class GetimeController : ApiController {
         // GET api/<controller>
         DomainModel dm = new DomainModel();
-        Profilo profile = new Profilo();
 
         [HttpGet] [Route ("api/Getime")]
         public IEnumerable<int> GetAnni () {
