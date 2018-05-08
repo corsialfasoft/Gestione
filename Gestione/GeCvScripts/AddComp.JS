@@ -1,9 +1,5 @@
-﻿<!DOCTYPE html>
-<html>
-<body>
-
-    <script>
-        var uri = '../api/CV/{idCV}/Competenza';
+﻿
+        var uri = '../api/CV/AAAA/Competenza';
         $(document).ready(function () {
             $("#Nuovo").hide();
             function LoadCompetenze() {
@@ -11,20 +7,20 @@
                 $.getJSON(uri)
                     .done(function (data) {
                         $.each(data, function (key, item) {
-                            $('#Competenza').append('<li class="list-group-item" onclick=LoadCompetenza(' + item.ID + ')>' + item.Descrizione + '</li>');
+                    $('#Competenza').append('<li class="list-group-item" onclick=LoadCompetenza(' + item.ID + ')>' + item.Titolo + item.Livello + '</li>');
                         });
                     });
             }
             LoadCompetenze();
-            $("#frmNuovo").submit(function (event) {
+            $("#frmNuovo").submit(function (event, idCV) {
                 event.preventDefault();
                 var $form = $(this)
                 var competenza = {};
                 var url = $form.attr("action");
-                //prodotto.ID = $form.find("input[name='_nome']").val();
                 competenza.Titolo = $form.find("textarea[name='_titolo']").val();
                 competenza.Livello = $form.find("input[name='_livello']").val();
-                var posting = $.post(url, competenza);
+                
+                var posting = $.post(url, competenza, idCV);
                 posting.done(function () {
                     LoadCompetenze();
                     $form.find("textarea[name='_titolo']").val("");
@@ -43,7 +39,7 @@
                 });
         }
 
-        function LoadProdotto(id) {
+        function LoadCompetenza(id) {
             $.getJSON(uri + '/' + id)
                 .done(function (data) {
                     $('#DettaglioProdotto').html(
@@ -87,6 +83,3 @@
             $("#TabNuovo").removeClass("active");
             $("#TabElenco").addClass("active");
         }
-    </script>
-</body>
-</html>
