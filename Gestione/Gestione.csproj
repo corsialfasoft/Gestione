@@ -176,7 +176,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="GeCvPagine\Lista.html" />
     <Content Include="GeCvScripts\PerStud.js" />
-    <Content Include="ModificaEliminaPerStud.html" />
+    <Content Include="GeCvPagine\ModificaEliminaPerStud.html" />
     <Content Include="webapi_jquery\Corsi.html" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
