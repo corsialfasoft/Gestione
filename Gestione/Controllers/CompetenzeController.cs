@@ -11,12 +11,15 @@ namespace Gestione.Controllers {
 	public class CompetenzeController : ApiController {
 		DomainModel dm = new DomainModel();
 		// GET api/<controller>
-		public IEnumerable<string> Get() {
-			return new string[] { "value1", "value2" };
+		[Route("api/CV/{idCV}/Competenza")]
+		[HttpGet]
+		public IEnumerable<Competenza> Get(string idCV) {
+			return dm.GetComp(idCV);
 		}
 
+
 		// GET api/<controller>/5
-		[HttpGet][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]		//FINIRE
+		[HttpGet][Route("api/CV/AAAA/Competenza/{idCompetenza}")]		//FINIRE
 		public Competenza GetCompetenza(int idCompetenza) {
 			return dm.GetCompetenza(idCompetenza);
 		}
@@ -28,11 +31,14 @@ namespace Gestione.Controllers {
 		}
 
 		// PUT api/<controller>/5
-		public void Put(int id, [FromBody]string value) {
+		[Route("api/CV/AAAA/Competenza/{idCompetenza}")]
+		[HttpPut]
+		public void Put(int idCompetenza, [FromBody]Competenza competenza) {
+			dm.ModComp(idCompetenza, competenza);
 		}
 
 		// DELETE api/<controller>/5
-		[HttpDelete][Route("api/CV/{idCV}/Competenza/{idCompetenza}")]      //FINIRE
+		[HttpDelete][Route("api/CV/AAAA/Competenza/{idCompetenza}")]      //FINIRE
 		public void Delete(int idCompetenza) {
 			dm.DelCompetenza(idCompetenza);
 		}
