@@ -13,14 +13,16 @@ namespace Gestione.Controllers
 	{
 		DomainModel dm = new DomainModel();
 		// GET api/<controller>
-		[HttpGet][Route("api/Cv/{idCV}/PerStud")]
+		[Route("api/Cv/{idCV}/PerStud")]
+		[HttpGet]
 		public IEnumerable<PerStud> Get(string idCV)
 		{
 			return dm.GetPerStudi(idCV);
 		}
 
 		// GET api/<controller>/5
-		[HttpGet][Route("api/Cv/{idCV}/PerStud/{idPer}")]
+		[Route("api/Cv/{idCV}/PerStud/{idPer}")]
+		[HttpGet]
 		public PerStud Get(int idPer)
 		{
 			return dm.GetPercorso(idPer);
@@ -36,7 +38,7 @@ namespace Gestione.Controllers
 		[HttpPut][Route("api/Cv/{idCV}/PerStud/{idPer}")]
 		public void Put(string idCV,string idPer,[FromBody]PerStud percorso)
 		{
-			dm.ModPerStudi(int.Parse(idCV),percorso);
+			dm.ModPerStudi(int.Parse(idPer),percorso);
 		}
 
 		// DELETE api/<controller>/5 
