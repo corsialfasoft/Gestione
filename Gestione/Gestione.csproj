@@ -177,7 +177,7 @@
     <Content Include="GeCvPagine\PercorsoStud\Lista.html" />
     <Content Include="GeCvScripts\PerStud.js" />
     <Content Include="GeCvPagine\PercorsoStud\ModificaEliminaPerStud.html" />
-    <Content Include="Percorsi.html" />
+    <Content Include="GeCvPagine\Percorsi.html" />
     <Content Include="webapi_jquery\Corsi.html" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
