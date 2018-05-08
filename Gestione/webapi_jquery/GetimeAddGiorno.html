@@ -70,8 +70,8 @@
         }
         function sendGiorno(nome) {
             var Giorno = {};
-            Giorno.Data = $("#data").val();
-            Giorno.Ore = $("#ore").val();
+            Giorno.Data = $("#form_compila input[name=dateTime]").val();
+            Giorno.Ore = $("#form_compila input[name=ore]").val();
             Giorno.Commessa = nome
             Giorno.TipoOre = 'Ore di lavoro';
             $.post('../api/Getime', Giorno, function (data) {
@@ -87,7 +87,7 @@
                 if (data != null) {
                     var count = 0;
                     var tabella_giorno = $('#tabella_giorno');
-                    tabella_giorno.find('.panel-heading').html('Dettagli del Giorno ' + data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate()))
+                    tabella_giorno.find('.panel-heading').html('Dettagli del Giorno ' + data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate());
                     tabella_giorno.find('#permesso').html(data.OrePermesso);
                     tabella_giorno.find('#malttie').html(data.OreMalattia);
                     tabella_giorno.find('#ferie').html(data.OreFerie);
