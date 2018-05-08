@@ -4,65 +4,90 @@
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
+    <!-- BOOSTRAP DEPENDENCIES BY http://getbootstrap.com/docs/3.3/getting-started/ -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script>
         $(document).ready(function () {
+            var data = new Date();
+            var max = data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate();
+            data.setTime(data.getTime() - (180 * 24 * 60 * 60 * 1000));
+            var min = data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate();
+            $('#form_compila input[name=dateTime]').attr('min', min);
+            $('#form_compila input[name=dateTime]').attr('max', max);
             $('#giorno').hide();
             $('#tabella_commesse').hide();
-            $('form_compila').submit(function () {
+            $('#form_compila').submit(function () {
                 event.preventDefault();
                 var $form = $(this);
                 if ($form.find('select :selected').text() == 'Ore di lavoro') {
-                    var commesse = $.getJSON('../api/Commesse' + $form.find("input[name='Commessa']"));
-                    if (commesse != null && commesse.length > 0) {
-                        if (commesse.length == 1) {
-                            var Giorno = {};
-                            Giorno.Data = $form.find("input[name='dateTime']");
-                            Giorno.Ore = $form.find("input[name='ore']");
-                            Giorno.Commessa = commesse[0].Nome
-                            Giorno.TipoOre = 'Ore di lavoro';
-                            $.post('../api/Getime', Giorno, function (data) {
-                                $('#Message').empty().append('richiesta avvenuta con successo')
-                            }).fail(function (data) { $('#Message').empty().append('richiesta fallita') });
-                        } else {
-                            $('compila').hide();
-                            viewCommesse(commesse);
+                    $.getJSON('../api/Commesse/' + $form.find("input[name='Commessa']").val(), function (data) {
+                        if (data != null && data.length > 0) {
+                            if (data.length == 1) {
+                                sendGiorno(data[0].Nome)
+                            } else {
+                                viewCommesse(data);
+                                var html = '<input type="hidden" id=data value=' + $form.find("input[name='dateTime']").val() + ' >';
+                                html += '<input type="hidden" id=ore value=' + $form.find("input[name='ore']").val() + ' >';
+                                $('#tabella_commesse tbody').append(html);
+                                $('#compila').hide();
+                            }
                         }
-                    }
+                    }).fail(function (data) {
+                        $('#Message').empty().append(data.responseJSON.Message);
+                        viewGiorno($form.find("input[name='dateTime']").val());
+                    });
+                } else {
+                    var Giorno = {};
+                    Giorno.Data = $("#data");
+                    Giorno.Ore = $("#ore");
+                    Giorno.TipoOre = $form.find('select :selected').text();
+                    $.post('../api/Getime', Giorno, function (data) {
+                        $('#Message').empty().append('richiesta avvenuta con successo')
+                    }).fail(function (data) {
+                        $('#Message').empty().append(data.responseJSON.Message);
+                        viewGiorno($form.find("input[name='dateTime']").val());
+                    });
                 }
             });
-            function viewCommesse(commesse){
-                for (var i; i < commesse.length; i++) {
-                    html += '<tr>' +
-                        '<th scope="col">' + (i + 1) + '</th>' +
-                        '<th scope="col">' + commesse[i].Nome +
-                        '<span class="badge" style="float:right; color:black; background-color:lightgray">' +
-                        '<button onclick=sendGiorno(' + commesse[i].Nome + ')></button>' +
-                        '</span>' +
-                        '</th>' +
-                        '</tr>';
-                }
-                html += '<input type="hidden" id=data value=' + $form.find("input[name='dateTime']") + ' >';
-                html += '<input type="hidden" id=ore value=' + $form.find("input[name='ore']") + ' >';
-                $('#tabella_commesse tbody').empty().append(html);
-                $('tabella_commesse').show();
+        });
+        function viewCommesse(commesse) {
+            var html = '';
+            for (var i = 0; i < commesse.length; i++) {
+                html += '<tr>' +
+                    '<th scope="col">' + (i + 1) + '</th>' +
+                    '<th scope="col">' + commesse[i].Nome +
+                    '<span class="badge" style="float:right; color:black; background-color:lightgray">' +
+                    '<button onclick="sendGiorno(\'' + commesse[i].Nome + '\')">Seleziona</button>' +
+                    '</span>' +
+                    '</th>' +
+                    '</tr>';
             }
-            function sendGiorno(nome) {
-                var Giorno = {};
-                Giorno.Data = $("#data");
-                Giorno.Ore = $("#ore");
-                Giorno.Commessa = nome
-                Giorno.TipoOre = 'Ore di lavoro';
-                $.post('../api/Getime', Giorno, function (data) {
-                    $('#Message').empty().append('richiesta avvenuta con successo')
-                }).fail(function (data) {
-                    $('#Message').empty().append('richiesta fallita');
+            $('#tabella_commesse tbody').empty().append(html);
+            $('#tabella_commesse').show();
+        }
+        function sendGiorno(nome) {
+            var Giorno = {};
+            Giorno.Data = $("#data").val();
+            Giorno.Ore = $("#ore").val();
+            Giorno.Commessa = nome
+            Giorno.TipoOre = 'Ore di lavoro';
+            $.post('../api/Getime', Giorno, function (data) {
+                $('#Message').empty().append('Richiesta avvenuta con successo');
 
-                });
-            }
-            function viewGiorno(data) {
-                $.post('../api/Getime/' + data.Year + '/' + data.Month + '/' + data.Day, Giorno, function (data) {
+            }).fail(function (data) {
+                $('#Message').empty().append(data.responseJSON.Message);
+                viewGiorno(new Date($("#form_compila input[name='dateTime']").val()));
+            });
+        }
+        function viewGiorno(data) {
+            $.getJSON(('../api/Getime/' + data.getFullYear() + '/' + (data.getMonth() + 1) + '/' + data.getDate()), function (data) {
+                if (data != null) {
                     var count = 0;
                     var tabella_giorno = $('#tabella_giorno');
+                    tabella_giorno.find('.panel-heading').html('Dettagli del Giorno ' + data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate()))
                     tabella_giorno.find('#permesso').html(data.OrePermesso);
                     tabella_giorno.find('#malttie').html(data.OreMalattia);
                     tabella_giorno.find('#ferie').html(data.OreFerie);
@@ -83,13 +108,12 @@
                             '</tr>';
                         tabella_giorno.append(html);
                     });
-                }).fail(function (data) {
-                    $('#Message').empty().append('richiesta fallita');
-
-                });
-               
-            }
-        });
+                    $('#giorno').show();
+                }
+            }).fail(function (data) {
+                $('#Message').empty().append('richiesta fallita');
+            });
+        }
         function changeHTyp(value) {
             if (value == 'Ore di permesso' || value == 'Ore di malattia') {
                 document.getElementById('commesse').disabled = true;
@@ -112,19 +136,19 @@
         }
     </script>
     <style>
-        table {
+        #giorno table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
         }
 
-        td {
+        #giorno td {
             border: 1px solid #dddddd;
             text-align: center;
             padding: 8px;
         }
 
-        tr:nth-child(even) {
+        #giorno tr:nth-child(even) {
             background-color: #dddddd;
         }
     </style>
@@ -137,20 +161,20 @@
         <div id="Message" class="text-danger container">
         </div>
         <br>
-        <div id="compila" class="row">
-            <div class=" col-md-6">
-                <form action="../Getime" method="post" id="form_compila">
+        <div class="row">
+            <div class=" col-md-6" id="compila">
+                <form action="../Api/Getime" method="post" id="form_compila">
                     <div class="Conteiner">
-                        Data (*)          <input type="date" name="dateTime" min="@DateTime.Today.AddDays(-180).ToString(" yyyy-MM-dd")" max="@DateTime.Today.ToString(" yyyy-MM-dd")" required />
+                        Data (*)          <input type="date" name="dateTime" required />
                         <br><br>
                         Tipologia Ore (*)
-                        <select id="HType" name="tipoOre" onChange="javascript:changeHTyp(this.value);">
-                            <option value="" selected="selected" />Seleziona tipo ore
-                            <option value="Ore di lavoro" />Ore di lavoro
-                            <option value="Ore di permesso" />Ore di permesso
-                            <option value="Ore di ferie" />Ore di ferie
-                            <option value="Ore di malattia" />Ore di malattia
-                        </select>
+                            <select id="HType" name="tipoOre" onChange="javascript:changeHTyp(this.value);">
+                                <option value="" selected="selected">Seleziona tipo ore</option>
+                                <option value="Ore di lavoro">Ore di lavoro</option>
+                                <option value="Ore di permesso">Ore di permesso</option>
+                                <option value="Ore di ferie">Ore di ferie</option>
+                                <option value="Ore di malattia">Ore di malattia</option>
+                            </select>
                         <br><br>
                         Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commesse" /> (Solo per ore di lavoro)
                         <br><br>
@@ -168,7 +192,6 @@
             <div id="giorno" class=" col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Dettagli del Giorno
                     </div>
                     <table id="tabella_giorno">
                         <tr>
@@ -192,10 +215,9 @@
                         </tr>
                     </table>
                 </div>
-                }
             </div>
         </div>
-        <div id="tabella_commesse" class="row">
+        <div id="tabella_commesse" class="row container">
             <table class="table table-striped">
                 <thead class="thead-light">
                     <tr>

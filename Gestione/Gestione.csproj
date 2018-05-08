@@ -152,13 +152,12 @@
     <Compile Include="App_Start\WebApiRegister.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CommessaController.cs" />
+    <Compile Include="Controllers\CommesseController.cs" />
     <Compile Include="Controllers\CorsiController.cs" />
     <Compile Include="Controllers\GeCo-Controller.cs" />
     <Compile Include="Controllers\GeTime-Controller.cs" />
     <Compile Include="Controllers\GeCv-Controller.cs" />
     <Compile Include="Controllers\DT.cs" />
-    <Compile Include="Controllers\GetimeControllerNauman.cs" />
     <Compile Include="Controllers\GetimeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
