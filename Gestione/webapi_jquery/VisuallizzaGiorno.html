@@ -1,0 +1,43 @@
+﻿<div class="panel panel-default" id="tabella_giorno">
+    <div class="panel-heading">
+    </div>
+    <table>
+        <tr>
+            <td>Tipo</td>
+            <td>Totale ore</td>
+            <td>Commessa</td>
+            <td>Ore lavoro commessa</td>
+            <td>Note</td>
+        </tr>
+        <tr id="perOreL">
+            <td>Totale ore permesso</td>
+            <td id="permesso"></td>
+        </tr>
+        <tr>
+            <td>Totale ore malattia</td>
+            <td id="malattia"></td>
+        </tr>
+        <tr>
+            <td>Totale ore ferie</td>
+            <td id="ferie"></td>
+        </tr>
+    </table>
+</div>
+<script src="../Scripts/GeTime/VisualiizzaGiorno.js"></script>
+<style>
+    #tabella_giorno table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #tabella_giorno td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    #tabella_giorno tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>

@@ -9,8 +9,8 @@ namespace Gestione.Controllers {
         // GET api/Commesse/nome
         [HttpGet]
         [Route("api/Commesse/{nome}")]
-        public IEnumerable<DTCommessa> GetCommesse(string nome) {
-            return dm.CercaCommesse(nome);
+        public IEnumerable<string> GetCommesse(string nome) {
+            return dm.CercaCommesse(nome).ConvertAll(new Converter<DTCommessa, string>(commessa => commessa.Nome));
         }
         [HttpGet]
         [Route("api/Commesse/nome/{nome}")]
