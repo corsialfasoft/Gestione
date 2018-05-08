@@ -40,6 +40,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script>
+        var uri = '../api/Corsi/1/Lezioni';
+        $(document).ready(function () {
+            $("#Nuovo").hide();
+            Elenco();
+            AddLezione();
+        });
+        
+        function Elenco() {    
+            $('#Lezioni').empty();
+                $.getJSON(uri)              
+                    .done(function (data) {
+                        $.each(data, function (key, item) {
+                            $('#Lezioni').append('<li class="list-group-item">' + item.Nome + '&nbsp;' + item.Descrizione + '&nbsp;' + item.Durata + '&nbsp;' + '<input type="submit" value="Modifica" class="btn btn-success" align="right"></input>' + '&nbsp;' + '<button value="Elimina" onclick="DeleteLezione(' + item.Id + ')" class="btn btn-danger">Elimina</button>' + '</li>'); 
+                        });
+                    });
+            }
 
         function AddLezione() {
 
@@ -52,12 +68,12 @@
                 lezione.descrizione = $form.find("textarea[name='_descrizione']").val();
                 lezione.durata = $form.find("input[name='_durata']").val();
                 var posting = $.post(url, lezione);
-                posting.done(function (data) {
-                    //var content = $(data).find("#Message");
-                    AddLezione();
+
                 
-                });
-            });
+                ElencoLezioni();
+
+            });          
+           
         }
 
         function ModificaLezione(lezione) {
@@ -70,52 +86,90 @@
             }
 
 
-        function DeleteLezione(id) {
+        function DeleteLezione(Id) {
             $.ajax({
-                url: '../api/Lezioni?id=' + id,
+                url: '../api/Corsi/1/Lezioni/'+ Id,
                 method: 'DELETE',
 
-                success: function (data) {
+                success: function (data) {              
+                  
                     $('#Lezioni').empty();
-                    $.getJSON(uri)
-                        .done(function (data) {
-                            $.each(data, function (key, item) {
-                                $('#Lezioni').append('<li class="list-group-item" onclick=LoadProdotto(' + item.id + ')>' + item.nome + ' &nbsp; ' + item.durata + ' &nbsp; ' + item.descrizione + item. '</li>');
-                            });
-                        });
+                    Elenco();
+                   
                 },
             });
         }
+
+        function AggiungiLezione() {
+            $("#Elenco").hide();
+            $("#Nuovo").show();
+            $("#ElencoLezioni").removeClass("active");
+            $("#NuovaLezione").addClass("active");
+        }
+        function ElencoLezioni() {
+            $("#Nuovo").hide();
+            $("#Elenco").show();
+            $("#NuovaLezione").removeClass("active");
+            $("#ElencoLezioni").addClass("active");
+            Elenco();
+        }
+      
     </script>
 
 
 </head>
 <body>
+    <div class="page-header">
+        <h1 align="center">Gestione Lezioni</h1>
+    </div>
 
-    <div class="row">
-        <div class="nuovo">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Inserimento nuova lezione</div>
-                <div class="panel-body form-group">
-                    <form action="../api/Corsi/{idCorso}/Lezioni" id="frmNuovo" class="formStyle" method="post">
 
-                        <label>Nome</label>
-                        <input class="form-control" type="text" name="_nome" placeholder="Nome" required="">
 
-                        <label>Descrizione</label>
-                        <textarea class="form-control" name="_descrizione" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui la descrizione..."></textarea>
 
-                        <label>Durata</label>
-                        <input class="form-control" type="number" name="_durata" placeholder="Durata" required="">
 
-                        <input type="submit" class="btn btn-default" value="Inserisci Lezione">
-                    </form>
+    <div class="container">
+        <ul class="nav nav-tabs ">
+            <li id="ElencoLezioni" role="presentation" class="active "><a onclick="ElencoLezioni()">Elenco Lezioni</a></li>
+            <li id="NuovaLezione" role="presentation"><a onclick="AggiungiLezione()">Nuova Lezione</a></li>
+        </ul>
+
+
+        <div id="Nuovo" class="sfondoCorso">
+            <div class="row">
+                <div class="nuovo">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Inserimento nuova lezione</div>
+                        <div class="panel-body form-group">
+                            <form action="../api/Corsi/1/Lezioni" id="frmNuovo" class="formStyle" method="post">
+
+                                <label>Nome</label>
+                                <input class="form-control" type="text" name="_nome" placeholder="Nome" required="">
+
+                                <label>Descrizione</label>
+                                <textarea class="form-control" name="_descrizione" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui la descrizione..."></textarea>
+
+                                <label>Durata</label>
+                                <input class="form-control" type="number" name="_durata" placeholder="Durata" required="">
+
+                                <input type="submit" class="btn btn-default" value="Inserisci Lezione">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="Elenco" class="sfondoCorso">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group" id="Lezioni"></ul>
+                </div>
+                <div class="col-md-6">
+                    <div id="Lezioni"></div>
                 </div>
             </div>
         </div>
     </div>
-
-  
-
 </body>
 </html >
