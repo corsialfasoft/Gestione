@@ -365,6 +365,7 @@ namespace DAO {
         public EspLav GetEsperienza(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
+                con.Open();
                 EspLav el = new EspLav();
                 SqlCommand cmd = new SqlCommand("GetEsperienza",con);
 				cmd.CommandType=CommandType.StoredProcedure;
@@ -392,6 +393,7 @@ namespace DAO {
         public PerStud GetPercorso(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
+                con.Open();
                 PerStud ps = new PerStud();
                 SqlCommand cmd = new SqlCommand("GetPercorso",con);
 				cmd.CommandType=CommandType.StoredProcedure;
@@ -419,6 +421,7 @@ namespace DAO {
         public Competenza GetCompetenza(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
+                con.Open();
                 Competenza cs = new Competenza();
                 SqlCommand cmd = new SqlCommand("GetCompetenza",con);
 				cmd.CommandType=CommandType.StoredProcedure;
