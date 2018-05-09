@@ -153,12 +153,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CorsiController.cs" />
+    <Compile Include="Controllers\EspLavController.cs" />
     <Compile Include="Controllers\CVController.cs" />
     <Compile Include="Controllers\GeCo-Controller.cs" />
     <Compile Include="Controllers\GeTime-Controller-AddCommessa.cs" />
     <Compile Include="Controllers\GeTime-Controller.cs" />
     <Compile Include="Controllers\GeCv-Controller.cs" />
     <Compile Include="Controllers\DT.cs" />
+    <Compile Include="Controllers\PerStudController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -148,8 +148,9 @@ namespace DAO{
 			Competenza output = null;
 			if(data.Read()){
 				output = new Competenza{
-					Livello = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
-                    Titolo = data.GetValue(1) == DBNull.Value ? "" : data.GetString(1)
+                    Id = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+					Livello = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+                    Titolo = data.GetValue(2) == DBNull.Value ? "" : data.GetString(2)
 				};
 			}
 			return output;
@@ -162,10 +163,11 @@ namespace DAO{
 			PerStud output = null;
 			if(data.Read()){
 				output = new PerStud{
-					AnnoInizio = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
-                    AnnoFine = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
-                    Titolo = data.GetValue(2) == DBNull.Value ? "" : data.GetString(2),
-                    Descrizione = data.GetValue(3) == DBNull.Value ? "" : data.GetString(3)
+                    Id = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+					AnnoInizio = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+                    AnnoFine = data.GetValue(2) == DBNull.Value ? 0 : data.GetInt32(2),
+                    Titolo = data.GetValue(3) == DBNull.Value ? "" : data.GetString(3),
+                    Descrizione = data.GetValue(4) == DBNull.Value ? "" : data.GetString(4)
 				};
 			}
 			return output;
@@ -178,10 +180,11 @@ namespace DAO{
 			EspLav output = null;
 			if(data.Read()){
 				output = new EspLav{
-					AnnoInizio = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
-					AnnoFine = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
-                    Qualifica = data.GetValue(2)==DBNull.Value ? "" : data.GetString(2),
-                    Descrizione = data.GetValue(3)==DBNull.Value ? "" : data.GetString(3)
+                    Id = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
+					AnnoInizio = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
+					AnnoFine = data.GetValue(2) == DBNull.Value ? 0 : data.GetInt32(2),
+                    Qualifica = data.GetValue(3)==DBNull.Value ? "" : data.GetString(3),
+                    Descrizione = data.GetValue(4)==DBNull.Value ? "" : data.GetString(4)
                     };
 			}
 			return output;
