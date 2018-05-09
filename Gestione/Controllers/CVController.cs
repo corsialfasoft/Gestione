@@ -18,10 +18,44 @@ namespace Gestione.Controllers{
 			return dm.Search(id);
 		}
 		public void Post([FromBody]CV cv) {
+			cv.Matricola = Guid.NewGuid().ToString().Substring(0,4);
+
             dm.AggiungiCV(cv);
         }
 		public void Delete(string id ){
 			dm.EliminaCV(dm.Search(id));
 		}
+		public void Put([FromBody] CV c){
+			c.Matricola="BBBB";
+			dm.ModificaCV(c);
+		}
+
+		[Route("api/CV/ModCV")]
+		[HttpPost]
+		public void ModificaCV([FromBody]CV c){
+			c.Matricola="BBBB";
+			dm.ModificaCV(c);
+		}
+		[Route("api/CercaCognome/{Cognome}")]
+		[HttpGet]
+		public List<CV> SearchCognome(string Cognome){
+			return dm.SearchCognome(Cognome);
+		}
+		[Route("api/CercaChiava/{Chiava}")]
+		[HttpGet]
+		public List<CV> SearchChiava(string Chiava){
+			return dm.SearchChiava(Chiava);
+		}
+		[Route("api/CercaEta/{Eta}")]
+		[HttpGet]
+		public List<CV> SearchEta(int Eta){
+			return dm.SearchEta(Eta);
+		}
+		[Route("api/CercaMinMax/{eta_min}/{eta_max}")]
+		[HttpGet]
+		public List<CV> SearchMinMax(int eta_min,int eta_max){
+			return dm.SearchRange(eta_min,eta_max);
+		}
+		
     }
 }

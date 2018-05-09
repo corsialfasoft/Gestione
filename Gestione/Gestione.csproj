@@ -172,6 +172,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="GeCvPagine\AddCv.html" />
+    <Content Include="GeCvPagine\ElencoCV.html" />
+    <Content Include="GeCvPagine\GetCvID.html" />
+    <Content Include="GeCvPagine\Search.html" />
+    <Content Include="GeCvScripts\ElencoCv.js" />
+    <Content Include="GeCvScripts\GetCvID.js" />
     <Content Include="webapi_jquery\Corsi.html" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
@@ -250,8 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="GeCvPagine\" />
-    <Folder Include="GeCvScripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

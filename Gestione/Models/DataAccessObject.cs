@@ -140,6 +140,7 @@ namespace DAO {
 				SqlParameter[] parameters = { 
 					new SqlParameter("@Nome",c.Nome),
 					new SqlParameter("@Cognome",c.Cognome),
+					new SqlParameter("@Email",c.Email),
 					new SqlParameter("@Eta",c.Eta),
 					new SqlParameter("@Matricola",c.Matricola),
 					new SqlParameter("@Residenza",c.Residenza),

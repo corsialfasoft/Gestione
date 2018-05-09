@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="../GeCvScripts/GetCvID.js"></script>
+    <!--<script>
+        $(document).ready(function () {
+            LoadCV("BBBB");
+        });
+    </script>-->
+   
+    <title></title>
+</head>
+<body>
+    <div class=" container" id="cv_Anag">
+        <form action="/api/CV" id="ModCV"  class="form-control" >
+            <div class="row">
+                <div class="col-md-2">
+                    <label>
+                        Nome*:
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input id="cv_nome" name="cv_n" placeholder="Nome....">
+                </div>
+                <div class="col-md-2">
+                    <label>
+                        Cognome*:
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input id="cv_cognome" name="cv_c" placeholder="Cognome....">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label>
+                        Età*:
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input id="cv_eta" name="cv_et" placeholder="Eta....">
+                </div>
+                <div class="col-md-2">
+                    <label>
+                        E-mail*:
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input id="cv_email" name="cv_em" placeholder="E-mail....">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label>
+                        Residenza*:
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input id="cv_residenza" name="cv_re" placeholder="Residenza....">
+                </div>
+                <div class="col-md-2">
+                    <label>
+                        Telefono*:
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input id="cv_telefono" name="cv_t" placeholder="Telefono....">
+                </div>
+            </div>
+            <input type="submit" class=" btn btn-success" value="Modifica Cv" />
+        </form>
+    </div>
+</body>
+</html>

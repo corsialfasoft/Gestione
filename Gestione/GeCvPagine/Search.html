@@ -1,0 +1,62 @@
+﻿<script src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+    function Cerca() {
+        var $div = $('#parametri')
+        if ($div.find("input[id='S_cognome']").val() != "") {
+            var url = '../api/CercaCognome/' + $div.find("input[id='S_cognome']").val();
+        } else if ($div.find("input[id='S_chiava']").val() != "") {
+            var url = '../api/CercaChiava/' + $div.find("input[id='S_chiava']").val();
+        } else if ($div.find("input[id='S_eta']").val() != 0) {
+            var url = '../api/CercaEta/' + $div.find("input[id='S_eta']").val();
+        } else if ($div.find("input[id='S_eta_min']").val() != 0 && $div.find("input[id='S_eta_max']").val() != 0) {
+            if ($div.find("input[id='S_eta_min']").val() < $div.find("input[id='S_eta_max']").val()) {
+                var url = '../api/CercaMinMax/' + $div.find("input[id='S_eta_min']").val() + '/' + $div.find("input[id='S_eta_max']").val();
+            } else {
+                $('#Messagge').val("Parametri sbagliati");
+                return;
+            }
+        }
+        $.getJSON(url)
+            .done(function (data) {
+                $('#CVs').empty();
+                $.each(data, function (key, item) {
+                    $('#CVs').append('<li class="list-group-item"> Nome: ' + item.Nome + ' Cognome: ' + item.Cognome + ' Matricola:' + item.Matricola +
+                        '<button class="btn btn-info col-md-6"  onclick="LoadCV(\'' + item.Matricola + '\')">Dettagli</button></li>');
+                });
+            });
+    }
+</script>
+<div class="container" id="parametri">
+    <textarea  id="Messagge">
+
+</textarea>
+    <div>
+        <input type="text" id="S_cognome" placeholder="Cognome...." />
+    </div>
+    <div>
+        <input type="text" id="S_chiava" placeholder="ParolaChiava...." />
+    </div>
+    <div>
+        <input type="number" id="S_eta" placeholder="Eta...." />
+    </div>
+    <div>
+        <input type="number" id="S_eta_min" placeholder="Eta__MINIMA..." />
+    </div>
+    <div>
+        <input type="number" id="S_eta_max" placeholder="Eta___MAssima..." />
+    </div>
+    <div>
+        <button id="Btn_Cerca" onclick=Cerca()>CERCA!</button>
+    </div>
+</div>
+<div id="Elenco">
+    <script>
+        $('#Elenco').load("../GeCvPagine/ElencoCV.html", null, null);
+    </script>
+</div>
