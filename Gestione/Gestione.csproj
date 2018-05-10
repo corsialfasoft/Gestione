@@ -152,6 +152,7 @@
     <Compile Include="App_Start\WebApiRegister.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CompetenzeController.cs" />
     <Compile Include="Controllers\CorsiController.cs" />
     <Compile Include="Controllers\EspLavController.cs" />
     <Compile Include="Controllers\CVController.cs" />
@@ -174,6 +175,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="GeCvPagine\AddComp.html" />
+    <Content Include="GeCvScripts\AddComp.js" />
     <Content Include="GeCvPagine\AddCv.html" />
     <Content Include="GeCvPagine\ElencoCV.html" />
     <Content Include="GeCvPagine\GetCvID.html" />
