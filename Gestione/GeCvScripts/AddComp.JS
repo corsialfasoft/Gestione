@@ -1,7 +1,7 @@
-﻿var uri = '../api/CV/AAAA/Competenza';
+﻿var uri = '../api/CV/{idCV}/Competenza';
 $(document).ready(function () {
     //$("#Nuovo").hide();
-    function LoadCompetenze() {
+    function LoadCompetenze(idCV) {
         $('#Competenza').empty();
         $.getJSON(uri)
             .done(function (data) {

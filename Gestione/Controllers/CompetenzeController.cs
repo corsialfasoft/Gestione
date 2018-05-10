@@ -19,26 +19,26 @@ namespace Gestione.Controllers {
 
 
 		// GET api/<controller>/5
-		[HttpGet][Route("api/CV/AAAA/Competenza/{idCompetenza}")]		//FINIRE
+		[HttpGet][Route("api/Competenza/{idCompetenza}")]		//FINIRE
 		public Competenza GetCompetenza(int idCompetenza) {
 			return dm.GetCompetenza(idCompetenza);
 		}
 
 		// POST api/<controller>
-		[HttpPost][Route("api/CV/{idCV}/Competenza")]
+		[HttpPost][Route("api/CV/{idCV}/Competenza")]		//OK
 		public void Post([FromBody]Competenza competenza, string idCV) {
 			dm.AddCompetenze(idCV, competenza);
 		}
 
 		// PUT api/<controller>/5
-		[Route("api/CV/AAAA/Competenza/{idCompetenza}")]
+		[Route("api/CV/AAAA/Competenza/Put/{idCompetenza}")]
 		[HttpPut]
 		public void Put(int idCompetenza, [FromBody]Competenza competenza) {
 			dm.ModComp(idCompetenza, competenza);
 		}
 
 		// DELETE api/<controller>/5
-		[HttpDelete][Route("api/CV/AAAA/Competenza/{idCompetenza}")]      //FINIRE
+		[HttpDelete][Route("api/CV/AAAA/Competenza/Del/{idCompetenza}")]      //FINIRE
 		public void Delete(int idCompetenza) {
 			dm.DelCompetenza(idCompetenza);
 		}
