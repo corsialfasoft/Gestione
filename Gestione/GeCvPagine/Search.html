@@ -26,8 +26,8 @@
             .done(function (data) {
                 $('#CVs').empty();
                 $.each(data, function (key, item) {
-                    $('#CVs').append('<li class="list-group-item"> Nome: ' + item.Nome + ' Cognome: ' + item.Cognome + ' Matricola:' + item.Matricola +
-                        '<button class="btn btn-info col-md-6"  onclick="LoadCV(\'' + item.Matricola + '\')">Dettagli</button></li>');
+                    $('#CVs').append('<li class="list-group-item col-md-10"> Nome: ' + item.Nome + ' Cognome: ' + item.Cognome + ' Matricola:' + item.Matricola +
+                        '<button class="btn btn-info col-md-2"  onclick="LoadCV(\'' + item.Matricola + '\')">Dettagli</button></li>');
                 });
             });
     }

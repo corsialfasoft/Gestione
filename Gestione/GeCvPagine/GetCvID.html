@@ -6,17 +6,17 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="../GeCvScripts/GetCvID.js"></script>
-    <!--<script>
-        $(document).ready(function () {
-            LoadCV("BBBB");
-        });
-    </script>-->
+    <script>
+        //$(document).ready(function () {
+        //    LoadCV("AAAA");
+        //});
+    </script>
    
     <title></title>
 </head>
 <body>
     <div class=" container" id="cv_Anag">
-        <form action="/api/CV" id="ModCV"  class="form-control" >
+        <form action="../api/CV/ModCV" id="ModCV"  class="form-control" method="post" >
             <div class="row">
                 <div class="col-md-2">
                     <label>
@@ -70,6 +70,7 @@
                 <div class="col-md-2">
                     <input id="cv_telefono" name="cv_t" placeholder="Telefono....">
                 </div>
+                <input id="cv_matricola" name="cv_m" class="hidden"  />
             </div>
             <input type="submit" class=" btn btn-success" value="Modifica Cv" />
         </form>

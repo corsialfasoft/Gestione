@@ -26,14 +26,12 @@ namespace Gestione.Controllers{
 			dm.EliminaCV(dm.Search(id));
 		}
 		public void Put([FromBody] CV c){
-			c.Matricola="BBBB";
 			dm.ModificaCV(c);
 		}
 
 		[Route("api/CV/ModCV")]
 		[HttpPost]
 		public void ModificaCV([FromBody]CV c){
-			c.Matricola="BBBB";
 			dm.ModificaCV(c);
 		}
 		[Route("api/CercaCognome/{Cognome}")]
