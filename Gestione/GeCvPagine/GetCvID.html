@@ -75,9 +75,19 @@
             <input type="submit" class=" btn btn-success" value="Modifica Cv" />
         </form>
     </div>
+    <div id="ElecoPerStud">
+        <script>
+            $('#ElencoPerStud').load("../GeCvPagine/PercorsoStud/Lista.html", null, null);
+        </script>
+    </div>
     <div id="Competenze">
         <script>
             $('#Competenze').load("../GeCvPagine/AddComp.html", null, null);
+        </script>
+    </div>
+    <div id="PerStud">
+        <script>
+            $('#PerStud').load("../GeCvPagine/PercorsoStud/ModificaEliminaPerStud.html", null, null);
         </script>
     </div>
 </body>

@@ -13,38 +13,33 @@ namespace Gestione.Controllers
 	{
 		DomainModel dm = new DomainModel();
 		// GET api/<controller>
-		[Route("api/Cv/{idCV}/PerStud")]
+		[Route("api/CV/{idCV}/PerStud")]
 		[HttpGet]
-		public IEnumerable<PerStud> Get(string idCV)
-		{
+		public IEnumerable<PerStud> Get(string idCV){
 			return dm.GetPerStudi(idCV);
 		}
 
 		// GET api/<controller>/5
-		[Route("api/Cv/{idCV}/PerStud/{idPer}")]
+		[Route("api/PerStud/{idPer}")]
 		[HttpGet]
-		public PerStud Get(int idPer)
-		{
+		public PerStud Get(int idPer){
 			return dm.GetPercorso(idPer);
 		}
-
-		[HttpPost][Route("api/Cv/{idCV}/PerStud")]
-		public void Post([FromBody]PerStud percorso,string idCv)
-		{
+		[Route("api/CV/{idCV}/Add/PerStud")]
+		[HttpPost]
+		public void Post([FromBody]PerStud percorso,string idCv){
 			dm.AddCvStudi(idCv,percorso);
 		}
 
 		// PUT api/<controller>/5
-		[HttpPut][Route("api/Cv/{idCV}/PerStud/{idPer}")]
-		public void Put(string idCV,string idPer,[FromBody]PerStud percorso)
-		{
+		[HttpPut][Route("api/PerStud/Put")]
+		public void Put(string idCV,string idPer,[FromBody]PerStud percorso){
 			dm.ModPerStudi(int.Parse(idPer),percorso);
 		}
 
 		// DELETE api/<controller>/5 
-		[HttpDelete][Route("api/Cv/{idCV}/PerStud/{idPer}")]
-		public void Delete(int idPer,string idCV)
-		{
+		[HttpDelete][Route("api/PerStud/Del")]
+		public void Delete(int idPer){
 			dm.DelPerStud(idPer); 
 		}
 	}

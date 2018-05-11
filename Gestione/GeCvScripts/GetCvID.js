@@ -61,4 +61,5 @@ function LoadCV(id) {
 
         });
     LoadCompetenze(id);
+    LoadElencoPerStud(id);
 }

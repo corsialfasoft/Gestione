@@ -18,15 +18,15 @@ $(document).ready(function () {
     //    });
     //});
 
-function LoadS() {
-    $('#Competenza').empty();
-    $.getJSON(uri)
-        .done(function (data) {
-            $.each(data, function (key, item) {
-                $('#Competenza').append('<li class="list-group-item" onclick=LoadCompetenza(' + item.Id + ')>' + item.Titolo + item.Livello + '</li>');
-            });
-        });
-}
+//function LoadS() {
+//    $('#Competenza').empty();
+//    $.getJSON(uri)
+//        .done(function (data) {
+//            $.each(data, function (key, item) {
+//                $('#Competenza').append('<li class="list-group-item" onclick=LoadCompetenza(' + item.Id + ')>' + item.Titolo + item.Livello + '</li>');
+//            });
+//        });
+//}
 });
 function AddComp() {
     event.preventDefault();
