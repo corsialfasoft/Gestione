@@ -393,6 +393,7 @@ namespace DAO {
         public PerStud GetPercorso(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
+				con.Open();
                 PerStud ps = new PerStud();
                 SqlCommand cmd = new SqlCommand("GetPercorso",con);
 				cmd.CommandType=CommandType.StoredProcedure;
