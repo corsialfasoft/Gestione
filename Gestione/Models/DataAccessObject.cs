@@ -366,6 +366,7 @@ namespace DAO {
         public EspLav GetEsperienza(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
+                con.Open();
                 EspLav el = new EspLav();
                 SqlCommand cmd = new SqlCommand("GetEsperienza",con);
 				cmd.CommandType=CommandType.StoredProcedure;

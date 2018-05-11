@@ -188,6 +188,13 @@
     <Content Include="GeCvPagine\Search.html" />
     <Content Include="GeCvScripts\ElencoCv.js" />
     <Content Include="GeCvScripts\GetCvID.js" />
+    <Content Include="GeCvPagine\AddEsp.html" />
+    <Content Include="GeCvPagine\DettEsp.html" />
+    <Content Include="GeCvPagine\ListEsp.html" />
+    <Content Include="GeCvPagine\ListEspLav.html" />
+    <Content Include="GeCvScripts\AddEsp.js" />
+    <Content Include="GeCvScripts\DettEsp.js" />
+    <Content Include="GeCvScripts\ListEsp.js" />
     <Content Include="webapi_jquery\Corsi.html" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
