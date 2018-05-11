@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <meta charset="utf-8" />
+    <!--<meta charset="utf-8" />
     <style>
         .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
             color: #fff;
@@ -43,23 +43,39 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!--<meta charset="utf-8" />-->
-    <title>Aggiungi Competenza</title>
     <script src="../GeCvScripts/AddComp.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="page-header">
-            <h1>Aggiungi Competenza</h1>
+            <h5>Aggiungi Competenza</h5>
         </div>
         <div class="text-info">
 
         </div>        
         <div>
-            <ul class="list-group" id="Competenza"></ul>
+            <ul class="list-group" id="ElencoCompetenze"></ul>
         </div>
 
         <div id="DettaglioCompetenze">
-            
+            <form action="../api/Competenza/Pippo/" id="ModComp">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Titolo</label>
+                            <input type="text" id="comp_titolo" />
+                        </div>
+                        <div class="form-group">
+                            <label>Livello</label>
+                            <input type="number" id="comp_liv" />
+                            <input id="comp_id"  />
+                        </div>
+                    </div>
+                </div>
+                <button id="btn_mod_comp" onclick="ModificaCompetenze()">Modifica</button>
+                <button id="btn_del_comp" onclick="DeleteComp()"class="btn btn-danger">Delete</button>
+            </form>
+            <script src="../GeCvScripts/GetCvID.js"></script>
         </div>
 
         <div id="Nuovo" class="sfondoCompetenza">
@@ -68,15 +84,15 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">Inserimento nuova competenza</div>
                         <div class="panel-body form-group">
-                            <form action="/api/CV/AAAA/Competenza" id="frmNuovo" class="formStyle" method="post">
+                            <form action="/api/CV/" id="New_Comp" class="formStyle" method="post">
 
                                 <label>Titolo</label>
-                                <textarea class="form-control" name="_titolo" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui il titolo..."></textarea>
+                                <input class="form-control" name="_titolo" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui il titolo...">
 
                                 <label>Livello</label>
                                 <input class="form-control" type="number" name="_livello" placeholder="Inseisci il livello" required="">
 
-                                <input type="submit" class="btn btn-default" value="Inserisci competenza">
+                                <button  class="btn btn-default" onclick="AddComp()">AGGIUNGI</button>
                             </form>
                         </div>
                     </div>

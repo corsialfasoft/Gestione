@@ -420,6 +420,7 @@ namespace DAO {
         public Competenza GetCompetenza(int id) {
             SqlConnection con = new SqlConnection(GetStringBuilderCV());
             try{ 
+				con.Open();
                 Competenza cs = new Competenza();
                 SqlCommand cmd = new SqlCommand("GetCompetenza",con);
 				cmd.CommandType=CommandType.StoredProcedure;
@@ -428,8 +429,8 @@ namespace DAO {
                 while(data.Read()){ 
                     cs = new Competenza{
                     Id = data.GetValue(0) == DBNull.Value ? 0 : data.GetInt32(0),
-					Livello = data.GetValue(1) == DBNull.Value ? 0 : data.GetInt32(1),
-                    Titolo = data.GetValue(2) == DBNull.Value ? "" : data.GetString(2)
+                    Titolo = data.GetValue(1) == DBNull.Value ? "" : data.GetString(1),
+					Livello = data.GetValue(2) == DBNull.Value ? 0 : data.GetInt32(2)
 				};
                 }
                 data.Close();

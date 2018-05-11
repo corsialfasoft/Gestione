@@ -59,5 +59,6 @@ function LoadCV(id) {
                 $div.find("input[id='cv_telefono']").val(data.Telefono);
                 $div.find("input[id='cv_matricola']").val(data.Matricola);
 
-            });
+        });
+    LoadCompetenze(id);
 }
