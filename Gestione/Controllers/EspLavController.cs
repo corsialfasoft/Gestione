@@ -25,8 +25,8 @@ namespace Gestione.Controllers {
 
         [Route("api/CV/{idCV}/EspLav")]
         [HttpPost]
-        public void Post(string idCv,[FromBody]EspLav el){
-            dm.AddEspLav(idCv,el);
+        public void Post(string idCv,[FromBody]EspLav EspLav){
+            dm.AddEspLav(idCv,EspLav);
         }
 
         [Route("api/CV/{idCV}/EspLav/{idEspLav}")]

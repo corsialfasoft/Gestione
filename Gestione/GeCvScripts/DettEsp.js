@@ -1,8 +1,7 @@
 ﻿var uri = '../api/CV/EEEE/EspLav';
-$(document).ready(function () {
-    LoadEspLav(25)
-});
-    function LoadEspLav(idEspLav) {
+function LoadEspLav(idEspLav) {
+    $('#DettEsp').show();
+    $('#DettEspLav').show()
         $.getJSON(uri + '/' + idEspLav)
             .done(function (data) {
                 $('#DettEsp').html(

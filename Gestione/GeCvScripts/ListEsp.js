@@ -3,11 +3,14 @@ $(document).ready(function () {
     ListEspLav()
 });
 function ListEspLav() {
+    $('#ListEspLav').empty();
+    $('#DettEspLav').hide();
+    $('#AddEspLav').hide();
+
     $.getJSON(uri)
         .done(function (data) {
             $.each(data, function (key, item) {
-                $('#ListEspLav').append('<div class="col-md-6">' + item.Qualifica + '</div><div class="col-md-3"><button class="btn btn-default" onclick="DettEsp(' + item.Id + ')"role=button>Dettagli</button></div>'+
-                 '<div><button class="btn btn-default" onclick="DelEsp(' + item.Id + ')"role=button>Elimina</button>' + '</div>');
+                $('#ListEspLav').append('<div id="ciao" class="col-md-8">' + item.Qualifica + '</div><div class="col-md-2"><button class="btn btn-default" onclick="LoadEspLav(' + item.Id + ')"role=button>Dettagli</button></div></div><div class="col-md-2"><button class="btn btn-default" onclick="DelEsp(' + item.Id + ')"role=button>Elimina</button></div>');
 
             });
         });
@@ -21,3 +24,5 @@ function DelEsp(id) {
         },
     });
 }
+
+   

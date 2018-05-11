@@ -13,17 +13,17 @@
                 <div class="panel-body form-group">
                     <form action="/api/CV/EEEE/EspLav" id="frmNuovo" class="formStyle" method="post">
 
-                        <label>Nome</label>
+                        <label>Mansione</label>
                         <input class="form-control" type="text" name="_mansione" placeholder="Mansione" required="">
 
                         <label>Descrizione</label>
                         <textarea class="form-control" name="_descrizione" rows="3" cols="50" maxlength="140" required="" placeholder="Inserisci qui la descrizione..."></textarea>
 
                         <label>Data Inizio</label>
-                        <input class="form-control" type="date" name="_inizio" placeholder="Inizio" required="">
+                        <input class="form-control" type="number" name="_inizio" placeholder="Inizio" required="">
 
                         <label>Data Fine</label>
-                        <input class="form-control" type="date" name="_fine" placeholder="Fine" required="">
+                        <input class="form-control" type="number" name="_fine" placeholder="Fine" required="">
 
                         <input type="submit" class="btn btn-default" value="Inserisci">
                     </form>

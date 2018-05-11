@@ -5,14 +5,21 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 
-<div id="Nuovo" class="sfondoCorso">
+<div id="NuovoList" class="sfondoCorso">
     <div class="row">
-        <div class="nuovo">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Esperienze Lavorative </div>
-                <div id="ListEspLav"></div>
-            </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Esperienze Lavorative <button class="btn btn-default" onclick="AddEspLav()">Aggiungi</button></div>
+            <div id="ListEspLav"></div>
         </div>
     </div>
+    <div id="DettEspLav"></div>
+    <script>
+        $("#DettEspLav").load("DettEsp.html");
+    </script>
+    <div id="AddEspLav"></div>
+    <script>
+        $("#AddEspLav").load("AddEspL.html");
+    </script>
 </div>
 <script src="../GeCvScripts/ListEsp.js"></script>
+
