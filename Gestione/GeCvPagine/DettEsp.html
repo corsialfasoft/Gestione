@@ -1,15 +1,38 @@
-﻿<script src="http://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+﻿
 
-<div id="Nuovo" class="sfondoCorso">
     <div class="row">
         <div class="panel panel-primary">
-            <div class="panel-heading">Dettaglio</div>
-            <div id="DettEsp"></div>
+            <div class="panel-heading" id="HeadingEspLav" ></div>
+            <div id="DettaglioEsp">
+                <form id="ModEspLav">
+                    <!--<div class="panel panel panel-primary">-->
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>AnnoInizio</label>
+                                <input type="number" id="esp_AI" />
+                            </div>
+                            <div class="form-group">
+                                <label>AnnoFine</label>
+                                <input type="number" id="esp_AF" />
+                            </div>
+                            <div class="form-group">
+                                <label>Qualifica</label>
+                                <input type="text" id="esp_qualifica" />
+                            </div>
+                            <div class="form-group">
+                                <label>Descrizione</label>
+                                <input type="text" id="esp_descrizione" />
+                                <input id="esp_id" class="hidden" />
+                            </div>
+                        </div>
+                    <button id="btn_mod_esplav" onclick="ModificaEspLav()"class="btn btn-warning" >Modifica</button>
+                    <button id="btn_del_esplav" onclick="DeleteEsp()" class="btn btn-danger">Delete</button>
+                    <button id="btn_add_esplav" onclick="AddEspLav()" class="btn btn-success">Aggiungi</button>
+                    <!--</div>-->
+
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
 <script src="../GeCvScripts/DettEsp.js"></script>

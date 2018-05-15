@@ -17,8 +17,10 @@ namespace Gestione.Controllers{
 		public CV Get(String id){
 			return dm.Search(id);
 		}
+		[Route("api/CV/AddCV")]
+		[HttpPost]
 		public void Post([FromBody]CV cv) {
-			cv.Matricola = Guid.NewGuid().ToString().Substring(0,4);
+			//cv.Matricola = Guid.NewGuid().ToString().Substring(0,4);
 
             dm.AggiungiCV(cv);
         }

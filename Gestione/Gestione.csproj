@@ -173,14 +173,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GeCvPagine\ListComp.html" />
     <Content Include="GeCvPagine\PercorsoStud\AggiungiPercorso.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="GeCvPagine\PercorsoStud\Lista.html" />
+    <Content Include="GeCvPagine\PercorsoStud\ListPerStud.html" />
+    <Content Include="GeCvPagine\Principale.html" />
     <Content Include="GeCvScripts\PerStud.js" />
-    <Content Include="GeCvPagine\PercorsoStud\ModificaEliminaPerStud.html" />
+    <Content Include="GeCvPagine\PercorsoStud\DettPerStud.html" />
     <Content Include="GeCvPagine\Percorsi.html" />
-    <Content Include="GeCvPagine\AddComp.html" />
+    <Content Include="GeCvPagine\DettComp.html" />
     <Content Include="GeCvScripts\AddComp.js" />
     <Content Include="GeCvPagine\AddCv.html" />
     <Content Include="GeCvPagine\ElencoCV.html" />
@@ -195,6 +197,7 @@
     <Content Include="GeCvScripts\AddEsp.js" />
     <Content Include="GeCvScripts\DettEsp.js" />
     <Content Include="GeCvScripts\ListEsp.js" />
+    <Content Include="GeCvScripts\Search.js" />
     <Content Include="webapi_jquery\Corsi.html" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />

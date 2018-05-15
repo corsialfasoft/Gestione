@@ -12,15 +12,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script>
-        var uri = '../api/CV/EEEE/EspLav';
+        var uri = '../api/CV/';
         $(document).ready(function () {
             ListEspLav();
         });
-        function ListEspLav() {
+        function ListEspLav(id) {           //LOAD LISTA
             $('#ListEspLav').show( );
             $('#AddE').hide();
             $('#ListEspLav').empty();
-            $.getJSON(uri)
+            $.getJSON(uri + '/' + id + '/EspLav')
                 .done(function (data) {
                     $.each(data, function (key, item) {
                         '<div class="container">'
@@ -29,32 +29,26 @@
                     });
                 });
         }
-        function LoadEspLav(idEspLav) {
-            $("#AddE").hide();
-            $.getJSON(uri + '/' + idEspLav)
+        function LoadEspLav(id) {         //DETTAGLIO
+            //$("#AddE").hide();
+            $.getJSON('../api/EspLav/'+id)
                 .done(function (data) {
-                    $('#DettEsp').html(
-                        '<div class="container">' +
-                        '<div class="row">' +
-                        '<div class="col-md-3">Inizio</div>' +
-                        '<div class="col-md-3"><input type="number" id="ai" class="form-control" name="_inizio" value="' + data.AnnoInizio + '" /></div>' +
-                        '<div class="col-md-3">Fine</div>' +
-                        '<div class="col-md-3"><input type="number" id="af" class="form-control" name="_fine" value="' + data.AnnoFine + '" /></div></div>' +
-                        '<div class="row">' +
-                        '<div class="col-md-3">Qualifica</div>' +
-                        '<div class="col-md-3"><input type="text" id="qua" class="form-control" name="_qualifica" value="' + data.Qualifica + '" /></div>' +
-                        '<div class="col-md-3">Descrizione</div>' +
-                        '<div class="col-md-3"><input type="text" id="desc" class="form-control" name="_desricione" value="' + data.Descrizione + '" /></div></div></div>' +
-                        '<button class="btn btn-default" onclick="DelEsp(' + data.Id + ')"role=button>Elimina</button>' + '</div>' + '<div>' +
-                        '<button class="btn btn-default" onclick="ModEsp(' + data.Id + ')"role=button>Modifica</button>' + '</div>' + '<div>'
-                    );
-                    ListEspLav();
+                    var $PerStud = $("#DettaglioEsp");
+                    $PerStud.find("input[id='esp_AI']").val(data.AnnoInizio);
+                    $PerStud.find("input[id='esp_AF']").val(data.AnnoFine);
+                    $PerStud.find("input[id='esp_qualifica']").val(data.Qualifica);
+                    $PerStud.find("input[id='esp_descrizione']").val(data.Descrizione);
+                    $PerStud.find("input[id='esp_id']").val(data.Id);
                 });
         }
 
-        function DelEsp(id) {
+        function DeleteEsp() {
+            event.preventDefault();
+            var $form = $("#ModEspLav");
+            var idE = $form.find("input[id='esp_id']").val();
+            var urlo = "../api/EspLav/Del/" + idE;
             $.ajax({
-                url: '../api/CV/EEEE/EspLav/' + id,
+                url: urlo,
                 type: 'DELETE',
                 success: function (result) {
                     $('#DettEsp').hide(),
@@ -85,6 +79,7 @@
             $('#ListEspLav').show();
             $('#AddE').hide();
         }
+        /*
         function AddEspLav() {
             var esp = {};
             esp.AnnoInizio = $("#addAi").val();
@@ -104,21 +99,26 @@
             });
 
         }
-        function ModEsp(id) {
-            var esp = {};
-            esp.AnnoInizio = $("#ai").val();
-            esp.AnnoFine = $('#af').val();
-            esp.Qualifica = $('#qua').val();
-            esp.Descrizione = $('#desc').val();
+        */
+        function ModificaEspLav() {         //MODIFICA
+            event.preventDefault();
+            //event.preventDefault();
+            var $form = $("#ModEspLav");
+            var idP = $form.find("input[id='esp_id']").val();
+            var urlo = "../api/EspLav/Put/" + idP;
+            var el = {};
+            el.Id = $form.find("input[id='esp_id']").val();
+            el.AnnoInizio = $form.find("input[id='esp_AI']").val();
+            el.AnnoFine = $form.find("input[id='esp_AF']").val();
+            el.Qualifica = $form.find("input[id='esp_qualifica']").val();
+            el.Descrizione = $form.find("input[id='esp_descrizione']").val();
             $.ajax({
-                data: esp,
-                dataType: "application/json",
-                url: '../api/CV/EEEE/EspLav/' + id,
-                type: 'PUT',
-                success: function (result) {
-                    $('#DettEsp').hide(),
-                        ListEspLav()
-                },
+                url: urlo,
+                method: "PUT",
+                data: el,
+                success: function (data) {
+
+                }
             });
         }
 
@@ -130,8 +130,14 @@
             <h1>Esperienze Lavorative</h1><button class="btn btn-default" onclick="AddEsp()">Aggiungi</button> 
         </div>
         <div id="AddEsp"></div> 
-        <div id="ListEspLav"></div> 
-        <div id="DettEsp"></div>
+        <div id="ListEspLav">
+
+        </div> 
+        <div id="DettEsp">
+            <script>
+                $("#DettEsp").load("../GeCvPagine/DettEsp.html", null, null);
+            </script>
+        </div>
     </div>
 </body>
 </html>

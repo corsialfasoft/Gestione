@@ -1,25 +1,13 @@
-﻿<script src="http://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-
-<div id="NuovoList" class="sfondoCorso">
-    <div class="row">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Esperienze Lavorative <button class="btn btn-default" onclick="AddEspLav()">Aggiungi</button></div>
-            <div id="ListEspLav"></div>
-        </div>
-    </div>
-    <div id="DettEspLav"></div>
-    <script>
-        $("#DettEspLav").load("DettEsp.html");
-    </script>
-    <div id="AddEspLav"></div>
-    <script>
-        $("#AddEspLav").load("AddEspL.html");
-    </script>
+﻿<div class="row">
+    <h3>ELENCO ESPERIENZE LAVORATIVE</h3>
+    <button id="btn_agg_perstud" class=" btn btn-success" onclick="AggiungiEspLav()">Aggiungi</button>
 </div>
-<script src="../GeCvScripts/ListEsp.js"></script>
+<div>
+    <div class="row">
+        <ul id="ListEspLav" class="list-group"></ul>
+    </div>
+</div>
+    
+
+<script src="../GeCvScripts/DettEsp.js"></script>
 

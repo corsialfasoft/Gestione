@@ -37,9 +37,10 @@ function AddComp() {
     var url = "../api/CV/" + idCv + "/Add/Competenza";
     competenza.Titolo = $form.find("input[name='_titolo']").val();
     competenza.Livello = $form.find("input[name='_livello']").val();
+
     var posting = $.post(url, competenza, idCv);
     posting.done(function () {
-        
+        $(document).trigger("TriHideAll");
     })
 }
     function LoadCompetenze(id) {
@@ -49,12 +50,16 @@ function AddComp() {
         $.getJSON(uri +'/'+ id + '/Competenza')
             .done(function (data) {
                 $.each(data, function (key, item) {
-                    $('#ElencoCompetenze').append('<li class="list-group-item">' + item.Titolo + item.Livello + '<button  onclick=LoadCompetenza(' + item.Id + ')>Dettagli</button></li>');
+                    $('#ElencoCompetenze').append('<li class="list-group-item">' + item.Titolo + item.Livello + '<button style="float:right"  onclick=LoadCompetenza(' + item.Id + ')>Dettagli</button></li>');
                 });
             });
+        
     }
 
 function LoadCompetenza(id) {
+    $("#HeadingComp").empty();
+    $("#HeadingComp").append("Dettaglio Competenza");
+    var $form = $("#ModComp");
     var $div = $("#cv_Anag");
     var idCv = $div.find("input[id='cv_matricola']").val();
     $.getJSON('../api/Competenza/'+id)
@@ -63,11 +68,44 @@ function LoadCompetenza(id) {
             $comp.find("input[id='comp_titolo']").val(data.Titolo);
             $comp.find("input[id='comp_liv']").val(data.Livello);
             $comp.find("input[id='comp_id']").val(data.Id);
+            $form.find("button[id='btn_add_comp']").hide();
+            $form.find("button[id='btn_del_comp']").show();
+            $form.find("button[id='btn_mod_comp']").show();
+            $(document).trigger("TriDettCompShow");
         });
 }
 //function AddProdotto() {
 
 //}
+function AddCompetenza() {          //AGGIUNGI COMPETENZA
+    event.preventDefault();
+    var $form = $("#ModComp");
+    var $div = $("#cv_Anag");
+    var idCv = $div.find("input[id='cv_matricola']").val();
+    var idC = $form.find("input[id='comp_id']").val();
+    var urrr = "../api/CV/" + idCv + "/Add/Competenza";
+    var Comp = {};
+    Comp.Titolo = $form.find("input[id='comp_titolo']").val();
+    Comp.Livello = $form.find("input[id='comp_liv']").val();
+    var posting = $.post(urrr, Comp, idCv);
+    
+    posting.done(function () {
+        $(document).trigger("TriHideAll");
+        ClearComp();
+        LoadCompetenze(idCv);
+    })
+}
+function ClearComp() {
+    $("#HeadingComp").empty();
+    $("#HeadingComp").append("Aggiungi Competenza");
+    var $form = $("#ModComp");
+    $form.find("button[id='btn_mod_comp']").hide();
+    $form.find("button[id='btn_del_comp']").hide();
+    $form.find("button[id='btn_add_comp']").show();
+    $form.find("input[id='comp_titolo']").val("");
+    $form.find("input[id='comp_liv']").val("");
+    $(document).trigger("TriDettCompShow");
+}
 
 function ModificaCompetenze() {
     event.preventDefault();
@@ -84,7 +122,7 @@ function ModificaCompetenze() {
         method: "PUT",
         data: Comp,
         success: function (data) {
-            
+            $(document).trigger("TriHideAll");
             
         }/*).fail(function (data){
             *  $("body").prepend(document.createTextNode("ERRORE!!!"));
@@ -101,7 +139,7 @@ function DeleteComp() {
         url: urlo,
         method: "Delete",
         success: function (data) {
-            
+            $(document).trigger("TriHideAll");
         }/*).fail(function (data){
             *  $("body").prepend(document.createTextNode("ERRORE!!!"));
             *  });*/

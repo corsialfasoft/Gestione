@@ -1,27 +1,12 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta charset="utf-8" />
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+﻿
     <script src="../GeCvScripts/PerStud.js"></script>
-    <title></title>
-</head>
-<body>
-    <div id="Elenco">
-        <div class="row">
-            <div class="col-md-6">
-                <ul class="list-group" id="Percorso"></ul>
-            </div>
-            <div class="col-md-6">
-            </div>
-        </div>
-    </div>
+<div class="row">
+    <div class=" panel panel-primary">
+        <div class="panel-heading" id="HeadingPerStud" ></div>
+   
     <div id="DettaglioPercorso">
         <form id="ModPerStud">
-            <div class="panel panel panel-primary">
+            <!--<div class="panel panel panel-primary">-->
                 <div class="panel-body">
                     <div class="form-group">
                         <label>AnnoInizio</label>
@@ -32,7 +17,7 @@
                         <input type="number" id="perstud_AF" />
                     </div>
                     <div class="form-group">
-                        <label>Qualifica</label>
+                        <label>Titolo</label>
                         <input type="text" id="perstud_titolo" />
                     </div>
                     <div class="form-group">
@@ -41,15 +26,12 @@
                         <input id="perstud_id" class="hidden" />
                     </div>
                 </div>
-            </div>
-            <button id="btn_mod_perstudi" onclick="ModificaPerStud()">Modifica</button>
+            <!--</div>-->
+            <button id="btn_mod_perstudi" onclick="ModificaPerStud()" class="btn btn-warning">Modifica</button>
             <button id="btn_del_perstudi" onclick="DeletePerStud()" class="btn btn-danger">Delete</button>
+            <button id="btn_add_perstudi" onclick="AddPerStud()" class="btn btn-success" >AGGIUNGI</button>
         </form>
     </div>
-    <div id="perStudAdd">
-        <script>
-            $('#perStudAdd').load("../GeCvPagine/PercorsoStud/AggiungiPercorso.html", null, null);
-        </script>
     </div>
-</body>
-</html>
+</div>
+    

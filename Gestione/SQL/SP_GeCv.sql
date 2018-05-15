@@ -182,7 +182,7 @@ GO
 create PROCEDURE CercaParolaChiava
 	@parola nvarchar(20)
 AS
-	SELECT C.Matricola 
+	SELECT DISTINCT C.Matricola 
 	FROM Curriculum C
 		left JOIN PercorsoStudi PS ON C.IdCv = PS.IdCv 
 		left JOIN EspLav EL ON C.IdCv = EL.IdCv 

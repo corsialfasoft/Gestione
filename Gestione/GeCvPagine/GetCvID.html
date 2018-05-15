@@ -1,24 +1,8 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script src="../GeCvScripts/GetCvID.js"></script>
-    <script>
-        //$(document).ready(function () {
-        //    LoadCV("AAAA");
-        //});
-    </script>
-   
-    <title></title>
-</head>
-<body>
-    <div class=" container" id="cv_Anag">
-        <form action="../api/CV/ModCV" id="ModCV"  class="form-control" method="post" >
+﻿
+    <div class="container" id="cv_Anag">
+        <form action="../api/CV/ModCV" id="ModCV"  method="post">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label>
                         Nome*:
                     </label>
@@ -26,7 +10,7 @@
                 <div class="col-md-2">
                     <input id="cv_nome" name="cv_n" placeholder="Nome....">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label>
                         Cognome*:
                     </label>
@@ -36,7 +20,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label>
                         Età*:
                     </label>
@@ -44,7 +28,7 @@
                 <div class="col-md-2">
                     <input id="cv_eta" name="cv_et" placeholder="Eta....">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label>
                         E-mail*:
                     </label>
@@ -54,7 +38,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label>
                         Residenza*:
                     </label>
@@ -62,7 +46,7 @@
                 <div class="col-md-2">
                     <input id="cv_residenza" name="cv_re" placeholder="Residenza....">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label>
                         Telefono*:
                     </label>
@@ -70,25 +54,12 @@
                 <div class="col-md-2">
                     <input id="cv_telefono" name="cv_t" placeholder="Telefono....">
                 </div>
-                <input id="cv_matricola" name="cv_m" class="hidden"  />
+                <input id="cv_matricola" name="cv_m" class="hidden" />
             </div>
-            <input type="submit" class=" btn btn-success" value="Modifica Cv" />
+                <div class="row">
+                    <input type="submit" class=" btn btn-warning col-md-2" value="Modifica Cv" />
+                </div>
         </form>
+    
     </div>
-    <div id="ElecoPerStud">
-        <script>
-            $('#ElencoPerStud').load("../GeCvPagine/PercorsoStud/Lista.html", null, null);
-        </script>
-    </div>
-    <div id="Competenze">
-        <script>
-            $('#Competenze').load("../GeCvPagine/AddComp.html", null, null);
-        </script>
-    </div>
-    <div id="PerStud">
-        <script>
-            $('#PerStud').load("../GeCvPagine/PercorsoStud/ModificaEliminaPerStud.html", null, null);
-        </script>
-    </div>
-</body>
-</html>
+    <script src="../GeCvScripts/GetCvID.js"></script>

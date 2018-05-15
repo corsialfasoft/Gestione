@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="../GeCvScripts/AddComp.js"></script>
+    
+    <script src="../GeCvScripts/DettEsp.js"></script>
+    <script src="../GeCvScripts/ElencoCv.js"></script>
+   
+    <style>
+        #Dett_esp_per_comp{
+            float:right;
+            position:fixed;
+            z-index:99;
+            bottom:15px;
+            right:25px;
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            ShowCerca();
+            HideAll();
+            $("#TabDettaglioCV").hide();
+            CercaCv();
+        });
+
+        $(document).on("TriSearch", ShowRisultati);
+        $(document).on("TriDettagli", ShowDettaglio);
+        $(document).on("TriDettPSShow", ShowDettPS);
+        $(document).on("TriDettELShow", ShowDettEL);
+        $(document).on("TriDettCompShow", ShowDettComp);
+        $(document).on("TriHideAll", HideAll);
+
+        function HideAll() {
+            $("#Dettaglio_Comp").hide();
+            $("#Dettaglio_EspLav").hide();
+            $("#Dettaglio_PerStud").hide();
+        }
+
+        function ShowDettComp() {
+            $("#Dettaglio_Comp").show();
+            $("#Dettaglio_EspLav").hide();
+            $("#Dettaglio_PerStud").hide();
+        }
+
+        function ShowDettEL() {
+            $("#Dettaglio_EspLav").show()
+            $("#Dettaglio_Comp").hide();
+            $("#Dettaglio_PerStud").hide();
+        }
+
+        function ShowDettPS() {
+            $("#Dettaglio_PerStud").show();
+            $("#Dettaglio_EspLav").hide();
+            $("#Dettaglio_Comp").hide();
+        }
+
+        function ShowCerca() {
+            HideAll() 
+            $("#TabAddCv").removeClass("active");
+            $("#Contenitore_AddCV").hide();
+            $("#TabCercaCV").addClass("active");
+            $("#TabElencoCV").removeClass("active");
+            $("#TabDettaglioCV").removeClass("active");
+            $("#Contenitore_Dettagli").hide();
+            $("#Elenco_CV").hide();
+            $("#Search_CV").show();
+        }
+        function ShowRisultati() {
+            HideAll() 
+            $("#TabAddCv").removeClass("active");
+            $("#Contenitore_AddCV").hide();
+            $("#TabCercaCV").removeClass("active");
+            $("#TabElencoCV").addClass("active");
+            $("#TabDettaglioCV").removeClass("active");
+            $("#Contenitore_Dettagli").hide();
+            $("#Search_CV").hide();
+            $("#Elenco_CV").show();
+        }
+        function ShowDettaglio() {
+            $("#TabDettaglioCV").show();
+            $("#TabAddCv").removeClass("active");
+            $("#Contenitore_AddCV").hide();
+            $("#TabCercaCV").removeClass("active");
+            $("#TabElencoCV").removeClass("active");
+            $("#TabDettaglioCV").addClass("active");
+            $("#Contenitore_Dettagli").show();
+            $("#Search_CV").hide();
+            $("#Elenco_CV").hide();
+        }
+        function ShowAddCv() {
+            HideAll() 
+            $("#TabAddCv").addClass("active");
+            $("#TabCercaCV").removeClass("active");
+            $("#TabElencoCV").removeClass("active");
+            $("#TabDettaglioCV").removeClass("active");
+            $("#Contenitore_Dettagli").hide();
+            $("#Contenitore_AddCV").show();
+            $("#Search_CV").hide();
+            $("#Elenco_CV").hide();
+        }
+    </script>
+    
+    
+    <title></title>
+</head>
+<body>
+    <div class="container" id="Contenitore">
+        <div class="page-header">
+            <h1>GESTIONE CURRICULUM</h1>
+        </div>
+        <div>
+            <ul class="nav nav-tabs">
+                <li id="TabCercaCV" role="presentation" class="active"><a onclick="ShowCerca()">Cerca</a> </li>  <!--implementare metodo-->
+                <li id="TabElencoCV" role="presentation"><a onclick="ShowRisultati()">ELENCO</a></li>                  <!--implementare metodo-->
+                <li id="TabAddCv" role="presentation"><a onclick="ShowAddCv()">AGGIUNGI</a></li>            <!--Implementare metodo-->
+                <li id="TabDettaglioCV" role="presentation" style="float:right"><a onclick="ShowDettaglio()">DETTAGLIO</a></li>               <!--implementare metodo-->
+            </ul>
+        </div>
+        <div id="Search_CV">
+            <!--DIV PER LA RICERCA!-->
+            <script>
+                $('#Search_CV').load("../GeCvPagine/Search.html", null, null);
+            </script>
+        </div>
+        <div id="Elenco_CV">
+            <!--DIV PER L-ELENCO DEI CURRICULUM-->
+            <script>
+                $('#Elenco_CV').load("../GeCvPagine/ElencoCV.html", null, null);
+            </script>
+        </div>
+        <div class="col-md-6" id="Contenitore_Dettagli">
+            <div id="Dettaglio_CV">
+                <!--DETTAGLIO CURRICULUM(ANAGRAFICA)-->
+                <script>
+                    $('#Dettaglio_CV').load("../GeCvPagine/GetCvID.html", null, null);
+                </script>
+            </div>
+            <div id="Lista_EspLav">
+                <!--LISTA ESPERIENZE LAVORATIVE-->
+                <script>
+                    $('#Lista_EspLav').load("../GeCvPagine/ListEsp.html", null, null);
+                </script>
+            </div>
+            <div id="Lista_PerStud">
+                <!--LISTA PERCORSO STUDI-->
+                <script>
+                    $('#Lista_PerStud').load("../GeCvPagine/PercorsoStud/ListPerStud.html", null, null);
+                </script>
+            </div>
+            <div id="Lista_Competenze">
+                <script>
+                    $('#Lista_Competenze').load("../GeCvPagine/ListComp.html", null, null);
+                </script>
+            </div>
+        </div>
+        <div class="col-md-6" id="Contenitore_AddCV">       <!--AGGIUNGI CURRICULUM-->
+            <div id="Add_CV">
+                <script>
+                    $('#Add_CV').load("../GeCvPagine/AddCv.html", null, null);
+                </script>
+            </div>
+        
+            
+        </div>
+        <div id="Dett_esp_per_comp">
+            <div id="Dettaglio_EspLav">
+                <script>
+                    $('#Dettaglio_EspLav').load("../GeCvPagine/DettEsp.html", null, null);
+                </script>
+            </div>
+            <div id="Dettaglio_PerStud">
+                <script>
+                    $('#Dettaglio_PerStud').load("../GeCvPagine/PercorsoStud/DettPerStud.html", null, null);
+                </script>
+            </div>
+            <div id="Dettaglio_Comp">
+                <script>
+                    $('#Dettaglio_Comp').load("../GeCvPagine/DettComp.html", null, null);
+                </script>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

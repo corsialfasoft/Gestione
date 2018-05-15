@@ -62,4 +62,29 @@ function LoadCV(id) {
         });
     LoadCompetenze(id);
     LoadElencoPerStud(id);
+    ListEspLav(id)
+    $(document).trigger("TriDettagli");
+    
+}
+
+function AddCv() {
+    event.preventDefault();
+    var $form = $("#AddCV");
+    var CV = {};
+    var url = "../api/CV/AddCV";
+    CV.Nome = $form.find("input[id='cv_nome']").val();
+    CV.Cognome = $form.find("input[id='cv_cognome']").val();
+    CV.Eta = $form.find("input[id='cv_eta']").val();
+    CV.Email = $form.find("input[id='cv_email']").val();
+    CV.Residenza = $form.find("input[id='cv_residenza']").val();
+    CV.Telefono = $form.find("input[id='cv_telefono']").val();
+    //var crypto = require("crypto");
+    //var mat = crypto.randomBytes(3).toString('hex');
+    var mat= Math.random().toString(36).substr(2, 5);
+    CV.Matricola = mat;
+    var posting = $.post(url, CV);
+    posting.done(function (data) {
+        $("#Messagge").append(data);
+        LoadCV(mat);
+    });
 }

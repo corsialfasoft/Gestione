@@ -1,0 +1,31 @@
+﻿       
+        
+<div class="row">
+    <div class="panel panel-primary">
+    <div class="panel-heading" id="HeadingComp" ></div>
+
+        <div id="DettaglioCompetenze">
+            <form action="../api/Competenza/Pippo/" id="ModComp">
+                <!--<div class="panel panel-primary">-->
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Titolo</label>
+                            <input type="text" id="comp_titolo" />
+                        </div>
+                        <div class="form-group">
+                            <label>Livello</label>
+                            <input type="number" id="comp_liv" />
+                            <input id="comp_id" class="hidden" />
+                        </div>
+                    </div>
+                <!--</div>-->
+                <button id="btn_mod_comp" onclick="ModificaCompetenze()" class="btn btn-warning">Modifica</button>
+                <button id="btn_del_comp" onclick="DeleteComp()" class="btn btn-danger">Delete</button>
+                <button id="btn_add_comp" onclick="AddCompetenza()" class="btn btn-success">Aggiungi</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+        <script src="../GeCvScripts/AddComp.js"></script>
+ 

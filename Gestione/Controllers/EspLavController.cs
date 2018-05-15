@@ -17,25 +17,25 @@ namespace Gestione.Controllers {
             return dm.GetEspLav(idCv);
         }
        
-        [Route("api/CV/{idCV}/EspLav/{idEspLav}")]
+        [Route("api/EspLav/{idEspLav}")]
         [HttpGet]
         public EspLav Get(int idEspLav){
             return dm.GetEsperienza(idEspLav);
         }
 
-        [Route("api/CV/{idCV}/EspLav")]
+        [Route("api/CV/{idCV}/Add/EspLav")]
         [HttpPost]
-        public void Post(string idCv,[FromBody]EspLav EspLav){
-            dm.AddEspLav(idCv,EspLav);
+        public void Post(string idCV,[FromBody]EspLav EspLav){
+            dm.AddEspLav(idCV,EspLav);
         }
 
-        [Route("api/CV/{idCV}/EspLav/{idEspLav}")]
+        [Route("api/EspLav/Put/{idEspLav}")]
         [HttpPut]
         public void Put(int idEspLav, [FromBody] EspLav el){
             dm.ModEspLav(idEspLav,el);
         }
         
-        [Route("api/CV/{idCV}/EspLav/{idEspLav}")]
+        [Route("api/EspLav/Del/{idEspLav}")]
         [HttpDelete]
         public void Delete(int idEspLav){
             dm.DelEspLav(idEspLav);
