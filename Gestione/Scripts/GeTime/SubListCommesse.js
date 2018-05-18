@@ -15,8 +15,12 @@
             $('#tabella_commesse tbody').empty().append(html);
         }
     }).fail(function (data) {
-        $('#Message').empty().append(data.responseJSON.Message);
-        viewGiorno($form.find("input[name='dateTime']").val());
+        if (data.statusCode == 500)
+            $(document).trigger("ServerError");
+        else {
+            $('#Message').empty().append(data.responseJSON.Message);
+            viewGiorno($form.find("input[name='dateTime']").val());
+        }
     });
 }
 function selectCommessa(nCommessa){

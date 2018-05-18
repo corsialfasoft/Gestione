@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="it en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="utf-8" />
+    <title></title>
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
@@ -8,28 +10,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="../Scripts/GeTime/GeTimeAdd.js"></script>
-    <meta charset="utf-8" />
-    <title>Aggiungi Giorno</title>
+    <script src="../Scripts/GeTime/VisualizzaGiorno.js" type="text/javascript"></script>
 </head>
 <body>
-    <div id="addGiorno">
-        <h2>Aggiungi Giorno</h2>
-        <div id="Message" class="text-danger container">
-        </div>
-        <br>
-        <div class="row">
-            <div class=" col-md-6 container" id="compila">
-                <script>
-                    $(document).ready(function () {
-                        $('#compila').load("AddGiorno.html");
-                    })
-                </script>
+    <div class="container">
+        <div class="page-header">
+            <h2>Visualizzazione Dettagli Giorno</h2>
+            <br />
+            <div>
+                <h4>Selezionare la data di cui si vogliono visualizzare i dettagli</h4>
             </div>
-            <div id="giorno" class=" col-md-6">
+            <div>
+                <h3 class="alert alert-warning" id="Message"></h3>
             </div>
-        </div>
-        <div id="tabella_commesse" class="row container">
+            <div>
+                <form action="" method="post" id="cerca">
+                    <input type="date" name="_data" id="DATA" required />
+                    <input type="submit" value="Seleziona" class="btn info" style="color:white; background-color: #2196F3; background: #0b7dda;" />
+                </form>
+            </div>
+            <br>
+            <div id="giorno"></div>
         </div>
     </div>
 </body>

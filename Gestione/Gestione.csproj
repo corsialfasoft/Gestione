@@ -172,11 +172,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Scripts\GeTime\SubAddGiorno.js" />
     <Content Include="Scripts\GeTime\AddGiorno.js" />
-    <Content Include="Scripts\GeTime\GeTimeAdd.js" />
-    <Content Include="Scripts\GeTime\ListCommesse.js" />
-    <Content Include="Scripts\GeTime\VisualiizzaGiorno.js" />
-    <Content Include="webapi_jquery\AddGiorno.html" />
+    <Content Include="Scripts\GeTime\SubListCommesse.js" />
+    <Content Include="Scripts\GeTime\SubVisualizzaGiorno.js" />
+    <Content Include="Scripts\GeTime\VisualizzaGiorno.js" />
+    <Content Include="webapi_jquery\GeTimePartial\SubAddGiorno.html" />
     <Content Include="webapi_jquery\Corsi.html" />
     <Content Include="ImgResource\IconCorsi.jpg" />
     <Content Include="SQL\DDLProfiler.sql" />
@@ -201,11 +202,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="README_WebAPI_Angular.md" />
-    <Content Include="webapi_jquery\GeTimeAdd.html" />
-    <Content Include="webapi_jquery\ListCommesse.html" />
-    <Content Include="webapi_jquery\VisualizzaGiornoWebApi.html" />
+    <Content Include="webapi_jquery\AddGiorno.html" />
+    <Content Include="webapi_jquery\GeTimePartial\SubListCommesse.html" />
+    <Content Include="webapi_jquery\VisualizzaGiorno.html" />
     <Content Include="webapi_jquery\GetimeAddGiorno.html" />
-    <Content Include="webapi_jquery\VisuallizzaGiorno.html" />
+    <Content Include="webapi_jquery\GeTimePartial\SubVisualizzaGiorno.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

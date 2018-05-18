@@ -1,27 +1,36 @@
-﻿<form action="../Api/Getime" method="post" id="form_compila">
-    <div class="Conteiner">
-        Data (*)          <input type="date" name="dateTime" required />
-        <br><br>
-        Tipologia Ore (*)
-        <select id="HType" name="tipoOre" onChange="javascript:changeHTyp(this.value);">
-            <option value="" selected="selected">Seleziona tipo ore</option>
-            <option value="Ore di lavoro">Ore di lavoro</option>
-            <option value="Ore di permesso">Ore di permesso</option>
-            <option value="Ore di ferie">Ore di ferie</option>
-            <option value="Ore di malattia">Ore di malattia</option>
-        </select>
-        <br><br>
-        Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commesse" /> (Solo per ore di lavoro)
-        <br><br>
-        Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8 id="ore">
-        <br><br>
-        <input type="submit" name="caricaOre" value="Carica Ore" />
-        <br><br>
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <!-- BOOSTRAP DEPENDENCIES BY http://getbootstrap.com/docs/3.3/getting-started/ -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="../Scripts/GeTime/AddGiorno.js"></script>
+    <meta charset="utf-8" />
+    <title>Aggiungi Giorno</title>
+</head>
+<body>
+    <div id="addGiorno">
+        <h2>Aggiungi Giorno</h2>
+        <div id="Message" class="text-danger container">
+        </div>
+        <br>
+        <div class="row">
+            <div class=" col-md-6 container" id="compila">
+                <script>
+                    $(document).ready(function () {
+                        $('#compila').load("GeTimePartial/SubAddGiorno.html");
+                    })
+                </script>
+            </div>
+            <div id="giorno" class=" col-md-6">
+            </div>
+        </div>
+        <div id="tabella_commesse" class="row container">
+        </div>
     </div>
-    <div id="tabellaxdd" ></div>
-</form>
-<p>(*) Campi obligatori</p>
-<br><br>
-<p id="esito"></p>
-<br><br>
-<script src="../Scripts/GeTime/AddGiorno.js"></script>
+</body>
+</html>

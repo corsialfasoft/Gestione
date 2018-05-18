@@ -1,0 +1,27 @@
+﻿<form action="../Api/Getime" method="post" id="form_compila">
+    <div class="Conteiner">
+        Data (*)          <input type="date" name="dateTime" required />
+        <br><br>
+        Tipologia Ore (*)
+        <select id="HType" name="tipoOre" onChange="javascript:changeHTyp(this.value);">
+            <option value="" selected="selected">Seleziona tipo ore</option>
+            <option value="Ore di lavoro">Ore di lavoro</option>
+            <option value="Ore di permesso">Ore di permesso</option>
+            <option value="Ore di ferie">Ore di ferie</option>
+            <option value="Ore di malattia">Ore di malattia</option>
+        </select>
+        <br><br>
+        Nome Commessa <input type="text" name="Commessa" placeholder=" - - - " id="commesse" /> (Solo per ore di lavoro)
+        <br><br>
+        Numero Ore:  (*)  <input type="number" name="ore" min=1 max=8 id="ore">
+        <br><br>
+        <input type="submit" name="caricaOre" value="Carica Ore" />
+        <br><br>
+    </div>
+    <div id="tabellaxdd" ></div>
+</form>
+<p>(*) Campi obligatori</p>
+<br><br>
+<p id="esito"></p>
+<br><br>
+<script src="../../Scripts/GeTime/SubAddGiorno.js"></script>

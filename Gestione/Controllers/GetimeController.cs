@@ -42,7 +42,7 @@ namespace Gestione.Controllers {
         [HttpPost]
         [Route("api/Getime")]
         public IHttpActionResult AddGiorno(AddGiorno addGiorno) {
-            if(addGiorno.Data.CompareTo(DateTime.Today) < 0 || addGiorno.Data.CompareTo(DateTime.Today.AddDays(-180))<0) {
+            if(addGiorno.Data.CompareTo(DateTime.Today) > 0 || addGiorno.Data.CompareTo(DateTime.Today.AddDays(-180))<0) {
                 return BadRequest($"Il giorno {addGiorno.Data.ToString("yyyy-MM-dd")} non si puo inserire");
             }
             DTGGiorno giorno = dm.VisualizzaGiorno(addGiorno.Data, "MkMatric");

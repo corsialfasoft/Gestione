@@ -22,6 +22,7 @@ AS
 				update OreNonLavorative set ore=@ore+@oreNL where idGiorno=@idGiorno and tipoOre = @TipoOre;
 			end
 	end catch
+	return 1;
 GO
 create procedure SP_AddHLavoro
 	@data Date,
@@ -45,6 +46,7 @@ as
 				update OreLavorative set ore=@ore+@oreDellaComm where idGiorno=@idGiorno and idCommessa = @idCommessa;
 			end
 	end catch
+	return 1;
 go
 create procedure SP_VisualizzaCommessa
 	@idC int,
