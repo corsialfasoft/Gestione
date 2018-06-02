@@ -7,13 +7,17 @@ using System.Web.Http;
 using Interfaces;
 using Gestione.Models;
 
+
 namespace Gestione.Controllers{
+	
     public class CVController : ApiController{
 		DomainModel dm = new DomainModel();
 
+		// api/CV
 		public List<CV> Get(){
 			 return dm.SearchChiava("");
 		}
+		// api/CV/{id}
 		public CV Get(String id){
 			return dm.Search(id);
 		}

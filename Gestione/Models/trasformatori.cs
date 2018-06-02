@@ -132,7 +132,7 @@ namespace DAO{
 		public CV TransfInCv(SqlDataReader data){
 			CV output = null;
 			if(data.Read()){
-				output = new CV{
+				output = new CV(){
 					Nome = data.GetString(0) ?? "",
 					Cognome = data.GetString(1)?? "",
 					Eta = data.GetInt32(2),

@@ -450,7 +450,7 @@ namespace DAO {
 			try{
 				SqlParameter[] param = {new SqlParameter("@Matricola",matr)};
 				CV output = DB.ExecQProcedureReader("GetCv",transf.TransfInCv,param,"GeCv");
-				output.Percorsostudi= GetPerStudi(output.Matricola);
+				output.Percorsostudi = GetPerStudi(output.Matricola);
 				output.Esperienze = GetEspLav(output.Matricola);
 				output.Competenze = GetComp(output.Matricola);
 				return output;
